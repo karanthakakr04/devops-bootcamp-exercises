@@ -1,6 +1,7 @@
 # Repository structure
+
 - [ ] 2 - Operating Systems & Linux Basics
-- [ ] 3 - Verson Control with Git
+- [ ] 3 - Version Control with Git
 - [ ] 4 - Build Tools & Package Manager Tools
 - [ ] 5 - Cloud & IaaS Basics - DigitalOcean
 - [ ] 6 - Artifact Repository Manager with Nexus
