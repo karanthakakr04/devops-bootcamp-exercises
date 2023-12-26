@@ -15,4 +15,4 @@
 [] 15 - Configuration Management with Ansible
 [] 16 - Monitoring with Prometheus
 
-==**Each module contains multiple exercises.**==
+==Each module contains multiple exercises.==
