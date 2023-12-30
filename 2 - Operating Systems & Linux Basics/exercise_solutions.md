@@ -37,10 +37,28 @@
 
 ## EXERCISE 6
 
-- [x] Install NodeJS and NPM, print versions
-- [x] Download artifact file using curl/wget
-- [x] Unzip downloaded file
-- [x] Set environment variables: APP_ENV, DB_USER, DB_PWD
-- [x] Change to unzipped directory
-- [x] Run npm install
-- [x] Run node server.js to start app
+- [x] Task 1: Install NodeJS and NPM, print versions
+- [x] Task 2: Download artifact file using curl/wget
+- [x] Task 3: Unzip downloaded file
+- [x] Task 4: Set environment variables: APP_ENV, DB_USER, DB_PWD
+- [x] Task 5: Change to unzipped directory
+- [x] Task 6: Run npm install
+- [x] Task 7: Run node server.js to start app
+
+## EXERCISE 7
+
+- [x] Task 1: Extend script to check app status and print process & port info
+
+## EXERCISE 8
+
+- [x] Task 1: Accept log_directory parameter and handle logging:-
+  - Check if directory exists, create if needed
+  - Set LOG_DIR environment variable
+  - Check app.log in provided LOG_DIR
+
+## EXERCISE 9
+
+- [x] Task 1: Create myapp service user
+  - Create myapp user
+  - Run application as myapp user
+  
