@@ -34,3 +34,13 @@
 ## EXERCISE 5
 
 - [x] Task 1: Further extend script to limit number of sorted processes printed based on user input.
+
+## EXERCISE 6
+
+- [x] Install NodeJS and NPM, print versions
+- [x] Download artifact file using curl/wget
+- [x] Unzip downloaded file
+- [x] Set environment variables: APP_ENV, DB_USER, DB_PWD
+- [x] Change to unzipped directory
+- [x] Run npm install
+- [x] Run node server.js to start app
