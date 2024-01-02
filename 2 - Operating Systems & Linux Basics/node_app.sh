@@ -25,3 +25,22 @@ cd bootcamp-node-envvars-project
 # Run the NodeJS application in the background
 npm install
 node server.js &
+
+# Get the process ID of the NodeJS application
+pid=$!
+
+# Wait for a few seconds to let the application start
+sleep 5
+
+# Check if the process is still running
+if ps -p $pid > /dev/null; then
+  # Process is running
+  echo "Node app is running with PID: $pid"
+  # Get the port number from the server.js file
+  port=$(grep -oP 'app.listen\(\K\d+' server.js)
+  # Print the port number
+  echo "Node app is listening on port: $port"
+else
+  # Process is not running
+  echo "Node app is not running. Please check the logs for errors."
+fi
