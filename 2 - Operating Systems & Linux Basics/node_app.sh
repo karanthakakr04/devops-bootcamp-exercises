@@ -22,6 +22,23 @@ export DB_PWD=mysecret
 # Change into the unzipped package directory
 cd bootcamp-node-envvars-project
 
+# Get the log directory from the parameter input
+log_directory=$1
+
+# Check if the log directory exists or not
+if [ -d "$log_directory" ]; then
+  # Log directory exists
+  echo "Log directory $log_directory already exists."
+else
+  # Log directory does not exist
+  echo "Log directory $log_directory does not exist. Creating it now."
+  # Create the log directory
+  mkdir -p $log_directory
+fi
+
+# Set the LOG_DIR environment variable to the absolute path of the log directory
+export LOG_DIR=$(realpath $log_directory)
+
 # Run the NodeJS application in the background
 npm install
 node server.js &
