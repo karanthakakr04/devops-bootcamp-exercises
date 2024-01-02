@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Install NodeJS and NPM using apt-get
-sudo apt-get update
-sudo apt-get install nodejs npm
+sudo apt update
+sudo apt install nodejs npm
 
 # Print the installed versions
 echo "NodeJS version: $(node -v)"
