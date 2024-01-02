@@ -1,12 +1,34 @@
 #!/bin/bash
 
+SERVICE_ACCOUNT_USER=myapp
+
 # Install NodeJS and NPM using apt-get
 sudo apt update
 sudo apt install nodejs npm
 
+# Get the log directory from the parameter input
+LOG_DIRECTORY=$1
+
+# Check if the log directory exists or not
+if [ -d "$LOG_DIRECTORY" ]; then
+  # Log directory exists
+  echo "Log directory $LOG_DIRECTORY already exists."
+else
+  # Log directory does not exist
+  echo "Log directory $LOG_DIRECTORY does not exist. Creating it now."
+  # Create the log directory
+  mkdir -p $LOG_DIRECTORY
+fi
+
 # Print the installed versions
 echo "NodeJS version: $(node -v)"
 echo "NPM version: $(npm -v)"
+
+# Create myapp user 
+sudo adduser --system --create-home $SERVICE_ACCOUNT_USER
+
+# Set ownership of the log directory to myapp user
+sudo chown -R $SERVICE_ACCOUNT_USER $LOG_DIRECTORY
 
 # Download the artifact file using curl
 curl -O https://node-envvars-artifact.s3.eu-west-2.amazonaws.com/bootcamp-node-envvars-project-1.0.0.tgz
@@ -22,22 +44,8 @@ export DB_PWD=mysecret
 # Change into the unzipped package directory
 cd bootcamp-node-envvars-project
 
-# Get the log directory from the parameter input
-log_directory=$1
-
-# Check if the log directory exists or not
-if [ -d "$log_directory" ]; then
-  # Log directory exists
-  echo "Log directory $log_directory already exists."
-else
-  # Log directory does not exist
-  echo "Log directory $log_directory does not exist. Creating it now."
-  # Create the log directory
-  mkdir -p $log_directory
-fi
-
 # Set the LOG_DIR environment variable to the absolute path of the log directory
-export LOG_DIR=$(realpath $log_directory)
+export LOG_DIR=$(realpath $LOG_DIRECTORY)
 
 # Run the NodeJS application in the background
 npm install
