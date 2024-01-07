@@ -67,8 +67,8 @@ sudo su - $SERVICE_ACCOUNT_USER -c "
   npm install && 
   node server.js &"
 
-sleep 5
 echo -e "\n"
+sleep 5
 
 # Display that nodejs process is running 
 ps aux | grep node | grep -v grep
