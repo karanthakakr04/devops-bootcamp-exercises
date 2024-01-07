@@ -5,6 +5,7 @@ SERVICE_ACCOUNT_USER=myapp
 # Update and upgrade packages, then install nodejs, npm, curl, and net-tools as a superuser
 echo "Installing Node.js..."
 sudo apt update && sudo apt upgrade -y; sudo apt install -y nodejs npm curl net-tools
+sleep 10
 
 echo -e "\n"
 
