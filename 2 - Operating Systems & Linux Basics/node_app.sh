@@ -69,7 +69,4 @@ sudo su - $SERVICE_ACCOUNT_USER -c "
 echo -e "\n"
 
 # Verify app is running as myapp user  
-sudo su - $SERVICE_ACCOUNT_USER -c "
-  ps aux | grep node
-  netstat -tunlp | grep LISTEN
-"
+
