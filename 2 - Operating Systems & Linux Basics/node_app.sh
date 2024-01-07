@@ -67,6 +67,7 @@ sudo su - $SERVICE_ACCOUNT_USER -c "
   npm install && 
   node server.js &"
 
+sleep 5
 echo -e "\n"
 
 # Verify app is running as myapp user  
