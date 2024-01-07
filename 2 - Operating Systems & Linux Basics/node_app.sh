@@ -70,8 +70,10 @@ sudo su - $SERVICE_ACCOUNT_USER -c "
 echo -e "\n"
 sleep 5
 
-# Display that nodejs process is running 
+# Display that nodejs process is running
+echo "Displaying nodejs process..."
 ps aux | grep node | grep -v grep
 
 # Display that nodejs is running on port 3000
+echo "Displaying nodejs app port..."
 netstat -ltnp | grep :3000
