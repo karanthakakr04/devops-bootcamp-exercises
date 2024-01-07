@@ -69,4 +69,4 @@ sudo su - $SERVICE_ACCOUNT_USER -c "
 echo -e "\n"
 
 # Verify app is running as myapp user  
-
+sudo netstat -lnpt | grep node
