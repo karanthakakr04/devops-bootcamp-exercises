@@ -70,5 +70,8 @@ sudo su - $SERVICE_ACCOUNT_USER -c "
 sleep 5
 echo -e "\n"
 
-# Verify app is running as myapp user  
-sudo netstat -lnpt | grep node
+# Display that nodejs process is running 
+ps aux | grep node | grep -v grep
+
+# Display that nodejs is running on port 3000
+netstat -ltnp | grep :3000
