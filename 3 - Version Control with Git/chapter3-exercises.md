@@ -26,3 +26,11 @@
 - [x] Review changes
 - [x] Commit changes
 - [x] Push feature branch to remote
+
+## EXERCISE 4
+
+- [x] Create bugfix branch
+- [x] Fix spelling error in Application.java
+- [x] Review changes
+- [x] Commit changes
+- [x] Push bugfix branch to remote
