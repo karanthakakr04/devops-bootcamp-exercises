@@ -2,87 +2,87 @@
 
 ## EXERCISE 1
 
-- [x] Clone the git repository to create a local copy
-- [x] Add a new remote for your own GitLab repository
-- [x] Push the local repository to your GitLab remote
+- [x] Task 1: Clone the git repository to create a local copy
+- [x] Task 2: Add a new remote for your own GitLab repository
+- [x] Task 3: Push the local repository to your GitLab remote
 
 ## EXERCISE 2
 
-- [x] Remove tracked build folders from git cache
-- [x] Create .gitignore file
-- [x] Add following to .gitignore:
+- [x] Task 1: Remove tracked build folders from git cache
+- [x] Task 2: Create .gitignore file
+- [x] Task 3: Add following to .gitignore:
   - .idea/
   - .DS_Store
   - out/
   - build/
-- [x] Commit .gitignore file
-- [x] Push commit to remote repository
+- [x] Task 4: Commit .gitignore file
+- [x] Task 5: Push commit to remote repository
 
 ## EXERCISE 3
 
-- [x] Create feature branch
-- [x] Upgrade logstash-logback-encoder version to 7.3
-- [x] Add new image to index.html
-- [x] Review changes
-- [x] Commit changes
-- [x] Push feature branch to remote
+- [x] Task 1: Create feature branch
+- [x] Task 2: Upgrade logstash-logback-encoder version to 7.3
+- [x] Task 3: Add new image to index.html
+- [x] Task 4: Review changes
+- [x] Task 5: Commit changes
+- [x] Task 6: Push feature branch to remote
 
 ## EXERCISE 4
 
-- [x] Create bugfix branch
-- [x] Fix spelling error in Application.java
-- [x] Review changes
-- [x] Commit changes
-- [x] Push bugfix branch to remote
+- [x] Task 1: Create bugfix branch
+- [x] Task 2: Fix spelling error in Application.java
+- [x] Task 3: Review changes
+- [x] Task 4: Commit changes
+- [x] Task 5: Push bugfix branch to remote
 
 ## EXERCISE 5
 
-- [x] Create a merge request in GitLab UI
-- [x] Add description and details for the merge request
-- [x] Request a code review from teammates
-- [x] Teammates approve the merge request after testing
-- [x] Merge the feature branch into master via the merge request
-- [x] Delete the merged feature branch
+- [x] Task 1: Create a merge request in GitLab UI
+- [x] Task 2: Add description and details for the merge request
+- [x] Task 3: Request a code review from teammates
+- [x] Task 4: Teammates approve the merge request after testing
+- [x] Task 5: Merge the feature branch into master via the merge request
+- [x] Task 6: Delete the merged feature branch
 
 ## EXERCISE 6
 
-- [x] On bugfix branch, update logger lib version to 7.2
-- [x] Commit change to bugfix branch
-- [x] Merge master into bugfix
-- [x] Resolve merge conflict
+- [x] Task 1: On bugfix branch, update logger lib version to 7.2
+- [x] Task 2: Commit change to bugfix branch
+- [x] Task 3: Merge master into bugfix
+- [x] Task 4: Resolve merge conflict
   - Accept current change in bugfix branch
   - Remove duplicate code from master
-- [x] Commit merged changes
-- [x] Push merged bugfix branch to remote
+- [x] Task 5: Commit merged changes
+- [x] Task 6: Push merged bugfix branch to remote
 
 ## EXERCISE 7
 
-- [x] Fix typo in index.html, commit
-- [x] Change image url in index.html, commit
-- [x] Push both commits to remote branch
-- [x] Revert last image url commit
-- [x] Commit the revert
-- [x] Push reverted commit to remote
+- [x] Task 1: Fix typo in index.html, commit
+- [x] Task 2: Change image url in index.html, commit
+- [x] Task 3: Push both commits to remote branch
+- [x] Task 4: Revert last image url commit
+- [x] Task 5: Commit the revert
+- [x] Task 6: Push reverted commit to remote
 
 ## EXERCISE 8
 
-- [x] Update Bruno's role in text
-- [x] Commit change locally
-- [x] Do NOT push commit to remote
-- [x] Reset last commit
+- [x] Task 1: Update Bruno's role in text
+- [x] Task 2: Commit change locally
+- [x] Task 3: Do NOT push commit to remote
+- [x] Task 4: Reset last commit
 
 ## EXERCISE 9
 
-- [x] Switch to master branch
-- [x] Pull latest changes
-- [x] Merge bugfix branch into master
-- [x] Resolve any merge conflicts
-- [x] Commit merged master
-- [x] Push merged master to remote
+- [x] Task 1: Switch to master branch
+- [x] Task 2: Pull latest changes
+- [x] Task 3: Merge bugfix branch into master
+- [x] Task 4: Resolve any merge conflicts
+- [x] Task 5: Commit merged master
+- [x] Task 6: Push merged master to remote
 
 ## EXERCISE 10
 
-- [x] Delete feature branch locally
-- [x] Delete feature branch remotely
-- [x] Delete bugfix branch locally
-- [x] Delete bugfix branch remotely
+- [x] Task 1: Delete feature branch locally
+- [x] Task 2: Delete feature branch remotely
+- [x] Task 3: Delete bugfix branch locally
+- [x] Task 4: Delete bugfix branch remotely
