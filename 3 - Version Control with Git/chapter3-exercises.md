@@ -63,3 +63,10 @@
 - [x] Revert last image url commit
 - [x] Commit the revert
 - [x] Push reverted commit to remote
+
+## EXERCISE 8
+
+- [x] Update Bruno's role in text
+- [x] Commit change locally
+- [x] Do NOT push commit to remote
+- [x] Reset last commit
