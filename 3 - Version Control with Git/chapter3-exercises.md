@@ -70,3 +70,12 @@
 - [x] Commit change locally
 - [x] Do NOT push commit to remote
 - [x] Reset last commit
+
+## EXERCISE 9
+
+- [x] Switch to master branch
+- [x] Pull latest changes
+- [x] Merge bugfix branch into master
+- [x] Resolve any merge conflicts
+- [x] Commit merged master
+- [x] Push merged master to remote
