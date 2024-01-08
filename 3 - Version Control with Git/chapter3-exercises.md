@@ -79,3 +79,10 @@
 - [x] Resolve any merge conflicts
 - [x] Commit merged master
 - [x] Push merged master to remote
+
+## EXERCISE 10
+
+- [x] Delete feature branch locally
+- [x] Delete feature branch remotely
+- [x] Delete bugfix branch locally
+- [x] Delete bugfix branch remotely
