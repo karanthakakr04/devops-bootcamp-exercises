@@ -43,3 +43,14 @@
 - [x] Teammates approve the merge request after testing
 - [x] Merge the feature branch into master via the merge request
 - [x] Delete the merged feature branch
+
+## EXERCISE 6
+
+- [x] On bugfix branch, update logger lib version to 7.2
+- [x] Commit change to bugfix branch
+- [x] Merge master into bugfix
+- [x] Resolve merge conflict
+  - Accept current change in bugfix branch
+  - Remove duplicate code from master
+- [x] Commit merged changes
+- [x] Push merged bugfix branch to remote
