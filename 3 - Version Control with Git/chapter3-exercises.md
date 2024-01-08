@@ -34,3 +34,12 @@
 - [x] Review changes
 - [x] Commit changes
 - [x] Push bugfix branch to remote
+
+## EXERCISE 5
+
+- [x] Create a merge request in GitLab UI
+- [x] Add description and details for the merge request
+- [x] Request a code review from teammates
+- [x] Teammates approve the merge request after testing
+- [x] Merge the feature branch into master via the merge request
+- [x] Delete the merged feature branch
