@@ -54,3 +54,12 @@
   - Remove duplicate code from master
 - [x] Commit merged changes
 - [x] Push merged bugfix branch to remote
+
+## EXERCISE 7
+
+- [x] Fix typo in index.html, commit
+- [x] Change image url in index.html, commit
+- [x] Push both commits to remote branch
+- [x] Revert last image url commit
+- [x] Commit the revert
+- [x] Push reverted commit to remote
