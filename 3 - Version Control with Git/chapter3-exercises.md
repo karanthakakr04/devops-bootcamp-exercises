@@ -3,8 +3,11 @@
 ## EXERCISE 1
 
 - [x] Task 1: Clone the git repository to create a local copy
-- [x] Task 2: Add a new remote for your own GitLab repository
-- [x] Task 3: Push the local repository to your GitLab remote
+  - `git clone https://gitlab.com/twn-devops-bootcamp/latest/03-git/git-exercises.git`
+- [x] Task 2: Add a new remote for your own GitHub repository
+  - `git remote add origin https://github.com/karanthakakr04/devops-bootcamp-exercises.git`
+- [x] Task 3: Push the local repository to your GitHub remote
+  - `git push origin main`
 
 ## EXERCISE 2
 
