@@ -12,6 +12,7 @@
 ## EXERCISE 2
 
 - [x] Task 1: Remove tracked build folders from git cache
+  - `git rm -r --cached`
 - [x] Task 2: Create .gitignore file
 - [x] Task 3: Add following to .gitignore:
   - .idea/
@@ -19,7 +20,10 @@
   - out/
   - build/
 - [x] Task 4: Commit .gitignore file
+  - `git add .`
+  - `git commit -m "Add .gitignore file"`
 - [x] Task 5: Push commit to remote repository
+  - `git push`
 
 ## EXERCISE 3
 
