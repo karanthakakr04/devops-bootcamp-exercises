@@ -23,7 +23,7 @@
   - `git add .`
   - `git commit -m "Add .gitignore file"`
 - [x] Task 5: Push commit to remote repository
-  - `git push`
+  - `git push origin main`
 
 ## EXERCISE 3
 
