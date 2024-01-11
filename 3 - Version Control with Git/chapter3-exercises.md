@@ -94,8 +94,11 @@
 
 - [x] Task 1: Update Bruno's role in text
 - [x] Task 2: Commit change locally
+  - `git add .`
+  - `git commit -m "Update Bruno's role"`
 - [x] Task 3: Do NOT push commit to remote
 - [x] Task 4: Reset last commit
+  - `git reset HEAD~1`
 
 ## EXERCISE 9
 
