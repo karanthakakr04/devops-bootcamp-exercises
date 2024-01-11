@@ -42,7 +42,7 @@
 ## EXERCISE 4
 
 - [x] Task 1: Create bugfix branch
-  - `git checkout -b bugfix/branch`
+  - `git switch -c bugfix/branch`
 - [x] Task 2: Fix spelling error in Application.java
 - [x] Task 3: Review changes
   - `git diff`
