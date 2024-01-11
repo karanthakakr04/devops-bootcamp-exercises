@@ -28,11 +28,16 @@
 ## EXERCISE 3
 
 - [x] Task 1: Create feature branch
+  - `git switch -c feature/branch`
 - [x] Task 2: Upgrade logstash-logback-encoder version to 7.3
 - [x] Task 3: Add new image to index.html
 - [x] Task 4: Review changes
+  - `git diff`
 - [x] Task 5: Commit changes
+  - `git add .`
+  - `git commit -m "Upgrade libs and add new image"`
 - [x] Task 6: Push feature branch to remote
+  - `git push origin feature/branch`
 
 ## EXERCISE 4
 
