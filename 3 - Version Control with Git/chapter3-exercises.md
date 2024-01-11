@@ -117,6 +117,10 @@
 ## EXERCISE 10
 
 - [x] Task 1: Delete feature branch locally
+  - `git branch -d feature/branch`
 - [x] Task 2: Delete feature branch remotely
+  - `git push origin --delete feature/branch`
 - [x] Task 3: Delete bugfix branch locally
+  - `git branch -d bugfix/branch`
 - [x] Task 4: Delete bugfix branch remotely
+  - `git push origin --delete bugfix/branch`
