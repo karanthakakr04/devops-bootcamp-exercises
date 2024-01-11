@@ -42,10 +42,15 @@
 ## EXERCISE 4
 
 - [x] Task 1: Create bugfix branch
+  - `git checkout -b bugfix/branch`
 - [x] Task 2: Fix spelling error in Application.java
 - [x] Task 3: Review changes
+  - `git diff`
 - [x] Task 4: Commit changes
+  - `git add Application.java`
+  - `git commit -m "Fix typo in Application.java"`
 - [x] Task 5: Push bugfix branch to remote
+  - `git push origin bugfix/branch`
 
 ## EXERCISE 5
 
