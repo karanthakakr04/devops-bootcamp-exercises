@@ -68,11 +68,15 @@
 - [x] Task 1: On bugfix branch, update logger lib version to 7.2
 - [x] Task 2: Commit change to bugfix branch
 - [x] Task 3: Merge master into bugfix
+  - `git merge main`
 - [x] Task 4: Resolve merge conflict
   - Accept current change in bugfix branch
   - Remove duplicate code from master
 - [x] Task 5: Commit merged changes
+  - `git add .`
+  - `git commit -m "Merge master and resolve conflict"`
 - [x] Task 6: Push merged bugfix branch to remote
+  - `git push origin bugfix/branch`
 
 ## EXERCISE 7
 
