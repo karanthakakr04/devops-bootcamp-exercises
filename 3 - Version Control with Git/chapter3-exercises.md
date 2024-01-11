@@ -84,8 +84,11 @@
 - [x] Task 2: Change image url in index.html, commit
 - [x] Task 3: Push both commits to remote branch
 - [x] Task 4: Revert last image url commit
+  - `git revert HEAD~1`
 - [x] Task 5: Commit the revert
+  - `git commit -m "Revert image url change"`
 - [x] Task 6: Push reverted commit to remote
+  - `git push origin bugfix/branch`
 
 ## EXERCISE 8
 
