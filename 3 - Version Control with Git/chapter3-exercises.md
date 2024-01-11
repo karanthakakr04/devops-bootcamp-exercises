@@ -103,11 +103,16 @@
 ## EXERCISE 9
 
 - [x] Task 1: Switch to master branch
+  - `git switch main`
 - [x] Task 2: Pull latest changes
+  - `git pull origin main`
 - [x] Task 3: Merge bugfix branch into master
+  - `git merge bugfix/branch`
 - [x] Task 4: Resolve any merge conflicts
 - [x] Task 5: Commit merged master
+  - `git commit -m "Merge bugfix into main"`
 - [x] Task 6: Push merged master to remote
+  - `git push origin main`
 
 ## EXERCISE 10
 
