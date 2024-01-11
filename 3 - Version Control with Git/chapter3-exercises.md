@@ -54,7 +54,9 @@
 
 ## EXERCISE 5
 
-- [x] Task 1: Create a merge request in GitLab UI
+- [x] Task 1: Create a merge request in GitHub UI
+  - Source branch: `feature/branch`
+  - Target branch: `main`
 - [x] Task 2: Add description and details for the merge request
 - [x] Task 3: Request a code review from teammates
 - [x] Task 4: Teammates approve the merge request after testing
