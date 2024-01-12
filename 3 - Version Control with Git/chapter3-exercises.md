@@ -54,13 +54,13 @@
 
 ## EXERCISE 5
 
-- [x] Task 1: Create a merge request in GitHub UI
+- [x] Task 1: Create a pull request in GitHub UI
   - Source branch: `feature/branch`
   - Target branch: `main`
-- [x] Task 2: Add description and details for the merge request
+- [x] Task 2: Add description and details for the pull request
 - [x] Task 3: Request a code review from teammates
-- [x] Task 4: Teammates approve the merge request after testing
-- [x] Task 5: Merge the feature branch into master via the merge request
+- [x] Task 4: Teammates approve the pull request after testing
+- [x] Task 5: Merge the feature branch into master via the pull request
 - [x] Task 6: Delete the merged feature branch
 
 ## EXERCISE 6
