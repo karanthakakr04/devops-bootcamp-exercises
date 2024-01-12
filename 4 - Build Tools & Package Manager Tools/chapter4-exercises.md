@@ -20,3 +20,11 @@
   - `gradle test`
 - [x] Task 3: Verify tests pass successfully
 - [x] Task 4: Commit fixed test
+
+## Exercise 4
+
+- [x] Task 1: Clean build folder
+  - `gradle clean build`
+- [x] Task 2: Build JAR file
+- [x] Task 3: Verify JAR build succeeds
+- [x] Task 4: Commit built JAR
