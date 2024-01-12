@@ -28,3 +28,13 @@
 - [x] Task 2: Build JAR file
 - [x] Task 3: Verify JAR build succeeds
 - [x] Task 4: Commit built JAR
+
+## Exercise 5
+
+- [x] Task 1: Navigate to build folder
+  - `cd build/libs`
+- [x] Task 2: Run JAR file
+  - `java -jar .\build-tools-exercises-1.0-SNAPSHOT.jar`
+- [x] Task 3: Verify app starts successfully
+- [x] Task 4: Stop app Ctrl+C
+- [x] Task 5: Commit any changes
