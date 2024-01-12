@@ -19,7 +19,7 @@ public class AppTest {
     public void testAppTwo() {
         Application myApp = new Application();
 
-        boolean result = myApp.getCondition("true");
+        boolean result = myApp.getCondition(true);
 
         assertTrue(result);
     }
