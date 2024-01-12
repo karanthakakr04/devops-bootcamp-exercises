@@ -38,3 +38,13 @@
 - [x] Task 3: Verify app starts successfully
 - [x] Task 4: Stop app Ctrl+C
 - [x] Task 5: Commit any changes
+
+## Exercise 6
+
+- [x] Task 1: Add parameter code snippet to Application.java
+- [x] Task 2: Rebuild JAR file
+  - `gradle clean build`
+- [x] Task 3: Run JAR with parameters
+  - `java -jar .\build-tools-exercises-1.0-SNAPSHOT.jar param1 param2`
+- [x] Task 4: Verify parameters logged on startup
+- [x] Task 5: Commit changes
