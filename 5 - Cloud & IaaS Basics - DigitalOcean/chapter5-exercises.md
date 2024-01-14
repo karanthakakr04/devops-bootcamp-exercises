@@ -30,3 +30,51 @@
 - [] Task 5: Click 'Create Droplet' to launch the new server
 - [] Task 6: Wait for the public IP to be assigned
 - [] Task 7: Note the IP address for later use
+
+## Exercise 4
+
+- [] Task 1: SSH into the new droplet with `ssh root@IP_ADDRESS`
+- [] Task 2: Update apt packages
+  - `apt update`
+  - `apt upgrade`
+- [] Task 3: Install Node.js and npm
+  - `apt install nodejs npm`
+- [] Task 4: Check versions
+  - `node --version`
+  - `npm --version`
+- [] Task 5: Create a new user for deployments
+  - `adduser deploy`
+- [] Task 6: Add deploy user to sudo group
+  - `usermod -aG sudo deploy`
+
+## Exercise 5
+
+- [] Task 1: On your local machine, zip the Node.js app folder
+- [] Task 2: Use `scp` to copy the zip to the droplet
+  - `scp nodeapp.zip deploy@IP_ADDRESS:~/`
+- [] Task 3: SSH into the droplet as deploy user
+- [] Task 4: Unzip the application
+  - `unzip nodeapp.zip`
+
+## Exercise 6
+
+- [] Task 1: Install dependencies
+  - `npm install`
+- [] Task 2: Start server in detached mode
+  - `node server.js &`
+- [] Task 3: Check process is running
+  - `ps aux | grep node`
+- [] Task 4: Verify app is reachable on port 3000
+  - `curl http://localhost:3000`
+
+## Exercise 7
+
+- [] Task 1: Check current firewall rules
+  - `sudo ufw status`
+- [] Task 2: Allow port 3000
+  - `sudo ufw allow 3000`
+- [] Task 3: Verify port is open
+  - `sudo ufw status`
+- [] Task 4: Get public IP of droplet
+- [] Task 5: Open browser and go to `http://PUBLIC_IP:3000`
+- [] Task 6: Verify you can access the app UI
