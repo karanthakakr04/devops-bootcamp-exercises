@@ -10,7 +10,7 @@
 - [x] Task 1: Build JAR file
   - `gradle build`
 - [x] Task 2: Build fails due to compile error in tests
-  <img width="1270" alt="module-4-exercise-2-image" src="https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/c2006d34-dd14-41bc-82f4-825097acfe2d">
+  ![module-4-exercise-2-image](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/c2006d34-dd14-41bc-82f4-825097acfe2d)
 
 ## Exercise 3
 
