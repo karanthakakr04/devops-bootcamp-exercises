@@ -65,12 +65,8 @@
 
 ## Exercise 7
 
-- [] Task 1: Check current firewall rules
-  - `sudo ufw status`
-- [] Task 2: Allow port 3000
-  - `sudo ufw allow 3000`
-- [] Task 3: Verify port is open
-  - `sudo ufw status`
-- [] Task 4: Get public IP of droplet
-- [] Task 5: Open browser and go to `http://PUBLIC_IP:3000`
-- [] Task 6: Verify you can access the app UI
+- [x] Task 1: Add a custom rule to the firewall allowing all traffic on port 3000
+  - > do it from the UI
+- [x] Task 2: Get public IP of droplet
+- [x] Task 3: Open browser and go to `http://PUBLIC_IP:3000`
+- [x] Task 4: Verify you can access the app UI
