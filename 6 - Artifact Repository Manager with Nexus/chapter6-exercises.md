@@ -20,6 +20,11 @@
       - > Before using `wget`, make sure you are in the `/opt` directory.
     - Extract the downloaded archive:
       - `tar -xvzf latest-unix.tar.gz`
+  - **Configure Nexus as a Service:**
+    - Create a user for Nexus:
+      - `sudo adduser --system --home=/opt/nexus --no-create-home --disabled-login --disabled-password --group nexus`
+    - Ensure the Nexus user has the appropriate permissions:
+      - `sudo chown -R nexus:nexus /opt/nexus`
 
 ## Exercise 2
 
