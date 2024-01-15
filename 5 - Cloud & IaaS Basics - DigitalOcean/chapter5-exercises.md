@@ -13,9 +13,6 @@
 - [] Task 2: Run `npm pack` to package the app into a `.tgz` file
 - [] Task 3: The command will generate a `.tgz` file with the app name and version
 - [] Task 4: Verify the `.tgz` file was created in the current directory
-- [] Task 5: Commit the generated artifact:
-  - `git add app-name-version.tgz`
-  - `git commit -m "Package Node.js app"`
 
 ## Exercise 3
 
