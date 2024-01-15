@@ -54,14 +54,14 @@
 
 ## Exercise 6
 
-- [] Task 1: Install dependencies
+- [x] Task 1: Install dependencies
   - `npm install`
-- [] Task 2: Start server in detached mode
+- [x] Task 2: Start server in detached mode
   - `node server.js &`
-- [] Task 3: Check process is running
-  - `ps aux | grep node`
-- [] Task 4: Verify app is reachable on port 3000
-  - `curl http://localhost:3000`
+- [x] Task 3: Check process is running
+  - `ps aux | grep node | grep -v grep`
+- [x] Task 4: Verify app is reachable on port 3000
+  - `curl -o /dev/null -s -w "%{http_code}\n" http://localhost`
 
 ## Exercise 7
 
