@@ -35,11 +35,12 @@
   - `apt update`
   - `apt upgrade`
 - [x] Task 3: Install Node.js and npm
-  - `curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash - &&\ 
-  sudo apt-get install -y nodejs`
+  - `curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash - && sudo apt-get install -y nodejs`
 - [x] Task 4: Check versions
   - `node --version`
   - `npm --version`
+
+> Command in Task 3 is from this [link](https://github.com/nodesource/distributions?tab=readme-ov-file#ubuntu-versions)
 
 ## Exercise 5
 
