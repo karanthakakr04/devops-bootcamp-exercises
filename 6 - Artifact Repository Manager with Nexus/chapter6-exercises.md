@@ -11,6 +11,14 @@
       - `sudo apt install openjdk-8-jdk`
     - Verify Java installation:
       - `java -version`
+  - **Download Nexus Repository Manager:**
+    - Visit the [Sonatype Nexus Download Page](https://help.sonatype.com/repomanager3/product-information/download) to find the link to the latest Nexus Repository Manager.
+    - Copy the Unix archive download link for the latest version.
+  - **Download and Extract:**
+    - On your Ubuntu server, use `wget` or `curl` to download the Nexus tar.gz file. For example:
+      - `wget https://download.sonatype.com/nexus/3/latest-unix.tar.gz`
+    - Extract the downloaded archive:
+      - `tar -xvzf latest-unix.tar.gz`
 
 ## Exercise 2
 
