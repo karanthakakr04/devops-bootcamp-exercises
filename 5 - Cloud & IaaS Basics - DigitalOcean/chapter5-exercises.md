@@ -4,7 +4,7 @@
 
 - [x] Task 1: Clone the provided git repository
   - `https://gitlab.com/twn-devops-bootcamp/latest/05-cloud/cloud-basics-exercises`
-- [x] Task 2:  Push the cloned project to your remote repository
+- [x] Task 2: Push the cloned project to your remote repository
   - `git push -u origin main`
 
 ## Exercise 2
@@ -12,7 +12,7 @@
 - [] Task 1: Navigate to the Node.js app directory
 - [] Task 2: Run `npm pack` to package the app into a `.tgz` file
 - [] Task 3: The command will generate a `.tgz` file with the app name and version
-- [] Task 4 :Verify the `.tgz` file was created in the current directory
+- [] Task 4: Verify the `.tgz` file was created in the current directory
 - [] Task 5: Commit the generated artifact:
   - `git add app-name-version.tgz`
   - `git commit -m "Package Node.js app"`
