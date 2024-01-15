@@ -45,12 +45,12 @@
 
 ## Exercise 5
 
-- [] Task 1: On your local machine, zip the Node.js app folder
-- [] Task 2: Use `scp` to copy the zip to the droplet
-  - `scp nodeapp.zip deploy@IP_ADDRESS:~/`
-- [] Task 3: SSH into the droplet as deploy user
-- [] Task 4: Unzip the application
-  - `unzip nodeapp.zip`
+- [x] Task 1: On your local machine, you created a artifact in your root folder
+- [x] Task 2: Use `scp` to copy that `.tgz` to the droplet
+  - `scp -i /path/to/private/key /path/to/local/file username@IP:/path/to/remote/directory`
+- [x] Task 3: SSH into the droplet
+- [] Task 4: Unpack the application
+  - `tar -xvzf <package_name>.tgz`
 
 ## Exercise 6
 
