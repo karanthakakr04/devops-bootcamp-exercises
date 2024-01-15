@@ -16,17 +16,17 @@
 
 ## Exercise 3
 
-- [] Task 1: Login to DigitalOcean console
-- [] Task 2: Go to Droplets and click 'Create Droplet'
-- [] Task 3: Choose options for the new droplet, for example:
+- [x] Task 1: Login to DigitalOcean console
+- [x] Task 2: Go to Droplets and click 'Create Droplet'
+- [x] Task 3: Choose options for the new droplet, for example:
   - Image (OS) - Ubuntu 22.04
   - Plan type - Basic with 1GB RAM
   - Data center region - Closest to your location
   - Authentication - SSH keys
-- [] Task 4: Assign a hostname like 'webapp1'
-- [] Task 5: Click 'Create Droplet' to launch the new server
-- [] Task 6: Wait for the public IP to be assigned
-- [] Task 7: Note the IP address for later use
+- [x] Task 4: Assign a hostname like 'webapp1'
+- [x] Task 5: Click 'Create Droplet' to launch the new server
+- [x] Task 6: Wait for the public IP to be assigned
+- [x] Task 7: Note the IP address for later use
 
 ## Exercise 4
 
