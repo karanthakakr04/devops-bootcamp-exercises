@@ -31,6 +31,7 @@
 ## Exercise 4
 
 - [x] Task 1: SSH into the new droplet with `ssh root@IP_ADDRESS`
+  - Before this step you need to create a firewall rule to allow access through SSH and attach it to the Droplet
 - [x] Task 2: Update apt packages
   - `apt update`
   - `apt upgrade -y`
