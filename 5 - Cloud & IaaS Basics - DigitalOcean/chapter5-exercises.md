@@ -33,7 +33,7 @@
 - [x] Task 1: SSH into the new droplet with `ssh root@IP_ADDRESS`
 - [x] Task 2: Update apt packages
   - `apt update`
-  - `apt upgrade`
+  - `apt upgrade -y`
 - [x] Task 3: Install Node.js and npm
   - `curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash - && sudo apt-get install -y nodejs`
 - [x] Task 4: Check versions
