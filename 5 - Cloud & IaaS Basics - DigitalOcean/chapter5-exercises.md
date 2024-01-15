@@ -30,19 +30,16 @@
 
 ## Exercise 4
 
-- [] Task 1: SSH into the new droplet with `ssh root@IP_ADDRESS`
-- [] Task 2: Update apt packages
+- [x] Task 1: SSH into the new droplet with `ssh root@IP_ADDRESS`
+- [x] Task 2: Update apt packages
   - `apt update`
   - `apt upgrade`
-- [] Task 3: Install Node.js and npm
-  - `apt install nodejs npm`
-- [] Task 4: Check versions
+- [x] Task 3: Install Node.js and npm
+  - `curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash - &&\ 
+  sudo apt-get install -y nodejs`
+- [x] Task 4: Check versions
   - `node --version`
   - `npm --version`
-- [] Task 5: Create a new user for deployments
-  - `adduser deploy`
-- [] Task 6: Add deploy user to sudo group
-  - `usermod -aG sudo deploy`
 
 ## Exercise 5
 
