@@ -9,10 +9,10 @@
 
 ## Exercise 2
 
-- [] Task 1: Navigate to the Node.js app directory
-- [] Task 2: Run `npm pack` to package the app into a `.tgz` file
-- [] Task 3: The command will generate a `.tgz` file with the app name and version
-- [] Task 4: Verify the `.tgz` file was created in the current directory
+- [x] Task 1: Navigate to the Node.js app directory
+- [x] Task 2: Run `npm pack` to package the app into a `.tgz` file
+- [x] Task 3: The command will generate a `.tgz` file with the app name and version
+- [x] Task 4: Verify the `.tgz` file was created in the current directory
 
 ## Exercise 3
 
