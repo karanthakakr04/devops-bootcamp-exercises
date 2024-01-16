@@ -22,9 +22,19 @@
       - `tar -xvzf latest-unix.tar.gz`
   - **Configure Nexus as a Service:**
     - Create a user for Nexus:
-      - `sudo adduser --system --home=/opt/nexus --no-create-home --disabled-login --disabled-password --group nexus`
+      - `sudo adduser --system --no-create-home --disabled-login --disabled-password --group nexus`
     - Ensure the Nexus user has the appropriate permissions:
       - `sudo chown -R nexus:nexus /opt/nexus`
+    - Create a symbolic link to the Nexus directory for easier management:
+      - `sudo ln -s /opt/nexus/nexus-3.x.y /opt/nexus-latest`
+    - Open the `nexus.rc` file for editing:
+      - `sudo nano /opt/nexus-latest/bin/nexus.rc`
+    - Look for the run_as_user setting. It should look like this:
+      - `run_as_user="nexus"`
+      - If commented out, uncomment it by removing the `#` at the beginning of the line.
+      - Save the file and exit the editor.
+    - Create a systemd service file for Nexus:
+      - `sudo nano /etc/systemd/system/nexus.service`
 
 ## Exercise 2
 
