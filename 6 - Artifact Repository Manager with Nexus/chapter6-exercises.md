@@ -29,7 +29,7 @@
       - `sudo ln -s /opt/nexus/nexus-3.x.y /opt/nexus-latest`
     - Open the `nexus.rc` file for editing:
       - `sudo nano /opt/nexus-latest/bin/nexus.rc`
-    - Look for the run_as_user setting. It should look like this:
+    - Look for the `run_as_user` setting. It should look like this:
       - `run_as_user="nexus"`
       - If commented out, uncomment it by removing the `#` at the beginning of the line.
       - Save the file and exit the editor.
