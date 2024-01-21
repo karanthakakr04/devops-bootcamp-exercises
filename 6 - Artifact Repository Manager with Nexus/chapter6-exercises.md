@@ -31,7 +31,7 @@
     - Create a symbolic link to the Nexus directory for easier management:
       - `sudo ln -s /opt/nexus/nexus-3.x.y /opt/nexus/nexus-latest`
     - Open the `nexus.rc` file for editing:
-      - `sudo nano /opt/nexus-latest/bin/nexus.rc`
+      - `sudo -u nexus vim /opt/nexus/bin/nexus.rc`
     - Look for the `run_as_user` setting. It should look like this:
       - `run_as_user="nexus"`
       - If commented out, uncomment it by removing the `#` at the beginning of the line.
