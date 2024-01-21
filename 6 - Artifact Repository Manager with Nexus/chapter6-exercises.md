@@ -16,7 +16,7 @@
       - `sudo adduser --system --disabled-password --group nexus`
     - Switch to nexus user:
       - `sudo su - nexus`
-    - Create `/opt/nexus` parent folder:
+    - Create `/nexus` parent folder:
       - `mkdir /opt/nexus`
   - **Download Nexus Repository Manager:**
     - Visit the [Sonatype Nexus Download Page](https://help.sonatype.com/repomanager3/product-information/download) to find the link to the latest Nexus Repository Manager.
