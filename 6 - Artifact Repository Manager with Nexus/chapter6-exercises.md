@@ -29,7 +29,7 @@
       - `tar -xvzf latest-unix.tar.gz`
   - **Configure Nexus as a Service:**
     - Create a symbolic link to the Nexus directory for easier management:
-      - `sudo ln -s /opt/nexus/nexus-3.x.y /opt/nexus-latest`
+      - `sudo ln -s /opt/nexus/nexus-3.x.y /opt/nexus/nexus-latest`
     - Open the `nexus.rc` file for editing:
       - `sudo nano /opt/nexus-latest/bin/nexus.rc`
     - Look for the `run_as_user` setting. It should look like this:
