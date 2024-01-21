@@ -22,7 +22,7 @@
       - `tar -xvzf latest-unix.tar.gz`
   - **Configure Nexus as a Service:**
     - Create a user for Nexus:
-      - `sudo adduser --system --no-create-home --disabled-login --disabled-password --group nexus`
+      - `sudo adduser --system --disabled-password --group nexus`
     - Ensure the Nexus user has the appropriate permissions:
       - `sudo chown -R nexus:nexus /opt/nexus`
     - Create a symbolic link to the Nexus directory for easier management:
