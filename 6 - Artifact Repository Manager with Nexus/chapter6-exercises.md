@@ -37,7 +37,30 @@
       - If commented out, uncomment it by removing the `#` at the beginning of the line.
       - Save the file and exit the editor.
     - Create a systemd service file for Nexus:
-      - `sudo nano /etc/systemd/system/nexus.service`
+      - `sudo -u nexus vim /etc/systemd/system/nexus.service`
+    - Add the following content to the file:
+
+      ```yaml
+      [Unit]
+      Description=Nexus Repository Manager  # Human-readable description
+      After=network.target  # Start after the network is up
+
+      [Service]
+      Type=forking  # Background process
+      LimitNOFILE=65536  # Limit file descriptors
+      ExecStart=/opt/nexus-latest/bin/nexus start  # Start Nexus service
+      ExecStop=/opt/nexus-latest/bin/nexus stop  # Stop Nexus service
+      User=nexus  # Run as user
+      Group=nexus  # Run under group
+      Restart=on-abort  # Restart on failure
+
+      [Install]
+      WantedBy=multi-user.target  # Target for enabling the service
+      ```
+
+      - Save and close the file.
+    - Reload the systemd manager configuration to apply the changes:
+      - `sudo systemctl daemon-reload`
 
 ## Exercise 2
 
