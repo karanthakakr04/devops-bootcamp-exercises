@@ -16,13 +16,15 @@
       - `sudo adduser --system --disabled-password --group nexus`
     - Switch to nexus user:
       - `sudo su - nexus`
+    - Create `/opt/nexus` parent folder:
+      - `mkdir /opt/nexus`
   - **Download Nexus Repository Manager:**
     - Visit the [Sonatype Nexus Download Page](https://help.sonatype.com/repomanager3/product-information/download) to find the link to the latest Nexus Repository Manager.
     - Copy the Unix archive download link for the latest version.
   - **Download and Extract:**
     - On your Ubuntu server, use `wget` or `curl` to download the Nexus tar.gz file. For example:
       - `wget https://download.sonatype.com/nexus/3/latest-unix.tar.gz`
-      - > Before using `wget` or `curl`, make sure you are in the `/opt` directory.
+      - > Before using `wget` or `curl`, make sure you are in the `/opt/nexus` directory.
     - Extract the downloaded archive:
       - `tar -xvzf latest-unix.tar.gz`
   - **Configure Nexus as a Service:**
