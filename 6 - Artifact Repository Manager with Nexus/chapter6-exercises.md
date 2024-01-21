@@ -40,7 +40,7 @@
       - `sudo -u nexus vim /etc/systemd/system/nexus.service`
     - Add the following content to the file:
 
-      ```yaml
+      ```(systemd config)
       [Unit]
       Description=Nexus Repository Manager  # Human-readable description
       After=network.target  # Start after the network is up
