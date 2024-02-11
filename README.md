@@ -3,7 +3,7 @@
 - [x] 2 - Operating Systems & Linux Basics
 - [x] 3 - Version Control with Git
 - [x] 4 - Build Tools & Package Manager Tools
-- [ ] 5 - Cloud & IaaS Basics - DigitalOcean
+- [x] 5 - Cloud & IaaS Basics - DigitalOcean
 - [ ] 6 - Artifact Repository Manager with Nexus
 - [ ] 7 - Container with Docker
 - [ ] 8 - Build Automation &CI/CD with Jenkins
