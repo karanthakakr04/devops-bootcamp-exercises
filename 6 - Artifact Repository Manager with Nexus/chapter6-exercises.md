@@ -26,12 +26,12 @@
   - **Download and Extract:**
     - On your Ubuntu server, use `wget` or `curl` to download the Nexus tar.gz file. For example:
       - `wget https://download.sonatype.com/nexus/3/latest-unix.tar.gz`
-      - > Before using `wget` or `curl`, make sure you are in the `/opt/nexus` directory.
+      - > Before using `wget` or `curl`, make sure you are in the `/opt/nexus/nexus-x.y.z` directory.
     - Extract the downloaded archive:
       - `tar -xvzf latest-unix.tar.gz > /dev/null`
   - **Configure Nexus as a Service:**
     - Create a symbolic link to the Nexus directory for easier management:
-      - `sudo ln -s /opt/nexus/nexus-3.x.y /opt/nexus/nexus-latest`
+      - `sudo ln -s /opt/nexus/nexus-x.y.z /opt/nexus/nexus-latest`
     - Open the `nexus.rc` file for editing:
       - `sudo -u nexus vim /opt/nexus/bin/nexus.rc`
     - Look for the `run_as_user` setting. It should look like this:
