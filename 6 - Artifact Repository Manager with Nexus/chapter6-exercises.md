@@ -16,7 +16,7 @@
       - `sudo mkdir -p /home/nexus`
       - `sudo groupadd nexus`
       - `sudo useradd -r -g nexus -d /home/nexus -s /bin/bash nexus`
-    - Create `/nexus` parent folder:
+    - Create nested folder structure:
       - `sudo mkdir -p /opt/nexus/nexus-3**`
     - Update permissions for `nexus` user:
       - `sudo chmod 770 /opt/nexus`
