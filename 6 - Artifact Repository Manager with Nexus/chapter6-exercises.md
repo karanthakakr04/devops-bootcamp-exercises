@@ -59,8 +59,6 @@
       ```
 
       - Save and close the file.
-    - Switch to root user by exiting the nexus user:
-      - `exit`
     - Reload the systemd manager configuration to apply the changes:
       - `sudo systemctl daemon-reload`
     - Enable the Nexus service to start on server boot:
