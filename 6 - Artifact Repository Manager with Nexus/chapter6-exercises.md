@@ -11,14 +11,14 @@
       - `sudo apt install openjdk-8-jdk`
     - Verify Java installation:
       - `java -version`
-  - **Create Nexus Service Account**
+  - **Provision Nexus Service Account & Isolate Privileges**
     - Create a user for Nexus:
       - `sudo mkdir -p /home/nexus`
       - `sudo groupadd nexus`
       - `sudo useradd -r -g nexus -d /home/nexus -s /bin/bash nexus`
     - Create nested folder structure:
       - `sudo mkdir -p /opt/nexus/nexus-3**`
-    - Update permissions for `nexus` user:
+    - Update permissions for the nested folder structure:
       - `sudo chmod 770 /opt/nexus`
       - `sudo chown root:nexus /opt/nexus`
   - **Download Nexus Repository Manager:**
