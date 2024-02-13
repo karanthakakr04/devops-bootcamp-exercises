@@ -11,7 +11,7 @@
       - `sudo apt install openjdk-8-jdk`
     - Verify Java installation:
       - `java -version`
-  - **Create and Switch to Nexus Service Account**
+  - **Create Nexus Service Account**
     - Create a user for Nexus:
       - `sudo mkdir -p /home/nexus`
       - `sudo groupadd nexus`
