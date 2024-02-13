@@ -28,7 +28,7 @@
       - `wget https://download.sonatype.com/nexus/3/latest-unix.tar.gz`
       - > Before using `wget` or `curl`, make sure you are in the `/opt/nexus` directory.
     - Extract the downloaded archive:
-      - `tar -xvzf latest-unix.tar.gz`
+      - `tar -xvzf latest-unix.tar.gz > /dev/null`
   - **Configure Nexus as a Service:**
     - Create a symbolic link to the Nexus directory for easier management:
       - `sudo ln -s /opt/nexus/nexus-3.x.y /opt/nexus/nexus-latest`
