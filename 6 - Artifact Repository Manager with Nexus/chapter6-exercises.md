@@ -16,8 +16,6 @@
       - `sudo mkdir -p /home/nexus`
       - `sudo groupadd nexus`
       - `sudo useradd -r -g nexus -d /home/nexus -s /bin/bash nexus`
-    - Switch to nexus user:
-      - `sudo su - nexus`
     - Create `/nexus` parent folder:
       - `sudo mkdir -p /opt/nexus`
   - **Download Nexus Repository Manager:**
