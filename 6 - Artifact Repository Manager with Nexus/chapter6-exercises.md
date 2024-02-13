@@ -31,7 +31,7 @@
       - `sudo ln -s /opt/nexus/nexus-repository-manager /opt/nexus/nexus-latest`
   - **Isolate Nexus Service Account Privileges:**
     - Update permissions for the nested folder structure:
-      - `sudo chmod 770 /opt/nexus`
+      - `sudo chmod -R 770 /opt/nexus`
       - `sudo chown -R root:nexus /opt/nexus`
   - **Configure Nexus as a Service:**
     - Open the `nexus.rc` file for editing:
