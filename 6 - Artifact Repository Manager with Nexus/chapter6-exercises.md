@@ -28,7 +28,7 @@
     - On your Ubuntu server, use `wget` or `curl` to download the Nexus tar.gz file. For example:
       - `wget https://download.sonatype.com/nexus/3/latest-unix.tar.gz`
       - > Before using `wget` or `curl`, make sure you are in the `/opt/nexus/nexus-3**` directory.
-    - Extract the downloaded archive:
+    - Extract the downloaded archive. For example:
       - `tar -xvzf latest-unix.tar.gz > /dev/null`
   - **Configure Nexus as a Service:**
     - Create a symbolic link to the Nexus directory for easier management:
