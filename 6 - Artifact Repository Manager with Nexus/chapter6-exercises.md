@@ -52,8 +52,8 @@
       [Service]
       Type=forking  # Background process
       LimitNOFILE=65536  # Limit file descriptors
-      ExecStart=/opt/nexus-latest/bin/nexus start  # Start Nexus service
-      ExecStop=/opt/nexus-latest/bin/nexus stop  # Stop Nexus service
+      ExecStart=/opt/nexus/nexus-latest/nexus-3.65.0-02/bin/nexus start  # Start Nexus service
+      ExecStop=/opt/nexus/nexus-latest/nexus-3.65.0-02/bin/nexus stop  # Stop Nexus service
       User=nexus  # Run as user
       Group=nexus  # Run under group
       Restart=on-abort  # Restart on failure
