@@ -13,7 +13,9 @@
       - `java -version`
   - **Create and Switch to Nexus Service Account**
     - Create a user for Nexus:
-      - `sudo adduser --system --disabled-password --group nexus`
+      - `sudo mkdir -p /home/nexus`
+      - `sudo groupadd nexus`
+      - `sudo useradd -r -g nexus -d /home/nexus -s /bin/bash nexus`
     - Switch to nexus user:
       - `sudo su - nexus`
     - Create `/nexus` parent folder:
