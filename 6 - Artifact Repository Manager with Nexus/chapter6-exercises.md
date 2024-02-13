@@ -30,9 +30,9 @@
       - > Before using `wget` or `curl`, make sure you are in the `/opt/nexus/nexus-repository-manager` directory.
     - Extract the downloaded archive. For example:
       - `tar -xvzf latest-unix.tar.gz > /dev/null`
-  - **Configure Nexus as a Service:**
     - Create a symbolic link to the Nexus directory for easier management:
       - `sudo ln -s /opt/nexus/nexus-repository-manager /opt/nexus/nexus-latest`
+  - **Configure Nexus as a Service:**
     - Open the `nexus.rc` file for editing:
       - `sudo -u nexus vim /opt/nexus/bin/nexus.rc`
     - Look for the `run_as_user` setting. It should look like this:
