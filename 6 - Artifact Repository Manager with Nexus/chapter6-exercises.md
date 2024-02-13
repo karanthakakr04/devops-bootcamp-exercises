@@ -11,17 +11,17 @@
       - `sudo apt install openjdk-8-jdk`
     - Verify Java installation:
       - `java -version`
-  - **Provision Nexus Service Account**
+  - **Provision Nexus Service Account:**
     - Create a user for Nexus:
       - `sudo mkdir -p /home/nexus`
       - `sudo groupadd nexus`
       - `sudo useradd -r -g nexus -d /home/nexus -s /bin/bash nexus`
+  - **Download Nexus Repository Manager:**
     - Create nested folder structure:
       - `sudo mkdir -p /opt/nexus/nexus-repository-manager`
-  - **Download Nexus Repository Manager:**
     - Visit the [Sonatype Nexus Download Page](https://help.sonatype.com/repomanager3/product-information/download) to find the link to the latest Nexus Repository Manager.
     - Copy the Unix archive download link for the latest version.
-  - **Download and Extract:**
+  - **Initialize Nexus Environment:**
     - On your Ubuntu server, use `wget` or `curl` to download the Nexus tar.gz file. For example:
       - `wget https://download.sonatype.com/nexus/3/latest-unix.tar.gz`
       - > Before using `wget` or `curl`, make sure you are in the `/opt/nexus/nexus-repository-manager` directory.
@@ -29,7 +29,7 @@
       - `tar -xvzf latest-unix.tar.gz > /dev/null`
     - Create a symbolic link to the Nexus directory for easier management:
       - `sudo ln -s /opt/nexus/nexus-repository-manager /opt/nexus/nexus-latest`
-  - **Isolate Nexus Service Account Privileges**
+  - **Isolate Nexus Service Account Privileges:**
     - Update permissions for the nested folder structure:
       - `sudo chmod 770 /opt/nexus`
       - `sudo chown -R root:nexus /opt/nexus`
