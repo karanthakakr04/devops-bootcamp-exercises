@@ -11,16 +11,13 @@
       - `sudo apt install openjdk-8-jdk`
     - Verify Java installation:
       - `java -version`
-  - **Provision Nexus Service Account & Isolate Privileges**
+  - **Provision Nexus Service Account**
     - Create a user for Nexus:
       - `sudo mkdir -p /home/nexus`
       - `sudo groupadd nexus`
       - `sudo useradd -r -g nexus -d /home/nexus -s /bin/bash nexus`
     - Create nested folder structure:
       - `sudo mkdir -p /opt/nexus/nexus-repository-manager`
-    - Update permissions for the nested folder structure:
-      - `sudo chmod 770 /opt/nexus`
-      - `sudo chown -R root:nexus /opt/nexus`
   - **Download Nexus Repository Manager:**
     - Visit the [Sonatype Nexus Download Page](https://help.sonatype.com/repomanager3/product-information/download) to find the link to the latest Nexus Repository Manager.
     - Copy the Unix archive download link for the latest version.
@@ -32,6 +29,10 @@
       - `tar -xvzf latest-unix.tar.gz > /dev/null`
     - Create a symbolic link to the Nexus directory for easier management:
       - `sudo ln -s /opt/nexus/nexus-repository-manager /opt/nexus/nexus-latest`
+  - **Isolate Nexus Service Account Privileges**
+    - Update permissions for the nested folder structure:
+      - `sudo chmod 770 /opt/nexus`
+      - `sudo chown -R root:nexus /opt/nexus`
   - **Configure Nexus as a Service:**
     - Open the `nexus.rc` file for editing:
       - `sudo -u nexus vim /opt/nexus/bin/nexus.rc`
