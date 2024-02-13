@@ -35,13 +35,13 @@
       - `sudo chown -R root:nexus /opt/nexus`
   - **Configure Nexus as a Service:**
     - Open the `nexus.rc` file for editing:
-      - `sudo -u nexus vim /opt/nexus/bin/nexus.rc`
+      - `vim /opt/nexus/bin/nexus.rc`
     - Look for the `run_as_user` setting. It should look like this:
       - `run_as_user="nexus"`
       - If commented out, uncomment it by removing the `#` at the beginning of the line.
       - Save the file and exit the editor.
     - Create a systemd service file for Nexus:
-      - `sudo -u nexus vim /etc/systemd/system/nexus.service`
+      - `vim /etc/systemd/system/nexus.service`
     - Add the following content to the file:
 
       ```(systemd config)
