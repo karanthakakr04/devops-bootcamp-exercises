@@ -17,19 +17,19 @@
       - `sudo groupadd nexus`
       - `sudo useradd -r -g nexus -d /home/nexus -s /bin/bash nexus`
     - Create `/nexus` parent folder:
-      - `sudo mkdir -p /opt/nexus`
+      - `sudo mkdir -p /opt/nexus/nexus-3**`
   - **Download Nexus Repository Manager:**
     - Visit the [Sonatype Nexus Download Page](https://help.sonatype.com/repomanager3/product-information/download) to find the link to the latest Nexus Repository Manager.
     - Copy the Unix archive download link for the latest version.
   - **Download and Extract:**
     - On your Ubuntu server, use `wget` or `curl` to download the Nexus tar.gz file. For example:
       - `wget https://download.sonatype.com/nexus/3/latest-unix.tar.gz`
-      - > Before using `wget` or `curl`, make sure you are in the `/opt/nexus/nexus-x.y.z` directory.
+      - > Before using `wget` or `curl`, make sure you are in the `/opt/nexus/nexus-3**` directory.
     - Extract the downloaded archive:
       - `tar -xvzf latest-unix.tar.gz > /dev/null`
   - **Configure Nexus as a Service:**
     - Create a symbolic link to the Nexus directory for easier management:
-      - `sudo ln -s /opt/nexus/nexus-x.y.z /opt/nexus/nexus-latest`
+      - `sudo ln -s /opt/nexus/nexus-3** /opt/nexus/nexus-latest`
     - Open the `nexus.rc` file for editing:
       - `sudo -u nexus vim /opt/nexus/bin/nexus.rc`
     - Look for the `run_as_user` setting. It should look like this:
