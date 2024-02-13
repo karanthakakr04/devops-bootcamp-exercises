@@ -17,7 +17,7 @@
       - `sudo groupadd nexus`
       - `sudo useradd -r -g nexus -d /home/nexus -s /bin/bash nexus`
     - Create nested folder structure:
-      - `sudo mkdir -p /opt/nexus/nexus-3**`
+      - `sudo mkdir -p /opt/nexus/nexus-repository-manager`
     - Update permissions for the nested folder structure:
       - `sudo chmod 770 /opt/nexus`
       - `sudo chown root:nexus /opt/nexus`
@@ -27,7 +27,7 @@
   - **Download and Extract:**
     - On your Ubuntu server, use `wget` or `curl` to download the Nexus tar.gz file. For example:
       - `wget https://download.sonatype.com/nexus/3/latest-unix.tar.gz`
-      - > Before using `wget` or `curl`, make sure you are in the `/opt/nexus/nexus-3**` directory.
+      - > Before using `wget` or `curl`, make sure you are in the `/opt/nexus/nexus-repository-manager` directory.
     - Extract the downloaded archive. For example:
       - `tar -xvzf latest-unix.tar.gz > /dev/null`
   - **Configure Nexus as a Service:**
