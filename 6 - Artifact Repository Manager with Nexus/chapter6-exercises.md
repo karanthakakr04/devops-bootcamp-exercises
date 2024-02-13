@@ -20,7 +20,7 @@
       - `sudo mkdir -p /opt/nexus/nexus-repository-manager`
     - Update permissions for the nested folder structure:
       - `sudo chmod 770 /opt/nexus`
-      - `sudo chown root:nexus /opt/nexus`
+      - `sudo chown -R root:nexus /opt/nexus`
   - **Download Nexus Repository Manager:**
     - Visit the [Sonatype Nexus Download Page](https://help.sonatype.com/repomanager3/product-information/download) to find the link to the latest Nexus Repository Manager.
     - Copy the Unix archive download link for the latest version.
