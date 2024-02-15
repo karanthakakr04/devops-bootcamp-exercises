@@ -16,8 +16,6 @@
 
    All output and errors will be logged to `/var/log/install_nexus.log`, as defined in the script.
 
-The sentence you're referring to was discussing considerations regarding writing logs to `/var/log/`, a directory typically reserved for system and application logs on Linux systems. It looks like my response might have been cut off. Let me complete that thought:
-
 ---
 
 **Important Notes:**
