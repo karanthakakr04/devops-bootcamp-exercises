@@ -73,6 +73,8 @@ EOT
     sudo systemctl daemon-reload
     sudo systemctl enable nexus
     sudo systemctl start nexus
+    # View Nexus service logs
+    #sudo journalctl -u nexus
 }
 
 # Check Nexus Service Status
