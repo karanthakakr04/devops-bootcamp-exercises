@@ -51,7 +51,7 @@ download_and_setup_nexus() {
 # Configure Nexus as a service
 configure_nexus_service() {
     echo "Configuring Nexus as a service..."
-    sudo sed -i 's|#run_as_user=""|run_as_user="nexus"|' /opt/nexus/nexus-latest/bin/nexus.rc
+    sudo sed -i 's|#run_as_user=""|run_as_user="nexus"|' /opt/nexus/nexus-latest/nexus-3.65.0-02/bin/nexus.rc
     cat <<EOT | sudo tee /etc/systemd/system/nexus.service
 [Unit]
 Description=Nexus Repository Manager
