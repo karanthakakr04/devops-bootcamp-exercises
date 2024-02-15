@@ -35,7 +35,7 @@
       - `sudo chown -R root:nexus /opt/nexus`
   - **Configure Nexus as a Service:**
     - Open the `nexus.rc` file for editing:
-      - `vim /opt/nexus/bin/nexus.rc`
+      - `vim /opt/nexus/nexus-latest/nexus-3.65.0-02/bin/nexus.rc`
     - Look for the `run_as_user` setting. It should look like this:
       - `run_as_user="nexus"`
       - If commented out, uncomment it by removing the `#` at the beginning of the line.
