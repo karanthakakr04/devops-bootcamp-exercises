@@ -76,6 +76,9 @@
   - **Access Nexus Web Interface:**
     - Nexus by default runs on port `8081`, so you need to allow access on this port using a firewall rule. Once that is done, open your web browser and navigate to `http://your-server-ip:8081`. You will need to wait for a few seconds for the page to show up.
 
+> [!NOTE]
+> I have created a script for installing Nexus using the workflow mentioned above. Please read this page to understand the script before running.
+
 ## Exercise 2
 
 ## Exercise 3
