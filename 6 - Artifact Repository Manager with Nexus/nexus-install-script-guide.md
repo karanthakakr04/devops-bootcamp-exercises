@@ -16,9 +16,7 @@
 
    All output and errors will be logged to `/var/log/install_nexus.log`, as defined in the script.
 
----
-
-**Important Notes:**
+## Important Notes
 
 - **Ensure that writing to `/var/log/` is permissible for your script.** If the script doesn't run with root privileges, you might not have permission to write to this directory. Running the script with `sudo` or elevating privileges for the specific task of writing to the log file can resolve this issue. It's common for system services and scripts executed by the system administrator to write logs to `/var/log/`, but doing so requires appropriate permissions.
 
