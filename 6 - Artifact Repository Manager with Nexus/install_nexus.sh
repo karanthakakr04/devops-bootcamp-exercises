@@ -15,8 +15,8 @@ exec > >(tee -a "$LOG_FILE") 2>&1
 # Update and upgrade the system
 update_and_upgrade_system() {
     echo "Updating and upgrading the system..."
-    sudo apt update
-    sudo apt upgrade -y
+    sudo apt update &> /dev/null
+    sudo apt upgrade -y &> /dev/null
 }
 
 # Check if Java 8 is installed
