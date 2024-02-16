@@ -4,7 +4,7 @@
 > Use the latest Nexus version from the [Sonatype download page](https://help.sonatype.com/en/download.html). This URL will always point to the most recent release, ensuring anyone using this script in the future installs the then-current version instead of locking to a potentially outdated link target. Always installing the newest Nexus release allows leveraging security updates and new features, facilitating improved stability, compatibility, and capability over time.
 
 If you are running a Linux server either on Cloud or VirtualBox or VMWare. You need to copy this file to that server. For example, look at the screenshot below:
-![scp command]()
+![scp command](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/6d27808d-b455-41b3-8564-7b433ce5cbe5)
 
 1. **Save the script**: Copy the script into a file, for example, named `install_nexus.sh`.
 
