@@ -41,7 +41,11 @@ setup_nexus_user_and_directories() {
 download_and_setup_nexus() {
     echo "Downloading and setting up Nexus..."
     cd /opt/nexus/nexus-repository-manager
-    wget https://download.sonatype.com/nexus/3/nexus-3.65.0-02-unix.tar.gz
+    if ! [ -x "$(command -v curl)" ]; then
+        echo "curl not found, installing..."
+        apt install -y curl > /dev/null
+    fi
+    curl -sSfLJO https://download.sonatype.com/nexus/3/nexus-3.65.0-02-unix.tar.gz
     tar -xvzf nexus-3.65.0-02-unix.tar.gz > /dev/null
     sudo ln -sfn /opt/nexus/nexus-repository-manager /opt/nexus/nexus-latest
     sudo chmod -R 770 /opt/nexus
