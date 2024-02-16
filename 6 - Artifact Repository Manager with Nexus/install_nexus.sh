@@ -25,7 +25,7 @@ check_java_installation() {
         echo "Java 8 is already installed."
     else
         echo "Java 8 is not installed. Installing..."
-        sudo apt install -y openjdk-8-jdk
+        sudo apt install -y openjdk-8-jdk > /dev/null
     fi
 }
 
