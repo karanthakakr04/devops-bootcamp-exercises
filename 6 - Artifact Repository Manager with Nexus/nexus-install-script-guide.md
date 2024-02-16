@@ -1,7 +1,6 @@
 # Instructions for Use
 
 > [!IMPORTANT]
-> Please read chapter6-exercises.md Task 1 to understand how the script works.
 > Use the latest Nexus version from the [Sonatype download page](https://help.sonatype.com/en/download.html). This URL will always point to the most recent release, ensuring anyone using this script in the future installs the then-current version instead of locking to a potentially outdated link target. Always installing the newest Nexus release allows leveraging security updates and new features, facilitating improved stability, compatibility, and capability over time.
 
 1. **Save the script**: Copy the script into a file, for example, named `install_nexus.sh`.
