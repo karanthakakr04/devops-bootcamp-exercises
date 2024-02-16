@@ -14,9 +14,11 @@ exec > >(tee -a "$LOG_FILE") 2>&1
 
 # Update and upgrade the system
 update_and_upgrade_system() {
+    echo
     echo "Updating and upgrading the system..."
     sudo apt update > /dev/null
     sudo apt upgrade -y > /dev/null
+    echo
 }
 
 # Check if Java 8 is installed
@@ -27,6 +29,7 @@ check_java_installation() {
         echo "Java 8 is not installed. Installing..."
         sudo apt install -y openjdk-8-jdk > /dev/null
     fi
+    echo
 }
 
 # Create Nexus service account and directories
@@ -35,6 +38,7 @@ setup_nexus_user_and_directories() {
     sudo mkdir -p /home/nexus /opt/nexus/nexus-repository-manager
     sudo groupadd nexus || echo "Group 'nexus' already exists"
     sudo useradd -r -g nexus -d /home/nexus -s /bin/bash nexus || echo "User 'nexus' already exists"
+    echo
 }
 
 # Download and setup Nexus
@@ -50,6 +54,7 @@ download_and_setup_nexus() {
     sudo ln -sfn /opt/nexus/nexus-repository-manager /opt/nexus/nexus-latest
     sudo chmod -R 770 /opt/nexus
     sudo chown -R nexus:nexus /opt/nexus
+    echo
 }
 
 # Configure Nexus as a service
@@ -78,6 +83,7 @@ EOT
     sudo systemctl enable nexus
     sudo systemctl start nexus
     # sudo journalctl -u nexus
+    echo
 }
 
 # Check Nexus Service Status
@@ -91,6 +97,7 @@ check_nexus_service_status() {
     else
         echo "Nexus process is not running under the 'nexus' user as expected."
     fi
+    echo
 }
 
 main() {
