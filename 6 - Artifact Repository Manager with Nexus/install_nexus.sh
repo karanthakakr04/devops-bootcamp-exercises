@@ -103,6 +103,7 @@ check_nexus_service_status() {
 }
 
 main() {
+    echo
     echo "Starting Nexus Repository Manager setup..."
     update_and_upgrade_system
     check_java_installation
@@ -111,6 +112,7 @@ main() {
     configure_nexus_service
     check_nexus_service_status
     echo "Nexus Repository Manager setup completed."
+    echo
 }
 
 # Invoke the main function and pass all script arguments to it.
