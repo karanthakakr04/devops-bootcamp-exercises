@@ -83,6 +83,7 @@ EOT
     sudo systemctl daemon-reload
     sudo systemctl enable nexus
     sudo systemctl start nexus
+    # So this command essentially lets us monitor the Nexus systemd logs in real-time as the service starts up, runs, stops etc. Very useful for post-installation validation and debugging purposes.
     # sudo journalctl -u nexus
     echo
 }
