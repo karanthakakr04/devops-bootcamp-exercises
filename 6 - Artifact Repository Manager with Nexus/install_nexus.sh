@@ -16,8 +16,8 @@ exec > >(tee -a "$LOG_FILE") 2>&1
 update_and_upgrade_system() {
     echo
     echo "Updating and upgrading the system..."
-    sudo apt update > /dev/null
-    sudo apt upgrade -y > /dev/null
+    sudo apt update 1>>/dev/null 2>&1
+    sudo apt upgrade -y 1>>/dev/null 2>&1
     echo
 }
 
@@ -27,7 +27,7 @@ check_java_installation() {
         echo "Java 8 is already installed."
     else
         echo "Java 8 is not installed. Installing..."
-        sudo apt install -y openjdk-8-jdk > /dev/null
+        sudo apt install -y openjdk-8-jdk 1>>/dev/null 2>&1
     fi
     echo
 }
@@ -47,10 +47,11 @@ download_and_setup_nexus() {
     cd /opt/nexus/nexus-repository-manager
     if ! [ -x "$(command -v curl)" ]; then
         echo "curl not found, installing..."
-        apt install -y curl > /dev/null
+        apt install -y curl 1>>/dev/null 2>&1
+        echo
     fi
-    curl -sSfLJO https://download.sonatype.com/nexus/3/nexus-3.65.0-02-unix.tar.gz
-    tar -xvzf nexus-3.65.0-02-unix.tar.gz > /dev/null
+    curl -sSfLJO https://download.sonatype.com/nexus/3/nexus-3.65.0-02-unix.tar.gz 1>>/dev/null 2>&1
+    tar -xvzf nexus-3.65.0-02-unix.tar.gz 1>>/dev/null 2>&1
     sudo ln -sfn /opt/nexus/nexus-repository-manager /opt/nexus/nexus-latest
     sudo chmod -R 770 /opt/nexus
     sudo chown -R nexus:nexus /opt/nexus
