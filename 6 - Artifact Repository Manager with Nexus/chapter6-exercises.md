@@ -99,6 +99,7 @@ To create a new npm hosted repository in Nexus Repository Manager for a Node.js 
      or
 
      ```bash
+     
      cat /opt/nexus/sonatype-work/nexus3/admin.password
 
      ```
