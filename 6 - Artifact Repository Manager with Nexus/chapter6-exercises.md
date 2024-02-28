@@ -81,7 +81,7 @@
 
 ## Exercise 2
 
-To create a new npm hosted repository in Nexus Repository Manager for a Node.js application, along with a new blob store, you can follow this task list.
+To create a new `npm` hosted repository in Nexus Repository Manager for a Node.js application, along with a new blob store, you can follow this task list.
 
 - [] Task 1: Task List for Creating an `npm` Hosted Repository in Nexus
   - **Access Nexus Repository Manager:**
