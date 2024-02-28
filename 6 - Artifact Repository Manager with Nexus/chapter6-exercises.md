@@ -105,6 +105,8 @@ To create a new npm hosted repository in Nexus Repository Manager for a Node.js 
     ```
 
     - Note the password contained in this file for the next step.
+  - **Log In**
+    - Log in with the administrative credentials found in the previous step (default admin username is `admin`).
 
 ## Exercise 3
 
