@@ -173,8 +173,9 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
     - Log in with the administrative credentials found in the previous step (default admin username is `admin`).
 - [] Task 2: Create a User with Limited Administrative Permissions
   - **Navigate to User Management:**
-    - In the Nexus Repository Manager interface, click on the gear icon in the top-right corner to access the administration settings.
-    - Select "Security" from the left-hand menu, and then click on "Users" to manage user accounts.
+    - In the Nexus Repository Manager interface, click on the gear icon on the top-left side of the screen to access the administration settings.
+    - From the administration menu on the left, select "Security" to manage security-related configurations.
+    - Under the "Security" section, click on "Users" to manage user accounts.
   - **Create a New User:**
     - Click on the "Create local user" button to initiate the user creation process.
     - Fill in the required information for the new user:
