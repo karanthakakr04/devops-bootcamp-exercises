@@ -30,7 +30,11 @@
 
   - **Download Nexus Repository Manager:**
     - Create nested folder structure:
-      - `sudo mkdir -p /opt/nexus/nexus-repository-manager`
+
+      ```bash
+      sudo mkdir -p /opt/nexus/nexus-repository-manager
+      ```
+
     - Visit the [Sonatype Nexus Download Page](https://help.sonatype.com/repomanager3/product-information/download) to find the link to the latest Nexus Repository Manager.
     - Copy the Unix archive download link for the latest version.
   - **Initialize Nexus Environment:**
