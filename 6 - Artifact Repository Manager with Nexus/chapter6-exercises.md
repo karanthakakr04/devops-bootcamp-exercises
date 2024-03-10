@@ -6,9 +6,13 @@
   - **Prerequisites:**
     - Ensure you have a clean Ubuntu 22.04 LTS server with sufficient resources (CPU, memory, disk space).
     - Install Java 8, as Nexus Repository Manager recommends Java 8 for compatibility.
-      - `sudo apt update`
-      - `sudo apt upgrade -y`
-      - `sudo apt install openjdk-8-jdk`
+
+      ```bash
+      sudo apt update
+      sudo apt upgrade -y
+      sudo apt install openjdk-8-jdk
+      ```
+
     - Verify Java installation:
       - `java -version`
   - **Provision Nexus Service Account:**
