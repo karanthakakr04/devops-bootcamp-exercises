@@ -59,17 +59,33 @@
 
   - **Isolate Nexus Service Account Privileges:**
     - Update permissions for the nested folder structure:
-      - `sudo chmod -R 770 /opt/nexus`
-      - `sudo chown -R root:nexus /opt/nexus`
+
+      ```bash
+      sudo chmod -R 770 /opt/nexus
+      sudo chown -R root:nexus /opt/nexus
+      ```
+
   - **Configure Nexus as a Service:**
     - Open the `nexus.rc` file for editing:
-      - `vim /opt/nexus/nexus-latest/nexus-3.65.0-02/bin/nexus.rc`
+
+      ```bash
+      vim /opt/nexus/nexus-latest/nexus-3.65.0-02/bin/nexus.rc
+      ```
+
     - Look for the `run_as_user` setting. It should look like this:
-      - `run_as_user="nexus"`
+
+      ```bash
+      run_as_user="nexus"
+      ```
+
       - If commented out, uncomment it by removing the `#` at the beginning of the line.
       - Save the file and exit the editor.
     - Create a systemd service file for Nexus:
-      - `vim /etc/systemd/system/nexus.service`
+
+      ```bash
+      vim /etc/systemd/system/nexus.service
+      ```
+
     - Add the following content to the file:
 
       ```(systemd config)
@@ -92,15 +108,35 @@
 
       - Save and close the file.
     - Reload the systemd manager configuration to apply the changes:
-      - `sudo systemctl daemon-reload`
+
+      ```bash
+      sudo systemctl daemon-reload
+      ```
+
     - Enable the Nexus service to start on server boot:
-      - `sudo systemctl enable nexus`
+
+      ```bash
+      sudo systemctl enable nexus
+      ```
+
     - Start the Nexus repository manager service:
-      - `sudo systemctl start nexus`
+
+      ```bash
+      sudo systemctl start nexus
+      ```
+
     - Verify Nexus service status and operations:
-      - `sudo systemctl status nexus`
+
+      ```bash
+      sudo systemctl status nexus
+      ```
+
     - ***(Optional)*** View real-time Nexus logs and progress:
-      - `sudo journalctl -u nexus`
+
+      ```bash
+      sudo journalctl -u nexus
+      ```
+
   - **Access Nexus Web Interface:**
     - Nexus by default runs on port `8081`, so you need to allow access on this port using a firewall rule. Once that is done, open your web browser and navigate to `http://your-server-ip:8081`. You will need to wait for a few seconds for the page to show up.
 
