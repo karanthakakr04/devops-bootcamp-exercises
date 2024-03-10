@@ -39,7 +39,11 @@
     - Copy the Unix archive download link for the latest version.
   - **Initialize Nexus Environment:**
     - On your Ubuntu server, use `wget` or `curl` to download the Nexus tar.gz file. For example:
-      - `wget https://download.sonatype.com/nexus/3/latest-unix.tar.gz`
+
+      ```bash
+      wget https://download.sonatype.com/nexus/3/latest-unix.tar.gz
+      ```
+
       - > Before using `wget` or `curl`, make sure you are in the `/opt/nexus/nexus-repository-manager` directory.
     - Extract the downloaded archive. For example:
       - `tar -xvzf latest-unix.tar.gz > /dev/null`
