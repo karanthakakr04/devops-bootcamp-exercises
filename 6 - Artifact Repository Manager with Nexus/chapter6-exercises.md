@@ -21,9 +21,13 @@
 
   - **Provision Nexus Service Account:**
     - Create a user for Nexus:
-      - `sudo mkdir -p /home/nexus`
-      - `sudo groupadd nexus`
-      - `sudo useradd -r -g nexus -d /home/nexus -s /bin/bash nexus`
+
+      ```bash
+      sudo mkdir -p /home/nexus
+      sudo groupadd nexus
+      sudo useradd -r -g nexus -d /home/nexus -s /bin/bash nexus
+      ```
+
   - **Download Nexus Repository Manager:**
     - Create nested folder structure:
       - `sudo mkdir -p /opt/nexus/nexus-repository-manager`
