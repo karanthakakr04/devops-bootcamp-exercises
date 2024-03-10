@@ -50,7 +50,7 @@ download_and_setup_nexus() {
         apt install -y curl 1>>/dev/null 2>&1
         echo
     fi
-    curl -sSfLJO https://download.sonatype.com/nexus/3/nexus-3.65.0-02-unix.tar.gz 1>>/dev/null 2>&1
+    curl -sSfLJO https://download.sonatype.com/nexus/3/nexus-3.66.0-02-unix.tar.gz 1>>/dev/null 2>&1
     tar -xvzf nexus-3.65.0-02-unix.tar.gz 1>>/dev/null 2>&1
     sudo ln -sfn /opt/nexus/nexus-repository-manager /opt/nexus/nexus-latest
     sudo chmod -R 770 /opt/nexus
