@@ -46,7 +46,11 @@
 
       - > Before using `wget` or `curl`, make sure you are in the `/opt/nexus/nexus-repository-manager` directory.
     - Extract the downloaded archive. For example:
-      - `tar -xvzf latest-unix.tar.gz > /dev/null`
+
+      ```bash
+      tar -xvzf latest-unix.tar.gz > /dev/null
+      ```
+
     - Create a symbolic link to the Nexus directory for easier management:
       - `sudo ln -s /opt/nexus/nexus-repository-manager /opt/nexus/nexus-latest`
   - **Isolate Nexus Service Account Privileges:**
