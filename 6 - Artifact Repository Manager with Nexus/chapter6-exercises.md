@@ -15,9 +15,9 @@
 
     - Verify Java installation:
 
-    ```bash
-    java -version
-    ```
+      ```bash
+      java -version
+      ```
 
   - **Provision Nexus Service Account:**
     - Create a user for Nexus:
