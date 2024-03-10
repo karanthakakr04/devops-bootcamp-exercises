@@ -52,7 +52,11 @@
       ```
 
     - Create a symbolic link to the Nexus directory for easier management:
-      - `sudo ln -s /opt/nexus/nexus-repository-manager /opt/nexus/nexus-latest`
+
+      ```bash
+      sudo ln -s /opt/nexus/nexus-repository-manager /opt/nexus/nexus-latest
+      ```
+
   - **Isolate Nexus Service Account Privileges:**
     - Update permissions for the nested folder structure:
       - `sudo chmod -R 770 /opt/nexus`
