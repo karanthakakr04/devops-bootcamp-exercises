@@ -83,7 +83,7 @@
 
 To create a new `npm` hosted repository in Nexus Repository Manager for a Node.js application, along with a new blob store, you can follow this task list.
 
-- [] Task 1: Task List for Creating an `npm` Hosted Repository in Nexus
+- [] Task 1: Log In to Nexus Repository Manager as Administrator
   - **Access Nexus Repository Manager:**
     - Open a web browser and navigate to the Nexus Repository Manager interface. By default, this is `http://<your_nexus_host>:8081`.
   - **Find the Default Admin Password:**
@@ -107,6 +107,7 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
     - Note the password contained in this file for the next step.
   - **Log In:**
     - Log in with the administrative credentials found in the previous step (default admin username is `admin`).
+- [] Task 2: Create a User with Limited Administrative Permissions
 
 ## Exercise 3
 
