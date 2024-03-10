@@ -14,7 +14,11 @@
       ```
 
     - Verify Java installation:
-      - `java -version`
+
+    ```bash
+    java -version
+    ```
+
   - **Provision Nexus Service Account:**
     - Create a user for Nexus:
       - `sudo mkdir -p /home/nexus`
