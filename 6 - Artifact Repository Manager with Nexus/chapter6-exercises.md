@@ -69,7 +69,7 @@
     - Open the `nexus.rc` file for editing:
 
       ```bash
-      vim /opt/nexus/nexus-latest/nexus-3.65.0-02/bin/nexus.rc
+      vim /opt/nexus/nexus-latest/nexus-3.66.0-02/bin/nexus.rc
       ```
 
     - Look for the `run_as_user` setting. It should look like this:
@@ -96,8 +96,8 @@
       [Service]
       Type=forking  # Background process
       LimitNOFILE=65536  # Limit file descriptors
-      ExecStart=/opt/nexus/nexus-latest/nexus-3.65.0-02/bin/nexus start  # Start Nexus service
-      ExecStop=/opt/nexus/nexus-latest/nexus-3.65.0-02/bin/nexus stop  # Stop Nexus service
+      ExecStart=/opt/nexus/nexus-latest/nexus-3.66.0-02/bin/nexus start  # Start Nexus service
+      ExecStop=/opt/nexus/nexus-latest/nexus-3.66.0-02/bin/nexus stop  # Stop Nexus service
       User=nexus  # Run as user
       Group=nexus  # Run under group
       Restart=on-abort  # Restart on failure
