@@ -51,7 +51,7 @@ download_and_setup_nexus() {
         echo
     fi
     curl -sSfLJO https://download.sonatype.com/nexus/3/nexus-3.66.0-02-unix.tar.gz 1>>/dev/null 2>&1
-    tar -xvzf nexus-3.65.0-02-unix.tar.gz 1>>/dev/null 2>&1
+    tar -xvzf nexus-3.66.0-02-unix.tar.gz 1>>/dev/null 2>&1
     sudo ln -sfn /opt/nexus/nexus-repository-manager /opt/nexus/nexus-latest
     sudo chmod -R 770 /opt/nexus
     sudo chown -R nexus:nexus /opt/nexus
@@ -61,7 +61,7 @@ download_and_setup_nexus() {
 # Configure Nexus as a service
 configure_nexus_service() {
     echo "Configuring Nexus as a service..."
-    sudo sed -i 's|#run_as_user=""|run_as_user="nexus"|' /opt/nexus/nexus-latest/nexus-3.65.0-02/bin/nexus.rc
+    sudo sed -i 's|#run_as_user=""|run_as_user="nexus"|' /opt/nexus/nexus-latest/nexus-3.66.0-02/bin/nexus.rc
     cat <<EOT | sudo tee -a /etc/systemd/system/nexus.service >/dev/null
 [Unit]
 Description=Nexus Repository Manager
@@ -70,8 +70,8 @@ After=network.target
 [Service]
 Type=forking
 LimitNOFILE=65536
-ExecStart=/opt/nexus/nexus-latest/nexus-3.65.0-02/bin/nexus start
-ExecStop=/opt/nexus/nexus-latest/nexus-3.65.0-02/bin/nexus stop
+ExecStart=/opt/nexus/nexus-latest/nexus-3.66.0-02/bin/nexus start
+ExecStop=/opt/nexus/nexus-latest/nexus-3.66.0-02/bin/nexus stop
 User=nexus
 Group=nexus
 Restart=on-abort
