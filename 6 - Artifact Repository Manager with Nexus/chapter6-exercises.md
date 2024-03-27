@@ -221,7 +221,7 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
       - Email: Enter the user's email address.
       - Password: Enter a strong password for the user.
       - Confirm Password: Re-enter the password for confirmation.
-      - Status: Set the user's status to "Active".
+      - Status: Set the user's status to `Active`.
       - Roles: Assign appropriate roles to the user based on their responsibilities.
   - **Assign Administrative Roles:**
     - To grant the user administrative permissions without full admin access, assign the following roles:
