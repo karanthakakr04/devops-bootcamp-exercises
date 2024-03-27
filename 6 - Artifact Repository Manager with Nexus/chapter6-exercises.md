@@ -230,6 +230,33 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
     - You can assign these roles by selecting them from the available roles list or by searching for them using the search functionality.
   - **Save the User:**
     - After assigning the appropriate roles, click on the `Create local user` button to save the user account.
+    - > Login with the new user once you are done with Task 4
+- [x] Task 5: Create a New Blob Store
+  - **Access Blob Stores:**
+    - Click on the gear icon in the top-left corner of the Nexus UI to access the administration settings.
+    - From the left sidebar, select `Blob Stores` under the `Repository` section.
+  - **Create a New Blob Store:**
+    - Click on the `Create blob store` button.
+    - Enter a unique name for the blob store in the `Name` field, e.g., `npm-hosted-blob-store`.
+    - Specify the absolute path or a path relative to `data-directory/blobs` in the `Path` field, e.g., `/opt/nexus/nexus-repository-manager/sonatype-work/nexus3/blobs`.
+    - Select `File` as the `Type` of the blob store.
+    - Leave the `Soft Quota` option disabled.
+    - Click the `Save` button to create the new blob store configuration.
+- [x] Task 6: Create an npm Hosted Repository
+  - **Access Repositories:**
+    - From the left-hand menu, select `Repositories` under the `Repository` section.
+  - **Create a New Repository:**
+    - Click on the `Create repository` button.
+    - Choose `npm (hosted)` as the repository recipe.
+  - **Configure Repository Settings:**
+    - Provide a unique name for the repository in the `Name` field, e.g., `npm-hosted-repo`.
+    - Set the `Online` checkbox to ensure the repository is accessible.
+    - Choose the newly created blob store, e.g., `npm-hosted-blob-store`, from the `Blob store` dropdown menu.
+    - Enable `Strict Content Type Validation` to enforce content type restrictions.
+    - Optionally, if you want to allow overwriting existing packages, set the `Deployment Policy` to `Allow redeploy`.
+    - Configure the `Cleanup Policies` based on your requirements, such as removing associated components when repository content is deleted.
+  - **Save the Repository:**
+    - Click on the `Create repository` button to save the new npm hosted repository configuration.
 
 ## Exercise 3
 
