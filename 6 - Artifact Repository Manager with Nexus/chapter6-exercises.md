@@ -260,7 +260,7 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
 
 ## Exercise 3
 
-- [] Task 1: Create Repository View and Deploy Roles
+- [] Task 1: Create Repository View Role
   - **Access Roles:**
     - Click on the gear icon on the top-left side of the Nexus UI to access the administration settings.
     - From the left-hand menu, select `Roles` under the `Security` section.
@@ -268,15 +268,8 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
     - Click on the `Create role` button.
     - Set the "Role ID" to `npm-repo-view`.
     - Provide a meaningful `Role name` and `Description` for the role, e.g., `npm Repository View`.
-    - In the `Privileges` section, click on `Add privilege` and search for `nx-repository-view-npm--`.
-    - Select the `nx-repository-view-npm--` privilege and click on `Add selected`.
-    - Click on `Create role` to save the role configuration.
-  - **Create npm Repository Deploy Role:**
-    - Click on the `Create role` button.
-    - Set the `Role ID` to `npm-repo-deploy`.
-    - Provide a meaningful `Role name` and `Description` for the role, e.g., `npm Repository Deploy`.
-    - In the `Privileges` section, click on `Add privilege` and search for `nx-repository-deploy-npm--`.
-    - Select the `nx-repository-deploy-npm--` privilege and click on `Add selected`.
+    - In the `Privileges` section, click on `Add privilege` and search for `nx-repository-view-npm-*-*`.
+    - Select the `nx-repository-view-npm-*-*` privilege and click on `Add selected`.
     - Click on `Create role` to save the role configuration.
 - [] Task 2: Create a New User
   - **Access User Management:**
@@ -298,7 +291,6 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
     - Click on the `Modify user roles` button.
     - In the role selection dialog, search for and select the previously created roles:
       - `npm-repo-view` (to grant read access to npm repositories)
-      - `npm-repo-deploy` (to grant deployment access to npm repositories)
     - Click on the `Add selected roles` button to assign the selected roles to the user.
   - **Save the User Roles:**
     - Click on the `Save` button to apply the role changes.
