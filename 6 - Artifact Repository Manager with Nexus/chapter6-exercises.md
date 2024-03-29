@@ -167,7 +167,7 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
     - Note the password contained in this file for the next step.
   - **Log In:**
     - Log in with the administrative credentials found in the previous step (default admin username is `admin`).
-- [x] Task 2: Create Repository View Role
+- [x] Task 2: Create Manager Role
   - **Access Administration Settings:**
     - Click on the gear icon on the top-left side of the Nexus UI to access the administration settings.
   - **Navigate to Roles:**  
@@ -175,13 +175,20 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
   - **Create a New Role:**
     - Click on the `Create Role` button.
     - In the `Role Type` dropdown, select `Nexus role`.
-    - Set the `Role ID` to `nx-repository-view-all`.
-    - Set the `Role Name` to `nx-repository-view-all`.
-    - In the `Role Description` field, enter a description like `Role for viewing all repositories`.
+    - Set the `Role ID` to `nx-manager`.
+    - Set the `Role Name` to `nx-manager`.
+    - In the `Role Description` field, enter a description like `Manager Role`.
   - **Assign Privileges:**
     - Under `Applied Privileges`, click on `Modify Applied Privileges`.
     - In the privilege selection dialog, search for and select the following privilege:
-      - `nx-repository-view-*-*-*` (View all repositories)
+      - `nx-repository-admin-*-*-*` (All privileges for all repository administration)
+      - `nx-blobstores-all` (All permissions for Blobstores)
+      - `nx-capabilities-all` (All permissions for Capabilities)
+      - `nx-datastores-all` (All permissions for Datastores)
+      - `nx-ldap-all` (All permissions for Ldap)
+      - `nx-logging-all` (All permissions for Logging)
+      - `nx-metrics-all` (All permissions for Metrics)
+      - `nx-roles-all` (All permissions for Roles)
     - Click `OK` to apply the selected privilege.
   - **Save the Role:**
     - Click `Create Role` to save the new role.
@@ -203,7 +210,7 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
       - Roles: Assign appropriate roles to the user based on their responsibilities.
   - **Assign Administrative Roles:**
     - To grant the user administrative permissions without full admin access, assign the following roles:
-      - `nx-repository-view-all`: This role grants read access to all repositories, enabling the user to view and browse repository contents.
+      - `nx-manager`: This role grants admin access to all repositories, enabling the user to create, modify, and delete repositories.
     - You can assign these roles by selecting them from the available roles list or by searching for them using the search functionality.
   - **Save the User:**
     - After assigning the appropriate roles, click on the `Create local user` button to save the user account.
