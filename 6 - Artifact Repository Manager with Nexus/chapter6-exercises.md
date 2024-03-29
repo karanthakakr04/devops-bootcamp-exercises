@@ -189,25 +189,7 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
     - Click `OK` to apply the selected privilege.
   - **Save the Role:**
     - Click `Create Role` to save the new role.
-- [x] Task 3: Create Repository Admin Role
-  - **Access Administration Settings:**
-    - Click on the gear icon on the top-left side of the Nexus UI to access the administration settings.
-  - **Navigate to Roles:**  
-    - From the left-hand menu, select `Security` and then click on `Roles`.
-  - **Create a New Role:**
-    - Click on the `Create Role` button.
-    - In the `Role Type` dropdown, select `Nexus role`.
-    - Set the `Role ID` to `nx-repository-admin-all`.
-    - Set the `Role Name` to `nx-repository-admin-all`.
-    - In the `Role Description` field, enter a description like `Role for administering all repositories`.
-  - **Assign Privileges:**
-    - Under `Applied Privileges`, click on `Modify Applied Privileges`.
-    - In the privilege selection dialog, search for and select the following privilege:
-      - `nx-repository-admin-*-*-*` (Administer all repositories)
-    - Click `OK` to apply the selected privilege.
-  - **Save the Role:**
-    - Click `Create Role` to save the new role.
-- [x] Task 4: Create a User with Limited Administrative Permissions
+- [x] Task 3: Create a User with Limited Administrative Permissions
   - **Navigate to User Management:**
     - In the Nexus Repository Manager interface, click on the gear icon on the top-left side of the screen to access the administration settings.
     - From the administration menu on the left, select `Security` to manage security-related configurations.
@@ -231,7 +213,7 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
   - **Save the User:**
     - After assigning the appropriate roles, click on the `Create local user` button to save the user account.
     - > Login with the new user once you are done with Task 4
-- [] Task 5: Create a New Blob Store
+- [] Task 4: Create a New Blob Store
   - **Access Blob Stores:**
     - Click on the gear icon in the top-left corner of the Nexus UI to access the administration settings.
     - From the left sidebar, select `Blob Stores` under the `Repository` section.
@@ -242,7 +224,7 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
     - Select `File` as the `Type` of the blob store.
     - Leave the `Soft Quota` option disabled.
     - Click the `Save` button to create the new blob store configuration.
-- [] Task 6: Create an npm Hosted Repository
+- [] Task 5: Create an npm Hosted Repository
   - **Access Repositories:**
     - From the left-hand menu, select `Repositories` under the `Repository` section.
   - **Create a New Repository:**
