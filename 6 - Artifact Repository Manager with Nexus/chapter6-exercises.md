@@ -211,7 +211,7 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
     - You can assign these roles by selecting them from the available roles list or by searching for them using the search functionality.
   - **Save the User:**
     - After assigning the appropriate roles, click on the `Create local user` button to save the user account.
-    - > Login with the new user once you are done with Task 4
+    - > Login with the new user once you are done with Task 3.
 - [x] Task 4: Create a New Blob Store
   - **Access Blob Stores:**
     - Click on the gear icon in the top-left corner of the Nexus UI to access the administration settings.
