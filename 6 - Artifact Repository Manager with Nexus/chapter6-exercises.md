@@ -180,7 +180,7 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
     - In the `Role Description` field, enter a description like `Manager Role`.
   - **Assign Privileges:**
     - Under `Applied Privileges`, click on `Modify Applied Privileges`.
-    - In the privilege selection dialog, search for and select the following privilege:
+    - In the privilege selection dialog, search for and select the following privileges:
       - `nx-repository-admin-*-*-*` (All privileges for all repository administration)
       - `nx-blobstores-all` (All permissions for Blobstores)
       - `nx-capabilities-all` (All permissions for Capabilities)
