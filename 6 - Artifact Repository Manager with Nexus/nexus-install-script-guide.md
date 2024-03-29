@@ -8,7 +8,7 @@ If you are running a Linux server on Cloud. You need to copy this file to that s
 ![scp command](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/6d27808d-b455-41b3-8564-7b433ce5cbe5)
 
 ```bash
-   scp -i 'C:\Users\thakk\.ssh\id_droplet' .\install_nexus.sh root@<ip_address_of_your_server>:/home
+   scp -i 'C:\Users\<your_user>\.ssh\id_droplet' .\install_nexus.sh root@<ip_address_of_your_server>:/home
 ```
 
 1. **Save the script**: Copy the script into a file, for example, named `install_nexus.sh`.
