@@ -244,7 +244,7 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
 
 ## Exercise 3
 
-- [] Task 1: Create Repository View Role
+- [x] Task 1: Create Repository View Role
   - **Access Roles:**
     - Click on the gear icon on the top-left side of the Nexus UI to access the administration settings.
     - From the left-hand menu, select `Roles` under the `Security` section.
@@ -255,7 +255,7 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
     - In the `Privileges` section, click on `Add privilege` and search for `nx-repository-view-npm-*-*`.
     - Select the `nx-repository-view-npm-*-*` privilege and click on `Add selected`.
     - Click on `Create role` to save the role configuration.
-- [] Task 2: Create a New User
+- [x] Task 2: Create a New User
   - **Access User Management:**
     - From the left-hand menu, select `Users` under the `Security` section.
   - **Create a New User:**
@@ -267,7 +267,7 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
     - Set the user's `Status` to `Active`.
   - **Save the User:**
     - Click on the `Create local user` button to save the new user configuration.
-- [] Task 3: Assign Roles to the User
+- [x] Task 3: Assign Roles to the User
   - **Access User Roles:**
     - From the list of users, click on the newly created `project1-developer` user.
     - In the user details page, click on the `Roles` tab.
