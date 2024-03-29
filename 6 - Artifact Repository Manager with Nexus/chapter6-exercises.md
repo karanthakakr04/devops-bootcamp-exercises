@@ -155,17 +155,13 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
     - Locate the `admin.password` file within the `sonatype-work/nexus3` directory. Use the command appropriate for your installation path, for example:
 
      ```bash
-
-     cat /opt/nexus/nexus-latest/sonatype-work/nexus3/admin.password
-
+      cat /opt/nexus/nexus-latest/sonatype-work/nexus3/admin.password
      ```
 
     - If you're unsure about the file's location or if the directory structure has changed in newer versions of Nexus, you can use the find command to search for it starting from the symbolic link's target directory:
 
     ```bash
-
       sudo find /opt/nexus/nexus-latest/ -name admin.password
-
     ```
 
     - Note the password contained in this file for the next step.
