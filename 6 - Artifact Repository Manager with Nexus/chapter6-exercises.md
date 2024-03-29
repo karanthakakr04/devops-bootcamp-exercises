@@ -161,7 +161,7 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
     - If you're unsure about the file's location or if the directory structure has changed in newer versions of Nexus, you can use the find command to search for it starting from the symbolic link's target directory:
 
     ```bash
-      sudo find /opt/nexus/nexus-latest/ -name admin.password
+      sudo find /opt/nexus/nexus-latest/ -name admin.password; echo
     ```
 
     - Note the password contained in this file for the next step.
