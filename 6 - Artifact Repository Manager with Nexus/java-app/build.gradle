@@ -23,6 +23,7 @@ publishing {
         maven {
             name 'nexus'
             url "http://<ipaddress>:<port>/repository/<repository-name>/"
+            allowInsecureProtocol = true
             credentials {
                 username project.repoUser
                 password project.repoPassword
