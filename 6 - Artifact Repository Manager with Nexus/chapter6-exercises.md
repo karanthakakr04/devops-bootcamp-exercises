@@ -290,6 +290,51 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
 
 ## Exercise 5
 
+- [x] Task 1: Navigate to the Repositories section
+  - **Access Repository Management:**
+    - Click on the gear icon in the top-left corner of the Nexus UI to access the administration settings.
+    - From the left sidebar, select `Repositories` under the `Repository` section.
+
+- [x] Task 2: Create a new Maven hosted repository
+  - **Initiate Repository Creation:**
+    - Click on the `Create repository` button.
+    - Select `maven2 (hosted)` as the recipe for the new repository.
+
+- [x] Task 3: Configure the repository settings
+  - **Set Repository Name and Description:**
+    - Provide a unique name for the repository in the `Name` field, e.g., `maven-hosted-repo`.
+    - Add a description for the repository in the `Description` field (optional).
+  - **Configure Repository Storage:**
+    - Set the `Blob store` to `default` or choose a specific blob store if desired.
+    - Ensure the `Online` checkbox is selected to make the repository accessible.
+  - **Configure Content Validation:**
+    - Set the `Strict Content Type Validation` based on your requirements:
+      - Enable it to enforce strict content type validation for uploaded artifacts.
+      - Disable it if you want to allow more flexibility in the uploaded content types.
+  - **Configure Deployment Policy:**
+    - Set the `Deployment Policy` to `Allow redeploy` if you want to allow overwriting existing artifacts.
+    - Choose `Disable redeploy` to prevent overwriting artifacts.
+  - **Configure Cleanup Policies:**
+    - Select the desired cleanup policies from the available options based on your needs.
+    - If using the `Remove old snapshots` policy, specify the number of days to retain artifact versions.
+  - **Advanced Settings (Optional):**
+    - Customize the `Advanced Connection Settings` if required.
+
+- [x] Task 4: Save the repository configuration
+  - **Review and Create:**
+    - Review the configured settings for the Maven hosted repository.
+    - Click the `Create repository` button to save the repository configuration.
+
+- [x] Task 5: Verify the repository creation
+  - **Check Repository List:**
+    - Navigate to the list of repositories in the Nexus UI.
+    - Locate the newly created `maven-hosted-repo` repository.
+  - **Verify Repository Details:**
+    - Click on the repository to view its details.
+    - Verify that the repository's `Format` is set to `maven2`, and the `Type` is set to `hosted`.
+    - Ensure that the repository's `URL` and other configuration settings are correctly set.
+    - Check that the repository's `Status` is `Online`.
+
 ## Exercise 6
 
 - [x] Task 1: Navigate to the Users section
