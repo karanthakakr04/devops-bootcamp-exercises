@@ -167,6 +167,7 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
     - Note the password contained in this file for the next step.
   - **Log In:**
     - Log in with the administrative credentials found in the previous step (default admin username is `admin`).
+
 - [x] Task 2: Create Manager Role
   - **Access Administration Settings:**
     - Click on the gear icon on the top-left side of the Nexus UI to access the administration settings.
@@ -192,6 +193,7 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
     - Click `OK` to apply the selected privilege.
   - **Save the Role:**
     - Click `Create Role` to save the new role.
+
 - [x] Task 3: Create a User with Limited Administrative Permissions
   - **Navigate to User Management:**
     - In the Nexus Repository Manager interface, click on the gear icon on the top-left side of the screen to access the administration settings.
@@ -215,6 +217,7 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
   - **Save the User:**
     - After assigning the appropriate roles, click on the `Create local user` button to save the user account.
     - > Login with the new user once you are done with Task 3.
+
 - [x] Task 4: Create a New Blob Store
   - **Access Blob Stores:**
     - Click on the gear icon in the top-left corner of the Nexus UI to access the administration settings.
@@ -226,6 +229,7 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
     - Select `File` as the `Type` of the blob store.
     - Leave the `Soft Quota` option disabled.
     - Click the `Save` button to create the new blob store configuration.
+
 - [x] Task 5: Create an npm Hosted Repository
   - **Access Repositories:**
     - From the left-hand menu, select `Repositories` under the `Repository` section.
@@ -256,6 +260,7 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
     - In the `Privileges` section, click on `Add privilege` and search for `nx-repository-view-npm-*-*`.
     - Select the `nx-repository-view-npm-*-*` privilege and click on `Add selected`.
     - Click on `Create role` to save the role configuration.
+
 - [x] Task 2: Create a New User
   - **Access User Management:**
     - From the left-hand menu, select `Users` under the `Security` section.
@@ -268,6 +273,7 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
     - Set the user's `Status` to `Active`.
   - **Save the User:**
     - Click on the `Create local user` button to save the new user configuration.
+
 - [x] Task 3: Assign Roles to the User
   - **Access User Roles:**
     - From the list of users, click on the newly created `project1-developer` user.
@@ -285,6 +291,48 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
 ## Exercise 5
 
 ## Exercise 6
+
+- [x] Task 1: Navigate to the Users section
+  - **Access User Management:**
+    - Click on the gear icon in the top-left corner of the Nexus UI to access the administration settings.
+    - From the left sidebar, select `Users` under the `Security` section.
+
+- [x] Task 2: Create a new user
+  - **Create a New User:**
+    - Click on the `Create user` button.
+    - Provide the necessary details for the user:
+      - Enter a unique username in the `Username` field, e.g., `p2-t2-user`.
+      - Specify the user's first name in the `First name` field.
+      - Specify the user's last name in the `Last name` field.
+      - Enter the user's email address in the `Email` field.
+      - Set the user's password in the `Password` field.
+      - Confirm the password in the `Password confirmation` field.
+      - Set the user's status to `Active` to enable their access.
+    - Click the `Create user` button to save the user details.
+
+- [x] Task 3: Assign the user to a role
+  - **Create a New Role:**
+    - Navigate to the `Roles` section under the `Security` menu in the left sidebar.
+    - Click on the `Create role` button.
+    - Provide a name for the role in the `Role ID` field, e.g., `p2-t2-maven-repo-user`.
+    - Add a description for the role in the `Description` field (optional).
+    - In the `Privileges` section, search for and select the appropriate privileges for accessing the Maven hosted repository. For example:
+      - `nx-repository-view-maven2-*-browse` (allows browsing the repository)
+      - `nx-repository-view-maven2-*-read` (allows reading artifacts from the repository)
+    - Click the `Create role` button to save the role configuration.
+  - **Assign the Role to the User:**
+    - Go back to the `Users` section and locate the newly created user.
+    - Click on the user to open their details page.
+    - In the `Roles` section, click on the `Add` button.
+    - Search for and select the role you just created, e.g., `p2-t2-maven-repo-user`.
+    - Click the `Add role` button to assign the role to the user.
+
+- [x] Task 4: Verify the user's access
+  - **Log in as the New User:**
+    - Log out of the Nexus UI and log back in as the newly created user.
+  - **Verify Repository Access:**
+    - Navigate to the Maven hosted repository.
+    - Verify that the user can browse and access the repository based on the assigned privileges.
 
 ## Exercise 7
 
