@@ -8,6 +8,20 @@ group 'com.example'
 version '1.0-SNAPSHOT'
 sourceCompatibility = 17
 
+apply plugin: 'maven-publish'
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifact("build")
+        }
+    }
+
+    repositories {
+
+    }
+}
+
 repositories {
     mavenCentral()
     maven { url 'https://repo.spring.io/milestone' }
