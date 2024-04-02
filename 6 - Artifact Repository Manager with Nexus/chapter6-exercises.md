@@ -238,7 +238,7 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
     - Choose the newly created blob store, e.g., `npm-hosted-blob-store`, from the `Blob store` dropdown menu.
     - Enable `Strict Content Type Validation` to enforce content type restrictions.
     - Optionally, if you want to allow overwriting existing packages, set the `Deployment Policy` to `Allow redeploy`.
-    - Configure the `Cleanup Policies` based on your requirements, such as removing associated components when repository content is deleted.
+    - Optionally, configure the `Cleanup Policies` based on your requirements, such as removing associated components when repository content is deleted.
   - **Save the Repository:**
     - Click on the `Create repository` button to save the new npm hosted repository configuration.
 
