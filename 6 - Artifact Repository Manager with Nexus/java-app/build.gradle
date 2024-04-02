@@ -13,12 +13,21 @@ apply plugin: 'maven-publish'
 publishing {
     publications {
         maven(MavenPublication) {
-            artifact("build")
+            artifact("build/libs/my-app-$version"+".jar"){
+                extension 'jar'
+            }
         }
     }
 
     repositories {
-
+        maven {
+            name 'nexus'
+            url "http://<ipaddress>:<port>/repository/<repository-name>/"
+            credentials {
+                username xxx
+                password xxx
+            }
+        }
     }
 }
 
