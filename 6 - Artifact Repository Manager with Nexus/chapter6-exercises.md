@@ -381,6 +381,48 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
 
 ## Exercise 7
 
+Adding the line `apply plugin: 'maven-publish'` in the `build.gradle` file is necessary to enable the Maven Publish plugin in your Gradle project. The Maven Publish plugin is used to publish artifacts, such as JAR files, to a Maven repository.
+
+Here's why you need to add this line:
+
+1. **Enabling Maven Publish Plugin:** By applying the `maven-publish` plugin, you are enabling the functionality to publish artifacts to a Maven repository. This plugin provides the necessary tasks and configurations to generate the required metadata and publish your artifacts.
+
+2. **Publishing Artifacts:** With the Maven Publish plugin enabled, you can define the artifacts you want to publish, such as your project's JAR file. The plugin will generate the necessary Maven metadata files, including the `pom.xml` file, which describes your project's dependencies and other information required by Maven repositories.
+
+3. **Configuring Publication:** Once the plugin is applied, you can configure the publication settings in your `build.gradle` file. This includes specifying the repository URL where you want to publish your artifacts, the artifact's group ID, artifact ID, version, and any additional metadata or dependencies.
+
+4. **Running Publication Task:** With the Maven Publish plugin configured, you can use the `publish` task provided by the plugin to publish your artifacts to the specified Maven repository. This task will build your project, generate the necessary metadata, and upload the artifacts to the repository.
+
+Here's an example of how you can configure the Maven Publish plugin in your `build.gradle` file:
+
+```groovy
+apply plugin: 'maven-publish'
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.example'
+            artifactId = 'my-project'
+            version = '1.0.0'
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url 'http://localhost:8081/repository/maven-releases/'
+            credentials {
+                username 'username'
+                password 'password'
+            }
+        }
+    }
+}
+```
+
+In this example, the `maven-publish` plugin is applied, and the publication settings are configured. The `publications` block defines the artifact to be published, specifying the group ID, artifact ID, version, and the component to include (in this case, the Java component). The `repositories` block specifies the target Maven repository URL and the credentials required to authenticate and publish to the repository.
+
+By adding the `apply plugin: 'maven-publish'` line and configuring the publication settings, you enable Gradle to build and publish your project's artifacts to a Maven repository successfully.
+
 ## Exercise 8
 
 ## Exercise 9
