@@ -24,8 +24,8 @@ publishing {
             name 'nexus'
             url "http://<ipaddress>:<port>/repository/<repository-name>/"
             credentials {
-                username xxx
-                password xxx
+                username project.repoUser
+                password project.repoPassword
             }
         }
     }
