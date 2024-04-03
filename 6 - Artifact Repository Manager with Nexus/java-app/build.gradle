@@ -22,7 +22,7 @@ publishing {
     repositories {
         maven {
             name 'nexus'
-            url "http://<ipaddress>:<port>/repository/<repository-name>/"
+            url "http://64.225.27.18:8081/repository/maven-hosted-repo/"
             allowInsecureProtocol = true
             credentials {
                 username project.repoUser
