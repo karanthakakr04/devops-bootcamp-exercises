@@ -409,10 +409,9 @@ apply plugin: 'maven-publish'
 publishing {
     publications {
         maven(MavenPublication) {
-            groupId = 'com.example'
-            artifactId = 'my-project'
-            version = '1.0.0'
-            from components.java
+            artifact("build/libs/my-app-$version" + ".jar") {
+                extension 'jar'
+            }
         }
     }
     repositories {
@@ -428,7 +427,11 @@ publishing {
 }
 ```
 
-In this example, the `maven-publish` plugin is applied, and the publication settings are configured. The `publications` block defines the artifact to be published, specifying the group ID, artifact ID, version, and the component to include (in this case, the Java component). The `repositories` block specifies the target Maven repository URL and the credentials required to authenticate and publish to the repository.
+In this example, the `maven-publish` plugin is applied, and the publication settings are configured.  
+
+The `publications` block defines the artifact to be published. It specifies the path to the JAR file using the `artifact` method, which points to the JAR file located in the `build/libs` directory. The `extension` property is set to `'jar'` to indicate that the artifact is a JAR file. The `$version` variable is used to include the version number in the JAR file name.  
+
+The `repositories` block specifies the target Maven repository URL and the credentials required to authenticate and publish to the repository.
 
 ### Storing Credentials Securely
 
