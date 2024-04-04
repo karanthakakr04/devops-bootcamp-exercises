@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 # Set variables
 NEXUS_IP="104.236.3.87"
 NEXUS_REPO="maven-hosted-repo"
@@ -31,13 +33,13 @@ fetch_download_url() {
   rm artifact.json
 }
 
-# Function to download the artifact
 download_artifact() {
   echo "Downloading the latest artifact..."
-  if curl -s -H "Authorization: Bearer $BEARER_TOKEN" -L -O "$ARTIFACT_DOWNLOAD_URL"; then
+  output=$(curl -s -H "Authorization: Bearer $BEARER_TOKEN" -L -O "$ARTIFACT_DOWNLOAD_URL" 2>&1)
+  if [ $? -eq 0 ]; then
     ARTIFACT_FILENAME=$(basename "$ARTIFACT_DOWNLOAD_URL")
   else
-    echo "Failed to download the artifact. Exiting..."
+    echo "Failed to download the artifact. Output: $output"
     exit 1
   fi
 }
