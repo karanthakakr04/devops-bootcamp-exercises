@@ -345,50 +345,38 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
 
 ## Exercise 5
 
-- [x] Task 1: Navigate to the Repositories section
+- [x] Task 5: Create a Maven Hosted Repository
   - **Access Repository Management:**
     - Click on the gear icon in the top-left corner of the Nexus UI to access the administration settings.
     - From the left sidebar, select `Repositories` under the `Repository` section.
-
-- [x] Task 2: Create a new Maven hosted repository
   - **Initiate Repository Creation:**
     - Click on the `Create repository` button.
     - Select `maven2 (hosted)` as the recipe for the new repository.
-
-- [x] Task 3: Configure the repository settings
-  - **Set Repository Name and Description:**
+  - **Configure Maven Repository:**
     - Provide a unique name for the repository in the `Name` field, e.g., `maven-hosted-repo`.
-    - Add a description for the repository in the `Description` field (optional).
-  - **Configure Repository Storage:**
-    - Set the `Blob store` to `default` or choose a specific blob store if desired.
     - Ensure the `Online` checkbox is selected to make the repository accessible.
-  - **Configure Content Validation:**
+    - Select the appropriate `Version policy`:
+      - `Release` for stable release artifacts.
+      - `Snapshot` for development versions.
+      - `Mixed` if the repository will contain both types.
+    - Choose a `Layout policy`:
+      - `Strict` if only Maven 2 repository format paths should be allowed.
+      - `Permissive` to allow paths that are not compliant with Maven 2 repository format.
+    - Decide on `Content Disposition`:
+      - `Inline` to display content such as images or text in the browser.
+      - `Attachment` if content should be downloaded and not displayed inline.
+    - Set the `Blob store` to `default`.
     - Set the `Strict Content Type Validation` based on your requirements:
-      - Enable it to enforce strict content type validation for uploaded artifacts.
+      - Enable it to enforce strict content type validation for uploaded artifacts. (default)
       - Disable it if you want to allow more flexibility in the uploaded content types.
-  - **Configure Deployment Policy:**
-    - Set the `Deployment Policy` to `Allow redeploy` if you want to allow overwriting existing artifacts.
-    - Choose `Disable redeploy` to prevent overwriting artifacts.
-  - **Configure Cleanup Policies:**
-    - Select the desired cleanup policies from the available options based on your needs.
-    - If using the `Remove old snapshots` policy, specify the number of days to retain artifact versions.
-  - **Advanced Settings (Optional):**
-    - Customize the `Advanced Connection Settings` if required.
-
-- [x] Task 4: Save the repository configuration
-  - **Review and Create:**
-    - Review the configured settings for the Maven hosted repository.
-    - Click the `Create repository` button to save the repository configuration.
-
-- [x] Task 5: Verify the repository creation
-  - **Check Repository List:**
-    - Navigate to the list of repositories in the Nexus UI.
-    - Locate the newly created `maven-hosted-repo` repository.
-  - **Verify Repository Details:**
-    - Click on the repository to view its details.
-    - Verify that the repository's `Format` is set to `maven2`, and the `Type` is set to `hosted`.
-    - Ensure that the repository's `URL` and other configuration settings are correctly set.
-    - Check that the repository's `Status` is `Online`.
+    - Decide on `Deployment Policy`:
+      - `Allow redeploy` to allow overwriting existing artifacts.
+      - `Disable redeploy` to prevent overwriting artifacts.
+      - `Read-only` to block any artifact deployment.
+      - `Deploy by Replication Only` for replication-controlled deployments.
+    - Select the desired `Cleanup Policies` from the available options based on your needs.
+  - **Save Repository Configuration:**
+    - Review all settings and click `Create repository` to finalize the Maven repository setup.
 
 ## Exercise 6
 
