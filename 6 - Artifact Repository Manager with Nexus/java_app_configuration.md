@@ -18,7 +18,7 @@ Here's why you need to add this line:
 
 4. **Running Publication Task:** With the Maven Publish plugin configured, you can use the `publish` task provided by the plugin to publish your artifacts to the specified Maven repository. This task will build your project, generate the necessary metadata, and upload the artifacts to the repository.
 
-### Configuring Maven Publish Plugin
+## Configuring Maven Publish Plugin
 
 Here's an example of how you can configure the Maven Publish plugin in your `build.gradle` file:
 
@@ -52,7 +52,7 @@ The `publications` block defines the artifact to be published. It specifies the 
 
 The `repositories` block specifies the target Maven repository URL and the credentials required to authenticate and publish to the repository.
 
-### Storing Credentials Securely
+## Storing Credentials Securely
 
 It's important to note that storing sensitive information like usernames and passwords directly in the `build.gradle` file is not recommended, as it poses security risks, especially if the file is version-controlled or shared with others.
 
@@ -94,7 +94,7 @@ Remember to replace `your_username` and `your_password` in the `gradle.propertie
 
 This approach enhances security by keeping sensitive information separate from the main build configuration file and allows for easier management of credentials across different environments or users.
 
-### Allowing Insecure Protocol (HTTP)
+## Allowing Insecure Protocol (HTTP)
 
 If you are accessing the Nexus repository using HTTP instead of HTTPS, you need to add the `allowInsecureProtocol = true` configuration inside the `maven` block in your `build.gradle` file.
 
