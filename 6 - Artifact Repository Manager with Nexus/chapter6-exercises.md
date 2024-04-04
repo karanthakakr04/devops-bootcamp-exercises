@@ -412,6 +412,79 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
 
 ## Exercise 7
 
+- [x] Task 1: Configure Maven Publish Plugin in `build.gradle`
+  - **Add Maven Publish Plugin:**
+    - Open the `build.gradle` file in your project.
+    - Add the following line to apply the Maven Publish plugin:
+
+      ```groovy
+      apply plugin: 'maven-publish'
+      ```
+
+  - **Configure Publication Settings:**
+    - In the `build.gradle` file, add the following block to configure the publication settings:
+
+      ```groovy
+      publishing {
+          publications {
+              maven(MavenPublication) {
+                  artifact("build/libs/my-app-$version" + ".jar") {
+                      extension 'jar'
+                  }
+              }
+          }
+          repositories {
+              maven {
+                  url 'http://localhost:8081/repository/maven-releases/'
+                  allowInsecureProtocol = true
+                  credentials {
+                      username project.nexusUsername
+                      password project.nexusPassword
+                  }
+              }
+          }
+      }
+      ```
+
+    - Replace `my-app` with your project's name and `$version` with the version number.
+    - Update the `url` with the correct URL of your Nexus repository.
+    - Set the `nexusUsername` and `nexusPassword` variables with the appropriate credentials inside `gradle.properties` file in the root directory.
+
+      ```groovy
+      repoUser=user
+      repoPassword=pwd
+      ```
+
+- [x] Task 2: Build and Publish the JAR File
+  - **Build the JAR:**
+    - Open a terminal or command prompt.
+    - Navigate to the root directory of your project.
+    - Run the following command to build the JAR file:
+
+      ```bash
+      ./gradlew build
+      ```
+
+  - **Publish the JAR:**
+    - After the build is successful, run the following command to publish the JAR to the Nexus repository:
+
+      ```bash
+      ./gradlew publish
+      ```
+
+    - The JAR file will be published to the specified Nexus repository using the team 2 user credentials.
+
+- [x] Task 3: Verify the Published JAR
+  - **Access Nexus Repository:**
+    - Open a web browser and navigate to your Nexus repository's URL.
+    - Log in with the team 2 user credentials.
+  - **Verify the JAR:**
+    - Navigate to the repository where the JAR was published that is `maven-hosted-repo`.
+    - Verify that the JAR file is present in the repository.
+    - Check that the JAR file has the correct version and metadata.
+
+Note: Make sure you have the correct permissions and access rights configured for the team 2 user to publish artifacts to the Nexus repository.
+
 When building and publishing a JAR file to a Maven repository using Gradle, you need to add the following line in your `build.gradle` file:
 
 ```groovy
