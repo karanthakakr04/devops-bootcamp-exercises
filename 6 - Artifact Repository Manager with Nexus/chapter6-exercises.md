@@ -487,4 +487,100 @@ Note: Make sure you have the correct permissions and access rights configured fo
 
 ## Exercise 8
 
+- [x] Task 1: Create Repository Access Role
+  - **Access Roles:**
+    - Click on the gear icon on the top-left side of the Nexus UI to access the administration settings.
+    - From the left-hand menu, select `Roles` under the `Security` section.
+  - **Create a New Role:**
+    - Click on the `Create role` button.
+    - In the `Role Type` dropdown, select `Nexus role`.
+    - Set the `Role ID` to `nx-npm-mvn-repo-access`.
+    - Set the `Role name` to `nx-npm-mvn-repo-access`.
+    - Provide a meaningful `Description` for the role, e.g., `Access role for both NPM and Maven repositories`.
+    - In the `Applied Privileges` section, click on `Modify Applied Privileges` and search for the following privileges:
+      - `nx-repository-admin-npm-npm-hosted-repo-*`
+      - `nx-repository-admin-maven2-maven-hosted-repo-*`
+    - Select both privileges and click on `Confirm`.
+    - Click on `Save` to create the role configuration.
+
+- [x] Task 2: Create a New User with Repository Access
+  - **Access User Management:**
+    - From the left-hand menu, select `Users` under the `Security` section.
+  - **Create a New User:**
+    - Click on the `Create user` button.
+    - Set a meaningful `User ID` for the new user, e.g., `droplet-server-user`.
+    - Provide the `First name` and `Last name` for the user.
+    - Set the user's `Email` address.
+    - Choose a strong `Password` for the user and confirm it.
+    - Set the user's `Status` to `Active`.
+    - In the `Roles` section:
+      - Locate the `nx-npm-mvn-repo-access` role under the `Available` column.
+      - Select `nx-npm-mvn-repo-access` and click the right arrow button to move it to the `Granted` column, thereby assigning the role to the new user.
+  - **Save the User:**
+    - Click on the `Create local user` button to save the new user configuration.
+
+- [x] Task 3: Fetch Download URL for the Latest NodeJS App Artifact
+  - **SSH into the DigitalOcean Droplet:**
+    - Open a terminal or command prompt.
+    - Use SSH to connect to your DigitalOcean Droplet:
+
+      ```bash
+      ssh -i <path_to_droplet_key> user@droplet-ip
+      ```
+
+    - Replace `user` with your Droplet's username and `droplet-ip` with the IP address of your Droplet. Also, specify the SSH key path `<path_to_droplet_key>` for the droplet.
+  - **Fetch Download URL using Nexus REST API:**
+    - Execute the following command to fetch the download URL for the latest NodeJS app artifact:
+
+      ```bash
+      curl -H "Authorization: Bearer {bearer-token}" -X GET 'http://{nexus-ip}:8081/service/rest/v1/components?repository={node-repo}&sort=version'
+      ```
+
+    - Replace `Bearer {bearer-token}` with the token saved in your `.npmrc` file created in Task 4.
+    - Replace `{nexus-ip}` with the IP address of your Nexus server.
+    - Replace `{node-repo}` with the name of your NodeJS repository in Nexus.
+
+- [x] Task 4: Download the Latest NodeJS App Artifact
+  - **Download the Artifact:**
+    - Use the download URL obtained from Task 3 to download the latest NodeJS app artifact:
+
+      ```bash
+      curl -H "Authorization: Bearer {bearer-token}" -L -O {download-url}
+      ```
+
+    - Replace `Bearer {bearer-token}` with the token saved in your `.npmrc` file created in Task 4.
+    - Replace `{download-url}` with the download URL obtained from the previous task.
+    - The `-L` flag follows redirects, and the `-O` flag saves the artifact with its original filename.
+
+- [x] Task 5: Unzip and Run the NodeJS App
+  - **Unzip the Artifact:**
+    - Extract the downloaded artifact using the `tar` command:
+
+      ```bash
+      tar -xvzf {artifact-filename}
+      ```
+
+    - Replace `{artifact-filename}` with the filename of the downloaded artifact.
+  - **Run the NodeJS App:**
+    - Navigate to the extracted directory:
+
+      ```bash
+      cd {app-directory}
+      ```
+
+    - Replace `{app-directory}` with the name of the directory created after extracting the artifact.
+    - Install the app dependencies:
+
+      ```bash
+      npm install
+      ```
+
+    - Start the NodeJS app:
+
+      ```bash
+      npm start
+      ```
+
+Note: Make sure you have `Node.js` and `npm` installed on your DigitalOcean Droplet before running the NodeJS app.
+
 ## Exercise 9
