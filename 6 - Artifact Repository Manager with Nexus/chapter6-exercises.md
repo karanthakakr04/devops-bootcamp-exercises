@@ -200,7 +200,7 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
     - From the administration menu on the left, select `Security` to manage security-related configurations.
     - Under the `Security` section, click on `Users` to manage user accounts.
   - **Create a New User:**
-    - Click on the "Create local user" button to initiate the user creation process.
+    - Click on the `Create local user` button to initiate the user creation process.
     - Fill in the required information for the new user:
       - User ID: Enter a unique identifier for the user.
       - First Name: Enter the user's first name.
@@ -209,13 +209,13 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
       - Password: Enter a strong password for the user.
       - Confirm Password: Re-enter the password for confirmation.
       - Status: Set the user's status to `Active`.
-      - Roles: Assign appropriate roles to the user based on their responsibilities.
+      - Roles: Assign appropriate role to the user based on their responsibilities.
   - **Assign Administrative Roles:**
     - To grant the user administrative permissions without full admin access, assign the following roles:
-      - `nx-manager`: This role grants admin access to all repositories, enabling the user to create, modify, and delete repositories.
-    - You can assign these roles by selecting them from the available roles list or by searching for them using the search functionality.
+      - `nx-manager`
+    - You can assign this role by selecting them from the available roles list or by searching for them using the search functionality.
   - **Save the User:**
-    - After assigning the appropriate roles, click on the `Create local user` button to save the user account.
+    - After assigning the appropriate role, click on the `Create local user` button to save the user account.
     - > Login with the new user once you are done with Task 3.
 
 - [x] Task 4: Create a New Blob Store
@@ -256,35 +256,26 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
     - Click on the `Create role` button.
     - In the `Role Type` dropdown, select `Nexus role`.
     - Set the `Role ID` to `nx-npm-repo-p1`.
-    - Provide a meaningful `Role name` and `Description` for the role, e.g., `npm Repository View`.
-    - In the `Privileges` section, click on `Add privilege` and search for `nx-repository-view-npm-*-*`.
-    - Select the `nx-repository-view-npm-*-*` privilege and click on `Add selected`.
+    - Provide a meaningful `Role name` and `Description` for the role, e.g., `Project 1 npm Role`.
+    - In the `Privileges` section, click on `Add privilege` and search for `nx-repository-admin-npm-npm-hosted-repo-*`.
+    - Select the `nx-repository-admin-npm-npm-hosted-repo-*` privilege and click on `Add selected`.
     - Click on `Create role` to save the role configuration.
 
-- [x] Task 2: Create a New User
+- [x] Task 2: Create a New User with npm Repository Access
   - **Access User Management:**
     - From the left-hand menu, select `Users` under the `Security` section.
   - **Create a New User:**
     - Click on the `Create local user` button.
-    - Set a meaningful `User ID` for the new user, e.g., `project1-developer`.
-    - Provide the `First name` and `Last name` for the user (optional).
-    - Set the user's `Email` address (optional).
+    - Set a meaningful `User ID` for the new user, e.g., `project1-team`.
+    - Provide the `First name` and `Last name` for the user.
+    - Set the user's `Email` address.
     - Choose a strong `Password` for the user and confirm it.
     - Set the user's `Status` to `Active`.
+    - In the `Roles` section:
+      - Locate the `nx-npm-repo-p1` role under the `Available` list.
+      - Select `nx-npm-repo-p1` and click the right arrow button to move it to the `Granted` box, thereby assigning the role to the new user.
   - **Save the User:**
     - Click on the `Create local user` button to save the new user configuration.
-
-- [x] Task 3: Assign Roles to the User
-  - **Access User Roles:**
-    - From the list of users, click on the newly created `project1-developer` user.
-    - In the user details page, click on the `Roles` tab.
-  - **Assign Roles:**
-    - Click on the `Modify user roles` button.
-    - In the role selection dialog, search for and select the previously created roles:
-      - `nx-npm-repo-p1` (to grant read access to npm repositories)
-    - Click on the `Add selected roles` button to assign the selected roles to the user.
-  - **Save the User Roles:**
-    - Click on the `Save` button to apply the role changes.
 
 ## Exercise 4
 
