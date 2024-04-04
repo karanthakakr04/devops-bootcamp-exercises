@@ -19,7 +19,7 @@ check_dependencies() {
 
   if ! command -v jq &> /dev/null; then
     echo "jq is not installed. Installing..."
-    sudo apt-get install -y jq
+    sudo apt install -y jq
   fi
 }
 
