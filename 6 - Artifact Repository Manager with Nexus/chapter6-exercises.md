@@ -307,16 +307,25 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
 
     - This command will create a `.tgz` file in the project directory, representing the npm package.
 
-- [x] Task 3: Publish the npm package to the Nexus repository
+- [x] Task 3: Activate npm Bearer Token Realm
+  - **Access Realms Configuration:**
+    - In the Nexus Repository Manager, click the gear icon to open the Administration console.
+    - On the left sidebar, under `Security`, select `Realms`.
+  - **Enable npm Bearer Token Realm:**
+    - Locate the `npm Bearer Token Realm` in the list of available realms.
+    - Click on `npm Bearer Token Realm` to automatically transfer it to the 'Active' list.
+    - Click `Save` at the bottom to confirm the changes.
+
+- [x] Task 4: Publish the npm package to the Nexus repository
   - **Configure npm Registry and Authentication:**
-    - Run the following command to log in to the Nexus repository:
+    - Execute the command below to authenticate with the Nexus repository. This will prompt you to input your username and password:
 
       ```bash
       npm login --registry=http://{nexus-ip}:{nexus-port}/repository/{npm-repo}/ --always-auth --userconfig=./.npmrc
       ```
 
       - Replace `{nexus-ip}` with the IP address of your Nexus server, `{nexus-port}` with the port number (default is 8081), and `{npm-repo}` with the name of your npm repository.
-    - Enter the username of the user who has access to the repository when prompted.
+    - Upon successful authentication, this command will generate a .npmrc file in the current directory. This file securely stores your authentication token, enabling npm to interact with the Nexus repository without the need to re-enter credentials.
   - **Publish the Package:**
     - Run the following command to publish the npm package to the Nexus repository:
 
@@ -326,7 +335,7 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
 
       - Replace `{nexus-ip}`, `{nexus-port}`, and `{npm-repo}` with the appropriate values, and `{package-name}` with the actual name of your package file.
 
-- [x] Task 4: Verify the published package
+- [x] Task 5: Verify the published package
   - **Check Repository:**
     - Open a web browser and navigate to your Nexus repository's web interface.
     - Access the npm repository where the package was published.
