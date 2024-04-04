@@ -16,6 +16,11 @@ check_dependencies() {
     # Install the latest LTS version of Node.js
     nvm install --lts
   fi
+
+  if ! command -v jq &> /dev/null; then
+    echo "jq is not installed. Installing..."
+    sudo apt-get install -y jq
+  fi
 }
 
 # Function to fetch the download URL of the latest artifact
