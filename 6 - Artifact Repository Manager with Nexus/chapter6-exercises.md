@@ -190,9 +190,9 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
       - `nx-logging-all` (All permissions for Logging)
       - `nx-metrics-all` (All permissions for Metrics)
       - `nx-roles-all` (All permissions for Roles)
-    - Click `OK` to apply the selected privilege.
+    - Click `Confirm` to apply the selected privilege.
   - **Save the Role:**
-    - Click `Create Role` to save the new role.
+    - Click `Save` to create the new role.
 
 - [x] Task 3: Create a User with Limited Administrative Permissions
   - **Navigate to User Management:**
@@ -248,18 +248,19 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
 
 ## Exercise 3
 
-- [x] Task 1: Create Repository View Role
+- [x] Task 1: Create Repository Access Role
   - **Access Roles:**
     - Click on the gear icon on the top-left side of the Nexus UI to access the administration settings.
     - From the left-hand menu, select `Roles` under the `Security` section.
-  - **Create npm Repository View Role:**
+  - **Create npm Repository Access Role:**
     - Click on the `Create role` button.
     - In the `Role Type` dropdown, select `Nexus role`.
     - Set the `Role ID` to `nx-npm-repo-p1`.
-    - Provide a meaningful `Role name` and `Description` for the role, e.g., `Project 1 npm Role`.
-    - In the `Privileges` section, click on `Add privilege` and search for `nx-repository-admin-npm-npm-hosted-repo-*`.
-    - Select the `nx-repository-admin-npm-npm-hosted-repo-*` privilege and click on `Add selected`.
-    - Click on `Create role` to save the role configuration.
+    - Set the `Role name` to `nx-npm-repo-p1`.
+    - Provide a meaningful `Description` for the role, e.g., `Project 1 npm Role`.
+    - In the `Applied Privileges` section, click on `Modify Applied Privileges` and search for `nx-repository-admin-npm-npm-hosted-repo-*`.
+    - Select the `nx-repository-admin-npm-npm-hosted-repo-*` privilege and click on `Confirm`.
+    - Click on `Save` to create the role configuration.
 
 - [x] Task 2: Create a New User with npm Repository Access
   - **Access User Management:**
@@ -272,12 +273,66 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
     - Choose a strong `Password` for the user and confirm it.
     - Set the user's `Status` to `Active`.
     - In the `Roles` section:
-      - Locate the `nx-npm-repo-p1` role under the `Available` list.
-      - Select `nx-npm-repo-p1` and click the right arrow button to move it to the `Granted` box, thereby assigning the role to the new user.
+      - Locate the `nx-npm-repo-p1` role under the `Available` column.
+      - Select `nx-npm-repo-p1` and click the right arrow button to move it to the `Granted` column, thereby assigning the role to the new user.
   - **Save the User:**
     - Click on the `Create local user` button to save the new user configuration.
 
 ## Exercise 4
+
+- [x] Task 1: Prepare the Node.js project
+  - **Navigate to the Project Directory:**
+    - Open a terminal or command prompt.
+    - Navigate to the root directory of your Node.js project.
+  - **Verify Package Configuration:**
+    - Open the `package.json` file in a text editor.
+    - Ensure that the `name`, `version`, and other relevant fields are correctly configured.
+    - Save the changes if any modifications were made.
+
+- [x] Task 2: Build the npm package
+  - **Install Dependencies:**
+    - Run the following command to install the project dependencies:
+
+      ```bash
+      npm install
+      ```
+
+    - Wait for the installation to complete.
+  - **Create the Package:**
+    - Run the following command to create the npm package:
+
+      ```bash
+      npm pack
+      ```
+
+    - This command will create a `.tgz` file in the project directory, representing the npm package.
+
+- [x] Task 3: Publish the npm package to the Nexus repository
+  - **Configure npm Registry and Authentication:**
+    - Run the following command to log in to the Nexus repository:
+
+      ```bash
+      npm login --registry=http://{nexus-ip}:{nexus-port}/repository/{npm-repo}/ --always-auth --userconfig=./.npmrc
+      ```
+
+      - Replace `{nexus-ip}` with the IP address of your Nexus server, `{nexus-port}` with the port number (default is 8081), and `{npm-repo}` with the name of your npm repository.
+    - Enter the username of the user who has access to the repository when prompted.
+  - **Publish the Package:**
+    - Run the following command to publish the npm package to the Nexus repository:
+
+      ```bash
+      npm publish --registry=http://{nexus-ip}:{nexus-port}/repository/{npm-repo}/ {package-name}.tgz
+      ```
+
+      - Replace `{nexus-ip}`, `{nexus-port}`, and `{npm-repo}` with the appropriate values, and `{package-name}` with the actual name of your package file.
+
+- [x] Task 4: Verify the published package
+  - **Check Repository:**
+    - Open a web browser and navigate to your Nexus repository's web interface.
+    - Access the npm repository where the package was published.
+  - **Verify Package Presence:**
+    - Look for the published package in the repository.
+    - Ensure that the package name, version, and other details match your expectations.
 
 ## Exercise 5
 
