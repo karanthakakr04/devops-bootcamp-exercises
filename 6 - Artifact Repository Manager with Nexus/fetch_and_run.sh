@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Set variables
-NEXUS_IP="<nexus-ip>"
-NEXUS_REPO="<node-repo>"
-BEARER_TOKEN="<bearer-token>"
+NEXUS_IP="http://104.236.3.87/"
+NEXUS_REPO="maven-hosted-repo"
+BEARER_TOKEN="NpmToken.4e4b559c-8e24-3f44-93ce-5d9fe6b21ad7"
 
 # Function to check if Node.js and npm are installed
 check_node_npm() {
