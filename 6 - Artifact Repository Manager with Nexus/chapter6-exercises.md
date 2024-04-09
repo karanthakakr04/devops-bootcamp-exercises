@@ -584,3 +584,123 @@ Note: Make sure you have the correct permissions and access rights configured fo
 Note: Make sure you have `Node.js` and `npm` installed on your DigitalOcean Droplet before running the NodeJS app.
 
 ## Exercise 9
+
+- [ ] Task 1: Create a Script to Fetch and Run the Latest Version
+  - **Create a new script file:**
+    - Open a text editor on your local machine or the droplet server.
+    - Create a new file named `fetch_and_run.sh`.
+  - **Add the necessary variables:**
+    - Set the `NEXUS_IP` variable to the IP address of your Nexus server.
+    - Set the `NEXUS_REPO` variable to the name of your npm repository in Nexus.
+    - Set the `BEARER_TOKEN` variable to the bearer token for authentication.
+  - **Implement the `check_dependencies` function:**
+    - Check if Node.js and npm are installed. If not, install them using NVM (Node Version Manager).
+    - Install the latest LTS version of Node.js using NVM.
+    - Check if the `jq` package is installed. If not, install it using the appropriate package manager.
+  - **Implement the `fetch_download_url` function:**
+    - Use the `curl` command with the bearer token to fetch the download URL of the latest artifact from the Nexus repository.
+    - Extract the download URL from the JSON response using `jq`.
+  - **Implement the `download_artifact` function:**
+    - Use the `curl` command with the bearer token and the download URL to download the latest artifact.
+    - Handle any errors during the download process and display appropriate error messages.
+  - **Implement the `extract_artifact` function:**
+    - Extract the downloaded artifact using the `tar` command.
+    - Handle any errors during the extraction process.
+    - Set the `APP_DIRECTORY` variable to the name of the extracted directory (e.g., "package").
+  - **Implement the `run_app` function:**
+    - Change to the extracted app directory.
+    - Check if the `package.json` file exists.
+    - If `package.json` exists, run `npm install` to install the app dependencies and then run `npm start` to start the application.
+    - Handle any errors during the npm commands execution.
+  - **Add the main script section:**
+    - Call the `check_dependencies` function to ensure the necessary dependencies are installed.
+    - Call the `fetch_download_url` function to fetch the download URL of the latest artifact.
+    - Call the `download_artifact` function to download the latest artifact.
+    - Call the `extract_artifact` function to extract the downloaded artifact.
+    - Call the `run_app` function to install dependencies and start the application.
+  - **Save the script file.**
+
+  Example:
+  ```bash
+  #!/bin/bash
+  
+  # Set variables
+  NEXUS_IP="<nexus-ip>"
+  NEXUS_REPO="<node-repo>"
+  BEARER_TOKEN="<bearer-token>"
+  
+  # Function to check dependencies
+  check_dependencies() {
+    # Check if Node.js and npm are installed, if not, install them using NVM
+    # Install the latest LTS version of Node.js using NVM
+    # Check if jq package is installed, if not, install it
+  }
+  
+  # Function to fetch download URL
+  fetch_download_url() {
+    # Use curl with bearer token to fetch download URL from Nexus repository
+    # Extract download URL from JSON response using jq
+  }
+  
+  # Function to download artifact
+  download_artifact() {
+    # Use curl with bearer token and download URL to download the latest artifact
+    # Handle download errors and display error messages
+  }
+  
+  # Function to extract artifact
+  extract_artifact() {
+    # Extract downloaded artifact using tar command
+    # Handle extraction errors
+    # Set APP_DIRECTORY variable to the extracted directory name
+  }
+  
+  # Function to run the application
+  run_app() {
+    # Change to the extracted app directory
+    # Check if package.json exists
+    # If package.json exists, run npm install and npm start
+    # Handle npm command errors
+  }
+  
+  # Main script
+  check_dependencies
+  fetch_download_url
+  download_artifact
+  extract_artifact
+  run_app
+  ```
+
+- [ ] Task 2: Execute the Script on the Droplet
+  - **Copy the script to the droplet:**
+    - Use `scp` command to securely copy the `fetch_and_run.sh` script from your local machine to the droplet server.
+      ```bash
+      scp -i <path_to_droplet_key> fetch_and_run.sh <user>@<droplet-ip>:~/
+      ```
+    - Replace `<path_to_droplet_key>` with the path to your droplet's SSH key, `<user>` with the droplet's username, and `<droplet-ip>` with the IP address of your droplet.
+  - **Connect to the droplet via SSH:**
+    - Open a terminal or command prompt.
+    - Use SSH to connect to your DigitalOcean droplet:
+      ```bash
+      ssh -i <path_to_droplet_key> <user>@<droplet-ip>
+      ```
+    - Replace `<path_to_droplet_key>`, `<user>`, and `<droplet-ip>` with the appropriate values.
+  - **Make the script executable:**
+    - On the droplet server, navigate to the directory where the `fetch_and_run.sh` script is located.
+    - Run the following command to make the script executable:
+      ```bash
+      chmod +x fetch_and_run.sh
+      ```
+  - **Execute the script:**
+    - Run the following command to execute the script:
+      ```bash
+      ./fetch_and_run.sh
+      ```
+    - The script will fetch the latest version from the npm repository, download and extract the artifact, and start the application on the server.
+  - **Monitor the script execution:**
+    - Watch the terminal output for any error messages or indications of success.
+    - If the script runs successfully, the latest version of the application should be up and running on the droplet server.
+
+Note: Make sure to replace `<nexus-ip>`, `<node-repo>`, `<bearer-token>`, `<path_to_droplet_key>`, `<user>`, and `<droplet-ip>` with the actual values specific to your setup.
+
+By following these tasks, you will create a script that automates the process of fetching the latest version from the npm repository, downloading and extracting the artifact, and running the application on the droplet server. The script will handle dependencies, error handling, and the necessary steps to start the application.
