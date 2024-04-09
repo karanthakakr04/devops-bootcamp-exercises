@@ -74,10 +74,11 @@ extract_artifact() {
   if [ -z "$APP_DIRECTORY" ]; then
         echo "Extracted directory not found. Exiting..."
         exit 1
+    else
+        echo "Extracted directory: $APP_DIRECTORY"
     fi
-    echo "Extracted directory: $APP_DIRECTORY"
   else
-    echo "Artifact file not found. Skipping extraction..."
+      echo "Artifact file not found. Skipping extraction..."
   fi
 }
 
