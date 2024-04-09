@@ -585,7 +585,7 @@ Note: Make sure you have `Node.js` and `npm` installed on your DigitalOcean Drop
 
 ## Exercise 9
 
-- [ ] Task 1: Create a Script to Fetch and Run the Latest Version
+- [x] Task 1: Create a Script to Fetch and Run the Latest Version
   - **Create a new script file:**
     - Open a text editor on your local machine or the droplet server.
     - Create a new file named `fetch_and_run.sh`.
@@ -619,57 +619,6 @@ Note: Make sure you have `Node.js` and `npm` installed on your DigitalOcean Drop
     - Call the `extract_artifact` function to extract the downloaded artifact.
     - Call the `run_app` function to install dependencies and start the application.
   - **Save the script file.**
-
-  Example:
-  ```bash
-  #!/bin/bash
-  
-  # Set variables
-  NEXUS_IP="<nexus-ip>"
-  NEXUS_REPO="<node-repo>"
-  BEARER_TOKEN="<bearer-token>"
-  
-  # Function to check dependencies
-  check_dependencies() {
-    # Check if Node.js and npm are installed, if not, install them using NVM
-    # Install the latest LTS version of Node.js using NVM
-    # Check if jq package is installed, if not, install it
-  }
-  
-  # Function to fetch download URL
-  fetch_download_url() {
-    # Use curl with bearer token to fetch download URL from Nexus repository
-    # Extract download URL from JSON response using jq
-  }
-  
-  # Function to download artifact
-  download_artifact() {
-    # Use curl with bearer token and download URL to download the latest artifact
-    # Handle download errors and display error messages
-  }
-  
-  # Function to extract artifact
-  extract_artifact() {
-    # Extract downloaded artifact using tar command
-    # Handle extraction errors
-    # Set APP_DIRECTORY variable to the extracted directory name
-  }
-  
-  # Function to run the application
-  run_app() {
-    # Change to the extracted app directory
-    # Check if package.json exists
-    # If package.json exists, run npm install and npm start
-    # Handle npm command errors
-  }
-  
-  # Main script
-  check_dependencies
-  fetch_download_url
-  download_artifact
-  extract_artifact
-  run_app
-  ```
 
 - [ ] Task 2: Execute the Script on the Droplet
   - **Copy the script to the droplet:**
