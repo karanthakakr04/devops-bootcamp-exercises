@@ -670,7 +670,7 @@ Note: Make sure you have `Node.js` and `npm` installed on your DigitalOcean Drop
     - Run the following command to execute the script:
 
       ```bash
-      ./fetch_and_run.sh
+      ./fetch_and_run.sh <nexus-ip> <node-repo> <bearer-token>
       ```
 
     - The script will fetch the latest version from the npm repository, download and extract the artifact, and start the application on the server.
