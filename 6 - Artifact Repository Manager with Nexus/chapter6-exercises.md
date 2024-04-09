@@ -593,6 +593,26 @@ Note: Make sure you have `Node.js` and `npm` installed on your DigitalOcean Drop
     - Set the `NEXUS_IP` variable to the IP address of your Nexus server.
     - Set the `NEXUS_REPO` variable to the name of your npm repository in Nexus.
     - Set the `BEARER_TOKEN` variable to the bearer token for authentication.
+  - **Modify the script to accept command-line arguments:**
+    - Add the following code at the beginning of the script:
+
+      ```bash
+      #!/bin/bash
+
+      # Check if the required arguments are provided
+      if [ $# -ne 3 ]; then
+        echo "Usage: $0 <nexus-ip> <node-repo> <bearer-token>"
+        exit 1
+      fi
+
+      # Set variables from command-line arguments
+      NEXUS_IP="$1"
+      NEXUS_REPO="$2"
+      BEARER_TOKEN="$3"
+      ```
+
+    - This code checks if the script is provided with exactly three command-line arguments. If not, it displays a usage message and exits the script with a non-zero status code.
+    - The values of the command-line arguments are assigned to the respective variables `NEXUS_IP`, `NEXUS_REPO`, and `BEARER_TOKEN`.
   - **Implement the `check_dependencies` function:**
     - Check if Node.js and npm are installed. If not, install them using NVM (Node Version Manager).
     - Install the latest LTS version of Node.js using NVM.
