@@ -23,20 +23,30 @@ check_dependencies() {
     source ~/.bashrc
     # Install the latest LTS version of Node.js
     nvm install --lts
+  else
+    echo "Node.js and npm are already installed."
   fi
 
   if ! command -v jq &> /dev/null; then
     echo "jq is not installed. Installing..."
     sudo apt install -y jq
+  else
+    echo "jq is already installed."
   fi
 }
 
 # Function to fetch the download URL of the latest artifact
 fetch_download_url() {
   echo "Fetching download URL for the latest artifact..."
-  curl -s -H "Authorization: Bearer $BEARER_TOKEN" -X GET "http://$NEXUS_IP:8081/service/rest/v1/components?repository=$NEXUS_REPO&sort=version" > artifact.json
+  response=$(curl -s -H "Authorization: Bearer $BEARER_TOKEN" -X GET "http://$NEXUS_IP:8081/service/rest/v1/components?repository=$NEXUS_REPO&sort=version")
+  if [ $? -ne 0 ]; then
+    echo "Failed to fetch the download URL. Please check the Nexus IP, repository name, and bearer token."
+    exit 1
+  fi
+  echo "$response" > artifact.json
   ARTIFACT_DOWNLOAD_URL=$(jq -r '.items[].assets[].downloadUrl' artifact.json)
   rm artifact.json
+  echo "Download URL: $ARTIFACT_DOWNLOAD_URL"
 }
 
 download_artifact() {
@@ -44,6 +54,7 @@ download_artifact() {
   output=$(curl -s -H "Authorization: Bearer $BEARER_TOKEN" -L -O "$ARTIFACT_DOWNLOAD_URL" 2>&1)
   if [ $? -eq 0 ]; then
     ARTIFACT_FILENAME=$(basename "$ARTIFACT_DOWNLOAD_URL")
+    echo "Artifact downloaded: $ARTIFACT_FILENAME"
   else
     echo "Failed to download the artifact. Output: $output"
     exit 1
@@ -60,10 +71,11 @@ extract_artifact() {
     # Find the extracted directory containing the package.json file
     APP_DIRECTORY=$(find . -maxdepth 2 -type f -name "package.json" -printf "%h\n" | head -n 1)
     
-    if [ -z "$APP_DIRECTORY" ]; then
-      echo "Extracted directory not found. Exiting..."
-      exit 1
+  if [ -z "$APP_DIRECTORY" ]; then
+        echo "Extracted directory not found. Exiting..."
+        exit 1
     fi
+    echo "Extracted directory: $APP_DIRECTORY"
   else
     echo "Artifact file not found. Skipping extraction..."
   fi
@@ -72,11 +84,22 @@ extract_artifact() {
 # Function to run the NodeJS app
 run_app() {
   if [ -d "$APP_DIRECTORY" ]; then
-    echo "Running the NodeJS app..."
+    echo "Running the Node.js app..."
     cd "$APP_DIRECTORY"
     if [ -f "package.json" ]; then
-      npm install
-      npm start
+      echo "Installing dependencies..."
+      npm_install_output=$(npm install 2>&1)
+      if [ $? -ne 0 ]; then
+        echo "Failed to install dependencies. Output: $npm_install_output"
+        exit 1
+      fi
+      echo "Starting the app..."
+      npm_start_output=$(npm start 2>&1 &)
+      if [ $? -ne 0 ]; then
+        echo "Failed to start the app. Output: $npm_start_output"
+        exit 1
+      fi
+      echo "App started successfully."
     else
       echo "package.json file not found. Skipping npm commands..."
     fi
