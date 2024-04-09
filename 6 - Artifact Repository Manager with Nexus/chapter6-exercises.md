@@ -640,7 +640,7 @@ Note: Make sure you have `Node.js` and `npm` installed on your DigitalOcean Drop
     - Call the `run_app` function to install dependencies and start the application.
   - **Save the script file.**
 
-- [ ] Task 2: Execute the Script on the Droplet
+- [x] Task 2: Execute the Script on the Droplet
   - **Copy the script to the droplet:**
     - Use `scp` command to securely copy the `fetch_and_run.sh` script from your local machine to the droplet server.
       ```bash
