@@ -643,28 +643,36 @@ Note: Make sure you have `Node.js` and `npm` installed on your DigitalOcean Drop
 - [x] Task 2: Execute the Script on the Droplet
   - **Copy the script to the droplet:**
     - Use `scp` command to securely copy the `fetch_and_run.sh` script from your local machine to the droplet server.
+
       ```bash
       scp -i <path_to_droplet_key> fetch_and_run.sh <user>@<droplet-ip>:~/
       ```
+
     - Replace `<path_to_droplet_key>` with the path to your droplet's SSH key, `<user>` with the droplet's username, and `<droplet-ip>` with the IP address of your droplet.
   - **Connect to the droplet via SSH:**
     - Open a terminal or command prompt.
     - Use SSH to connect to your DigitalOcean droplet:
+
       ```bash
       ssh -i <path_to_droplet_key> <user>@<droplet-ip>
       ```
+
     - Replace `<path_to_droplet_key>`, `<user>`, and `<droplet-ip>` with the appropriate values.
   - **Make the script executable:**
     - On the droplet server, navigate to the directory where the `fetch_and_run.sh` script is located.
     - Run the following command to make the script executable:
+
       ```bash
       chmod +x fetch_and_run.sh
       ```
+
   - **Execute the script:**
     - Run the following command to execute the script:
+
       ```bash
       ./fetch_and_run.sh
       ```
+
     - The script will fetch the latest version from the npm repository, download and extract the artifact, and start the application on the server.
   - **Monitor the script execution:**
     - Watch the terminal output for any error messages or indications of success.
