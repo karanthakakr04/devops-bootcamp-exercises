@@ -56,7 +56,14 @@ extract_artifact() {
     echo "Extracting the artifact..."
     tar -xzf "$ARTIFACT_FILENAME"
     rm "$ARTIFACT_FILENAME"
-    APP_DIRECTORY="package"
+    
+    # Find the extracted directory containing the package.json file
+    APP_DIRECTORY=$(find . -maxdepth 2 -type f -name "package.json" -printf "%h\n" | head -n 1)
+    
+    if [ -z "$APP_DIRECTORY" ]; then
+      echo "Extracted directory not found. Exiting..."
+      exit 1
+    fi
   else
     echo "Artifact file not found. Skipping extraction..."
   fi
