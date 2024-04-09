@@ -2,10 +2,16 @@
 
 set -x
 
-# Set variables
-NEXUS_IP="104.236.3.87"
-NEXUS_REPO="maven-hosted-repo"
-BEARER_TOKEN="NpmToken.4e4b559c-8e24-3f44-93ce-5d9fe6b21ad7"
+# Check if the required arguments are provided
+if [ $# -ne 3 ]; then
+  echo "Usage: $0 <nexus-ip> <node-repo> <bearer-token>"
+  exit 1
+fi
+
+# Set variables from command-line arguments
+NEXUS_IP="$1"
+NEXUS_REPO="$2"
+BEARER_TOKEN="$3"
 
 # Function to check if Node.js, npm, and jq are installed
 check_dependencies() {
