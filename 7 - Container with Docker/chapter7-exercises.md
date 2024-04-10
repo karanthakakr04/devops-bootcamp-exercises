@@ -99,7 +99,7 @@
 
 - [x] Task 2: Set environment variables for the application
   - **Identify the required environment variables:**
-    - Based on the provided `DatabaseConfig` file, the required environment variables are:
+    - Based on the `DatabaseConfig` file, the required environment variables are:
       - `DB_USER`
       - `DB_PWD`
       - `DB_SERVER`
