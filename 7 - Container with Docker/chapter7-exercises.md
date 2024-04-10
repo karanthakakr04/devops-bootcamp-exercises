@@ -251,7 +251,7 @@ Remember to replace the placeholders (`your_password`, `your_database`, `your_us
   - **Start the containers:**
     - Run the following command to start the containers defined in the Docker Compose file:
 
-      ```
+      ```bash
       docker-compose up -d
       ```
 
@@ -272,7 +272,7 @@ Remember to replace the placeholders (`your_password`, `your_database`, `your_us
   - **Stop the containers:**
     - When you want to stop the containers, run the following command in the same directory as the `docker-compose.yml` file:
 
-      ```
+      ```bash
       docker-compose down
       ```
 
@@ -281,7 +281,7 @@ Remember to replace the placeholders (`your_password`, `your_database`, `your_us
   - **Remove the volumes (optional):**
     - If you want to completely remove the data persisted in the volumes, you can add the `-v` flag to the `docker-compose down` command:
 
-      ```
+      ```bash
       docker-compose down -v
       ```
 
