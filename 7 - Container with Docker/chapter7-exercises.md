@@ -77,6 +77,86 @@
 
 ## Exercise 2
 
+- [x] Task 1: Start the MySQL container
+  - **Pull the MySQL Docker image:**
+    - Open a command prompt or PowerShell.
+    - Run the following command to pull the latest MySQL Docker image:
+
+      ```bash
+      docker pull mysql:latest
+      ```
+
+    - Wait for the image to be downloaded.
+
+  - **Start the MySQL container:**
+    - Run the following command to start a new MySQL container:
+
+      ```bash
+      docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=your_password -e MYSQL_DATABASE=your_database -e MYSQL_USER=your_username -e MYSQL_PASSWORD=your_password -p 3306:3306 -d mysql:latest
+      ```
+
+      Replace `your_password`, `your_database`, and `your_username` with your desired values.
+
+- [x] Task 2: Set environment variables for the application
+  - **Identify the required environment variables:**
+    - Based on the provided `DatabaseConfig` file, the required environment variables are:
+      - `DB_USER`
+      - `DB_PWD`
+      - `DB_SERVER`
+      - `DB_NAME`
+
+  - **Set the environment variables:**
+    - Open the Command Prompt or PowerShell.
+    - Run the following commands to set the environment variables:
+
+      ```bash
+      setx DB_USER your_username
+      setx DB_PWD your_password
+      setx DB_SERVER localhost
+      setx DB_NAME your_database
+      ```
+
+      Replace `your_username`, `your_password`, and `your_database` with the same values used when starting the MySQL container.
+    - Close and reopen the Command Prompt or PowerShell for the changes to take effect.
+    - To set environment variables in Linux run the following commands:
+
+      ```bash
+      export DB_USER=your_username
+      export DB_PWD=your_password
+      export DB_SERVER=localhost
+      export DB_NAME=your_database
+      ```
+
+- [x] Task 3: Build and start the application
+  - **Build the JAR file:**
+    - Open a new Command Prompt or PowerShell and navigate to the root directory of your Java application.
+    - Run the following command to build the JAR file:
+
+      ```bash
+      gradle build
+      ```
+
+      Note: Make sure you have Maven installed and configured properly.
+
+  - **Start the application:**
+    - Once the build is successful, run the following command to start the application:
+
+      ```bash
+      java -jar target/your-application.jar
+      ```
+
+      Replace `your-application.jar` with the actual name of your JAR file.
+
+- [x] Task 4: Test the application
+  - **Access the application in a browser:**
+    - Open a web browser on your local machine.
+    - Enter the URL `http://localhost:8080`.
+    - Verify that the application is accessible and functioning correctly.
+
+  - **Make changes and verify data persistence:**
+    - Interact with the application and make some changes (e.g., edit user information).
+    - Refresh the page or navigate to different sections of the application to ensure that the changes are persisted in the MySQL database.
+
 ## Exercise 3
 
 ## Exercise 4
