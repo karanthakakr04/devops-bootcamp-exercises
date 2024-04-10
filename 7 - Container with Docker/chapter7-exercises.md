@@ -195,6 +195,100 @@ Remember to replace the placeholders (`your_password`, `your_database`, `your_us
 
 ## Exercise 4
 
+- [ ] Task 1: Create a Docker Compose file
+  - **Create a new file named `docker-compose.yml`:**
+    - Open a text editor or IDE of your choice.
+    - Create a new file and save it as `docker-compose.yml` in your project directory.
+
+  - **Define the services in the Docker Compose file:**
+    - Add the following content to the `docker-compose.yml` file:
+
+      ```yaml
+      version: '3'
+      services:
+        db:
+          image: mysql:latest
+          container_name: mysql-container
+          restart: always
+          environment:
+            MYSQL_ROOT_PASSWORD: your_root_password
+            MYSQL_DATABASE: your_database
+            MYSQL_USER: your_username
+            MYSQL_PASSWORD: your_password
+          ports:
+            - "3306:3306"
+          volumes:
+            - db_data:/var/lib/mysql
+
+        phpmyadmin:
+          image: phpmyadmin:latest
+          container_name: phpmyadmin-container
+          restart: always
+          ports:
+            - "8081:80"
+          depends_on:
+            - db
+
+      volumes:
+        db_data:
+      ```
+
+      Replace `your_root_password`, `your_database`, `your_username`, and `your_password` with your desired values.
+
+- [ ] Task 2: Configure a volume for the database
+  - **Understand the purpose of volumes:**
+    - Volumes are used to persist data outside of containers, allowing data to survive container restarts and deletions.
+    - In the Docker Compose file, a volume named `db_data` is defined and mounted to `/var/lib/mysql` in the MySQL container.
+
+  - **Ensure the volume is properly configured:**
+    - Double-check that the `volumes` section in the Docker Compose file is defined correctly, with the `db_data` volume listed.
+    - Make sure the volume is mounted to the correct path (`/var/lib/mysql`) in the MySQL container.
+
+- [ ] Task 3: Start the containers using Docker Compose
+  - **Open a command prompt or terminal:**
+    - Navigate to the directory where the `docker-compose.yml` file is located.
+
+  - **Start the containers:**
+    - Run the following command to start the containers defined in the Docker Compose file:
+
+      ```
+      docker-compose up -d
+      ```
+
+    - The `-d` flag runs the containers in detached mode, allowing them to run in the background.
+    - Docker Compose will pull the necessary images (if not already present) and start the containers.
+
+- [ ] Task 4: Test the application and phpMyAdmin
+  - **Access the application:**
+    - Open a web browser and visit `http://localhost:8080` (or the appropriate URL) to access your application.
+    - Verify that the application is running correctly and interacting with the MySQL database.
+
+  - **Access phpMyAdmin:**
+    - Open a web browser and visit `http://localhost:8081` to access phpMyAdmin.
+    - Log in using the MySQL credentials specified in the Docker Compose file.
+    - Verify that you can see and manage your MySQL database through the phpMyAdmin interface.
+
+- [ ] Task 5: Stop and remove the containers (when needed)
+  - **Stop the containers:**
+    - When you want to stop the containers, run the following command in the same directory as the `docker-compose.yml` file:
+
+      ```
+      docker-compose down
+      ```
+
+    - This command will stop and remove the containers defined in the Docker Compose file.
+
+  - **Remove the volumes (optional):**
+    - If you want to completely remove the data persisted in the volumes, you can add the `-v` flag to the `docker-compose down` command:
+
+      ```
+      docker-compose down -v
+      ```
+
+    - This will remove the containers and delete the associated volumes.
+
+Remember to replace the placeholders (`your_root_password`, `your_database`, `your_username`, `your_password`) with your actual values.
+
 ## Exercise 5
 
 ## Exercise 6
