@@ -2,56 +2,78 @@
 
 ## Exercise 1
 
-- [] Task 1: Clone the provided Git repository
-  - Open a terminal or command prompt
-  - Navigate to the directory where you want to clone the repository
-  - Run the following command:
+- [x] Task 1: Clone the Git repository
+  - **Clone the repository:**
+    - Open a terminal or command prompt.
+    - Run the following command to clone the repository:
 
-     ```bash
-     git clone https://gitlab.com/twn-devops-bootcamp/latest/07-docker/docker-exercises.git
-     ```
+      ```bash
+      git clone https://gitlab.com/twn-devops-bootcamp/latest/07-docker/docker-exercises.git
+      ```
 
-- [] Task 2: Create a new repository on your GitLab account
-  - Log in to your GitLab account
-  - Click on "New project" or "New repository"
-  - Choose "Create blank project"
-  - Provide a name and description for your repository
-  - Set the visibility level (e.g., private or public)
-  - Click on "Create project"
+    - Wait for the cloning process to complete.
 
-- [] Task 3: Change the remote origin URL to your new repository
-  - Navigate to the cloned repository directory
-  - Run the following command to remove the existing remote origin:
+  - **Navigate to the cloned directory:**
+    - Change your current directory to the cloned repository:
 
-     ```bash
-     git remote remove origin
-     ```
+      ```bash
+      cd docker-exercises
+      ```
 
-  - Run the following command to add your new repository as the remote origin:
+- [x] Task 2: Create your own Git repository
+  - **Create a new repository:**
+    - Go to your preferred Git hosting platform (e.g., GitLab, GitHub).
+    - Create a new empty repository for your Docker exercises.
+    - Copy the repository URL for later use.
 
-     ```bash
-     git remote add origin https://gitlab.com/<your-username>/<your-repo-name>.git
-     ```
+  - **Update the remote URL:**
+    - In the terminal, run the following command to remove the existing remote:
 
-- [] Task 4: Push the cloned code to your new repository
-  - Run the following command to push the code to your new repository:
+      ```bash
+      git remote remove origin
+      ```
 
-     ```bash
-     git push -u origin master
-     ```
+    - Add your newly created repository as the new remote:
 
-- [] Task 5: Review the code changes and identify the usage of environment variables for database credentials
-  - Open the cloned project in your preferred code editor
-  - Look for files related to database configuration or connection
-  - Identify where environment variables are being used to store database credentials
+      ```bash
+      git remote add origin <your-repository-url>
+      ```
 
-- [] Task 6: Understand the importance of using environment variables
-  - Realize that hardcoding sensitive information like passwords in the codebase is a security risk
-    - Understand that if the codebase is compromised, the hardcoded passwords can be easily exposed
-    - Recognize that environment variables provide a way to separate sensitive information from the codebase
-  - Acknowledge that using environment variables allows for dynamic configuration based on the deployment environment
-    - Understand that different environments (e.g., development, staging, production) may have different database credentials
-    - Realize that environment variables enable easy configuration changes without modifying the codebase
+      Replace `<your-repository-url>` with the URL of your repository.
+
+- [x] Task 3: Push the code to your repository
+  - **Commit the code:**
+    - Run the following command to stage all the changes:
+
+      ```bash
+      git add .
+      ```
+
+    - Commit the changes with a meaningful message:
+
+      ```bash
+      git commit -m "Initial commit of Docker exercises"
+      ```
+
+  - **Push the code:**
+    - Push the code to your repository:
+
+      ```bash
+      git push -u origin main
+      ```
+
+      Note: If your default branch is named differently (e.g., `master`), use that instead of `main`.
+
+- [x] Task 4: Review the application code
+  - **Inspect the code changes:**
+    - Open the cloned repository in your preferred IDE or text editor.
+    - Navigate through the files and directories to understand the structure of the application.
+    - Pay attention to the Java application code and how it uses environment variables for the database connection.
+
+  - **Understand the importance of environment variables:**
+    - Note that using environment variables for sensitive information like database credentials is crucial.
+    - It prevents exposing sensitive data by hardcoding it into the application code.
+    - Environment variables allow for dynamic configuration based on the deployment environment.
 
 ## Exercise 2
 
