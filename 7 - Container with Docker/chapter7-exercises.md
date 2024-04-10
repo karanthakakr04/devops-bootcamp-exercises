@@ -225,7 +225,7 @@ Remember to replace the placeholders (`your_password`, `your_database`, `your_us
           container_name: phpmyadmin-container
           restart: always
           ports:
-            - "8081:80"
+            - "8082:80"  # Updated port mapping
           depends_on:
             - db
 
@@ -264,7 +264,7 @@ Remember to replace the placeholders (`your_password`, `your_database`, `your_us
     - Verify that the application is running correctly and interacting with the MySQL database.
 
   - **Access phpMyAdmin:**
-    - Open a web browser and visit `http://localhost:8081` to access phpMyAdmin.
+    - Open a web browser and visit `http://localhost:8082` to access phpMyAdmin.
     - Log in using the MySQL credentials specified in the Docker Compose file.
     - Verify that you can see and manage your MySQL database through the phpMyAdmin interface.
 
@@ -286,8 +286,6 @@ Remember to replace the placeholders (`your_password`, `your_database`, `your_us
       ```
 
     - This will remove the containers and delete the associated volumes.
-
-Remember to replace the placeholders (`your_root_password`, `your_database`, `your_username`, `your_password`) with your actual values.
 
 ## Exercise 5
 
