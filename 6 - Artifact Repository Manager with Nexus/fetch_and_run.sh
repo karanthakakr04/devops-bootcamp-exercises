@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -x
+set -e
 
 # Check if the required arguments are provided
 if [ $# -ne 3 ]; then
