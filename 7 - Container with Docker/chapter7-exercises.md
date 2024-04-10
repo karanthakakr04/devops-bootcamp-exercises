@@ -166,13 +166,13 @@
     - Run the following command to start a new phpMyAdmin container:
 
       ```bash
-      docker run --name phpmyadmin-container -d --link mysql-container:db -p 8081:80 phpmyadmin:latest
+      docker run --name phpmyadmin-container -d --link mysql-container:db -p 8082:80 phpmyadmin:latest
       ```
 
 - [ ] Task 2: Access phpMyAdmin from a browser
   - **Open phpMyAdmin in a browser:**
     - Open a web browser on your local machine.
-    - Enter the URL `http://localhost:8081` to access phpMyAdmin.
+    - Enter the URL `http://localhost:8082` to access phpMyAdmin.
 
   - **Log in to your MySQL database:**
     - On the phpMyAdmin login page, enter the following details:
