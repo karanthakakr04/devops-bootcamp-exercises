@@ -104,10 +104,10 @@ run_app() {
         exit 1
       fi
       echo "Starting the app..."
-      npm_start_output=$(npm start 2>&1 &)
+      npm start 2>&1 > npm_start.log &
       sleep 15
-      if [ $? -ne 0 ]; then
-        echo "Failed to start the app. Output: $npm_start_output"
+      if ! pgrep -f "npm start" > /dev/null; then
+        echo "Failed to start the app. See npm_start.log for details."
         exit 1
       fi
       echo "App started successfully."
