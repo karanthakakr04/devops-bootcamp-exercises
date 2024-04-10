@@ -118,14 +118,6 @@
 
       Replace `your_username`, `your_password`, and `your_database` with the same values used when starting the MySQL container.
     - Close and reopen the Command Prompt or PowerShell for the changes to take effect.
-    - To set environment variables in Linux run the following commands:
-
-      ```bash
-      export DB_USER=your_username
-      export DB_PWD=your_password
-      export DB_SERVER=localhost
-      export DB_NAME=your_database
-      ```
 
 - [x] Task 3: Build and start the application
   - **Build the JAR file:**
