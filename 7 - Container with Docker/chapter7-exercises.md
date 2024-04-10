@@ -155,14 +155,17 @@
   - **Pull the phpMyAdmin Docker image:**
     - Open a command prompt or PowerShell.
     - Run the following command to pull the latest phpMyAdmin Docker image:
-      ```
+
+      ```bash
       docker pull phpmyadmin:latest
       ```
+
     - Wait for the image to be downloaded.
 
   - **Start the phpMyAdmin container:**
     - Run the following command to start a new phpMyAdmin container:
-      ```
+
+      ```bash
       docker run --name phpmyadmin-container -d --link mysql-container:db -p 8081:80 phpmyadmin:latest
       ```
 
