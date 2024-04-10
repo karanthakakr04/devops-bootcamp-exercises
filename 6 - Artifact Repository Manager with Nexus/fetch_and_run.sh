@@ -46,15 +46,23 @@ check_dependencies() {
 # Function to fetch the download URL of the latest artifact
 fetch_download_url() {
   echo "Fetching download URL for the latest artifact..."
-  response=$(curl -s -H "Authorization: Bearer $BEARER_TOKEN" -X GET "http://$NEXUS_IP:8081/service/rest/v1/components?repository=$NEXUS_REPO&sort=version")
-  if [ $? -ne 0 ]; then
-    echo "Failed to fetch the download URL. Please check the Nexus IP, repository name, and bearer token."
-    exit 1
-  fi
-  echo "$response" > artifact.json
-  ARTIFACT_DOWNLOAD_URL=$(jq -r '.items[].assets[].downloadUrl' artifact.json)
-  rm artifact.json
-  echo "Download URL: $ARTIFACT_DOWNLOAD_URL"
+  retry_count=3
+  while [ $retry_count -gt 0 ]; do
+    response=$(curl -s -H "Authorization: Bearer $BEARER_TOKEN" -X GET "http://$NEXUS_IP:8081/service/rest/v1/components?repository=$NEXUS_REPO&sort=version")
+    if [ $? -eq 0 ]; then
+      echo "$response" > artifact.json
+      ARTIFACT_DOWNLOAD_URL=$(jq -r '.items[].assets[].downloadUrl' artifact.json)
+      rm artifact.json
+      echo "Download URL: $ARTIFACT_DOWNLOAD_URL"
+      return
+    else
+      retry_count=$((retry_count - 1))
+      echo "Failed to fetch the download URL. Retrying in 5 seconds... (Attempts left: $retry_count)"
+      sleep 60
+    fi
+  done
+  echo "Failed to fetch the download URL after multiple attempts. Please check the Nexus service."
+  exit 1
 }
 
 # Function to download the artifact
