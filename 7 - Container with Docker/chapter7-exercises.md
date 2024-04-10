@@ -128,7 +128,7 @@
       gradle build
       ```
 
-      Note: Make sure you have Maven installed and configured properly.
+      Note: Make sure you have Gradle installed and configured properly.
 
   - **Start the application:**
     - Once the build is successful, run the following command to start the application:
