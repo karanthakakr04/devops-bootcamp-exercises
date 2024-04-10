@@ -2,6 +2,14 @@
 
 set -e
 
+# Description:
+# This script automates the fetching and running of a Node.js application from Nexus.
+# It checks dependencies, fetches the download URL, downloads the artifact, extracts it,
+# and runs the application.
+
+# Usage:
+# ./fetch_and_run.sh <nexus-ip> <node-repo> <bearer-token>
+
 # Check if the required arguments are provided
 if [ $# -ne 3 ]; then
   echo "Usage: $0 <nexus-ip> <node-repo> <bearer-token>"
@@ -49,6 +57,7 @@ fetch_download_url() {
   echo "Download URL: $ARTIFACT_DOWNLOAD_URL"
 }
 
+# Function to download the artifact
 download_artifact() {
   echo "Downloading the latest artifact..."
   output=$(curl -s -H "Authorization: Bearer $BEARER_TOKEN" -L -O "$ARTIFACT_DOWNLOAD_URL" 2>&1)
