@@ -151,7 +151,7 @@
 
 ## Exercise 3
 
-- [ ] Task 1: Start the phpMyAdmin container
+- [x] Task 1: Start the phpMyAdmin container
   - **Pull the phpMyAdmin Docker image:**
     - Open a command prompt or PowerShell.
     - Run the following command to pull the latest phpMyAdmin Docker image:
@@ -169,7 +169,7 @@
       docker run --name phpmyadmin-container -d --link mysql-container:db -p 8082:80 phpmyadmin:latest
       ```
 
-- [ ] Task 2: Access phpMyAdmin from a browser
+- [x] Task 2: Access phpMyAdmin from a browser
   - **Open phpMyAdmin in a browser:**
     - Open a web browser on your local machine.
     - Enter the URL `http://localhost:8082` to access phpMyAdmin.
@@ -182,7 +182,7 @@
       Replace `your_username` and `your_password` with the same values used when starting the MySQL container.
     - Click on the "Go" button to log in.
 
-- [ ] Task 3: Verify database access and data
+- [x] Task 3: Verify database access and data
   - **Explore the database:**
     - Once logged in, you should see your MySQL database listed on the left sidebar.
     - Click on your database name to expand it and view the tables.
