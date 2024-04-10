@@ -105,6 +105,7 @@ run_app() {
       fi
       echo "Starting the app..."
       npm_start_output=$(npm start 2>&1 &)
+      sleep 15
       if [ $? -ne 0 ]; then
         echo "Failed to start the app. Output: $npm_start_output"
         exit 1
