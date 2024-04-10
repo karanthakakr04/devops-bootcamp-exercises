@@ -92,7 +92,7 @@
     - Run the following command to start a new MySQL container:
 
       ```bash
-      docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=your_password -e MYSQL_DATABASE=your_database -e MYSQL_USER=your_username -e MYSQL_PASSWORD=your_password -p 3306:3306 -d mysql:latest
+      docker run --name mysql-container --env MYSQL_ROOT_PASSWORD=your_password --env MYSQL_DATABASE=your_database --env MYSQL_USER=your_username --env MYSQL_PASSWORD=your_password -p 3306:3306 -d mysql:latest
       ```
 
       Replace `your_password`, `your_database`, and `your_username` with your desired values.
