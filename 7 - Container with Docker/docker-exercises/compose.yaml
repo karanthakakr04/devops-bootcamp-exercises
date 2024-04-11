@@ -22,17 +22,17 @@ services:
       PMA_HOST: mysql-container
 
   app:
-        image: java-app
-        restart: always
-        ports:
-          - "8080:8080"
-        depends_on:
-          - mysql-container
-        env_file:
-          - app_credentials.env
-        environment:
-          DB_SERVER: mysql-container
-          DB_PORT: 3306
+    image: java-app
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql-container
+    env_file:
+      - app_credentials.env
+    environment:
+      DB_SERVER: mysql-container
+      DB_PORT: 3306
 
 volumes:
     db_data:
