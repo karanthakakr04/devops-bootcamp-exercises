@@ -329,8 +329,7 @@ Volumes are useful in several scenarios:
     WORKDIR /app
 
     # Copy the application JAR file and properties file to the container
-    COPY ./build/libs/docker-exercises-project-1.0-SNAPSHOT.jar app.jar
-    COPY application.properties ./
+    COPY build/libs/your-application.jar app.jar
 
     # Specify the command to run when the container starts
     CMD ["java", "-jar", "app.jar"]
@@ -339,8 +338,7 @@ Volumes are useful in several scenarios:
   - Explanation of each command in the Dockerfile:
     - `FROM openjdk:21-alpine3.19-jdk`: Specifies the base image for the container, which is the official OpenJDK image with version 21 and Alpine 3.19 as the underlying OS.
     - `WORKDIR /app`: Sets the working directory inside the container to `/app`. Subsequent commands will be executed in this directory.
-    - `COPY ./build/libs/docker-exercises-project-1.0-SNAPSHOT.jar app.jar`: Copies the application JAR file from the host machine to the container, renaming it to `app.jar`.
-    - `COPY application.properties ./`: Copies the `application.properties` file from the host machine to the container's current directory.
+    - `COPY build/libs/your-application.jar app.jar`: Copies the application JAR file from the host machine to the container, renaming it to `app.jar`.
     - `CMD ["java", "-jar", "app.jar"]`: Specifies the command to run when the container starts, which is executing the Java application using the `java -jar app.jar` command.
 
 - [ ] Task 2: Update the Docker Compose file (`compose.yaml`)
