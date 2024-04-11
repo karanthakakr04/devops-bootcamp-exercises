@@ -255,7 +255,7 @@ Volumes are useful in several scenarios:
   - **Define the environment variables:**
     - Add the following lines to the `db_credentials.env` file:
 
-      ```
+      ```bash
       MYSQL_ROOT_PASSWORD=your_root_password
       MYSQL_DATABASE=your_database
       MYSQL_USER=your_username
@@ -275,7 +275,7 @@ Volumes are useful in several scenarios:
   - **Start the containers:**
     - Run the following command to start the containers defined in the Docker Compose file:
 
-      ```
+      ```bash
       docker compose up -d
       ```
 
@@ -296,7 +296,7 @@ Volumes are useful in several scenarios:
   - **Stop the containers:**
     - When you want to stop the containers, run the following command in the same directory as the `compose.yaml` file:
 
-      ```
+      ```bash
       docker compose down
       ```
 
@@ -305,7 +305,7 @@ Volumes are useful in several scenarios:
   - **Remove the volumes (optional):**
     - If you want to completely remove the data persisted in the volumes, you can add the `-v` flag to the `docker compose down` command:
 
-      ```
+      ```bash
       docker compose down -v
       ```
 
