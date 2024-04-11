@@ -319,128 +319,112 @@ Volumes are useful in several scenarios:
 
 - [ ] Task 1: Create a Dockerfile for your Java application
   - Create a new file named `Dockerfile` in the root directory of your Java application.
-  - **Choose a base image:**
-    - Use the `21-alpine3.19-jdk` base image for your Java application, which provides OpenJDK 21, the latest LTS release.
+  - Add the following content to the `Dockerfile`:
 
-  - **Copy the application files:**
-    - Use the `COPY` instruction in the Dockerfile to copy your Java application's JAR file and any necessary configuration files into the Docker image.
-    - Update the JAR file path to `./build/libs/docker-exercises-project-1.0-SNAPSHOT.jar`.
-    - Example:
+    ```Dockerfile
+    # Use the official OpenJDK image as the base image
+    FROM openjdk:21-alpine3.19-jdk
 
-      ```Dockerfile
-      COPY ./build/libs/docker-exercises-project-1.0-SNAPSHOT.jar app.jar
-      COPY application.properties ./
-      ```
+    # Set the working directory inside the container
+    WORKDIR /app
 
-  - **Set the working directory:**
-    - Use the `WORKDIR` instruction to set the working directory inside the container where your application will run.
-    - Example:
+    # Copy the application JAR file and properties file to the container
+    COPY ./build/libs/docker-exercises-project-1.0-SNAPSHOT.jar app.jar
+    COPY application.properties ./
 
-      ```Dockerfile
-      WORKDIR /app
-      ```
+    # Specify the command to run when the container starts
+    CMD ["java", "-jar", "app.jar"]
+    ```
 
-  - **Specify the command to run your application:**
-    - Use the `CMD` instruction to specify the command that should be executed when the container starts.
-    - Example:
+  - Explanation of each command in the Dockerfile:
+    - `FROM openjdk:21-alpine3.19-jdk`: Specifies the base image for the container, which is the official OpenJDK image with version 21 and Alpine 3.19 as the underlying OS.
+    - `WORKDIR /app`: Sets the working directory inside the container to `/app`. Subsequent commands will be executed in this directory.
+    - `COPY ./build/libs/docker-exercises-project-1.0-SNAPSHOT.jar app.jar`: Copies the application JAR file from the host machine to the container, renaming it to `app.jar`.
+    - `COPY application.properties ./`: Copies the `application.properties` file from the host machine to the container's current directory.
+    - `CMD ["java", "-jar", "app.jar"]`: Specifies the command to run when the container starts, which is executing the Java application using the `java -jar app.jar` command.
 
-      ```Dockerfile
-      CMD ["java", "-jar", "app.jar"]
-      ```
+- [ ] Task 2: Update the Docker Compose file (`compose.yaml`)
+  - Open the existing `compose.yaml` file.
+  - Add the following service configuration for your Java application:
 
-  - **Build the Docker image:**
-    - Open a terminal or command prompt and navigate to the directory containing your Dockerfile.
-    - Run the following command to build the Docker image:
+    ```yaml
+    app:
+      image: my-java-app
+      restart: always
+      ports:
+        - "8080:8080"
+      depends_on:
+        - mysql-container
+      env_file:
+        - .env
+      environment:
+        DB_SERVER: mysql-container
+        DB_PORT: 3306
+    ```
 
-      ```bash
-      docker build -t your-java-app .
-      ```
+  - Update the `phpmyadmin-container` service configuration to include the `app` service in the `depends_on` section:
 
-    - Replace `your-java-app` with a suitable name for your Java application's Docker image.
+    ```yaml
+    phpmyadmin-container:
+      image: phpmyadmin:latest
+      restart: always
+      ports:
+        - "8082:80"
+      depends_on:
+        - mysql-container
+        - app
+      environment:
+        PMA_HOST: mysql-container
+    ```
 
-- [ ] Task 2: Update the Docker Compose file
-  - **Add your Java application as a new service:**
-    - Open the existing `compose.yaml` file.
-    - Add the following service configuration for your Java application:
+- [ ] Task 3: Create an environment file (`.env`) for the application
+  - Create a new file named `.env` in the same directory as the `compose.yaml` file.
+  - Add the following lines to the `.env` file:
 
-      ```yaml
-      app:
-        image: your-java-app
-        restart: always
-        ports:
-          - "8080:8080"
-        depends_on:
-          - mysql-container
-        env_file:
-          - app_credentials.env
-        environment:
-          DB_SERVER: mysql-container
-          DB_PORT: 3306
-      ```
+    ```bash
+    DB_NAME=your_database_name
+    DB_USER=your_username
+    DB_PWD=your_password
+    ```
 
-    - Replace `your-java-app` with the actual name of your Java application's Docker image.
+  - Replace `your_database_name`, `your_username`, and `your_password` with your actual database name, username, and password.
 
-  - **Create an environment file for the Java application:**
-    - In the same directory as the `compose.yaml` file, create a new file named `app_credentials.env`.
-    - Open the `app_credentials.env` file in a text editor.
-    - Add the following lines to the file:
+- [ ] Task 4: Build the Docker image for your Java application
+  - Open a terminal or command prompt and navigate to the directory containing your `Dockerfile`.
+  - Run the following command to build the Docker image:
 
-      ```env
-      DB_NAME=your_database
-      DB_USER=your_username
-      DB_PWD=your_password
-      ```
+    ```bash
+    docker build -t java-app .
+    ```
 
-    - Replace `your_database`, `your_username`, and `your_password` with your actual database name, username, and password.
+  - This command builds the Docker image using the instructions specified in the `Dockerfile`. The `-t` flag tags the image with the name `my-java-app`, and the `.` specifies the build context as the current directory.
 
-  - **Secure the `app_credentials.env` file:**
-    - Add the `app_credentials.env` file to your `.gitignore` file to prevent it from being committed to version control.
-    - Restrict access permissions to the `app_credentials.env` file to protect sensitive information.
+- [ ] Task 5: Start the application stack using Docker Compose
+  - Open a terminal or command prompt and navigate to the directory containing your updated `compose.yaml` file.
+  - Run the following command to start all the containers defined in the Docker Compose file:
 
-  - **Update the `depends_on` section for phpMyAdmin:**
-    - In the `phpmyadmin-container` service, add `app` to the `depends_on` section to ensure that your Java application starts before phpMyAdmin.
-    - Update the `phpmyadmin-container` service configuration as follows:
+    ```bash
+    docker compose up -d
+    ```
 
-      ```yaml
-      phpmyadmin-container:
-        image: phpmyadmin:latest
-        restart: always
-        ports:
-          - "8082:80"
-        depends_on:
-          - mysql-container
-          - app
-        environment:
-          PMA_HOST: mysql-container
-      ```
+  - This command starts the containers in detached mode (`-d`), which means they run in the background.
 
-- [ ] Task 3: Start the application stack using Docker Compose
-  - **Start the containers:**
-    - Open a terminal or command prompt and navigate to the directory containing your updated `compose.yaml` file.
-    - Run the following command to start all the containers defined in the Docker Compose file:
+- [ ] Task 6: Verify the containers are running
+  - Run the following command to check the status of the containers:
 
-      ```bash
-      docker compose up -d
-      ```
+    ```bash
+    docker compose ps
+    ```
 
-  - **Verify the containers are running:**
-    - Run the following command to check the status of the containers:
+  - This command lists all the containers defined in the Docker Compose file and shows their current status.
+  - Ensure that all the containers (Java app, MySQL, and phpMyAdmin) are listed and have the status "Up".
 
-      ```bash
-      docker compose ps
-      ```
-
-    - Ensure that all the containers (Java app, MySQL, and phpMyAdmin) are listed and have the status "Up".
-
-- [ ] Task 4: Test the deployed application
-  - **Access your Java application:**
-    - Open a web browser and visit `http://localhost:8080` (assuming your application runs on port 8080).
-    - Verify that your Java application is accessible and functioning correctly.
-
-  - **Access phpMyAdmin:**
-    - Open a web browser and visit `http://localhost:8082` (assuming you haven't changed the port for phpMyAdmin).
-    - Log in to phpMyAdmin using the MySQL credentials specified in the `db_credentials.env` file.
-    - Verify that you can access and manage your application's database through the phpMyAdmin interface.
+- [ ] Task 7: Test the deployed application
+  - Access your Java application by opening a web browser and visiting `http://localhost:8080`.
+  - Verify that your Java application is accessible and functioning correctly.
+  - Access phpMyAdmin by opening a web browser and visiting `http://localhost:8082`.
+  - Log in to phpMyAdmin using the MySQL credentials specified in the `db_credentials.env` file.
+  - Verify that you can access and manage your application's database through the phpMyAdmin interface.
 
 ## Exercise 6
 
