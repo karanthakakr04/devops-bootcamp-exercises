@@ -324,9 +324,9 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
       npm login --registry=http://{nexus-ip}:{nexus-port}/repository/{npm-repo}/ --always-auth --userconfig=./.npmrc
       ```
 
-      - Replace `{nexus-ip}` with the IP address of your Nexus server, `{nexus-port}` with the port number (default is 8081), and `{npm-repo}` with the name of your npm repository.
-      - Upon successful authentication, this command will generate a `.npmrc` file in the current directory. This file securely stores your authentication token, enabling npm to interact with the Nexus repository without the need to re-enter credentials.
-      - Additional reference [here](https://medium.com/@mehdighorbanin/step-by-step-guide-publishing-private-npm-packages-to-nexus-6f818093c369).
+    - Replace `{nexus-ip}` with the IP address of your Nexus server, `{nexus-port}` with the port number (default is 8081), and `{npm-repo}` with the name of your npm repository.
+    - Upon successful authentication, this command will generate a `.npmrc` file in the current directory. This file securely stores your authentication token, enabling npm to interact with the Nexus repository without the need to re-enter credentials.
+    - Additional reference [here](https://medium.com/@mehdighorbanin/step-by-step-guide-publishing-private-npm-packages-to-nexus-6f818093c369).
   - **Publish the Package:**
     - Run the following command to publish the npm package to the Nexus repository:
 
@@ -679,6 +679,6 @@ Note: Make sure you have `Node.js` and `npm` installed on your DigitalOcean Drop
     - Watch the terminal output for any error messages or indications of success.
     - If the script runs successfully, the latest version of the application should be up and running on the droplet server.
 
-Note: Make sure to replace `<nexus-ip>`, `<node-repo>`, `<bearer-token>`, `<path_to_droplet_key>`, `<user>`, and `<droplet-ip>` with the actual values specific to your setup.
+  - Note: Make sure to replace `<nexus-ip>`, `<node-repo>`, `<bearer-token>`, `<path_to_droplet_key>`, `<user>`, and `<droplet-ip>` with the actual values specific to your setup.
 
-By following these tasks, you will create a script that automates the process of fetching the latest version from the npm repository, downloading and extracting the artifact, and running the application on the droplet server. The script will handle dependencies, error handling, and the necessary steps to start the application.
+  - By following these tasks, you will create a script that automates the process of fetching the latest version from the npm repository, downloading and extracting the artifact, and running the application on the droplet server. The script will handle dependencies, error handling, and the necessary steps to start the application.
