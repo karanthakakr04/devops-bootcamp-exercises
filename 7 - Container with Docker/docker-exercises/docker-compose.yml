@@ -16,7 +16,7 @@ services:
     ports:
       - "8082:80"
     depends_on:
-      - db
+      - mysql-conatiner
 
 volumes:
     db_data:
