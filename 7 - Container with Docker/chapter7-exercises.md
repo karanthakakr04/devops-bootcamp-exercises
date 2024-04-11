@@ -214,7 +214,7 @@ Volumes are useful in several scenarios:
 
 - Accessing data from the host: Bind mounts enable you to access files or directories from the host machine within a container. This can be helpful for development purposes, where you want to modify code or configuration files on the host and have those changes immediately reflected in the container.
 
-- [ ] Task 1: Create a Docker Compose file
+- [x] Task 1: Create a Docker Compose file
   - **Create a new file named `compose.yaml`:**
     - Open a text editor or IDE of your choice.
     - Create a new file and save it as `compose.yaml` in your project directory.
@@ -249,7 +249,7 @@ Volumes are useful in several scenarios:
 
 Using this `-v mysql:/var/lib/mysql` command to start your MySQL container will create a new Docker volume called `mysql`. It’ll be mounted into the container at `/var/lib/mysql`, where MySQL stores its data files. Any data written to this directory will now be transparently stored in the Docker-managed volume on your host.
 
-- [ ] Task 2: Create an environment file for database credentials
+- [x] Task 2: Create an environment file for database credentials
   - **Create a new file named `db_credentials.env`:**
     - In the same directory as the `compose.yaml` file, create a new file named `db_credentials.env`.
     - Open the `db_credentials.env` file in a text editor.
@@ -270,7 +270,7 @@ Using this `-v mysql:/var/lib/mysql` command to start your MySQL container will 
     - Make sure to add the `db_credentials.env` file to your `.gitignore` file to prevent it from being committed to version control.
     - Restrict access permissions to the `db_credentials.env` file to protect the sensitive information.
 
-- [ ] Task 3: Start the containers using Docker Compose
+- [x] Task 3: Start the containers using Docker Compose
   - **Open a command prompt or terminal:**
     - Navigate to the directory where the `compose.yaml` file is located.
 
