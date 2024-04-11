@@ -318,6 +318,7 @@ Volumes are useful in several scenarios:
 ## Exercise 5
 
 - [ ] Task 1: Create a Dockerfile for your Java application
+  - Create a new file named `Dockerfile` in the root directory of your Java application.
   - **Choose a base image:**
     - Use the `21-alpine3.19-jdk` base image for your Java application, which provides OpenJDK 21, the latest LTS release.
 
