@@ -195,8 +195,6 @@ Remember to replace the placeholders (`your_password`, `your_database`, `your_us
 
 ## Exercise 4
 
-Certainly! Let's go through the changes you mentioned and update the task list accordingly. I'll also explain Docker volumes in detail to clarify their purpose and usage.
-
 Docker Volumes:
 Docker volumes are a way to persist data generated and used by Docker containers. They provide a mechanism to store data outside of the container's filesystem, ensuring that the data remains intact even if the container is stopped, restarted, or deleted. Volumes can be used to share data between containers and also between the host machine and containers.
 
@@ -215,10 +213,6 @@ Volumes are useful in several scenarios:
 - Sharing data between containers: Volumes can be shared between multiple containers, allowing them to access and modify the same data. This is particularly useful for scenarios like sharing files between a web server and an application server.
 
 - Accessing data from the host: Bind mounts enable you to access files or directories from the host machine within a container. This can be helpful for development purposes, where you want to modify code or configuration files on the host and have those changes immediately reflected in the container.
-
-Now, let's update the task list for Exercise 3 based on the changes you mentioned:
-
-## Exercise 3: Use Docker Compose for MySQL and phpMyAdmin
 
 - [ ] Task 1: Create a Docker Compose file
   - **Create a new file named `compose.yaml`:**
