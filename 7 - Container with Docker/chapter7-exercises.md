@@ -390,7 +390,7 @@ Volumes are useful in several scenarios:
       DB_PWD=your_password
       ```
 
-      Replace `your_database`, `your_username`, and `your_password` with your actual database name, username, and password.
+    - Replace `your_database`, `your_username`, and `your_password` with your actual database name, username, and password.
 
   - **Secure the `app_credentials.env` file:**
     - Add the `app_credentials.env` file to your `.gitignore` file to prevent it from being committed to version control.
@@ -440,8 +440,6 @@ Volumes are useful in several scenarios:
     - Open a web browser and visit `http://localhost:8082` (assuming you haven't changed the port for phpMyAdmin).
     - Log in to phpMyAdmin using the MySQL credentials specified in the `db_credentials.env` file.
     - Verify that you can access and manage your application's database through the phpMyAdmin interface.
-
-Remember to replace `your-java-app`, `your_database`, `your_username`, and `your_password` with the appropriate values for your setup.
 
 ## Exercise 6
 
