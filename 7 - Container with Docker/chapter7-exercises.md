@@ -284,7 +284,7 @@ Using this `-v mysql:/var/lib/mysql` command to start your MySQL container will 
     - The `-d` flag runs the containers in detached mode, allowing them to run in the background.
     - Docker Compose will pull the necessary images (if not already present) and start the containers.
 
-- [ ] Task 4: Test the application and phpMyAdmin
+- [x] Task 4: Test the application and phpMyAdmin
   - **Access the application:**
     - Open a web browser and visit `http://localhost:8080` (or the appropriate URL) to access your application.
     - Verify that the application is running correctly and interacting with the MySQL database.
@@ -294,7 +294,7 @@ Using this `-v mysql:/var/lib/mysql` command to start your MySQL container will 
     - Log in using the MySQL credentials specified in the `db_credentials.env` file.
     - Verify that you can see and manage your MySQL database through the phpMyAdmin interface.
 
-- [ ] Task 5: Stop and remove the containers (when needed)
+- [x] Task 5: Stop and remove the containers (when needed)
   - **Stop the containers:**
     - When you want to stop the containers, run the following command in the same directory as the `compose.yaml` file:
 
