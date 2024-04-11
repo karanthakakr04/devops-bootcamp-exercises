@@ -319,7 +319,7 @@ Volumes are useful in several scenarios:
 
 - [ ] Task 1: Create a Dockerfile for your Java application
   - **Choose a base image:**
-    - Use the `openjdk:17-jdk-slim` base image for your Java application, which provides OpenJDK 17, the latest LTS release.
+    - Use the `21-alpine3.19-jdk` base image for your Java application, which provides OpenJDK 21, the latest LTS release.
 
   - **Copy the application files:**
     - Use the `COPY` instruction in the Dockerfile to copy your Java application's JAR file and any necessary configuration files into the Docker image.
