@@ -242,6 +242,8 @@ Volumes are useful in several scenarios:
             - "8082:80"
           depends_on:
             - mysql-container
+          environment:
+            PMA_HOST: mysql-container
 
       volumes:
         db_data:
