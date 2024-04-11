@@ -1,8 +1,7 @@
 version: '3'
 services:
-  db:
+  mysql-conatiner:
     image: mysql:latest
-    container_name: mysql-conatiner
     restart: always
     env_file:
       - db_credentials.env
@@ -11,9 +10,8 @@ services:
     volumes:
       - db_data:/var/lib/mysql
   
-  phpmyadmin:
+  phpmyadmin-container:
     image: phpmyadmin:latest
-    container_name: phpmyadmin-container
     restart: always
     ports:
       - "8082:80"
