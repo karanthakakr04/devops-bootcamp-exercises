@@ -22,7 +22,7 @@ services:
       PMA_HOST: mysql-container
 
   app:
-    image: java-app
+    image: java-app:1.0
     restart: always
     ports:
       - "8080:8080"
