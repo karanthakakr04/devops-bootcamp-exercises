@@ -325,7 +325,8 @@ To create a new `npm` hosted repository in Nexus Repository Manager for a Node.j
       ```
 
       - Replace `{nexus-ip}` with the IP address of your Nexus server, `{nexus-port}` with the port number (default is 8081), and `{npm-repo}` with the name of your npm repository.
-    - Upon successful authentication, this command will generate a .npmrc file in the current directory. This file securely stores your authentication token, enabling npm to interact with the Nexus repository without the need to re-enter credentials.
+      - Upon successful authentication, this command will generate a `.npmrc` file in the current directory. This file securely stores your authentication token, enabling npm to interact with the Nexus repository without the need to re-enter credentials.
+      - Additional reference [here](https://medium.com/@mehdighorbanin/step-by-step-guide-publishing-private-npm-packages-to-nexus-6f818093c369).
   - **Publish the Package:**
     - Run the following command to publish the npm package to the Nexus repository:
 
@@ -536,7 +537,7 @@ Note: Make sure you have the correct permissions and access rights configured fo
       curl -H "Authorization: Bearer {bearer-token}" -X GET 'http://{nexus-ip}:8081/service/rest/v1/components?repository={node-repo}&sort=version'
       ```
 
-    - Replace `Bearer {bearer-token}` with the token saved in your `.npmrc` file created in Task 4.
+    - Replace `Bearer {bearer-token}` with the token saved in your `.npmrc` file created in Exercise 4 Task 3.
     - Replace `{nexus-ip}` with the IP address of your Nexus server.
     - Replace `{node-repo}` with the name of your NodeJS repository in Nexus.
 
@@ -548,7 +549,7 @@ Note: Make sure you have the correct permissions and access rights configured fo
       curl -H "Authorization: Bearer {bearer-token}" -L -O {download-url}
       ```
 
-    - Replace `Bearer {bearer-token}` with the token saved in your `.npmrc` file created in Task 4.
+    - Replace `Bearer {bearer-token}` with the token saved in your `.npmrc` file created in Exercise 4 Task 3.
     - Replace `{download-url}` with the download URL obtained from the previous task.
     - The `-L` flag follows redirects, and the `-O` flag saves the artifact with its original filename.
 
