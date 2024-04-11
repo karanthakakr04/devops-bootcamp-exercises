@@ -1,6 +1,6 @@
 version: '3'
 services:
-  mysql-conatiner:
+  mysql-container:
     image: mysql:latest
     restart: always
     env_file:
@@ -16,7 +16,9 @@ services:
     ports:
       - "8082:80"
     depends_on:
-      - mysql-conatiner
+      - mysql-container
+    environment:
+      PMA_HOST: mysql-container
 
 volumes:
     db_data:
