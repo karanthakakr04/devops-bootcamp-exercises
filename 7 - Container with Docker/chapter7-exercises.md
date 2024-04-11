@@ -249,7 +249,8 @@ Volumes are useful in several scenarios:
         db_data:
       ```
 
-Using this `-v mysql:/var/lib/mysql` command to start your MySQL container will create a new Docker volume called `mysql`. It’ll be mounted into the container at `/var/lib/mysql`, where MySQL stores its data files. Any data written to this directory will now be transparently stored in the Docker-managed volume on your host.
+    - Using this `-v mysql:/var/lib/mysql` command to start your MySQL container will create a new Docker volume called `mysql`. It’ll be mounted into the container at `/var/lib/mysql`, where MySQL stores its data files. Any data written to this directory will now be transparently stored in the Docker-managed volume on your host.
+    - The `PMA_HOST` variable tells phpMyAdmin which MySQL server to connect to. It should match the name of the MySQL service defined in the `compose.yaml` file.
 
 - [x] Task 2: Create an environment file for database credentials
   - **Create a new file named `db_credentials.env`:**
