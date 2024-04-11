@@ -323,7 +323,7 @@ Volumes are useful in several scenarios:
 
     ```Dockerfile
     # Use the official OpenJDK image as the base image
-    FROM openjdk:21-alpine3.19-jdk
+    FROM amazoncorretto:21-alpine3.19-full
 
     # Set the working directory inside the container
     WORKDIR /app
@@ -336,7 +336,7 @@ Volumes are useful in several scenarios:
     ```
 
   - Explanation of each command in the Dockerfile:
-    - `FROM openjdk:21-alpine3.19-jdk`: Specifies the base image for the container, which is the official OpenJDK image with version 21 and Alpine 3.19 as the underlying OS.
+    - `FROM amazoncorretto:21-alpine3.19-full`: Specifies the base image for the container, which is the official amazoncorretto image with version 21 and Alpine 3.19 as the underlying OS.
     - `WORKDIR /app`: Sets the working directory inside the container to `/app`. Subsequent commands will be executed in this directory.
     - `COPY build/libs/your-application.jar app.jar`: Copies the application JAR file from the host machine to the container, renaming it to `app.jar`.
     - `CMD ["java", "-jar", "app.jar"]`: Specifies the command to run when the container starts, which is executing the Java application using the `java -jar app.jar` command.
