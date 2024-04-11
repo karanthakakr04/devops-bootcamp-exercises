@@ -322,24 +322,27 @@ Volumes are useful in several scenarios:
   - Add the following content to the `Dockerfile`:
 
     ```Dockerfile
-    # Use the official OpenJDK image as the base image
+    # Use the amazoncorretto base image
     FROM amazoncorretto:21-alpine3.19-full
 
     # Set the working directory inside the container
     WORKDIR /app
 
-    # Copy the application JAR file and properties file to the container
-    COPY build/libs/your-application.jar app.jar
+    # Copy the application JAR file to the container and rename it
+    COPY ./build/libs/docker-exercises-project-1.0-SNAPSHOT.jar /app/java-project.jar
 
-    # Specify the command to run when the container starts
-    CMD ["java", "-jar", "app.jar"]
+    # Expose the port on which the application runs
+    EXPOSE 8080
+
+    # Specify the entrypoint command to run when the container starts
+    ENTRYPOINT [ "java", "-jar", "java-project.jar" ]
     ```
 
   - Explanation of each command in the Dockerfile:
     - `FROM amazoncorretto:21-alpine3.19-full`: Specifies the base image for the container, which is the official amazoncorretto image with version 21 and Alpine 3.19 as the underlying OS.
     - `WORKDIR /app`: Sets the working directory inside the container to `/app`. Subsequent commands will be executed in this directory.
-    - `COPY build/libs/your-application.jar app.jar`: Copies the application JAR file from the host machine to the container, renaming it to `app.jar`.
-    - `CMD ["java", "-jar", "app.jar"]`: Specifies the command to run when the container starts, which is executing the Java application using the `java -jar app.jar` command.
+    - `COPY build/libs/your-application.jar /app/java-project.jar`: Copies the application JAR file from the host machine to the container, renaming it to `java-project.jar`.
+    - `CMD ["java", "-jar", "java-project.jar"]`: Specifies the command to run when the container starts, which is executing the Java application using the `java -jar java-project.jar` command.
 
 - [ ] Task 2: Build the Docker image for your Java application
   - Open a terminal or command prompt and navigate to the directory containing your `Dockerfile`.
