@@ -341,13 +341,23 @@ Volumes are useful in several scenarios:
     - `COPY build/libs/your-application.jar app.jar`: Copies the application JAR file from the host machine to the container, renaming it to `app.jar`.
     - `CMD ["java", "-jar", "app.jar"]`: Specifies the command to run when the container starts, which is executing the Java application using the `java -jar app.jar` command.
 
-- [ ] Task 2: Update the Docker Compose file (`compose.yaml`)
+- [ ] Task 2: Build the Docker image for your Java application
+  - Open a terminal or command prompt and navigate to the directory containing your `Dockerfile`.
+  - Run the following command to build the Docker image:
+
+    ```bash
+    docker build -t java-app:1.0 .
+    ```
+
+  - This command builds the Docker image using the instructions specified in the `Dockerfile`. The `-t` flag tags the image with the name `my-java-app:1.0`, and the `.` specifies the build context as the current directory.
+
+- [ ] Task 3: Update the Docker Compose file (`compose.yaml`)
   - Open the existing `compose.yaml` file.
   - Add the following service configuration for your Java application:
 
     ```yaml
     app:
-      image: my-java-app
+      image: java-app:1.0
       restart: always
       ports:
         - "8080:8080"
@@ -375,9 +385,9 @@ Volumes are useful in several scenarios:
         PMA_HOST: mysql-container
     ```
 
-- [ ] Task 3: Create an environment file (`.env`) for the application
-  - Create a new file named `.env` in the same directory as the `compose.yaml` file.
-  - Add the following lines to the `.env` file:
+- [ ] Task 4: Create an environment file (`app_credentials.env`) for the application
+  - Create a new file named `app_credentials.env` in the same directory as the `compose.yaml` file.
+  - Add the following lines to the `app_credentials.env` file:
 
     ```bash
     DB_NAME=your_database_name
@@ -386,16 +396,6 @@ Volumes are useful in several scenarios:
     ```
 
   - Replace `your_database_name`, `your_username`, and `your_password` with your actual database name, username, and password.
-
-- [ ] Task 4: Build the Docker image for your Java application
-  - Open a terminal or command prompt and navigate to the directory containing your `Dockerfile`.
-  - Run the following command to build the Docker image:
-
-    ```bash
-    docker build -t java-app .
-    ```
-
-  - This command builds the Docker image using the instructions specified in the `Dockerfile`. The `-t` flag tags the image with the name `my-java-app`, and the `.` specifies the build context as the current directory.
 
 - [ ] Task 5: Start the application stack using Docker Compose
   - Open a terminal or command prompt and navigate to the directory containing your updated `compose.yaml` file.
