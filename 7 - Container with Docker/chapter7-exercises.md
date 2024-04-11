@@ -317,7 +317,7 @@ Volumes are useful in several scenarios:
 
 ## Exercise 5
 
-- [ ] Task 1: Create a Dockerfile for your Java application
+- [x] Task 1: Create a Dockerfile for your Java application
   - Create a new file named `Dockerfile` in the root directory of your Java application.
   - Add the following content to the `Dockerfile`:
 
@@ -344,7 +344,7 @@ Volumes are useful in several scenarios:
     - `COPY build/libs/your-application.jar /app/java-project.jar`: Copies the application JAR file from the host machine to the container, renaming it to `java-project.jar`.
     - `CMD ["java", "-jar", "java-project.jar"]`: Specifies the command to run when the container starts, which is executing the Java application using the `java -jar java-project.jar` command.
 
-- [ ] Task 2: Build the Docker image for your Java application
+- [x] Task 2: Build the Docker image for your Java application
   - Open a terminal or command prompt and navigate to the directory containing your `Dockerfile`.
   - Run the following command to build the Docker image:
 
@@ -388,7 +388,7 @@ Volumes are useful in several scenarios:
         PMA_HOST: mysql-container
     ```
 
-- [ ] Task 4: Create an environment file (`app_credentials.env`) for the application
+- [x] Task 4: Create an environment file (`app_credentials.env`) for the application
   - Create a new file named `app_credentials.env` in the same directory as the `compose.yaml` file.
   - Add the following lines to the `app_credentials.env` file:
 
@@ -400,7 +400,7 @@ Volumes are useful in several scenarios:
 
   - Replace `your_database_name`, `your_username`, and `your_password` with your actual database name, username, and password.
 
-- [ ] Task 5: Start the application stack using Docker Compose
+- [x] Task 5: Start the application stack using Docker Compose
   - Open a terminal or command prompt and navigate to the directory containing your updated `compose.yaml` file.
   - Run the following command to start all the containers defined in the Docker Compose file:
 
@@ -410,7 +410,7 @@ Volumes are useful in several scenarios:
 
   - This command starts the containers in detached mode (`-d`), which means they run in the background.
 
-- [ ] Task 6: Verify the containers are running
+- [x] Task 6: Verify the containers are running
   - Run the following command to check the status of the containers:
 
     ```bash
@@ -420,7 +420,7 @@ Volumes are useful in several scenarios:
   - This command lists all the containers defined in the Docker Compose file and shows their current status.
   - Ensure that all the containers (Java app, MySQL, and phpMyAdmin) are listed and have the status "Up".
 
-- [ ] Task 7: Test the deployed application
+- [x] Task 7: Test the deployed application
   - Access your Java application by opening a web browser and visiting `http://localhost:8080`.
   - Verify that your Java application is accessible and functioning correctly.
   - Access phpMyAdmin by opening a web browser and visiting `http://localhost:8082`.
