@@ -322,7 +322,7 @@ Volumes are useful in several scenarios:
   - Add the following content to the `Dockerfile`:
 
     ```Dockerfile
-    # Use the amazoncorretto base image
+    # Use the amazoncorretto:21-alpine3.19-full base image
     FROM amazoncorretto:21-alpine3.19-full
 
     # Set the working directory inside the container
@@ -335,14 +335,15 @@ Volumes are useful in several scenarios:
     EXPOSE 8080
 
     # Specify the entrypoint command to run when the container starts
-    ENTRYPOINT [ "java", "-jar", "java-project.jar" ]
+    ENTRYPOINT ["java", "-jar", "java-project.jar"]
     ```
 
-  - Explanation of each command in the Dockerfile:
-    - `FROM amazoncorretto:21-alpine3.19-full`: Specifies the base image for the container, which is the official amazoncorretto image with version 21 and Alpine 3.19 as the underlying OS.
-    - `WORKDIR /app`: Sets the working directory inside the container to `/app`. Subsequent commands will be executed in this directory.
-    - `COPY build/libs/your-application.jar /app/java-project.jar`: Copies the application JAR file from the host machine to the container, renaming it to `java-project.jar`.
-    - `CMD ["java", "-jar", "java-project.jar"]`: Specifies the command to run when the container starts, which is executing the Java application using the `java -jar java-project.jar` command.
+  - Explanation of the Dockerfile commands:
+    - `FROM amazoncorretto:21-alpine3.19-full`: Specifies the base image for the container, which is Amazon Corretto 21 running on Alpine Linux 3.19.
+    - `WORKDIR /app`: Sets the working directory inside the container to `/app`. If the directory doesn't exist, it will be created.
+    - `COPY ./build/libs/docker-exercises-project-1.0-SNAPSHOT.jar /app/java-project.jar`: Copies the application JAR file from the host machine to the `/app` directory inside the container and renames it to `java-project.jar`.
+    - `EXPOSE 8080`: Exposes port 8080 from the container to the host machine. This allows the application to be accessed externally.
+    - `ENTRYPOINT ["java", "-jar", "java-project.jar"]`: Specifies the command to run when the container starts. In this case, it runs the Java application using the `java -jar` command with the renamed JAR file.
 
 - [x] Task 2: Build the Docker image for your Java application
   - Open a terminal or command prompt and navigate to the directory containing your `Dockerfile`.
