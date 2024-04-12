@@ -552,7 +552,8 @@ Volumes are useful in several scenarios:
           - app
         environment:
           PMA_HOST: mysql-container
-          MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+          MYSQL_USER: ${MYSQL_USER}
+          MYSQL_PASSWORD: ${MYSQL_PASSWORD}
 
       app:
         image: localhost:8083/my-java-app:1.0
