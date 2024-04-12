@@ -134,7 +134,7 @@
     - Once the build is successful, run the following command to start the application:
 
       ```bash
-      java -jar target/your-application.jar
+      java -jar ./build/libs/your-application.jar
       ```
 
     - Replace `your-application.jar` with the actual name of your JAR file.
