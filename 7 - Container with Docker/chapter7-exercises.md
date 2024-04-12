@@ -368,7 +368,7 @@ Volumes are useful in several scenarios:
       depends_on:
         - mysql-container
       env_file:
-        - .env
+        - app_credentials.env
       environment:
         DB_SERVER: mysql-container
         DB_PORT: 3306
