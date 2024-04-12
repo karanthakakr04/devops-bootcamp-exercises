@@ -489,8 +489,8 @@ Volumes are useful in several scenarios:
       - Replace `<nexus-host>` with the hostname or IP address of your Nexus server, and `<repository-port>` with the port number you configured for the Docker repository.
     - Click "Apply & Restart" to save the changes and restart the Docker daemon.
 
-    > [!NOTE]
-    > My `<nexus-host>` is `localhost` and `<repository-port>` is `8083`.
+> [!IMPORTANT]
+> My `<nexus-host>` is `localhost` and `<repository-port>` is `8083`.
 
 - [ ] Task 5: Build and push the Java application Docker image
   - Open a terminal and navigate to the directory containing the Dockerfile for your Java application.
@@ -521,8 +521,6 @@ Volumes are useful in several scenarios:
   - Verify that the `java-app` image with tag `1.0` is present in the repository.
 
 ## Exercise 7
-
-
 
 ## Exercise 8
 
