@@ -522,6 +522,94 @@ Volumes are useful in several scenarios:
 
 ## Exercise 7
 
+- [ ] Task 1: Update the `compose.yaml` file to use environment variable references
+  - Open the `compose.yaml` file in a text editor.
+  - Modify the file to use environment variable references for sensitive data and configurable values.
+  - Replace hardcoded values with references to environment variables using the `${VARIABLE_NAME}` syntax.
+
+    ```yaml
+    services:
+      mysql-container:
+        image: mysql:latest
+        restart: always
+        environment:
+          MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+          MYSQL_DATABASE: ${MYSQL_DATABASE}
+          MYSQL_USER: ${MYSQL_USER}
+          MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        ports:
+          - "3306:3306"
+        volumes:
+          - db_data:/var/lib/mysql
+
+      phpmyadmin-container:
+        image: phpmyadmin:latest
+        restart: always
+        ports:
+          - "8082:80"
+        depends_on:
+          - mysql-container
+          - app
+        environment:
+          PMA_HOST: mysql-container
+          MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+
+      app:
+        image: localhost:8083/my-java-app:1.0
+        restart: always
+        ports:
+          - "8080:8080"
+        depends_on:
+          - mysql-container
+        environment:
+          DB_SERVER: mysql-container
+          DB_PORT: 3306
+          DB_NAME: ${MYSQL_DATABASE}
+          DB_USER: ${MYSQL_USER}
+          DB_PWD: ${MYSQL_PASSWORD}
+
+    volumes:
+      db_data:
+    ```
+
+- [ ] Task 2: Create an environment file for production
+  - Create a new file named `.env.prod` or `credentials.env.prod` in the same directory as the `compose.yaml` file.
+  - Add the necessary environment variables and their corresponding values to the file.
+  - Example:
+
+   ```bash
+   MYSQL_ROOT_PASSWORD=your_root_password
+   MYSQL_DATABASE=your_database_name
+   MYSQL_USER=your_username
+   MYSQL_PASSWORD=your_password
+   ```
+
+  - Replace `your_root_password`, `your_database_name`, `your_username`, and `your_password` with the appropriate values for your production environment.
+
+- [ ] Task 3: Deploy the application on the server
+  - Copy the updated `compose.yaml` file and the environment file (`.env.local` or `credentials.env.local`) to the server where you want to deploy the application.
+  - Ensure that the necessary prerequisites (Docker and Docker Compose) are installed on the server.
+  - Open a terminal or SSH session on the server.
+  - Navigate to the directory where the `compose.yaml` file is located.
+
+- [ ] Task 4: Load the environment variables and run the application
+  - Load the environment variables from the environment file before running the `docker compose up` command.
+  - Use the `--env-file` flag to specify the environment file.
+  - Example:
+
+    ```bash
+    docker compose --env-file .env.local up -d
+    ```
+
+    or
+
+    ```bash
+    docker compose --env-file credentials.env.local up -d
+    ```
+
+  - The `--env-file` flag reads the specified environment file and sets the environment variables for the containers.
+  - The `-d` flag runs the containers in detached mode (background).
+
 ## Exercise 8
 
 ## Exercise 9
