@@ -430,6 +430,83 @@ Volumes are useful in several scenarios:
 
 ## Exercise 6
 
+- [ ] Task 1: Start a Nexus container
+  - Create a Docker volume for Nexus data:
+
+    ```bash
+    docker volume create --name nexus-data
+    ```
+  - Start a Nexus container with the specified version and volume:
+
+    ```bash
+    docker run -d -p 8081:8081 --name nexus -v nexus-data:/nexus-data sonatype/nexus3:3.67.1-java11
+    ```
+
+  - Wait for Nexus to start up and become accessible on `http://localhost:8081`.
+
+- [ ] Task 2: Retrieve the default admin password
+  - Retrieve the uniquely generated admin password from the `admin.password` file inside the Nexus volume:
+
+    ```bash
+    docker exec -it nexus cat /nexus-data/admin.password
+    ```
+
+  - Take note of the password for future use.
+  
+  > Note: Using the default admin credentials is not recommended for production environments. It is advised to change the password and secure the Nexus instance properly.
+
+- [ ] Task 3: Configure Nexus Docker repository
+  - Access the Nexus web interface at `http://localhost:8081`.
+  - Sign in with the admin username and the password obtained from the `admin.password` file.
+  - Navigate to the "Server administration and configuration" section.
+  - Create a new Docker hosted repository:
+    - Name: `docker-hosted`
+    - HTTP: `8083` (choose a different port since 8082 is already in use by phpMyAdmin)
+    - Enable Docker V1 API
+  - Save the repository configuration.
+
+- [ ] Task 4: Add Nexus as an insecure registry
+  - On your local machine, modify the Docker daemon configuration to allow insecure registries:
+    - Create or edit the file `/etc/docker/daemon.json`.
+    - Add the following content:
+
+      ```json
+      {
+        "insecure-registries": ["localhost:8083"]
+      }
+      ```
+
+    - Restart the Docker daemon for the changes to take effect.
+
+- [ ] Task 5: Build and push the Java application Docker image
+  - Open a terminal and navigate to the directory containing the Dockerfile for your Java application.
+  - Build the Docker image with a tag that includes the Nexus repository URL:
+
+    ```bash
+    docker build -t localhost:8083/my-java-app:1.0 .
+    ```
+
+  - Log in to the Nexus Docker registry:
+
+    ```bash
+    docker login -u <username> -p <password> localhost:8083
+    ```
+
+    > Replace `<username>` and `<password>` with the appropriate credentials.
+
+  - Push the Docker image to the Nexus repository:
+
+    ```bash
+    docker push localhost:8083/my-java-app:1.0
+    ```
+
+- [ ] Task 6: Verify the pushed Docker image
+  - Access the Nexus web interface at `http://localhost:8081`.
+  - Navigate to the "Browse" section and select the `docker-hosted` repository.
+  - Verify that the `my-java-app` image with tag `1.0` is present in the repository.
+
+Remember to replace `my-java-app` with the actual name of your Java application, and `<username>` and `<password>` with the appropriate credentials for your Nexus instance.
+
 ## Exercise 7
 
 ## Exercise 8
