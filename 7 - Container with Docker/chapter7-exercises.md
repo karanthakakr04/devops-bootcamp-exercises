@@ -456,59 +456,73 @@ Volumes are useful in several scenarios:
   
   > Note: Using the default admin credentials is not recommended for production environments. It is advised to change the password and secure the Nexus instance properly.
 
-- [ ] Task 3: Configure Nexus Docker repository
-  - Access the Nexus web interface at `http://localhost:8081`.
-  - Sign in with the admin username and the password obtained from the `admin.password` file.
-  - Navigate to the "Server administration and configuration" section.
-  - Create a new Docker hosted repository:
-    - Name: `docker-hosted`
-    - HTTP: `8083` (choose a different port since 8082 is already in use by phpMyAdmin)
-    - Enable Docker V1 API
-  - Save the repository configuration.
-
 - [ ] Task 4: Add Nexus as an insecure registry
-  - On your local machine, modify the Docker daemon configuration to allow insecure registries:
-    - Create or edit the file `/etc/docker/daemon.json`.
-    - Add the following content:
+  - For Linux:
+    - On your local machine, modify the Docker daemon configuration to allow insecure registries:
+      - Create or edit the file `/etc/docker/daemon.json`.
+      - Add the following content:
+
+        ```json
+        {
+          "insecure-registries": ["<nexus-host>:<repository-port>"]
+        }
+        ```
+
+      - Replace `<nexus-host>` with the hostname or IP address of your Nexus server, and `<repository-port>` with the port number you configured for the Docker repository.
+      - Restart the Docker daemon for the changes to take effect.
+
+  - For Windows:
+    - Open the Docker Desktop application.
+    - Go to "Settings" (or "Preferences" on macOS).
+    - Navigate to the "Docker Engine" section.
+    - Locate the `insecure-registries` array in the JSON configuration.
+    - Add the Nexus repository URL to the list of insecure registries:
 
       ```json
       {
-        "insecure-registries": ["localhost:8083"]
+        "insecure-registries": [
+          "<nexus-host>:<repository-port>"
+        ]
       }
       ```
 
-    - Restart the Docker daemon for the changes to take effect.
+      - Replace `<nexus-host>` with the hostname or IP address of your Nexus server, and `<repository-port>` with the port number you configured for the Docker repository.
+    - Click "Apply & Restart" to save the changes and restart the Docker daemon.
+
+    > [!NOTE]
+    > My `<nexus-host>` is `localhost` and `<repository-port>` is `8083`.
 
 - [ ] Task 5: Build and push the Java application Docker image
   - Open a terminal and navigate to the directory containing the Dockerfile for your Java application.
   - Build the Docker image with a tag that includes the Nexus repository URL:
 
     ```bash
-    docker build -t localhost:8083/my-java-app:1.0 .
+    docker build -t localhost:8083/docker-hosted/java-app:1.0 .
     ```
 
+- [ ] Task 6: Push the Docker image to Nexus
   - Log in to the Nexus Docker registry:
 
     ```bash
     docker login -u <username> -p <password> localhost:8083
     ```
 
-    > Replace `<username>` and `<password>` with the appropriate credentials.
+    Replace `<username>` and `<password>` with the appropriate values.
 
   - Push the Docker image to the Nexus repository:
 
     ```bash
-    docker push localhost:8083/my-java-app:1.0
+    docker push localhost:8083/docker-hosted/java-app:1.0
     ```
 
-- [ ] Task 6: Verify the pushed Docker image
+- [ ] Task 7: Verify the pushed Docker image
   - Access the Nexus web interface at `http://localhost:8081`.
   - Navigate to the "Browse" section and select the `docker-hosted` repository.
-  - Verify that the `my-java-app` image with tag `1.0` is present in the repository.
-
-Remember to replace `my-java-app` with the actual name of your Java application, and `<username>` and `<password>` with the appropriate credentials for your Nexus instance.
+  - Verify that the `java-app` image with tag `1.0` is present in the repository.
 
 ## Exercise 7
+
+
 
 ## Exercise 8
 
