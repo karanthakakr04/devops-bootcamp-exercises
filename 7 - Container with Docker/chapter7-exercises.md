@@ -492,7 +492,7 @@ Volumes are useful in several scenarios:
 > [!IMPORTANT]
 > My `<nexus-host>` is `localhost` and `<repository-port>` is `8083`.
 
-- [ ] Task 5: Build and push the Java application Docker image
+- [ ] Task 5: Build the Java application Docker image
   - Open a terminal and navigate to the directory containing the Dockerfile for your Java application.
   - Build the Docker image with a tag that includes the Nexus repository URL:
 
