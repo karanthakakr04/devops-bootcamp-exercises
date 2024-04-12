@@ -436,6 +436,7 @@ Volumes are useful in several scenarios:
     ```bash
     docker volume create --name nexus-data
     ```
+
   - Start a Nexus container with the specified version and volume:
 
     ```bash
