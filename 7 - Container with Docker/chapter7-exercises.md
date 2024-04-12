@@ -354,7 +354,7 @@ Volumes are useful in several scenarios:
 
   - This command builds the Docker image using the instructions specified in the `Dockerfile`. The `-t` flag tags the image with the name `my-java-app:1.0`, and the `.` specifies the build context as the current directory.
 
-- [ ] Task 3: Update the Docker Compose file (`compose.yaml`)
+- [x] Task 3: Update the Docker Compose file (`compose.yaml`)
   - Open the existing `compose.yaml` file.
   - Add the following service configuration for your Java application:
 
