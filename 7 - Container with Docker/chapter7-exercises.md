@@ -430,7 +430,14 @@ Volumes are useful in several scenarios:
 
 ## Exercise 6
 
-- [ ] Task 1: Start a Nexus container
+- [ ] Task 1: Open the required port on the remote server
+  - Log in to your DigitalOcean account and access the control panel.
+  - Navigate to the "Networking" section and select "Firewalls."
+  - Create a new firewall rule to allow incoming traffic on port 8081 (or the desired port for Nexus).
+  - Apply the firewall rule to the remote server where you plan to install Nexus.
+
+- [ ] Task 2: Install and start Nexus on the remote server
+  - Connect to your remote server using SSH.
   - Create a Docker volume for Nexus data:
 
     ```bash
@@ -443,9 +450,9 @@ Volumes are useful in several scenarios:
     docker run -d -p 8081:8081 --name nexus -v nexus-data:/nexus-data sonatype/nexus3:3.67.1-java11
     ```
 
-  - Wait for Nexus to start up and become accessible on `http://localhost:8081`.
+  - Wait for Nexus to start up and become accessible on `http://<remote-server-ip>:8081`.
 
-- [ ] Task 2: Retrieve the default admin password
+- [ ] Task 3: Retrieve the default admin password
   - Retrieve the uniquely generated admin password from the `admin.password` file inside the Nexus volume:
 
     ```bash
@@ -456,69 +463,65 @@ Volumes are useful in several scenarios:
   
   > Note: Using the default admin credentials is not recommended for production environments. It is advised to change the password and secure the Nexus instance properly.
 
-- [ ] Task 4: Add Nexus as an insecure registry
-  - For Linux:
-    - On your local machine, modify the Docker daemon configuration to allow insecure registries:
+- [ ] Task 4: Configure Nexus Docker repository
+  - Access the Nexus web interface at `http://<remote-server-ip>:8081`.
+  - Sign in with the admin username and the password obtained from the `admin.password` file.
+  - Navigate to the "Server administration and configuration" section.
+  - Create a new Docker hosted repository:
+    - Name: `<repository-name>`
+    - HTTP: `8083` (or the desired port for the Docker repository)
+    - Enable Docker V1 API
+  - Take note of the repository name and port for later use.
+  - Save the repository configuration.
+
+- [ ] Task 5: Add Nexus as an insecure registry
+  - On your local machine, modify the Docker daemon configuration to allow insecure registries:
+    - For Linux:
       - Create or edit the file `/etc/docker/daemon.json`.
       - Add the following content:
 
         ```json
         {
-          "insecure-registries": ["<nexus-host>:<repository-port>"]
+          "insecure-registries": ["<remote-server-ip>:<repository-port>"]
         }
         ```
 
-      - Replace `<nexus-host>` with the hostname or IP address of your Nexus server, and `<repository-port>` with the port number you configured for the Docker repository.
+      - Replace `<remote-server-ip>` with the IP address of your remote server, and `<repository-port>` with the port number you configured for the Docker repository.
       - Restart the Docker daemon for the changes to take effect.
 
-  - For Windows:
-    - Open the Docker Desktop application.
-    - Go to "Settings" (or "Preferences" on macOS).
-    - Navigate to the "Docker Engine" section.
-    - Locate the `insecure-registries` array in the JSON configuration.
-    - Add the Nexus repository URL to the list of insecure registries:
-
-      ```json
-      {
-        "insecure-registries": [
-          "<nexus-host>:<repository-port>"
-        ]
-      }
-      ```
-
-      - Replace `<nexus-host>` with the hostname or IP address of your Nexus server, and `<repository-port>` with the port number you configured for the Docker repository.
-    - Click "Apply & Restart" to save the changes and restart the Docker daemon.
-
-> [!IMPORTANT]
-> My `<nexus-host>` is `localhost` and `<repository-port>` is `8083`.
-
-- [ ] Task 5: Build the Java application Docker image
-  - Open a terminal and navigate to the directory containing the Dockerfile for your Java application.
+- [ ] Task 6: Build the Java application Docker image
+  - Open a terminal on your local machine and navigate to the directory containing the Dockerfile for your Java application.
   - Build the Docker image with a tag that includes the Nexus repository URL:
 
     ```bash
-    docker build -t localhost:8083/docker-hosted/java-app:1.0 .
+    docker build -t <remote-server-ip>:8083/<repository-name>/java-app:1.0 .
     ```
 
-- [ ] Task 6: Push the Docker image to Nexus
+  - Replace `<remote-server-ip>` with the IP address of your remote server, `<repository-name>` with the name of the repository you created in Nexus, and adjust the tag version as needed.
+
+- [ ] Task 7: Push the Docker image to Nexus
   - Log in to the Nexus Docker registry:
 
     ```bash
-    docker login -u <username> -p <password> localhost:8083
+    docker login -u <username> -p <password> <remote-server-ip>:8083
     ```
 
-    Replace `<username>` and `<password>` with the appropriate values.
+  - Replace `<username>` and `<password>` with the appropriate values, and `<remote-server-ip>` with the IP address of your remote server.
 
   - Push the Docker image to the Nexus repository:
 
     ```bash
-    docker push localhost:8083/docker-hosted/java-app:1.0
+    docker push <remote-server-ip>:8083/<repository-name>/java-app:1.0
     ```
 
-- [ ] Task 7: Verify the pushed Docker image
-  - Access the Nexus web interface at `http://localhost:8081`.
-  - Navigate to the "Browse" section and select the `docker-hosted` repository.
-  - Verify that the `java-app` image with tag `1.0` is present in the repository.
+  - Replace `<remote-server-ip>` with the IP address of your remote server, `<repository-name>` with the name of the repository you created in Nexus, and adjust the tag version as needed.
+
+- [ ] Task 8: Verify the pushed Docker image
+  - Access the Nexus web interface at `http://<remote-server-ip>:8081`.
+  - Navigate to the "Browse" section and select the repository you created.
+  - Verify that the `java-app` image with the specified tag is present in the repository.
+
+Remember to replace `<remote-server-ip>`, `<repository-name>`, `<username>`, and `<password>` with the appropriate values specific to your setup.
 
 ## Exercise 7
 
@@ -606,3 +609,5 @@ Volumes are useful in several scenarios:
 ## Exercise 8
 
 ## Exercise 9
+
+
