@@ -430,7 +430,7 @@ Volumes are useful in several scenarios:
 
 ## Exercise 6
 
-- [ ] Task 1: Open the required ports on the remote server
+- [x] Task 1: Open the required ports on the remote server
   - Log in to your DigitalOcean account and access the control panel.
   - Navigate to the "Networking" section and select "Firewalls."
   - Create a new firewall rule to allow incoming traffic on the following ports:
@@ -438,7 +438,7 @@ Volumes are useful in several scenarios:
     - Port 8081 (or the desired port for Nexus) - This allows access to the Nexus web interface.
   - Apply the firewall rules to the remote server where you plan to install Nexus.
 
-- [ ] Task 2: Install and start Nexus on the remote server
+- [x] Task 2: Install and start Nexus on the remote server
   - Connect to your remote server using SSH.
   - Create a Docker volume for Nexus data:
 
@@ -454,7 +454,7 @@ Volumes are useful in several scenarios:
 
   - Wait for Nexus to start up and become accessible on `http://<remote-server-ip>:8081`.
 
-- [ ] Task 3: Retrieve the default admin password
+- [x] Task 3: Retrieve the default admin password
   - Retrieve the uniquely generated admin password from the `admin.password` file inside the Nexus volume:
 
     ```bash
@@ -465,7 +465,7 @@ Volumes are useful in several scenarios:
   
   > Note: Using the default admin credentials is not recommended for production environments. It is advised to change the password and secure the Nexus instance properly.
 
-- [ ] Task 4: Configure Nexus Docker repository
+- [x] Task 4: Configure Nexus Docker repository
   - Access the Nexus web interface at `http://<remote-server-ip>:8081`.
   - Sign in with the admin username and the password obtained from the `admin.password` file.
   - Navigate to the "Server administration and configuration" section.
@@ -476,7 +476,7 @@ Volumes are useful in several scenarios:
   - Take note of the repository name and port for later use.
   - Save the repository configuration.
 
-- [ ] Task 5: Add Nexus as an insecure registry
+- [x] Task 5: Add Nexus as an insecure registry
   - On your local machine, modify the Docker daemon configuration to allow insecure registries:
     - For Linux:
       - Create or edit the file `/etc/docker/daemon.json`.
@@ -500,7 +500,7 @@ Volumes are useful in several scenarios:
       sudo systemctl restart docker
       ```
 
-- [ ] Task 6: Build the Java application Docker image
+- [x] Task 6: Build the Java application Docker image
   - Open a terminal on your local machine and navigate to the directory containing the Dockerfile for your Java application.
   - Build the Docker image with a tag that includes the Nexus repository URL:
 
@@ -536,7 +536,7 @@ Remember to replace `<remote-server-ip>`, `<repository-name>`, `<username>`, and
 
 ## Exercise 7
 
-- [ ] Task 1: Update the `compose.yaml` file to use environment variable references
+- [x] Task 1: Update the `compose.yaml` file to use environment variable references
   - Open the `compose.yaml` file in a text editor.
   - Modify the file to use environment variable references for sensitive data and configurable values.
   - Replace hardcoded values with references to environment variables using the `${VARIABLE_NAME}` syntax.
