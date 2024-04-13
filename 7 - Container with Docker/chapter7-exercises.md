@@ -496,9 +496,27 @@ Volumes are useful in several scenarios:
       - Replace `<remote-server-ip>` with the IP address of your remote server, and `<repository-port>` with the port number you configured for the Docker repository.
       - Restart the Docker daemon for the changes to take effect.
 
-      ```bash
-      sudo systemctl restart docker
-      ```
+        ```bash
+        sudo systemctl restart docker
+        ```
+  
+  - For Windows:
+    - Open the Docker Desktop application.
+    - Go to "Settings" (or "Preferences" on macOS).
+    - Navigate to the "Docker Engine" section.
+    - Locate the `insecure-registries` array in the JSON configuration.
+    - Add the Nexus repository URL to the list of insecure registries:
+
+        ```json
+        {
+          "insecure-registries": [
+            "<remote-server-ip>:<repository-port>"
+          ]
+        }
+        ```
+
+    - Replace `<remote-server-ip>` with the IP address of your remote server, and `<repository-port>` with the port number you configured for the Docker repository.
+    - Click "Apply & Restart" to save the changes and restart the Docker daemon.
 
 - [x] Task 6: Build the Java application Docker image
   - Open a terminal on your local machine and navigate to the directory containing the Dockerfile for your Java application.
