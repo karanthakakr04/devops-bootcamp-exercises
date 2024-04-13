@@ -458,7 +458,7 @@ Volumes are useful in several scenarios:
   - Retrieve the uniquely generated admin password from the `admin.password` file inside the Nexus volume:
 
     ```bash
-    docker exec -it nexus cat /nexus-data/admin.password
+    docker exec -it nexus cat /nexus-data/admin.password; echo
     ```
 
   - Take note of the password for future use.
