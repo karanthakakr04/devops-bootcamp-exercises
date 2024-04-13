@@ -587,7 +587,7 @@ Remember to replace `<remote-server-ip>`, `<repository-name>`, `<username>`, and
       db_data:
     ```
 
-- [ ] Task 2: Create an environment file for production
+- [x] Task 2: Create an environment file for production
   - Create a new file named `credentials.env.prod` in the same directory as the `compose.yaml` file.
   - Add the necessary environment variables and their corresponding values to the file.
 
