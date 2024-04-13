@@ -480,6 +480,11 @@ Volumes are useful in several scenarios:
   - On your local machine, modify the Docker daemon configuration to allow insecure registries:
     - For Linux:
       - Create or edit the file `/etc/docker/daemon.json`.
+
+        ```bash
+        sudo nano /etc/docker/daemon.json
+        ```
+
       - Add the following content:
 
         ```json
@@ -490,6 +495,10 @@ Volumes are useful in several scenarios:
 
       - Replace `<remote-server-ip>` with the IP address of your remote server, and `<repository-port>` with the port number you configured for the Docker repository.
       - Restart the Docker daemon for the changes to take effect.
+
+      ```bash
+      sudo systemctl restart docker
+      ```
 
 - [ ] Task 6: Build the Java application Docker image
   - Open a terminal on your local machine and navigate to the directory containing the Dockerfile for your Java application.
