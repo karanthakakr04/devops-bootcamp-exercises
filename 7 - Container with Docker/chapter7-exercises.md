@@ -430,11 +430,13 @@ Volumes are useful in several scenarios:
 
 ## Exercise 6
 
-- [ ] Task 1: Open the required port on the remote server
+- [ ] Task 1: Open the required ports on the remote server
   - Log in to your DigitalOcean account and access the control panel.
   - Navigate to the "Networking" section and select "Firewalls."
-  - Create a new firewall rule to allow incoming traffic on port 8081 (or the desired port for Nexus).
-  - Apply the firewall rule to the remote server where you plan to install Nexus.
+  - Create a new firewall rule to allow incoming traffic on the following ports:
+    - Port 22 (SSH) - This allows secure remote access to your server.
+    - Port 8081 (or the desired port for Nexus) - This allows access to the Nexus web interface.
+  - Apply the firewall rules to the remote server where you plan to install Nexus.
 
 - [ ] Task 2: Install and start Nexus on the remote server
   - Connect to your remote server using SSH.
@@ -609,5 +611,3 @@ Remember to replace `<remote-server-ip>`, `<repository-name>`, `<username>`, and
 ## Exercise 8
 
 ## Exercise 9
-
-
