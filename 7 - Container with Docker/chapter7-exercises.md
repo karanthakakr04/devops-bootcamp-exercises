@@ -574,9 +574,8 @@ Volumes are useful in several scenarios:
     ```
 
 - [ ] Task 2: Create an environment file for production
-  - Create a new file named `.env.prod` or `credentials.env.prod` in the same directory as the `compose.yaml` file.
+  - Create a new file named `credentials.env.prod` in the same directory as the `compose.yaml` file.
   - Add the necessary environment variables and their corresponding values to the file.
-  - Example:
 
    ```bash
    MYSQL_ROOT_PASSWORD=your_root_password
@@ -585,10 +584,10 @@ Volumes are useful in several scenarios:
    MYSQL_PASSWORD=your_password
    ```
 
-  - Replace `your_root_password`, `your_database_name`, `your_username`, and `your_password` with the appropriate values for your production environment.
+  - Replace `your_root_password`, `your_database_name`, `your_username`, and `your_password` with the appropriate values for your environment.
 
 - [ ] Task 3: Deploy the application on the server
-  - Copy the updated `compose.yaml` file and the environment file (`.env.local` or `credentials.env.local`) to the server where you want to deploy the application.
+  - Copy the updated `compose.yaml` file and the environment file (`credentials.env.local`) to the server where you want to deploy the application.
   - Ensure that the necessary prerequisites (Docker and Docker Compose) are installed on the server.
   - Open a terminal or SSH session on the server.
   - Navigate to the directory where the `compose.yaml` file is located.
@@ -596,13 +595,6 @@ Volumes are useful in several scenarios:
 - [ ] Task 4: Load the environment variables and run the application
   - Load the environment variables from the environment file before running the `docker compose up` command.
   - Use the `--env-file` flag to specify the environment file.
-  - Example:
-
-    ```bash
-    docker compose --env-file .env.local up -d
-    ```
-
-    or
 
     ```bash
     docker compose --env-file credentials.env.local up -d
