@@ -1,15 +1,17 @@
-version: '3'
 services:
   mysql-container:
     image: mysql:latest
     restart: always
-    env_file:
-      - db_credentials.env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
-  
+
   phpmyadmin-container:
     image: phpmyadmin:latest
     restart: always
@@ -20,19 +22,22 @@ services:
       - app
     environment:
       PMA_HOST: mysql-container
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
 
   app:
-    image: java-app:1.0
+    image: localhost:8083/my-java-app:1.0
     restart: always
     ports:
       - "8080:8080"
     depends_on:
       - mysql-container
-    env_file:
-      - app_credentials.env
     environment:
       DB_SERVER: mysql-container
       DB_PORT: 3306
+      DB_NAME: ${MYSQL_DATABASE}
+      DB_USER: ${MYSQL_USER}
+      DB_PWD: ${MYSQL_PASSWORD}
 
 volumes:
-    db_data:
+  db_data:
