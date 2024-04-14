@@ -449,7 +449,7 @@ Volumes are useful in several scenarios:
   - Start a Nexus container with the specified version and volume:
 
     ```bash
-    docker run -d -p 8081:8081 --name nexus -v nexus-data:/nexus-data sonatype/nexus3:3.67.1-java11
+    docker run -d -p 8081:8081 --name nexus -v nexus-data:/nexus-data sonatype/nexus3:3.67.1-java8
     ```
 
   - Wait for Nexus to start up and become accessible on `http://<remote-server-ip>:8081`.
