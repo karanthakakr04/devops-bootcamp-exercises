@@ -436,6 +436,7 @@ Volumes are useful in several scenarios:
   - Create a new firewall rule to allow incoming traffic on the following ports:
     - Port 22 (SSH) - This allows secure remote access to your server.
     - Port 8081 (or the desired port for Nexus) - This allows access to the Nexus web interface.
+    - Port 8083 (or the desired port for )
   - Apply the firewall rules to the remote server where you plan to install Nexus.
 
 - [x] Task 2: Install and start Nexus on the remote server
@@ -449,7 +450,7 @@ Volumes are useful in several scenarios:
   - Start a Nexus container with the specified version and volume:
 
     ```bash
-    docker run -d -p 8081:8081 --name nexus -v nexus-data:/nexus-data sonatype/nexus3:3.67.1-java8
+    docker run -d -p 8081:8081 -p 8083:8083 --name nexus -v nexus-data:/nexus-data sonatype/nexus3:3.67.1-java11
     ```
 
   - Wait for Nexus to start up and become accessible on `http://<remote-server-ip>:8081`.
@@ -528,11 +529,11 @@ Volumes are useful in several scenarios:
 
   - Replace `<remote-server-ip>` with the IP address of your remote server, `<repository-name>` with the name of the repository you created in Nexus, and adjust the tag version as needed.
 
-- [ ] Task 7: Push the Docker image to Nexus
+- [x] Task 7: Push the Docker image to Nexus
   - Log in to the Nexus Docker registry:
 
     ```bash
-    docker login -u <username> -p <password> <remote-server-ip>:8083
+    echo "<password>" | docker login -u <username> --password-stdin <remote-server-ip>:8083
     ```
 
   - Replace `<username>` and `<password>` with the appropriate values, and `<remote-server-ip>` with the IP address of your remote server.
@@ -540,12 +541,12 @@ Volumes are useful in several scenarios:
   - Push the Docker image to the Nexus repository:
 
     ```bash
-    docker push <remote-server-ip>:8083/<repository-name>/java-app:1.0
+    docker push <remote-server-ip>:8083/java-app:1.0
     ```
 
-  - Replace `<remote-server-ip>` with the IP address of your remote server, `<repository-name>` with the name of the repository you created in Nexus, and adjust the tag version as needed.
+  - Replace `<remote-server-ip>` with the IP address of your remote server.
 
-- [ ] Task 8: Verify the pushed Docker image
+- [x] Task 8: Verify the pushed Docker image
   - Access the Nexus web interface at `http://<remote-server-ip>:8081`.
   - Navigate to the "Browse" section and select the repository you created.
   - Verify that the `java-app` image with the specified tag is present in the repository.
