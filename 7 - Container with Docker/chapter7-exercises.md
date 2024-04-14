@@ -651,8 +651,8 @@ Remember to replace `<remote-server-ip>`, `<repository-name>`, `<username>`, and
 
 ## Exercise 8
 
-- [ ] Task 1: Update the application's index.html file
-  - Open the `index.html` file of your Java application.
+- [x] Task 1: Update the application's index.html file
+  - Open the `index.html` file of your Java application on your local machine.
   - Locate the following line:
 
     ```javascript
@@ -667,7 +667,7 @@ Remember to replace `<remote-server-ip>`, `<repository-name>`, `<username>`, and
 
   - Save the updated `index.html` file.
 
-- [ ] Task 2: Rebuild and push the Docker image
+- [x] Task 2: Rebuild and push the Docker image
   - Open a terminal on your local machine and navigate to the directory containing the Dockerfile for your Java application.
   - Build the Docker image with the updated `index.html` file:
 
@@ -683,7 +683,7 @@ Remember to replace `<remote-server-ip>`, `<repository-name>`, `<username>`, and
 
   - Update the `compose.yaml` file to use the new image version (`1.1`) for the `app` service.
 
-- [ ] Task 3: Update the compose.yaml file
+- [x] Task 3: Update the compose.yaml file
   - Open the `compose.yaml` file.
   - Locate the `app` service definition.
   - Update the `image` property to use the correct repository and tag:
@@ -696,7 +696,7 @@ Remember to replace `<remote-server-ip>`, `<repository-name>`, `<username>`, and
 
   - Save the updated `compose.yaml` file.
 
-- [ ] Task 4: Copy necessary files to the server
+- [x] Task 4: Copy necessary files to the server
   - Use the `scp` command with the appropriate SSH key to securely copy the `compose.yaml` file from your local machine to the remote server:
 
     ```bash
@@ -706,7 +706,52 @@ Remember to replace `<remote-server-ip>`, `<repository-name>`, `<username>`, and
   - Replace `<path-to-ssh-key>`, `<username>`, `<remote-server-ip-or-hostname>`, and `<destination-path>` with the appropriate values.
   - Use the `scp` command again to copy the environment file (`credentials.local.env`) to the server.
 
-- [ ] Task 5: Load the environment variables and run the application
+- [x] Task 5: Set insecure Docker repository on the server
+  - Open the Docker daemon configuration file on the server.
+  - Add the Nexus repository to the list of insecure registries.
+  - Restart the Docker daemon for the changes to take effect.
+  - If you don't have the `daemon.json` file on your server, you can create it to configure the Docker daemon. Here's how you can do it:
+    - Open a terminal or SSH session on your server.
+    - Create the `daemon.json` file in the `/etc/docker/` directory using a text editor with sudo privileges:
+
+      ```bash
+      sudo nano /etc/docker/daemon.json
+      ```
+
+      If the `/etc/docker/` directory doesn't exist, create it first:
+
+      ```bash
+      sudo mkdir -p /etc/docker/
+      ```
+
+    - Add the following content to the `daemon.json` file to configure the insecure registries:
+
+      ```json
+      {
+        "insecure-registries": ["<repository-host>:<repository-port>"]
+      }
+      ```
+
+    - Replace `<repository-host>` and `<repository-port>` with the appropriate values for your Nexus repository. This configuration allows Docker to pull images from the specified insecure registry.
+    - Save the file and exit the text editor. If you're using `nano`, press `Ctrl+X`, then `Y`, and finally `Enter` to save and exit.
+    - Restart the Docker daemon for the changes to take effect:
+
+      ```bash
+      sudo systemctl restart docker
+      ```
+
+- [x] Task 6: Run Docker login on the server
+  - Open a terminal or SSH session on the server.
+  - Run the following command to log in to the Docker registry:
+
+    ```bash
+    docker login <repository-host>:<repository-port>
+    ```
+
+  - Replace `<repository-host>` and `<repository-port>` with the appropriate values for your Nexus repository.
+  - Enter your username and password when prompted.
+
+- [x] Task 7: Load the environment variables and run the application
   - Ensure that the necessary prerequisites (Docker and Docker Compose) are installed on the server.
   - Open a terminal or SSH session on the server.
   - Navigate to the directory where the `compose.yaml` and credentials.local.env file is located.
@@ -720,7 +765,7 @@ Remember to replace `<remote-server-ip>`, `<repository-name>`, `<username>`, and
   - The `--env-file` flag reads the specified environment file and sets the environment variables for the containers.
   - The `-d` flag runs the containers in detached mode (background).
 
-- [ ] Task 6: Verify the application is running
+- [x] Task 8: Verify the application is running
   - Open a web browser and access your application using the remote server's IP address or hostname and the appropriate port.
   - Ensure that the application is functioning correctly and communicating with the backend services.
 
