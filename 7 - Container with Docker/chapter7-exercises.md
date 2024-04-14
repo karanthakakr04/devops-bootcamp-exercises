@@ -533,18 +533,18 @@ Volumes are useful in several scenarios:
   - Log in to the Nexus Docker registry:
 
     ```bash
-    echo "<password>" | docker login -u <username> --password-stdin <remote-server-ip>:8083
+    echo "<password>" | docker login -u <username> --password-stdin <remote-server-ip>:<repository-port>
     ```
 
-  - Replace `<username>` and `<password>` with the appropriate values, and `<remote-server-ip>` with the IP address of your remote server.
+  - Replace `<username>` and `<password>` with the appropriate values, and `<remote-server-ip>` with the IP address of your remote server and `<repository-port>` with the port number you configured for the Docker repository.
 
   - Push the Docker image to the Nexus repository:
 
     ```bash
-    docker push <remote-server-ip>:8083/java-app:1.0
+    docker push <remote-server-ip>:<repository-port>/java-app:1.0
     ```
 
-  - Replace `<remote-server-ip>` with the IP address of your remote server.
+  - Replace `<remote-server-ip>` with the IP address of your remote server and `<repository-port>` with the port number you configured for the Docker repository.
 
 - [x] Task 8: Verify the pushed Docker image
   - Access the Nexus web interface at `http://<remote-server-ip>:8081`.
