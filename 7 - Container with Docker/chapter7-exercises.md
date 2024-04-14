@@ -436,7 +436,7 @@ Volumes are useful in several scenarios:
   - Create a new firewall rule to allow incoming traffic on the following ports:
     - Port 22 (SSH) - This allows secure remote access to your server.
     - Port 8081 (or the desired port for Nexus) - This allows access to the Nexus web interface.
-    - Port 8083 (or the desired port for )
+    - Port 8083 (or the desired port for Docker repository) - This allows access to the Hosted Docker repository.
   - Apply the firewall rules to the remote server where you plan to install Nexus.
 
 - [x] Task 2: Install and start Nexus on the remote server
@@ -524,10 +524,10 @@ Volumes are useful in several scenarios:
   - Build the Docker image with a tag that includes the Nexus repository URL:
 
     ```bash
-    docker build -t <remote-server-ip>:8083/<repository-name>/java-app:1.0 .
+    docker build -t <remote-server-ip>:<repository-port>/java-app:1.0 .
     ```
 
-  - Replace `<remote-server-ip>` with the IP address of your remote server, `<repository-name>` with the name of the repository you created in Nexus, and adjust the tag version as needed.
+  - Replace `<remote-server-ip>` with the IP address of your remote server, `<repository-port>` with the port of the repository you created in Nexus, and adjust the tag version as needed.
 
 - [x] Task 7: Push the Docker image to Nexus
   - Log in to the Nexus Docker registry:
