@@ -440,7 +440,7 @@ Volumes are useful in several scenarios:
   - Apply the firewall rules to the remote server where you plan to install Nexus.
 
 - [x] Task 2: Install and start Nexus on the remote server
-  - Option 1: Using Docker Compose
+  - **Option 1: Using Docker Compose**
     - Create a `compose.nexus.yaml` file with the following content:
 
       ```yaml
@@ -465,7 +465,7 @@ Volumes are useful in several scenarios:
       docker compose -f compose.nexus.yaml up -d
       ```
 
-    - Option 2: Using Docker Command Line
+  - **Option 2: Using Docker Command Line**
       - Connect to your remote server using SSH.
       - Create a Docker volume for Nexus data:
 
