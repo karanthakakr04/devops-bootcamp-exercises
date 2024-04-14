@@ -772,3 +772,29 @@ Remember to replace `<remote-server-ip>`, `<repository-name>`, `<username>`, and
 Remember to replace the placeholders (`<repository-host>`, `<repository-port>`, `<username>`, `<password>`, `<remote-server-ip-or-hostname>`, `<path-to-ssh-key>`, and `<destination-path>`) with the appropriate values specific to your setup.
 
 ## Exercise 9
+
+- [x] Task 1: Open the necessary port on the server firewall
+  - Log in to your DigitalOcean account and navigate to the "Networking" section.
+  - Locate your server (Droplet) in the list and click on its name to access its settings.
+  - In the server settings, navigate to the "Firewall" tab.
+  - Click on the "Add Rule" button to create a new firewall rule.
+  - In the "Type" dropdown, select "Custom".
+  - Specify the port number that your application is running on (e.g., `8080`) in the "Port Range" field.
+  - Select the appropriate protocol (TCP or UDP) based on your application's requirements.
+  - Optionally, you can restrict the source IP addresses allowed to access the specified port by entering them in the "Sources" field. If you want to allow access from any IP address, leave it empty.
+  - Provide a meaningful name for the firewall rule (e.g., "Allow Port 8080").
+  - Click the "Create Firewall Rule" button to save the rule.
+
+- [x] Task 2: Test access from the browser
+  - Open a web browser on your local machine.
+  - Enter the public IP address or domain name of your DigitalOcean server, followed by the port number specified in the firewall rule.
+  - For example, if your server's IP address is `123.456.789.0` and the application is running on port `8080`, enter `http://123.456.789.0:8080` in the browser's address bar.
+  - Press Enter to access the application.
+  - If the firewall rule is configured correctly and the application is running, you should see the application's interface in the browser.
+  - Test the functionality of your application to ensure it is accessible and working as expected.
+
+Note: Make sure you have the correct IP address or domain name of your DigitalOcean server. You can find this information in your DigitalOcean account's Droplet settings.
+
+If you encounter any issues accessing the application, double-check the firewall rule configuration and ensure that the application is running correctly on the server.
+
+Remember to follow security best practices and only open the necessary ports required by your application. Regularly monitor and review your server's firewall settings to ensure the security of your deployment.
