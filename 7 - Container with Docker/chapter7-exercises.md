@@ -764,7 +764,8 @@ Remember to replace `<remote-server-ip>`, `<repository-name>`, `<username>`, and
 
   - The `--env-file` flag reads the specified environment file and sets the environment variables for the containers.
   - The `-d` flag runs the containers in detached mode (background).
-  - Output: ![final_output]()
+  - Output: ![final_output](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/b563d026-5c3b-4bdb-be98-ca2edc97cefe)
+
 
 Remember to replace the placeholders (`<repository-host>`, `<repository-port>`, `<username>`, `<password>`, `<remote-server-ip-or-hostname>`, `<path-to-ssh-key>`, and `<destination-path>`) with the appropriate values specific to your setup.
 
