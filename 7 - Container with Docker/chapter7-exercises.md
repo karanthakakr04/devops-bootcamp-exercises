@@ -649,13 +649,13 @@ Remember to replace `<remote-server-ip>`, `<repository-name>`, `<username>`, and
 
   - Replace `your_root_password`, `your_database_name`, `your_username`, and `your_password` with the appropriate values for your environment.
 
-- [ ] Task 3: Deploy the application on the server
+- [x] Task 3: Deploy the application on the server
   - Copy the updated `compose.yaml` file and the environment file (`credentials.env.local`) to the server where you want to deploy the application.
   - Ensure that the necessary prerequisites (Docker and Docker Compose) are installed on the server.
   - Open a terminal or SSH session on the server.
   - Navigate to the directory where the `compose.yaml` file is located.
 
-- [ ] Task 4: Load the environment variables and run the application
+- [x] Task 4: Load the environment variables and run the application
   - Load the environment variables from the environment file before running the `docker compose up` command.
   - Use the `--env-file` flag to specify the environment file.
 
