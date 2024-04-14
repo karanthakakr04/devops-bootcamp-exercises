@@ -482,7 +482,7 @@ Volumes are useful in several scenarios:
   - Wait for Nexus to start up and become accessible on `http://<remote-server-ip>:8081`.
 
 > [!TIP]
-> I recommend using docker compose for running Nexus.  
+> I recommend using `docker compose` for running Nexus.  
 
 - [x] Task 3: Retrieve the default admin password
   - Retrieve the uniquely generated admin password from the `admin.password` file inside the Nexus volume:
