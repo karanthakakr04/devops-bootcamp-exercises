@@ -636,8 +636,8 @@ Remember to replace `<remote-server-ip>`, `<repository-name>`, `<username>`, and
       db_data:
     ```
 
-- [x] Task 2: Create an environment file for production
-  - Create a new file named `credentials.env.prod` in the same directory as the `compose.yaml` file.
+- [x] Task 2: Create an file for environment variables
+  - Create a new file named `credentials.local.env` in the same directory as the `compose.yaml` file.
   - Add the necessary environment variables and their corresponding values to the file.
 
    ```bash
@@ -649,13 +649,67 @@ Remember to replace `<remote-server-ip>`, `<repository-name>`, `<username>`, and
 
   - Replace `your_root_password`, `your_database_name`, `your_username`, and `your_password` with the appropriate values for your environment.
 
-- [x] Task 3: Deploy the application on the server
-  - Copy the updated `compose.yaml` file and the environment file (`credentials.env.local`) to the server where you want to deploy the application.
+## Exercise 8
+
+- [ ] Task 1: Update the application's index.html file
+  - Open the `index.html` file of your Java application.
+  - Locate the following line:
+
+    ```javascript
+    const HOST = "localhost";
+    ```
+
+  - Replace `"localhost"` with the IP address or hostname of your remote server:
+
+    ```javascript
+    const HOST = "<remote-server-ip-or-hostname>";
+    ```
+
+  - Save the updated `index.html` file.
+
+- [ ] Task 2: Rebuild and push the Docker image
+  - Open a terminal on your local machine and navigate to the directory containing the Dockerfile for your Java application.
+  - Build the Docker image with the updated `index.html` file:
+
+    ```bash
+    docker build -t <repository-host>:<repository-port>/java-app:1.1 .
+    ```
+
+  - Push the updated image to the Nexus repository:
+
+    ```bash
+    docker push <repository-host>:<repository-port>/java-app:1.1
+    ```
+
+  - Update the `compose.yaml` file to use the new image version (`1.1`) for the `app` service.
+
+- [ ] Task 3: Update the compose.yaml file
+  - Open the `compose.yaml` file.
+  - Locate the `app` service definition.
+  - Update the `image` property to use the correct repository and tag:
+
+    ```yaml
+    app:
+      image: <repository-host>:<repository-port>/java-app:1.1
+      # ...
+    ```
+
+  - Save the updated `compose.yaml` file.
+
+- [ ] Task 4: Copy necessary files to the server
+  - Use the `scp` command with the appropriate SSH key to securely copy the `compose.yaml` file from your local machine to the remote server:
+
+    ```bash
+    scp -i <path-to-ssh-key> compose.yaml <username>@<remote-server-ip-or-hostname>:<destination-path>
+    ```
+
+  - Replace `<path-to-ssh-key>`, `<username>`, `<remote-server-ip-or-hostname>`, and `<destination-path>` with the appropriate values.
+  - Use the `scp` command again to copy the environment file (`credentials.local.env`) to the server.
+
+- [ ] Task 5: Load the environment variables and run the application
   - Ensure that the necessary prerequisites (Docker and Docker Compose) are installed on the server.
   - Open a terminal or SSH session on the server.
-  - Navigate to the directory where the `compose.yaml` file is located.
-
-- [x] Task 4: Load the environment variables and run the application
+  - Navigate to the directory where the `compose.yaml` and credentials.local.env file is located.
   - Load the environment variables from the environment file before running the `docker compose up` command.
   - Use the `--env-file` flag to specify the environment file.
 
@@ -666,6 +720,10 @@ Remember to replace `<remote-server-ip>`, `<repository-name>`, `<username>`, and
   - The `--env-file` flag reads the specified environment file and sets the environment variables for the containers.
   - The `-d` flag runs the containers in detached mode (background).
 
-## Exercise 8
+- [ ] Task 6: Verify the application is running
+  - Open a web browser and access your application using the remote server's IP address or hostname and the appropriate port.
+  - Ensure that the application is functioning correctly and communicating with the backend services.
+
+Remember to replace the placeholders (`<repository-host>`, `<repository-port>`, `<username>`, `<password>`, `<remote-server-ip-or-hostname>`, `<path-to-ssh-key>`, and `<destination-path>`) with the appropriate values specific to your setup.
 
 ## Exercise 9
