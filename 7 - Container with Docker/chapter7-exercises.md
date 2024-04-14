@@ -759,7 +759,7 @@ Remember to replace `<remote-server-ip>`, `<repository-name>`, `<username>`, and
   - Use the `--env-file` flag to specify the environment file.
 
     ```bash
-    docker compose --env-file credentials.env.local up -d
+    docker compose --env-file credentials.local.env up -d
     ```
 
   - The `--env-file` flag reads the specified environment file and sets the environment variables for the containers.
