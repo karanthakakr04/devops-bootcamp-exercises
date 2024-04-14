@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   nexus:
     # Image to be used for the Nexus service, specifying version and base image
