@@ -440,20 +440,49 @@ Volumes are useful in several scenarios:
   - Apply the firewall rules to the remote server where you plan to install Nexus.
 
 - [x] Task 2: Install and start Nexus on the remote server
-  - Connect to your remote server using SSH.
-  - Create a Docker volume for Nexus data:
+  - Option 1: Using Docker Compose
+    - Create a `compose.nexus.yaml` file with the following content:
 
-    ```bash
-    docker volume create --name nexus-data
-    ```
+      ```yaml
+      version: '3.8'
+      services:
+      nexus:
+        image: sonatype/nexus3:3.67.1-java11
+        restart: always
+        volumes:
+          - nexus-data:/nexus-data
+        ports:
+          - 8081:8081
+          - 8083:8083
+      volumes:
+        nexus-data:
+          driver: local
+        ```
 
-  - Start a Nexus container with the specified version and volume:
+    - Launch Nexus using Docker Compose:
 
-    ```bash
-    docker run -d -p 8081:8081 -p 8083:8083 --name nexus -v nexus-data:/nexus-data sonatype/nexus3:3.67.1-java11
-    ```
+      ```bash
+      docker compose -f compose.nexus.yaml up -d
+      ```
+
+    - Option 2: Using Docker Command Line
+      - Connect to your remote server using SSH.
+      - Create a Docker volume for Nexus data:
+
+        ```bash
+        docker volume create --name nexus-data
+        ```
+
+      - Start a Nexus container with the specified version and volume:
+
+        ```bash
+        docker run -d -p 8081:8081 -p 8083:8083 --name nexus -v nexus-data:/nexus-data sonatype/nexus3:3.67.1-java11
+        ```
 
   - Wait for Nexus to start up and become accessible on `http://<remote-server-ip>:8081`.
+
+> [!TIP]
+> I recommend using docker compose for running Nexus.  
 
 - [x] Task 3: Retrieve the default admin password
   - Retrieve the uniquely generated admin password from the `admin.password` file inside the Nexus volume:
