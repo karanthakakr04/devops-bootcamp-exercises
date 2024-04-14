@@ -764,10 +764,7 @@ Remember to replace `<remote-server-ip>`, `<repository-name>`, `<username>`, and
 
   - The `--env-file` flag reads the specified environment file and sets the environment variables for the containers.
   - The `-d` flag runs the containers in detached mode (background).
-
-- [x] Task 8: Verify the application is running
-  - Open a web browser and access your application using the remote server's IP address or hostname and the appropriate port.
-  - Ensure that the application is functioning correctly and communicating with the backend services.
+  - Output: ![final_output]()
 
 Remember to replace the placeholders (`<repository-host>`, `<repository-port>`, `<username>`, `<password>`, `<remote-server-ip-or-hostname>`, `<path-to-ssh-key>`, and `<destination-path>`) with the appropriate values specific to your setup.
 
