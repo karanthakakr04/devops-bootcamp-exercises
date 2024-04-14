@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  nexus:
+    # Image to be used for the Nexus service, specifying version and base image
+    image: sonatype/nexus3:3.67.1-java11
+    restart: always  # Ensures the service restarts automatically if it stops unexpectedly
+    volumes:
+      - nexus-data:/nexus-data  # Persistent volume for Nexus data
+    ports:
+      - 8081:8081  # Port for Nexus web interface
+      - 8083:8083  # Port for Docker hosted repositories (if used)
+
+# Definitions of named volumes used in this compose file
+volumes:
+  nexus-data:
+    # This volume will store the persistent data for Nexus, such as configurations and stored artifacts.
+    driver: local  # Specifies that the default local volume driver is used
