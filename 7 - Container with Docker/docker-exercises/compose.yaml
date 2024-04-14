@@ -27,7 +27,7 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
 
   app:
-    image: 138.197.7.3:8083/my-java-app:1.1
+    image: 138.197.7.3:8083/java-app:1.1
     restart: always
     ports:
       - "8080:8080"
