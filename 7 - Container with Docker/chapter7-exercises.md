@@ -466,14 +466,14 @@ Volumes are useful in several scenarios:
       ```
 
   - **Option 2: Using Docker Command Line**
-      - Connect to your remote server using SSH.
-      - Create a Docker volume for Nexus data:
+    - Connect to your remote server using SSH.
+    - Create a Docker volume for Nexus data:
 
         ```bash
         docker volume create --name nexus-data
         ```
 
-      - Start a Nexus container with the specified version and volume:
+    - Start a Nexus container with the specified version and volume:
 
         ```bash
         docker run -d -p 8081:8081 -p 8083:8083 --name nexus -v nexus-data:/nexus-data sonatype/nexus3:3.67.1-java11
