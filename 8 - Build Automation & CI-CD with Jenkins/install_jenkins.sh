@@ -25,6 +25,21 @@ else
     OS=$(uname -s)
 fi
 
+# Function to update the operating system and installed packages
+update_system() {
+    log "Updating the operating system and installed packages..."
+    if [[ $OS == "ubuntu" || $OS == "debian" ]]; then
+        apt update &>> $LOG_FILE
+        apt upgrade -y &>> $LOG_FILE
+    elif [[ $OS == "fedora" ]]; then
+        dnf upgrade -y &>> $LOG_FILE
+    elif [[ $OS == "rhel" || $OS == "centos" || $OS == "almalinux" || $OS == "rocky" ]]; then
+        yum update -y &>> $LOG_FILE
+    else
+        log "Unsupported operating system. Please update the system manually."
+    fi
+}
+
 # Function to check if Java 17 is installed
 check_java_17() {
     if command -v java >/dev/null 2>&1; then
@@ -41,7 +56,6 @@ check_java_17() {
 install_java_17() {
     log "Installing Java 17..."
     if [[ $OS == "ubuntu" || $OS == "debian" ]]; then
-        apt update &>> $LOG_FILE
         apt install -y fontconfig openjdk-17-jre &>> $LOG_FILE
     elif [[ $OS == "fedora" ]]; then
         dnf install -y fontconfig java-17-openjdk &>> $LOG_FILE
@@ -68,14 +82,12 @@ install_jenkins() {
         wget -q -O /etc/yum.repos.d/jenkins.repo \
             https://pkg.jenkins.io/redhat-stable/jenkins.repo
         rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
-        dnf upgrade -y &>> $LOG_FILE
         dnf install -y jenkins &>> $LOG_FILE
         systemctl daemon-reload
     elif [[ $OS == "rhel" || $OS == "centos" || $OS == "almalinux" || $OS == "rocky" ]]; then
         wget -q -O /etc/yum.repos.d/jenkins.repo \
             https://pkg.jenkins.io/redhat-stable/jenkins.repo
         rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
-        yum upgrade -y &>> $LOG_FILE
         yum install -y jenkins &>> $LOG_FILE
         systemctl daemon-reload
     else
@@ -134,6 +146,9 @@ configure_firewall() {
         log "No firewall management tool found. Please check firewall manually."
     fi
 }
+
+# Update the operating system and installed packages
+update_system
 
 # Check if Java 17 is installed
 if ! check_java_17; then
