@@ -78,6 +78,7 @@ install_jenkins() {
           /etc/apt/sources.list.d/jenkins.list > /dev/null
         apt-get update &>> $LOG_FILE
         apt-get install -y jenkins &>> $LOG_FILE
+        systemctl daemon-reload
     elif [[ $OS == "fedora" ]]; then
         wget -q -O /etc/yum.repos.d/jenkins.repo \
             https://pkg.jenkins.io/redhat-stable/jenkins.repo
