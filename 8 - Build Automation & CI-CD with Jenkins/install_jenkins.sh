@@ -119,18 +119,36 @@ sudo systemctl start jenkins &>> $LOG_FILE
 echo
 echo "Checking Jenkins status..."
 echo
+
 if sudo systemctl status jenkins | grep -q "Active: active (running)"; then
     echo "Jenkins is running successfully."
     log "Jenkins installation completed successfully."
     echo
     echo "Access Jenkins by opening a web browser and navigating to http://$server_ip:$JENKINS_PORT"
     echo
-    echo "Remember to configure the firewall rules through the DigitalOcean UI to allow access to the Jenkins port."
+
+    cat <<EOF
+If Jenkins fails to start because the port is in use, run 'systemctl edit jenkins' and add the following:
+[Service]
+Environment="JENKINS_PORT=8081"
+Replace '8081' with an available port if needed.
+
+To troubleshoot Jenkins, you can use the following commands:
+- Run 'systemctl cat jenkins' for more details on the Jenkins service.
+- Run 'journalctl -u jenkins.service' to view Jenkins logs.
+
+Remember to configure the firewall rules through the DigitalOcean UI to allow access to the Jenkins port.
+EOF
+
     echo
 else
     echo "Jenkins is not running. Please check the logs for more information."
     log "Jenkins installation encountered an issue. Jenkins is not running."
     echo
-    echo "Please check the Jenkins logs located at /var/log/jenkins/jenkins.log for more details."
+
+    cat <<EOF
+Please check the Jenkins logs using 'journalctl -u jenkins.service' for more details.
+EOF
+
     echo
 fi
