@@ -56,11 +56,11 @@ check_java_17() {
 install_java_17() {
     log "Installing Java 17..."
     if [[ $OS == "ubuntu" || $OS == "debian" ]]; then
-        apt install -y fontconfig openjdk-17-jre &>> $LOG_FILE
+        apt install -y openjdk-17-jdk &>> $LOG_FILE
     elif [[ $OS == "fedora" ]]; then
-        dnf install -y fontconfig java-17-openjdk &>> $LOG_FILE
+        dnf install -y java-17-openjdk &>> $LOG_FILE
     elif [[ $OS == "rhel" || $OS == "centos" || $OS == "almalinux" || $OS == "rocky" ]]; then
-        yum install -y fontconfig java-17-openjdk &>> $LOG_FILE
+        yum install -y java-17-openjdk &>> $LOG_FILE
     else
         log "Unsupported operating system. Please install Java 17 manually."
         exit 1
@@ -96,56 +96,8 @@ install_jenkins() {
     fi
 }
 
-# Function to configure firewall
-configure_firewall() {
-    log "Checking firewall..."
-    if command -v firewall-cmd >/dev/null 2>&1; then
-        if firewall-cmd --state >/dev/null 2>&1; then
-            log "Firewall (firewalld) is active."
-            if ! firewall-cmd --list-ports | grep -q $JENKINS_PORT; then
-                log "Jenkins port ($JENKINS_PORT) is not open. Configuring firewall..."
-                firewall-cmd --permanent --new-service=jenkins
-                firewall-cmd --permanent --service=jenkins --set-short="Jenkins ports"
-                firewall-cmd --permanent --service=jenkins --set-description="Jenkins port exceptions"
-                firewall-cmd --permanent --service=jenkins --add-port=$JENKINS_PORT/tcp
-                firewall-cmd --permanent --add-service=jenkins
-                firewall-cmd --reload
-            else
-                log "Jenkins port ($JENKINS_PORT) is already open."
-            fi
-        else
-            log "Firewall (firewalld) is not active."
-        fi
-    elif command -v ufw >/dev/null 2>&1; then
-        if ufw status | grep -q "active"; then
-            log "Firewall (ufw) is active."
-            if ! ufw status | grep -q $JENKINS_PORT; then
-                log "Jenkins port ($JENKINS_PORT) is not open. Configuring firewall..."
-                ufw allow $JENKINS_PORT/tcp
-                ufw reload
-            else
-                log "Jenkins port ($JENKINS_PORT) is already open."
-            fi
-        else
-            log "Firewall (ufw) is not active."
-        fi
-    elif command -v iptables >/dev/null 2>&1; then
-        if iptables -L -n | grep -q "ACCEPT"; then
-            log "Firewall (iptables) is active."
-            if ! iptables -L -n | grep -q $JENKINS_PORT; then
-                log "Jenkins port ($JENKINS_PORT) is not open. Configuring firewall..."
-                iptables -A INPUT -p tcp --dport $JENKINS_PORT -j ACCEPT
-                iptables-save > /etc/sysconfig/iptables
-            else
-                log "Jenkins port ($JENKINS_PORT) is already open."
-            fi
-        else
-            log "Firewall (iptables) is not active."
-        fi
-    else
-        log "No firewall management tool found. Please check firewall manually."
-    fi
-}
+# Prompt the user to enter the server IP
+read -p "Enter the server IP address: " server_ip
 
 # Update the operating system and installed packages
 update_system
@@ -158,12 +110,10 @@ fi
 # Install Jenkins
 install_jenkins
 
-# Configure firewall
-configure_firewall
-
 # Start Jenkins service
 systemctl enable jenkins &>> $LOG_FILE
 systemctl start jenkins &>> $LOG_FILE
 
 log "Jenkins installation completed successfully."
-echo "Access Jenkins by opening a web browser and navigating to http://your-server-ip:$JENKINS_PORT"
+echo "Access Jenkins by opening a web browser and navigating to http://$server_ip:$JENKINS_PORT"
+echo "Remember to configure the firewall rules through the DigitalOcean UI to allow access to the Jenkins port."
