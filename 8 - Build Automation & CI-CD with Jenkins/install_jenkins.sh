@@ -76,8 +76,8 @@ install_jenkins() {
         echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" \
           https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
           /etc/apt/sources.list.d/jenkins.list > /dev/null
-        sudo apt update &>> $LOG_FILE
-        sudo apt install -y jenkins &>> $LOG_FILE
+        sudo apt-get update &>> $LOG_FILE
+        sudo apt-get install -y jenkins &>> $LOG_FILE
         sudo systemctl daemon-reload
     elif [[ $OS == "fedora" ]]; then
         sudo wget -q -O /etc/yum.repos.d/jenkins.repo \
@@ -97,37 +97,27 @@ install_jenkins() {
     fi
 }
 
-# Prompt the user to enter the server IP
-read -p "Enter the server IP address: " server_ip
+# Function to start Jenkins service
+start_jenkins() {
+    log "Starting Jenkins service..."
+    sudo systemctl enable jenkins &>> $LOG_FILE
+    sudo systemctl start jenkins &>> $LOG_FILE
+}
 
-# Update the operating system and installed packages
-update_system
-
-# Check if Java 17 is installed
-if ! check_java_17; then
-    install_java_17
-fi
-
-# Install Jenkins
-install_jenkins
-
-# Start Jenkins service
-sudo systemctl enable jenkins &>> $LOG_FILE
-sudo systemctl start jenkins &>> $LOG_FILE
-
-# Check Jenkins status
-echo
-echo "Checking Jenkins status..."
-echo
-
-if sudo systemctl status jenkins | grep -q "Active: active (running)"; then
-    echo "Jenkins is running successfully."
-    log "Jenkins installation completed successfully."
+# Function to check Jenkins status
+check_jenkins_status() {
     echo
-    echo "Access Jenkins by opening a web browser and navigating to http://$server_ip:$JENKINS_PORT"
+    echo "Checking Jenkins status..."
     echo
 
-    cat <<EOF
+    if sudo systemctl status jenkins | grep -q "Active: active (running)"; then
+        echo "Jenkins is running successfully."
+        log "Jenkins installation completed successfully."
+        echo
+        echo "Access Jenkins by opening a web browser and navigating to http://$server_ip:$JENKINS_PORT"
+        echo
+
+        cat <<EOF
 If Jenkins fails to start because the port is in use, run 'systemctl edit jenkins' and add the following:
 [Service]
 Environment="JENKINS_PORT=8081"
@@ -140,15 +130,42 @@ To troubleshoot Jenkins, you can use the following commands:
 Remember to configure the firewall rules through the DigitalOcean UI to allow access to the Jenkins port.
 EOF
 
-    echo
-else
-    echo "Jenkins is not running. Please check the logs for more information."
-    log "Jenkins installation encountered an issue. Jenkins is not running."
-    echo
+        echo
+    else
+        echo "Jenkins is not running. Please check the logs for more information."
+        log "Jenkins installation encountered an issue. Jenkins is not running."
+        echo
 
-    cat <<EOF
+        cat <<EOF
 Please check the Jenkins logs using 'journalctl -u jenkins.service' for more details.
 EOF
 
-    echo
-fi
+        echo
+    fi
+}
+
+# Main function to run the installation steps
+main() {
+    # Prompt the user to enter the server IP
+    read -p "Enter the server IP address: " server_ip
+
+    # Update the operating system and installed packages
+    update_system
+
+    # Check if Java 17 is installed
+    if ! check_java_17; then
+        install_java_17
+    fi
+
+    # Install Jenkins
+    install_jenkins
+
+    # Start Jenkins service
+    start_jenkins
+
+    # Check Jenkins status
+    check_jenkins_status
+}
+
+# Run the main function
+main
