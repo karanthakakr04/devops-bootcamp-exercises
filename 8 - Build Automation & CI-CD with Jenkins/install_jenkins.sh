@@ -76,8 +76,8 @@ install_jenkins() {
         echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" \
           https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
           /etc/apt/sources.list.d/jenkins.list > /dev/null
-        sudo apt-get update &>> $LOG_FILE
-        sudo apt-get install -y jenkins &>> $LOG_FILE
+        sudo apt update &>> $LOG_FILE
+        sudo apt install -y jenkins &>> $LOG_FILE
         sudo systemctl daemon-reload
     elif [[ $OS == "fedora" ]]; then
         sudo wget -q -O /etc/yum.repos.d/jenkins.repo \
