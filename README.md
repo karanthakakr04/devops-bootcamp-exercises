@@ -5,7 +5,7 @@
 - [x] 4 - Build Tools & Package Manager Tools
 - [x] 5 - Cloud & IaaS Basics - DigitalOcean
 - [x] 6 - Artifact Repository Manager with Nexus
-- [ ] 7 - Container with Docker
+- [x] 7 - Container with Docker
 - [ ] 8 - Build Automation & CI/CD with Jenkins
 - [ ] 9 - AWS Services
 - [ ] 10 - Container Orchestration with Kubernetes
