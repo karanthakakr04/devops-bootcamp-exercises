@@ -1,1 +1,5 @@
-.vscode
+# Visual Studio Code directory
+.vscode/
+
+# Visual Studio Code workspace file
+*.code-workspace
