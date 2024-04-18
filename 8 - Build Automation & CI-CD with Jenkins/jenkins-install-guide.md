@@ -21,12 +21,14 @@ Before running this script, ensure that you have the following:
 1. Download the `jenkins_install.sh` script to your server.
 
 2. Make the script executable by running the following command:
-   ```
+
+   ```bash
    chmod +x jenkins_install.sh
    ```
 
 3. Execute the script with sudo privileges:
-   ```
+
+   ```bash
    sudo ./jenkins_install.sh
    ```
 
@@ -50,21 +52,25 @@ Before running this script, ensure that you have the following:
 By default, Jenkins listens on port 8080. If this port is already in use, you can change it by following these steps:
 
 1. Run the following command to edit the Jenkins configuration:
-   ```
+
+   ```bash
    sudo systemctl edit jenkins
    ```
 
 2. Add the following lines to the file:
-   ```
+
+   ```(systemd config)
    [Service]
    Environment="JENKINS_PORT=8081"
    ```
+
    Replace `8081` with the desired port number.
 
 3. Save the file and exit the editor.
 
 4. Restart the Jenkins service for the changes to take effect:
-   ```
+
+   ```bash
    sudo systemctl restart jenkins
    ```
 
@@ -79,12 +85,14 @@ Ensure that the firewall allows incoming traffic on the Jenkins port (default: 8
 If you encounter any issues during the installation or while running Jenkins, you can use the following commands for troubleshooting:
 
 - To view the Jenkins service details:
-  ```
+
+  ```bash
   sudo systemctl cat jenkins
   ```
 
 - To view the Jenkins logs:
-  ```
+
+  ```bash
   sudo journalctl -u jenkins.service
   ```
 
