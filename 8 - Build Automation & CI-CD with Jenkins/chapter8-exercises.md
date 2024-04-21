@@ -5,16 +5,7 @@
 ### Install or Check Docker on the Remote Server
 
 - [x] Task 1: Install Docker (if not already installed)
-  - **Check if Docker is installed:**
-    - SSH into the remote server.
-    - Run the following command to check if Docker is already installed:
-
-      ```bash
-      docker --version
-      ```
-
-    - If Docker is installed, the command will display the Docker version. Proceed to Task 2.
-    - If Docker is not installed, continue with the installation steps.
+  - SSH into the remote server.
 
   - **Set up Docker's apt repository:**
     - Add Docker's official GPG key:
