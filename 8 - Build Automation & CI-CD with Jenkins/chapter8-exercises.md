@@ -90,7 +90,7 @@
 
 ### Option 2: Install Jenkins Locally on the Remote Server
 
-- [x] Task 1: Clone the repository and copy the installation script
+- [ ] Task 1: Clone the repository and copy the installation script
   - **Clone the repository:**
     - Open a terminal on your local machine.
     - Run the following command to clone this repository containing the `install_jenkins.sh` script:
@@ -112,7 +112,7 @@
     - Replace `<remote-server-ip>` with the IP address or hostname of the remote server.
     - Replace `/path/on/remote/server` with the desired destination path on the remote server.
 
-- [x] Task 2: Use the provided script to install Jenkins locally
+- [ ] Task 2: Use the provided script to install Jenkins locally
   - **Make the script executable:**
     - SSH into the remote server.
     - Navigate to the directory where you copied the `install_jenkins.sh` script.
