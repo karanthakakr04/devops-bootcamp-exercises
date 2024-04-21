@@ -4,7 +4,7 @@
 
 ### Install or Check Docker on the Remote Server
 
-- [ ] Task 1: Install Docker (if not already installed)
+- [x] Task 1: Install Docker (if not already installed)
   - **Check if Docker is installed:**
     - SSH into the remote server.
     - Run the following command to check if Docker is already installed:
@@ -50,7 +50,7 @@
       sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
       ```
 
-- [ ] Task 2: Check the Docker version (if already installed)
+- [x] Task 2: Check the Docker version (if already installed)
   - **Check the Docker version:**
     - SSH into the remote server.
     - Run the following command to check the Docker version:
@@ -64,7 +64,7 @@
 
 ### Option 1: Run Jenkins as a Docker Container
 
-- [ ] Task 1: Run Jenkins as a Docker container
+- [x] Task 1: Run Jenkins as a Docker container
   - **Start the Jenkins container:**
     - Run the following command on the remote server to start a Jenkins container:
 
@@ -90,7 +90,7 @@
 
 ### Option 2: Install Jenkins Locally on the Remote Server
 
-- [ ] Task 1: Clone the repository and copy the installation script
+- [x] Task 1: Clone the repository and copy the installation script
   - **Clone the repository:**
     - Open a terminal on your local machine.
     - Run the following command to clone this repository containing the `install_jenkins.sh` script:
@@ -112,7 +112,7 @@
     - Replace `<remote-server-ip>` with the IP address or hostname of the remote server.
     - Replace `/path/on/remote/server` with the desired destination path on the remote server.
 
-- [ ] Task 2: Use the provided script to install Jenkins locally
+- [x] Task 2: Use the provided script to install Jenkins locally
   - **Make the script executable:**
     - SSH into the remote server.
     - Navigate to the directory where you copied the `install_jenkins.sh` script.
