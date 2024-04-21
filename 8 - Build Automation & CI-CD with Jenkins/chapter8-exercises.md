@@ -192,7 +192,8 @@ After installing Jenkins (either as a container or locally), you need to perform
 
     ![Retrieve the initial admin password](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/a5f74901-71d9-40c2-9825-1aaaf0f2ff4c)
 
-    - Note: You can also find the initial admin password on the host machine's filesystem at the mount point of the `jenkins_home` volume.
+    > [!Tip]
+    > You can also find the initial admin password on the host machine's filesystem at the mount point of the `jenkins_home` volume.
 
     ![Retrieve the initial admin password from mount point on the host machine](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/47a1021e-ce82-40f1-b1af-813c8e4cff73)
 
