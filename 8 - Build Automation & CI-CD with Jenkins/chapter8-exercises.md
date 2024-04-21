@@ -167,10 +167,14 @@ After installing Jenkins (either as a container or locally), you need to perform
   - Click on "Firewalls" and update the existing rule configured for Jenkins to also include an inbound rule for port 8080 (or the specific port you're using for Jenkins), alongside the previously established rule for SSH access.
   - Save the inbound firewall rule.
 
+![Screenshot of firewall configuration on DigitalOcean](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/a31aeb80-6ce0-488d-9862-ff3bd26b1018)
+
 - [x] Task 2: Access Jenkins web UI
   - Open a web browser and enter the URL: `http://<remote-server-ip>:8080`
-  - Replace `<remote-server-ip>` with the IP address of your remote server.
+  - Replace `<remote-server-ip>` with the IP address of your remote server. In my case, it is port 8080 but you can choose a different port.
   - You should see the Jenkins "Getting Started" page.
+
+![Screenshot of Jenkins web interface "Getting Started" page](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/cf87e17f-952d-4367-9eff-5d2c68484c8e)
 
 ### Retrieve Initial Admin Password
 
