@@ -5,7 +5,7 @@
 ### Option 1: Run Jenkins as a Docker Container
 
 > [!NOTE]
-> A firewall rule for port 22 (SSH) should be configured after creating the droplet to enable SSH access to the remote server.
+> **After creating the droplet, ensure that you have a firewall rule configured to allow inbound traffic on port 22 (SSH) to enable SSH access to the remote server.**
 
 - [x] Task 1: Install Docker (if not already installed)
   - **Check if Docker is installed:**
@@ -82,7 +82,7 @@
 - [ ] Task 1: Clone the repository and copy the installation script
   - **Clone the repository:**
     - Open a terminal on your local machine.
-    - Run the following command to clone this repository containing the `install_jenkins.sh` script:
+    - Run the following command to clone the repository containing the `install_jenkins.sh` script:
 
       ```bash
       git clone <repository-url>
@@ -161,11 +161,9 @@ After installing Jenkins (either as a container or locally), you need to perform
 
 - [x] Task 1: Configure firewall rules
   - If you are using a cloud provider like DigitalOcean, you need to configure firewall rules to allow access to the Jenkins web UI.
-  - After creating the droplet, ensure that you have a firewall rule configured to allow inbound traffic on port 22 (SSH) to enable SSH access to the remote server.
   - After completing the Jenkins installation, open the DigitalOcean control panel and navigate to the "Networking" section.
-  - Click on "Firewalls" and edit the existing one already configured for Jenkins (you must have created a rule to allow SSH access to the Jenkins server).
-  - Allow inbound traffic on port 8080 (or the port you configured for Jenkins).
-  - Apply the firewall rule to your remote server.
+  - Click on "Firewalls" and update the existing rule configured for Jenkins to also include an inbound rule for port 8080 (or the specific port you're using for Jenkins), alongside the previously established rule for SSH access.
+  - Save the inbound firewall rule.
 
 - [x] Task 2: Access Jenkins web UI
   - Open a web browser and enter the URL: `http://<remote-server-ip>:8080`
