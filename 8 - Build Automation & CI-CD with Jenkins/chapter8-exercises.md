@@ -2,10 +2,19 @@
 
 ## Prerequisites
 
-### Install or Check Docker on the Remote Server
+### Option 1: Run Jenkins as a Docker Container
 
 - [x] Task 1: Install Docker (if not already installed)
-  - SSH into the remote server.
+  - **Check if Docker is installed:**
+    - SSH into the remote server.
+    - Run the following command to check if Docker is already installed:
+
+      ```bash
+      docker --version
+      ```
+
+    - If Docker is installed, the command will display the Docker version. Proceed to Task 2.
+    - If Docker is not installed, continue with the installation steps.
 
   - **Set up Docker's apt repository:**
     - Add Docker's official GPG key:
@@ -41,21 +50,7 @@
       sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
       ```
 
-- [x] Task 2: Check the Docker version (if already installed)
-  - **Check the Docker version:**
-    - SSH into the remote server.
-    - Run the following command to check the Docker version:
-
-      ```bash
-      docker --version
-      ```
-
-    - The command will display the installed Docker version.
-    - Ensure that you have a compatible Docker version installed (e.g., Docker 20.10 or later).
-
-### Option 1: Run Jenkins as a Docker Container
-
-- [x] Task 1: Run Jenkins as a Docker container
+- [x] Task 2: Run Jenkins as a Docker container
   - **Start the Jenkins container:**
     - Run the following command on the remote server to start a Jenkins container:
 
