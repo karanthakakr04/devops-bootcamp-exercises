@@ -18,7 +18,7 @@
       sudo chmod a+r /etc/apt/keyrings/docker.asc
       ```
 
-    - Add the repository to Apt sources:
+    - Add the repository to `apt` sources:
 
       ```bash
       echo \
