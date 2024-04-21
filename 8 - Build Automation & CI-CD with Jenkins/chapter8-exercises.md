@@ -4,6 +4,9 @@
 
 ### Option 1: Run Jenkins as a Docker Container
 
+> [!NOTE]
+> A firewall rule for port 22 (SSH) should be configured after creating the droplet to enable SSH access to the remote server.
+
 - [x] Task 1: Install Docker (if not already installed)
   - **Check if Docker is installed:**
     - SSH into the remote server.
