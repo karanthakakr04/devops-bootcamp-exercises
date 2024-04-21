@@ -150,6 +150,87 @@ The choice between running Jenkins as a container with a named volume or install
 
 Ultimately, both approaches have their merits, and the decision should be based on factors such as scalability, ease of maintenance, and alignment with your overall deployment strategy.
 
+## Jenkins Initialization
+
+After installing Jenkins (either as a container or locally), you need to perform some initial setup steps to access and configure Jenkins. Follow the steps below to initialize Jenkins:
+
+### Access Jenkins Web UI
+
+- [x] Task 1: Configure firewall rules
+  - If you are using a cloud provider like DigitalOcean, you need to configure firewall rules to allow access to the Jenkins web UI.
+  - Open the DigitalOcean control panel and navigate to the "Networking" section.
+  - Click on "Firewalls" and create a new firewall rule/edit an existing one already configured for Jenkins.
+  - Allow inbound traffic on port 8080 (or the port you configured for Jenkins).
+  - Apply the firewall rule to your remote server.
+
+- [x] Task 2: Access Jenkins web UI
+  - Open a web browser and enter the URL: `http://<remote-server-ip>:8080`
+  - Replace `<remote-server-ip>` with the IP address of your remote server.
+  - You should see the Jenkins "Getting Started" page.
+
+### Retrieve Initial Admin Password
+
+- [ ] Task 1: Retrieve the initial admin password
+  - **If Jenkins is running as a container:**
+    - SSH into your remote server.
+    - Run the following command to enter the Jenkins container:
+
+      ```bash
+      docker exec -it <container-id> bash
+      ```
+
+    - Replace `<container-id>` with the ID of your Jenkins container.
+    - Once inside the container, run the following command to retrieve the initial admin password:
+
+      ```bash
+      cat /var/jenkins_home/secrets/initialAdminPassword
+      ```
+
+  - **If Jenkins is installed locally:**
+    - SSH into your remote server.
+    - Switch to the Jenkins user:
+
+      ```bash
+      sudo su - jenkins
+      ```
+
+    - Run the following command to retrieve the initial admin password:
+
+      ```bash
+      cat /var/lib/jenkins/secrets/initialAdminPassword
+      ```
+
+- [ ] Task 2: Enter the initial admin password
+  - Copy the retrieved password.
+  - Paste the password into the "Administrator password" field on the Jenkins "Getting Started" page.
+  - Click "Continue" to proceed.
+
+### Customize Jenkins
+
+- [ ] Task 1: Install plugins
+  - On the "Customize Jenkins" page, you can choose to install suggested plugins or select specific plugins.
+  - If you are unsure, you can go with the suggested plugins option.
+  - Click "Install" to begin the plugin installation process.
+
+- [ ] Task 2: Create the first admin user
+  - After the plugin installation is complete, you will be prompted to create the first admin user.
+  - Fill in the required information in the "Create First Admin User" form:
+    - Username
+    - Password
+    - Confirm password
+    - Full name
+    - Email address
+  - Click "Save and Continue" to create the admin user.
+
+- [ ] Task 3: Instance configuration
+  - On the next page, you can configure the Jenkins URL.
+  - Leave the default URL as is, or modify it if necessary.
+  - Click "Save and Finish" to complete the configuration.
+
+- [ ] Task 4: Start using Jenkins
+  - Click on "Start using Jenkins" to access the Jenkins dashboard.
+  - Jenkins is now ready to use!
+
 ## Exercise 1: Dockerize your NodeJS App
 
 - [ ] Task 1: Configure your NodeJS application to be built as a Docker image
