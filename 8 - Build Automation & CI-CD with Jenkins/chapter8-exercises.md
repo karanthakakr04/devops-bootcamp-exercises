@@ -77,6 +77,8 @@
     - Mounts a volume named `jenkins_home` to persist Jenkins data.
     - Uses the `jenkins/jenkins:lts-jdk17` image, which includes Jenkins with JDK 17.
 
+![Screenshot of Jenkins installation as a Docker container](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/49efa231-a4fb-4478-9465-1fef641ac406)
+
 ### Option 2: Install Jenkins Locally on the Remote Server
 
 - [ ] Task 1: Clone the repository and copy the installation script
@@ -188,7 +190,12 @@ After installing Jenkins (either as a container or locally), you need to perform
       cat /var/jenkins_home/secrets/initialAdminPassword
       ```
 
+    ![Retrieve the initial admin password](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/a5f74901-71d9-40c2-9825-1aaaf0f2ff4c)
+
     - Note: You can also find the initial admin password on the host machine's filesystem at the mount point of the `jenkins_home` volume.
+
+    ![Retrieve the initial admin password from mount point on the host machine](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/47a1021e-ce82-40f1-b1af-813c8e4cff73)
+
   - **If Jenkins is installed locally:**
     - SSH into your remote server.
     - Switch to the Jenkins user:
