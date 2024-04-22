@@ -171,7 +171,7 @@ After installing Jenkins (either as a container or locally), you need to perform
 
 - [x] Task 2: Access Jenkins web UI
   - Open a web browser and enter the URL: `http://<remote-server-ip>:8080`
-  - Replace `<remote-server-ip>` with the IP address of your remote server. In my case, it is port 8080 but you can choose a different port.
+  - Replace `<remote-server-ip>` with the IP address of your remote server. In this case, it is port 8080 (you can enter the port that you are running on).
   - You should see the Jenkins "Getting Started" page.
 
 ![Screenshot of Jenkins web interface "Getting Started" page](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/cf87e17f-952d-4367-9eff-5d2c68484c8e)
