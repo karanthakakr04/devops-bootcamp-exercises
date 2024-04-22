@@ -213,7 +213,7 @@ After installing Jenkins (either as a container or locally), you need to perform
       cat /var/lib/jenkins/secrets/initialAdminPassword
       ```
 
-- [ ] Task 2: Enter the initial admin password
+- [x] Task 2: Enter the initial admin password
   - Copy the retrieved password.
   - Paste the password into the "Administrator password" field on the Jenkins "Getting Started" page.
   - Click "Continue" to proceed.
