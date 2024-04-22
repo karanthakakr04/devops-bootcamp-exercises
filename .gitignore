@@ -3,3 +3,6 @@
 
 # Visual Studio Code workspace file
 *.code-workspace
+
+# Intellij workspace file
+.idea/
