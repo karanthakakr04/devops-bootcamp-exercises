@@ -181,7 +181,7 @@ After installing Jenkins (either as a container or locally), you need to perform
 
 ### Retrieve Initial Admin Password
 
-- [ ] Task 1: Retrieve the initial admin password
+- [x] Task 1: Retrieve the initial admin password
   - **If Jenkins is running as a container:**
     - SSH into your remote server.
     - Run the following command to enter the Jenkins container:
