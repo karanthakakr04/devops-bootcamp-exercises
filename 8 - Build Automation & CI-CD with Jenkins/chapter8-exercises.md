@@ -225,12 +225,12 @@ After installing Jenkins (either as a container or locally), you need to perform
 
 ### Customize Jenkins
 
-- [ ] Task 1: Install plugins
+- [x] Task 1: Install plugins
   - On the "Customize Jenkins" page, you can choose to install suggested plugins or select specific plugins.
   - If you are unsure, you can go with the suggested plugins option.
   - Click on the desired option to begin the plugin installation process.
 
-- [ ] Task 2: Create the first admin user
+- [x] Task 2: Create the first admin user
   - After the plugin installation is complete, you will be prompted to create the first admin user.
   - Fill in the required information in the "Create First Admin User" form:
     - Username
@@ -240,12 +240,12 @@ After installing Jenkins (either as a container or locally), you need to perform
     - Email address
   - Click "Save and Continue" to create the admin user.
 
-- [ ] Task 3: Instance configuration
+- [x] Task 3: Instance configuration
   - On the next page, you can configure the Jenkins URL.
   - Leave the default URL as is, or modify it if necessary.
   - Click "Save and Finish" to complete the configuration.
 
-- [ ] Task 4: Start using Jenkins
+- [x] Task 4: Start using Jenkins
   - Click on "Start using Jenkins" to access the Jenkins dashboard.
   - Jenkins is now ready to use!
 
@@ -253,7 +253,7 @@ After installing Jenkins (either as a container or locally), you need to perform
 
 #### Option 1: Install build tools as Plugins in Jenkins
 
-- [ ] Task 1: Install build tools directly from the Jenkins web UI (if available)
+- [x] Task 1: Install build tools directly from the Jenkins web UI (if available)
   - **Check if the desired build tool is available in the Jenkins web UI:**
     - Navigate to the Jenkins web UI.
     - Go to "Manage Jenkins" > Under "System Configuration" > click on "Plugins".
@@ -262,7 +262,7 @@ After installing Jenkins (either as a container or locally), you need to perform
 
 #### Option 2: Install build tools directly on the server where Jenkins is running
 
-- [ ] Task 1: Install build tools directly on the server where Jenkins is running (if not available in the Jenkins web UI or running Jenkins as a container)
+- [x] Task 1: Install build tools directly on the server where Jenkins is running (if not available in the Jenkins web UI or running Jenkins as a container)
   - **Access the Jenkins container as root user:**
     - If your Jenkins is running as a container, use the following command to enter the container terminal as root user:
 
