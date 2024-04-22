@@ -130,11 +130,11 @@
       - Install Jenkins.
       - Start the Jenkins service.
 
-## Additional Information: Jenkins Data Persistence
+### Additional Information: Jenkins Data Persistence
 
 When setting up Jenkins, it's important to consider how the Jenkins data (configurations, plugins, jobs, etc.) is managed and persisted. The approach to data persistence differs when running Jenkins as a Docker container compared to installing it directly on the host machine.
 
-### Running Jenkins as a Docker Container
+#### Running Jenkins as a Docker Container
 
 When running Jenkins as a Docker container, it is recommended to use a Docker named volume (`-v jenkins_home:/var/jenkins_home`) to store the Jenkins data. This approach has several benefits:
 
@@ -144,7 +144,7 @@ When running Jenkins as a Docker container, it is recommended to use a Docker na
 
 3. **Separation of Concerns**: By using a named volume, you keep the Jenkins data separate from the container itself. This allows you to upgrade or replace the Jenkins container image without affecting the stored data. You can stop the container, pull a new Jenkins image version, and start a new container while still preserving the existing data.
 
-### Installing Jenkins Directly on the Host Machine
+#### Installing Jenkins Directly on the Host Machine
 
 When installing Jenkins using the provided script (`install_jenkins.sh`), the Jenkins data is typically stored directly on the host machine's filesystem, usually under the `/var/lib/jenkins` directory. In this case:
 
@@ -158,11 +158,11 @@ The choice between running Jenkins as a container with a named volume or install
 
 Ultimately, both approaches have their merits, and the decision should be based on factors such as scalability, ease of maintenance, and alignment with your overall deployment strategy.
 
-## Jenkins Initialization
+### Jenkins Initialization
 
 After installing Jenkins (either as a container or locally), you need to perform some initial setup steps to access and configure Jenkins. Follow the steps below to initialize Jenkins:
 
-### Access Jenkins Web UI
+#### Access Jenkins Web UI
 
 - [x] Task 1: Configure firewall rules
   - If you are using a cloud provider like DigitalOcean, you need to configure firewall rules to allow access to the Jenkins web UI.
@@ -179,7 +179,7 @@ After installing Jenkins (either as a container or locally), you need to perform
 
 ![Screenshot of Jenkins web interface "Getting Started" page](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/cf87e17f-952d-4367-9eff-5d2c68484c8e)
 
-### Retrieve Initial Admin Password
+#### Retrieve Initial Admin Password
 
 - [x] Task 1: Retrieve the initial admin password
   - **If Jenkins is running as a container:**
