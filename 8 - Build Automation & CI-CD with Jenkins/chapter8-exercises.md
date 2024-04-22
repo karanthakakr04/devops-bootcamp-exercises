@@ -257,8 +257,28 @@ After installing Jenkins (either as a container or locally), you need to perform
   - **Check if the desired build tool is available in the Jenkins web UI:**
     - Navigate to the Jenkins web UI.
     - Go to "Manage Jenkins" > Under "System Configuration" > click on "Plugins".
-    - On the right side, click on "Available plugins" and in the search bar type the build tool that you want to install (e.g., NodeJS).
+    - On the right side, click on "Available plugins" and in the search bar type the build tool that you want to install (e.g., Maven).
     - If the build tool is available, proceed to configure and install it directly from the Jenkins web UI.
+
+##### Further Reading
+
+Choosing to install Node.js directly on a Jenkins container rather than relying on a Jenkins plugin involves several considerations. Here are some reasons why direct installation might be preferred:
+
+1. **Control and Flexibility**: Installing Node.js directly in the Jenkins container gives you full control over the Node.js environment. This means you can select the specific version of Node.js that is compatible with your projects, manage updates, and configure it exactly to your needs without being restricted by the capabilities or limitations of a plugin.
+
+2. **Performance and Compatibility**: By managing the Node.js installation yourself, you ensure that the runtime environment is optimally configured for your build processes, potentially improving build performance. This is especially important for projects that might have specific dependencies or require certain build tools available in Node.js.
+
+3. **Reduced Complexity in Jenkins**: Plugins can add complexity to Jenkins. Each plugin increases the potential for conflicts or issues during Jenkins upgrades. By reducing reliance on plugins and handling dependencies externally, you can simplify Jenkins management and make your build process more stable.
+
+4. **Up-to-Date Software**: Plugins may not always keep up with the latest releases of their respective tools. By installing Node.js directly, you can quickly adopt new features, performance improvements, and security patches as soon as they are released, rather than waiting for the plugin to be updated.
+
+5. **Avoiding Plugin Limitations**: Some Jenkins plugins might not expose all features of Node.js or might implement them in ways that don't meet specific requirements of your projects. Direct installation avoids these limitations.
+
+6. **Custom Scripts and Tooling**: Installing Node.js directly allows for the use of npm (Node Package Manager) and other Node.js-based tools within your Jenkins jobs without additional overhead or configuration complexities that might arise from using a plugin.
+
+7. **Consistency Across Environments**: If your development and production environments use specific versions of Node.js, mirroring this setup in your CI/CD pipeline reduces the risk of "works on my machine" issues. Direct installation ensures consistency across all environments.
+
+However, the choice between direct installation and using a plugin should be based on your specific needs, the scale of your projects, and your team's familiarity with managing Jenkins and its environments. Plugins can offer convenience and easier setup for teams that prefer a more integrated approach within the Jenkins UI. On the other hand, direct installation offers more control and flexibility, which can be crucial for complex projects.
 
 #### Option 2: Install build tools directly on the server where Jenkins is running
 
