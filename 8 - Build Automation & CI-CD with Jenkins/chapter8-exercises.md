@@ -306,6 +306,8 @@ However, the choice between direct installation and using a plugin should be bas
       ```
 
     - Take note of the distribution information, as it will be important for installing compatible versions of the build tools.
+   
+    ![Find out the distribution of this container OS](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/4767b189-dec8-4d79-907b-cbeff7457305)
 
   - **Install NodeJS as a build tool (example):**
     - If you require NodeJS as a build tool for your pipelines, you can install it using the following commands:
@@ -316,10 +318,16 @@ However, the choice between direct installation and using a plugin should be bas
       ```
 
     - This will install NodeJS in your Jenkins container.
+   
+    ![Install Nodejs Part 1](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/4daed4c3-14c1-4158-858e-81c36a6c1059)
+
+    ![Install Nodejs Part 2](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/3912d457-77cb-4dbe-863e-6ca9a466aad2)
 
   - **Verify the installation:**
     - After installing the build tools, verify that they are properly installed and accessible within the Jenkins container.
     - You can run version commands or check the installation paths to ensure the tools are set up correctly.
+   
+    ![Verify installation](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/1db7dfce-d71b-47b0-9b41-a997e32d81cb)
 
 > [!IMPORTANT]
 > **The specific steps and commands for installing build tools may vary depending on the operating system and the tools you require. Make sure to refer to the [official documentation](https://docs.nodesource.com/nsolid/5.0/docs#nsolid-runtime) or reliable sources for the correct installation procedures.**
