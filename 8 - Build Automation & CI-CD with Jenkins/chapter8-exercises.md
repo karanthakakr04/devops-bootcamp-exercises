@@ -64,6 +64,7 @@
     - This command starts a Jenkins container with the following configurations:
       - Maps the container's port 8080 to the host's port 8080 for accessing the Jenkins web interface.
       - Maps the container's port 50000 to the host's port 50000 for Jenkins agent communication.
+
   - **Understand the purpose of port 50000:**
     - Port 50000 is used for communication between the Jenkins master and Jenkins slaves (agents or worker nodes) in a Jenkins cluster setup.
     - When you have a Jenkins master and one or more slaves, the slaves use port 50000 to establish a connection with the master.
@@ -72,6 +73,7 @@
       - Receiving build results and status updates from the slaves back to the master.
       - Exchanging other relevant information and commands between the master and slaves.
     - By mapping port 50000 from the container to the host, you allow the Jenkins master inside the container to communicate with any separately set up Jenkins slaves.
+
   - **Other container configurations:**
     - Runs the container in detached mode (`-d`).
     - Mounts a volume named `jenkins_home` to persist Jenkins data.
@@ -91,6 +93,7 @@
       ```
 
     - Replace `<repository-url>` with the actual URL of this repository.
+
   - **Copy the installation script to the remote server:**
     - Use the `scp` command to securely copy the `install_jenkins.sh` script from your local machine to the remote server:
 
@@ -245,6 +248,61 @@ After installing Jenkins (either as a container or locally), you need to perform
 - [ ] Task 4: Start using Jenkins
   - Click on "Start using Jenkins" to access the Jenkins dashboard.
   - Jenkins is now ready to use!
+
+### Install Build Tools for Jenkins
+
+#### Option 1: Install build tools as Plugins in Jenkins
+
+- [ ] Task 1: Install build tools directly from the Jenkins web UI (if available)
+  - **Check if the desired build tool is available in the Jenkins web UI:**
+    - Navigate to the Jenkins web UI.
+    - Go to "Manage Jenkins" > Under "System Configuration" > click on "Plugins".
+    - On the right side, click on "Available plugins" and in the search bar type the build tool that you want to install (e.g., NodeJS).
+    - If the build tool is available, proceed to configure and install it directly from the Jenkins web UI.
+
+#### Option 2: Install build tools directly on the server where Jenkins is running
+
+- [ ] Task 1: Install build tools directly on the server where Jenkins is running (if not available in the Jenkins web UI or running Jenkins as a container)
+  - **Access the Jenkins container as root user:**
+    - If your Jenkins is running as a container, use the following command to enter the container terminal as root user:
+
+      ```bash
+      docker exec -u 0 -it <container-id> bash
+      ```
+
+    - Replace `<container-id>` with the ID of your Jenkins container.
+
+  - **Identify the distribution of the container's operating system:**
+    - Once inside the container as root, use one of the following commands to determine the distribution of the operating system:
+
+      ```bash
+      cat /etc/issue
+      ```
+
+      or
+
+      ```bash
+      cat /etc/os-release
+      ```
+
+    - Take note of the distribution information, as it will be important for installing compatible versions of the build tools.
+
+  - **Install NodeJS as a build tool (example):**
+    - If you require NodeJS as a build tool for your pipelines, you can install it using the following commands:
+
+      ```bash
+      curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+      apt-get install nodejs -y
+      ```
+
+    - This will install NodeJS in your Jenkins container.
+
+  - **Verify the installation:**
+    - After installing the build tools, verify that they are properly installed and accessible within the Jenkins container.
+    - You can run version commands or check the installation paths to ensure the tools are set up correctly.
+
+> [!IMPORTANT]
+> The specific steps and commands for installing build tools may vary depending on the operating system and the tools you require. Make sure to refer to the [official documentation](https://docs.nodesource.com/nsolid/5.0/docs#nsolid-runtime) or reliable sources for the correct installation procedures.
 
 ## Exercise 1: Dockerize your NodeJS App
 
