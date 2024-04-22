@@ -219,7 +219,7 @@ After installing Jenkins (either as a container or locally), you need to perform
   - Click "Continue" to proceed.
 
 > [!TIP]
-> You can also find the initial admin password on the host machine's filesystem at the mount point of the `jenkins_home` volume.
+> **You can also find the initial admin password on the host machine's filesystem at the mount point of the `jenkins_home` volume.**
 
 ![Retrieve the initial admin password from mount point on the host machine](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/47a1021e-ce82-40f1-b1af-813c8e4cff73)
 
@@ -302,7 +302,7 @@ After installing Jenkins (either as a container or locally), you need to perform
     - You can run version commands or check the installation paths to ensure the tools are set up correctly.
 
 > [!IMPORTANT]
-> The specific steps and commands for installing build tools may vary depending on the operating system and the tools you require. Make sure to refer to the [official documentation](https://docs.nodesource.com/nsolid/5.0/docs#nsolid-runtime) or reliable sources for the correct installation procedures.
+> **The specific steps and commands for installing build tools may vary depending on the operating system and the tools you require. Make sure to refer to the [official documentation](https://docs.nodesource.com/nsolid/5.0/docs#nsolid-runtime) or reliable sources for the correct installation procedures.**
 
 ## Exercise 1: Dockerize your NodeJS App
 
