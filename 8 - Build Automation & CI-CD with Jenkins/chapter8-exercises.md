@@ -430,3 +430,95 @@ However, the choice between direct installation and using a plugin should be bas
 
   - **Save the job configuration:**
     - Click on the "Save" button to apply the changes.
+
+### Docker-in-Docker (dind) Setup
+
+#### Method 1: Docker-in-Docker with Privileged Mode
+
+- [ ] Task 1: Run the Jenkins container with Docker-in-Docker using privileged mode
+
+  ```bash
+  docker run -p 8080:8080 -p 50000:50000 -d -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkins/jenkins:lts
+  ```
+
+  - Pros:
+    - Straightforward setup, only requires a single command to run the container.
+    - Provides direct access to the host's Docker daemon, allowing the inner Docker to manage containers on the host.
+  - Cons:
+    - Poses security risks as the container has full control over the host's Docker daemon.
+    - Potential for privilege escalation and unauthorized access to the host system.
+    - Not recommended for production environments.
+
+#### Method 2: Docker-in-Docker with docker:dind Image
+
+- [ ] Task 1: Create a Docker network for communication between containers
+
+  ```bash
+  docker network create jenkins
+  ```
+
+- [ ] Task 2: Run the Docker-in-Docker container
+
+  ```bash
+  docker run --name jenkins-docker --rm --detach \
+    --privileged --network jenkins --network-alias docker \
+    --env DOCKER_TLS_CERTDIR=/certs \
+    --volume jenkins-docker-certs:/certs/client \
+    --volume jenkins-data:/var/jenkins_home \
+    --publish 2376:2376 \
+    docker:dind --storage-driver overlay2
+  ```
+
+- [ ] Task 3: Run the Jenkins container
+
+  ```bash
+  docker run --name jenkins-blueocean --rm --detach \
+    --network jenkins --env DOCKER_HOST=tcp://docker:2376 \
+    --env DOCKER_CERT_PATH=/certs/client --env DOCKER_TLS_VERIFY=1 \
+    --volume jenkins-data:/var/jenkins_home \
+    --volume jenkins-docker-certs:/certs/client:ro \
+    --publish 8080:8080 --publish 50000:50000 jenkins/jenkins:lts
+  ```
+
+  - Pros:
+    - Uses the official `docker:dind` image, which is specifically designed for running Docker-in-Docker.
+    - Provides a clean and isolated Docker environment for Jenkins.
+    - Supports using the `overlay2` storage driver for better performance and compatibility.
+  - Cons:
+    - Requires additional setup steps compared to the privileged mode approach.
+    - Involves creating a separate Docker network for communication between containers.
+    - May have some performance overhead due to the additional abstraction layer.
+
+#### Method 3: Docker-in-Docker with Sysbox (Recommended)
+
+- [ ] Task 1: Install Sysbox on the host system
+  - Follow the installation instructions provided in the [Sysbox documentation](https://github.com/nestybox/sysbox/blob/master/docs/user-guide/install.md) for your specific operating system.
+
+- [ ] Task 2: Run the Jenkins container with Docker-in-Docker using Sysbox
+
+  ```bash
+  docker run --runtime=sysbox-runc -d --name jenkins-docker -p 8080:8080 -p 50000:50000 jenkins/jenkins:lts
+  ```
+
+- [ ] Task 3: Install Docker inside the Jenkins container
+
+  ```bash
+  docker exec -it jenkins-docker bash
+  apt-get update
+  apt-get install docker.io
+  ```
+
+- [ ] Task 4: Start Docker inside the Jenkins container
+
+  ```bash
+  dockerd &
+  ```
+
+  - Pros:
+    - Provides a secure and isolated environment for running Docker-in-Docker.
+    - Eliminates the need for privileged mode or exposing the host's Docker socket.
+    - Offers a virtual machine-like experience inside the container.
+    - Supports running systemd and other system-level processes inside the container.
+  - Cons:
+    - Requires the installation of Sysbox on the host system.
+    - May have some additional overhead compared to running Jenkins directly on the host.
