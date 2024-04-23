@@ -282,6 +282,8 @@ However, the choice between direct installation and using a plugin should be bas
 
 #### Option 2: Install build tools directly on the server where Jenkins is running
 
+##### Option 2.1: Install build tools in a Jenkins container
+
 - [x] Task 1: Install build tools directly on the server where Jenkins is running (if not available in the Jenkins web UI or running Jenkins as a container)
   - **Access the Jenkins container as root user:**
     - If your Jenkins is running as a container, use the following command to enter the container terminal as root user:
@@ -309,7 +311,7 @@ However, the choice between direct installation and using a plugin should be bas
 
     ![Find out the distribution of this container OS](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/4767b189-dec8-4d79-907b-cbeff7457305)
 
-  - **Install NodeJS as a build tool (example):**
+  - **Install NodeJS as a build tool:**
     - If you require NodeJS as a build tool for your pipelines, you can install it using the following commands:
 
       ```bash
@@ -330,6 +332,38 @@ However, the choice between direct installation and using a plugin should be bas
     ![Verify installation](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/1db7dfce-d71b-47b0-9b41-a997e32d81cb)
 
 > [!IMPORTANT]
-> **The specific steps and commands for installing build tools may vary depending on the operating system and the tools you require. Make sure to refer to the [official documentation](https://docs.nodesource.com/nsolid/5.0/docs#nsolid-runtime) or reliable sources for the correct installation procedures.**
+> **The specific steps and commands for installing build tools may vary depending on the operating system and the tools you require. Make sure to refer to the [official documentation](https://docs.nodesource.com/nsolid/5.0/docs#nsolid-runtime) or [reliable sources](https://nodejs.org/en/download/package-manager) for the correct installation procedures.**
 
+##### Option 2.2: Install build tools on a server with local Jenkins installation
 
+- [ ] Task 1: Install build tools on a server with local Jenkins installation
+  - **SSH into the server:**
+    - Open a terminal and SSH into the server where Jenkins is installed locally.
+
+  - **Install NodeJS using NVM (Node Version Manager):**
+    - Install NVM by running the following command:
+
+      ```bash
+      curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+      ```
+
+    - Download and install the desired Node.js version (e.g., v20):
+
+      ```bash
+      nvm install 20
+      ```
+
+    - Verify the Node.js version:
+
+      ```bash
+      node -v # should print `v20.12.2`
+      ```
+
+    - Verify the NPM version:
+
+      ```bash
+      npm -v # should print `10.5.0`
+      ```
+
+> [!NOTE]
+> **Since Node.js is installed directly on the server, Jenkins will have access to it without any additional configuration.**
