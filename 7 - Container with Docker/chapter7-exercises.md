@@ -222,6 +222,7 @@ Volumes are useful in several scenarios:
     - Add the following content to the `compose.yaml` file:
 
       ```yaml
+      version: '3.8'
       services:
         mysql-container:
           image: mysql:latest
@@ -443,6 +444,7 @@ Volumes are useful in several scenarios:
     - Create a `compose.nexus.yaml` file with the following content:
 
       ```yaml
+      version: '3.8'
       services:
       nexus:
         image: sonatype/nexus3:3.67.1-java11
@@ -588,6 +590,7 @@ Remember to replace `<remote-server-ip>`, `<repository-name>`, `<username>`, and
   - Replace hardcoded values with references to environment variables using the `${VARIABLE_NAME}` syntax.
 
     ```yaml
+    version: '3.8'
     services:
       mysql-container:
         image: mysql:latest
