@@ -494,7 +494,9 @@ To enable Docker-in-Docker functionality in a Jenkins container using the privil
 > [!WARNING]
 > Granting Jenkins container access to the host's Docker daemon can lead to significant security vulnerabilities, including potential for privilege escalation and unauthorized host access. It is crucial to evaluate the security implications carefully. For production environments, consider more isolated methods and ensure that access to the Docker socket is tightly controlled and monitored.
 
-#### Method 2: Docker-in-Docker with docker:dind Image
+#### Method 2: Docker-in-Docker Using Privileged Containers
+
+This method involves setting up Docker-in-Docker (DinD) functionality using privileged containers, which allows one Docker container to control another Docker instance entirely.
 
 - [ ] Task 1: Create a Docker network for communication between containers
 
@@ -533,6 +535,12 @@ To enable Docker-in-Docker functionality in a Jenkins container using the privil
     - Requires additional setup steps compared to the privileged mode approach.
     - Involves creating a separate Docker network for communication between containers.
     - May have some performance overhead due to the additional abstraction layer.
+
+##### Security Considerations
+
+1. **Docker-in-Docker with Privileged Mode**: Running containers in privileged mode poses significant security risks, such as the potential for privileged escalation and unauthorized access to the host machine.
+
+2. **Communication Security**: The communication between the Jenkins container and the Docker-in-Docker container in this setup does not use TLS, meaning it is not encrypted. For learning and experimentation purposes, this may be acceptable, but it is strongly recommended to implement Docker TLS in production environments to ensure secure communication between containers.
 
 > [!CAUTION]
 > Running Jenkins in Docker with privileged mode and wide-open socket permissions poses security risks, including potential for privilege escalation and unauthorized access to the host system. This setup is not recommended for production environments without additional security measures.
