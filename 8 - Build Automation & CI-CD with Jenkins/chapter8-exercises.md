@@ -543,7 +543,7 @@ This method involves setting up Docker-in-Docker (DinD) functionality using priv
 - [x] **Task 4: Verify the setup**
   - Check that both containers are running and communicating correctly:
     - Use `docker ps` to ensure both containers are listed as running.
-    - Access Jenkins via `http://localhost:8080` and verify that it can launch Docker containers.
+    - Access Jenkins via `http://<remote-server-ip>:8080` and verify that it can launch Docker containers.
 
 ##### Security Considerations
 
