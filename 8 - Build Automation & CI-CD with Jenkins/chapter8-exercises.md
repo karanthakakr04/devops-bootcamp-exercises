@@ -534,7 +534,7 @@ To enable Docker-in-Docker functionality in a Jenkins container using the privil
     - Involves creating a separate Docker network for communication between containers.
     - May have some performance overhead due to the additional abstraction layer.
 
-> [!WARNING]
+> [!CAUTION]
 > Running Jenkins in Docker with privileged mode and wide-open socket permissions poses security risks, including potential for privilege escalation and unauthorized access to the host system. This setup is not recommended for production environments without additional security measures.
 
 #### Method 3: Docker-in-Docker with Sysbox (Recommended)
