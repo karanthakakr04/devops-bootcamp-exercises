@@ -491,6 +491,9 @@ To enable Docker-in-Docker functionality in a Jenkins container using the privil
 
 4. **Compatibility**: Installing Docker inside the Jenkins container ensures that the version of Docker used by Jenkins is compatible with the installation script. However, it's important to note that the version of Docker installed inside the container may differ from the version running on the host.
 
+> [!WARNING]
+> Granting Jenkins container access to the host's Docker daemon can lead to significant security vulnerabilities, including potential for privilege escalation and unauthorized host access. It is crucial to evaluate the security implications carefully. For production environments, consider more isolated methods and ensure that access to the Docker socket is tightly controlled and monitored.
+
 #### Method 2: Docker-in-Docker with docker:dind Image
 
 - [ ] Task 1: Create a Docker network for communication between containers
