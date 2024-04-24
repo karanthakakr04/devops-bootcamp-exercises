@@ -498,43 +498,56 @@ To enable Docker-in-Docker functionality in a Jenkins container using the privil
 
 This method involves setting up Docker-in-Docker (DinD) functionality using privileged containers, which allows one Docker container to control another Docker instance entirely.
 
-- [ ] Task 1: Create a Docker network for communication between containers
+#### Method 2: Docker-in-Docker Using Privileged Containers
 
-  ```bash
-  docker network create jenkins
-  ```
+This method involves setting up Docker-in-Docker (DinD) functionality using privileged containers, which allows one Docker container to control another Docker instance entirely. This setup is useful for scenarios where Jenkins needs to manage Docker containers as part of CI/CD pipelines. However, running containers in privileged mode significantly increases security risks, such as potential privilege escalation and unauthorized host system access. It's crucial to handle such configurations with care, especially in production environments.
 
-- [ ] Task 2: Run the Docker-in-Docker container
+- [x] **Task 1: Create a Docker network**
+  - Run the command to create a dedicated Docker network for container communication:
 
-  ```bash
-  docker run --name jenkins-docker --rm --detach \
-    --privileged --network jenkins --network-alias docker \
-    --env DOCKER_TLS_CERTDIR=/certs \
-    --volume jenkins-docker-certs:/certs/client \
-    --volume jenkins-data:/var/jenkins_home \
-    --publish 2376:2376 \
-    docker:dind --storage-driver overlay2
-  ```
+    ```bash
+    docker network create jenkins
+    ```
 
-- [ ] Task 3: Run the Jenkins container
+- [x] **Task 2: Start the Docker-in-Docker container**
+  - Pull and run the Docker-in-Docker image in privileged mode:
 
-  ```bash
-  docker run --name jenkins-blueocean --rm --detach \
-    --network jenkins --env DOCKER_HOST=tcp://docker:2376 \
-    --env DOCKER_CERT_PATH=/certs/client --env DOCKER_TLS_VERIFY=1 \
-    --volume jenkins-data:/var/jenkins_home \
-    --volume jenkins-docker-certs:/certs/client:ro \
-    --publish 8080:8080 --publish 50000:50000 jenkins/jenkins:lts
-  ```
+    ```bash
+    docker run --name jenkins-docker --rm --detach \
+      --privileged --network jenkins --network-alias docker \
+      --volume jenkins-data:/var/jenkins_home \
+      --publish 2376:2376 \
+      docker:dind --storage-driver overlay2
+    ```
 
-  - Pros:
-    - Uses the official `docker:dind` image, which is specifically designed for running Docker-in-Docker.
-    - Provides a clean and isolated Docker environment for Jenkins.
-    - Supports using the `overlay2` storage driver for better performance and compatibility.
-  - Cons:
-    - Requires additional setup steps compared to the privileged mode approach.
-    - Involves creating a separate Docker network for communication between containers.
-    - May have some performance overhead due to the additional abstraction layer.
+    - `--name jenkins-docker`: Assigns a name to the container for easier management.
+    - `--rm`: Ensures the container is removed upon exit.
+    - `--detach`: Runs the container in the background.
+    - `--privileged`: Grants additional permissions for managing Docker.
+    - `--network jenkins`: Connects the container to the 'jenkins' network.
+    - `--network-alias docker`: Allows referring to this container by the alias 'docker'.
+    - `--volume jenkins-data:/var/jenkins_home`: Maps a volume for persistent data.
+    - `--publish 2376:2376`: Exposes the Docker daemon port to the host.
+
+- [x] **Task 3: Run the Jenkins container**
+  - Start Jenkins and configure it to communicate with the Docker-in-Docker service:
+
+    ```bash
+    docker run --name jenkins-blueocean --rm --detach \
+      --network jenkins --env DOCKER_HOST=tcp://docker:2376 \
+      --publish 8080:8080 --publish 50000:50000 \
+      --volume jenkins-data:/var/jenkins_home \
+      jenkins/jenkins:lts
+    ```
+
+    - `--name jenkins-blueocean`: Sets the name of the Jenkins container.
+    - `--env DOCKER_HOST=tcp://docker:2376`: Configures Jenkins to use the Docker daemon running in the DinD container.
+    - `--publish 8080:8080` and `--publish 50000:50000`: Exposes Jenkins web and agent ports.
+
+- [x] **Task 4: Verify the setup**
+  - Check that both containers are running and communicating correctly:
+    - Use `docker ps` to ensure both containers are listed as running.
+    - Access Jenkins via `http://localhost:8080` and verify that it can launch Docker containers.
 
 ##### Security Considerations
 
