@@ -370,7 +370,7 @@ However, the choice between direct installation and using a plugin should be bas
 
 ### Configure Jenkins to Access Git Repository
 
-- [ ] Task 1: Create a personal access token on GitHub
+- [x] Task 1: Create a personal access token on GitHub
   - **Navigate to GitHub settings:**
     - Click on your profile picture in the top-right corner of the GitHub page.
     - From the dropdown menu, click on "Settings".
@@ -399,7 +399,7 @@ However, the choice between direct installation and using a plugin should be bas
     - Once the token is generated, make sure to copy and save it in a secure location.
     - Note that after this step, you won't be able to see the token again on the GitHub interface.
 
-- [ ] Task 2: Configure Jenkins to use the personal access token
+- [x] Task 2: Configure Jenkins to use the personal access token
   - **Open the Jenkins Credentials page:**
     - In the Jenkins dashboard, click on "Manage Jenkins" in the left sidebar.
     - Click on "Manage Credentials" under the "Security" section.
@@ -417,7 +417,7 @@ However, the choice between direct installation and using a plugin should be bas
     - In the "Description" field, provide a description for the credential (optional).
     - Click on the "Create" button to save the credential.
 
-- [ ] Task 3: Configure the Jenkins job to use the GitHub token
+- [x] Task 3: Configure the Jenkins job to use the GitHub token
   - **Open the Jenkins job configuration:**
     - Navigate to the Jenkins job you want to configure.
     - Click on "Configure" in the left sidebar.
