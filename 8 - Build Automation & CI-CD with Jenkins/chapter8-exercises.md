@@ -444,7 +444,7 @@ However, the choice between direct installation and using a plugin should be bas
 
 To enable Docker-in-Docker functionality in a Jenkins container using the privileged mode, follow these detailed tasks:
 
-- [x] **Task 1: Run the Jenkins container with Docker socket**
+- [ ] **Task 1: Run the Jenkins container with Docker socket**
   - Use the following command to start a Jenkins container that includes mounting the Docker socket, allowing it to access the host's Docker daemon:
 
     ```bash
@@ -456,7 +456,7 @@ To enable Docker-in-Docker functionality in a Jenkins container using the privil
   - `-v jenkins_home:/var/jenkins_home`: Mounts a volume for persisting Jenkins data.
   - `-v /var/run/docker.sock:/var/run/docker.sock`: Mounts the host's Docker socket inside the container, allowing the container to communicate with the host's Docker daemon.
 
-- [x] **Task 2: Access the Jenkins container**
+- [ ] **Task 2: Access the Jenkins container**
   - Gain root access inside the running Jenkins container to perform administrative tasks:
 
     ```bash
@@ -465,7 +465,7 @@ To enable Docker-in-Docker functionality in a Jenkins container using the privil
 
   - Replace `<container-id>` with the ID of your running Jenkins container.
 
-- [x] **Task 3: Install Docker inside the Jenkins container**
+- [ ] **Task 3: Install Docker inside the Jenkins container**
   - Install Docker in the container to enable Docker command functionality internally:
 
     ```bash
@@ -474,7 +474,7 @@ To enable Docker-in-Docker functionality in a Jenkins container using the privil
 
   - This command is executed to install Docker inside the container. It downloads the installation script from `https://get.docker.com/`, saves it to a file named `dockerinstall`, makes the file executable (`chmod 777 dockerinstall`), and then runs the installation script (`./dockerinstall`).
 
-- [x] **Task 4: Adjust Docker socket permissions**
+- [ ] **Task 4: Adjust Docker socket permissions**
   - Modify the permissions of the Docker socket to allow the Jenkins user to execute Docker commands:
 
     ```bash
@@ -498,14 +498,21 @@ To enable Docker-in-Docker functionality in a Jenkins container using the privil
 
 This method involves setting up Docker-in-Docker (DinD) functionality using privileged containers, which allows one Docker container to control another Docker instance entirely.
 
-- [x] **Task 1: Create a Docker network**
+There are two ways to implement this setup:
+
+1. **Using Individual Docker Commands**: This approach involves manually running each Docker command to set up and connect the containers.
+2. **Using Docker Compose**: This method utilizes a Docker Compose file to manage the containers, simplifying the process by defining all configurations in a single file.
+
+##### Setup Using Individual Docker Commands
+
+- [ ] **Task 1: Create a Docker network**
   - Run the command to create a dedicated Docker network for container communication:
 
     ```bash
     docker network create jenkins
     ```
 
-- [x] **Task 2: Start the Docker-in-Docker container**
+- [ ] **Task 2: Start the Docker-in-Docker container**
   - Pull and run the Docker-in-Docker image in privileged mode:
 
     ```bash
@@ -525,7 +532,7 @@ This method involves setting up Docker-in-Docker (DinD) functionality using priv
     - `--volume jenkins-data:/var/jenkins_home`: Maps a volume for persistent data.
     - `--publish 2376:2376`: Exposes the Docker daemon port to the host.
 
-- [x] **Task 3: Run the Jenkins container**
+- [ ] **Task 3: Run the Jenkins container**
   - Start Jenkins and configure it to communicate with the Docker-in-Docker service:
 
     ```bash
@@ -540,10 +547,65 @@ This method involves setting up Docker-in-Docker (DinD) functionality using priv
     - `--env DOCKER_HOST=tcp://docker:2376`: Configures Jenkins to use the Docker daemon running in the DinD container.
     - `--publish 8080:8080` and `--publish 50000:50000`: Exposes Jenkins web and agent ports.
 
-- [x] **Task 4: Verify the setup**
+- [ ] **Task 4: Verify the setup**
   - Check that both containers are running and communicating correctly:
     - Use `docker ps` to ensure both containers are listed as running.
     - Access Jenkins via `http://<remote-server-ip>:8080` and verify that it can launch Docker containers.
+
+##### Setup Using Docker Compose
+
+Alternatively, you can use Docker Compose to manage the setup, which simplifies the management of multiple containers. Here is the `docker-compose.yml` file for setting up Jenkins with Docker-in-Docker without TLS:
+
+```yaml
+version: '3.8'
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    privileged: true
+    user: root
+    ports:
+      - 8080:8080
+      - 50000:50000
+    container_name: jenkins
+    volumes:
+      - jenkins_home:/var/jenkins_home
+    networks:
+      - jenkins
+    environment:
+      - DOCKER_HOST=tcp://docker:2376
+
+  docker:
+    image: docker:26.0.2-dind-alpine3.19
+    privileged: true
+    container_name: jenkins-docker
+    ports:
+      - 2376:2376
+    volumes:
+      - jenkins_data:/var/jenkins_home
+    networks:
+      - jenkins
+    command: --storage-driver overlay2
+
+volumes:
+  jenkins_home:
+  jenkins_data:
+
+networks:
+  jenkins:
+```
+
+- [ ] **Task 1: Deploy using Docker Compose**
+  - Navigate to the directory containing the `docker-compose.yml` file:
+
+    ```bash
+    cd path/to/docker-compose.yml
+    ```
+
+  - Run the following command to start the containers in detached mode:
+
+    ```bash
+    docker-compose up -d
+    ```
 
 ##### Security Considerations
 
