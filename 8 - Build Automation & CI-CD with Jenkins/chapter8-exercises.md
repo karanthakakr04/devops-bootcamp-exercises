@@ -554,7 +554,7 @@ There are two ways to implement this setup:
 
 ##### Setup Using Docker Compose
 
-Alternatively, you can use Docker Compose to manage the setup, which simplifies the management of multiple containers. Here is the `docker-compose.yml` file for setting up Jenkins with Docker-in-Docker without TLS:
+Alternatively, you can use Docker Compose to manage the setup, which simplifies the management of multiple containers. Here is the `compose.yaml` file for setting up Jenkins with Docker-in-Docker without TLS:
 
 ```yaml
 version: '3.8'
@@ -595,16 +595,16 @@ networks:
 ```
 
 - [ ] **Task 1: Deploy using Docker Compose**
-  - Navigate to the directory containing the `docker-compose.yml` file:
+  - Navigate to the directory containing the `compose.yaml` file:
 
     ```bash
-    cd path/to/docker-compose.yml
+    cd path/to/compose.yaml
     ```
 
   - Run the following command to start the containers in detached mode:
 
     ```bash
-    docker-compose up -d
+    docker compose up -d
     ```
 
 ##### Security Considerations
