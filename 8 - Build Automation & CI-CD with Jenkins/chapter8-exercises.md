@@ -440,7 +440,7 @@ However, the choice between direct installation and using a plugin should be bas
 
 ### Docker-in-Docker (dind) Setup
 
-#### Method 1: Docker-in-Docker with Privileged Mode
+#### Method 1: Docker-in-Docker via Docker Socket Mounting
 
 To enable Docker-in-Docker functionality in a Jenkins container using the privileged mode, follow these detailed tasks:
 
@@ -491,9 +491,6 @@ To enable Docker-in-Docker functionality in a Jenkins container using the privil
 
 4. **Compatibility**: Installing Docker inside the Jenkins container ensures that the version of Docker used by Jenkins is compatible with the installation script. However, it's important to note that the version of Docker installed inside the container may differ from the version running on the host.
 
-> [!WARNING]
-> Running Jenkins in Docker with privileged mode and wide-open socket permissions poses security risks, including potential for privilege escalation and unauthorized access to the host system. This setup is not recommended for production environments without additional security measures.
-
 #### Method 2: Docker-in-Docker with docker:dind Image
 
 - [ ] Task 1: Create a Docker network for communication between containers
@@ -533,6 +530,9 @@ To enable Docker-in-Docker functionality in a Jenkins container using the privil
     - Requires additional setup steps compared to the privileged mode approach.
     - Involves creating a separate Docker network for communication between containers.
     - May have some performance overhead due to the additional abstraction layer.
+
+> [!WARNING]
+> Running Jenkins in Docker with privileged mode and wide-open socket permissions poses security risks, including potential for privilege escalation and unauthorized access to the host system. This setup is not recommended for production environments without additional security measures.
 
 #### Method 3: Docker-in-Docker with Sysbox (Recommended)
 
