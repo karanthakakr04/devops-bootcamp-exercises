@@ -498,10 +498,6 @@ To enable Docker-in-Docker functionality in a Jenkins container using the privil
 
 This method involves setting up Docker-in-Docker (DinD) functionality using privileged containers, which allows one Docker container to control another Docker instance entirely.
 
-#### Method 2: Docker-in-Docker Using Privileged Containers
-
-This method involves setting up Docker-in-Docker (DinD) functionality using privileged containers, which allows one Docker container to control another Docker instance entirely. This setup is useful for scenarios where Jenkins needs to manage Docker containers as part of CI/CD pipelines. However, running containers in privileged mode significantly increases security risks, such as potential privilege escalation and unauthorized host system access. It's crucial to handle such configurations with care, especially in production environments.
-
 - [x] **Task 1: Create a Docker network**
   - Run the command to create a dedicated Docker network for container communication:
 
