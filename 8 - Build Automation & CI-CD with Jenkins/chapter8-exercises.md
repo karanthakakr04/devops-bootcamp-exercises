@@ -442,19 +442,57 @@ However, the choice between direct installation and using a plugin should be bas
 
 #### Method 1: Docker-in-Docker with Privileged Mode
 
-- [ ] Task 1: Run the Jenkins container with Docker-in-Docker using privileged mode
+To enable Docker-in-Docker functionality in a Jenkins container using the privileged mode, follow these detailed tasks:
 
-  ```bash
-  docker run -p 8080:8080 -p 50000:50000 -d -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkins/jenkins:lts
-  ```
+- [x] **Task 1: Run the Jenkins container with Docker socket**
+  - Use the following command to start a Jenkins container that includes mounting the Docker socket, allowing it to access the host's Docker daemon:
 
-  - Pros:
-    - Straightforward setup, only requires a single command to run the container.
-    - Provides direct access to the host's Docker daemon, allowing the inner Docker to manage containers on the host.
-  - Cons:
-    - Poses security risks as the container has full control over the host's Docker daemon.
-    - Potential for privilege escalation and unauthorized access to the host system.
-    - Not recommended for production environments.
+    ```bash
+    docker run -p 8080:8080 -p 50000:50000 -d -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkins/jenkins:lts
+    ```
+
+  - `-p 8080:8080 -p 50000:50000`: Maps the container's ports to the host's ports for accessing the Jenkins web interface and enabling agent communication.
+  - `-d`: Runs the container in detached mode.
+  - `-v jenkins_home:/var/jenkins_home`: Mounts a volume for persisting Jenkins data.
+  - `-v /var/run/docker.sock:/var/run/docker.sock`: Mounts the host's Docker socket inside the container, allowing the container to communicate with the host's Docker daemon.
+
+- [x] **Task 2: Access the Jenkins container**
+  - Gain root access inside the running Jenkins container to perform administrative tasks:
+
+    ```bash
+    docker exec -u 0 -it <container-id> bash
+    ```
+
+  - Replace `<container-id>` with the ID of your running Jenkins container.
+
+- [x] **Task 3: Install Docker inside the Jenkins container**
+  - Install Docker in the container to enable Docker command functionality internally:
+
+    ```bash
+    curl https://get.docker.com/ > dockerinstall && chmod 777 dockerinstall && ./dockerinstall
+    ```
+
+  - This command is executed to install Docker inside the container. It downloads the installation script from `https://get.docker.com/`, saves it to a file named `dockerinstall`, makes the file executable (`chmod 777 dockerinstall`), and then runs the installation script (`./dockerinstall`).
+
+- [x] **Task 4: Adjust Docker socket permissions**
+  - Modify the permissions of the Docker socket to allow the Jenkins user to execute Docker commands:
+
+    ```bash
+    chmod 666 /var/run/docker.sock
+    ```
+
+##### Considerations
+
+1. **Simplicity**: Installing Docker inside the Jenkins container using the installation script is straightforward and requires fewer steps compared to setting up a separate Docker-in-Docker container.
+
+2. **Security**: By mounting the host's Docker socket (`/var/run/docker.sock`) inside the Jenkins container, the container gains full access to the host's Docker daemon. This means that if the Jenkins container is compromised, an attacker could potentially control the host's Docker environment. It's important to secure the Jenkins container and restrict access to the Docker socket.
+
+3. **Isolation**: With this approach, the Jenkins container and the Docker daemon share the same Docker environment. This means that any containers or images created by Jenkins will be visible to the host's Docker environment and vice versa. There is less isolation compared to using a separate Docker-in-Docker container.
+
+4. **Compatibility**: Installing Docker inside the Jenkins container ensures that the version of Docker used by Jenkins is compatible with the installation script. However, it's important to note that the version of Docker installed inside the container may differ from the version running on the host.
+
+> [!WARNING]
+> Running Jenkins in Docker with privileged mode and wide-open socket permissions poses security risks, including potential for privilege escalation and unauthorized access to the host system. This setup is not recommended for production environments without additional security measures.
 
 #### Method 2: Docker-in-Docker with docker:dind Image
 
