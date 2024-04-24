@@ -2,58 +2,65 @@
 
 ## Prerequisites
 
-### Option 1: Run Jenkins as a Docker Container
+This section outlines the initial steps required to set up the environment for running Jenkins, either as a Docker container or installed locally on a remote server. The tasks include setting up Docker, which is a common prerequisite for both installation options, ensuring you have the necessary tools and configurations in place to proceed with the Jenkins setup.
 
 > [!NOTE]
 > **After creating the droplet, ensure that you have a firewall rule configured to allow inbound traffic on port 22 (SSH) to enable SSH access to the remote server.**
 
-- [x] Task 1: Install Docker (if not already installed)
-  - **Check if Docker is installed:**
-    - SSH into the remote server.
-    - Run the following command to check if Docker is already installed:
+### Install Docker (if not already installed)
 
-      ```bash
-      docker --version
-      ```
+1. **Check if Docker is installed:**
+   - SSH into the remote server.
+     - Run the following command to check if Docker is already installed:
 
-    - If Docker is installed, the command will display the Docker version. Proceed to Task 2.
-    - If Docker is not installed, continue with the installation steps.
+       ```bash
+       docker --version
+       ```
 
-  - **Set up Docker's apt repository:**
-    - Add Docker's official GPG key:
+     - If Docker is installed, the command will display the Docker version. Proceed to the next step.
+     - If Docker is not installed, continue with the installation steps.
 
-      ```bash
-      sudo apt update
-      sudo apt install ca-certificates curl
-      sudo install -m 0755 -d /etc/apt/keyrings
-      sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-      sudo chmod a+r /etc/apt/keyrings/docker.asc
-      ```
+2. **Set up Docker's apt repository:**
+   - Add Docker's official GPG key:
 
-    - Add the repository to `apt` sources:
+     ```bash
+     sudo apt update
+     sudo apt install ca-certificates curl
+     sudo install -m 0755 -d /etc/apt/keyrings
+     sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+     sudo chmod a+r /etc/apt/keyrings/docker.asc
+     ```
 
-      ```bash
-      echo \
-      "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-      $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-      sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-      ```
+   - Add the repository to `apt` sources:
 
-  - **Update the package lists:**
-    - Run the following command to update the package lists:
+     ```bash
+     echo \
+     "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+     $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+     sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+     ```
 
-      ```bash
-      sudo apt update
-      ```
+3. **Update the package lists:**
+   - Run the following command to update the package lists:
 
-  - **Install Docker:**
-    - Run the following command to install the latest version of Docker:
+     ```bash
+     sudo apt update
+     ```
 
-      ```bash
-      sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-      ```
+4. **Install Docker:**
+   - Run the following command to install the latest version of Docker:
 
-- [x] Task 2: Run Jenkins as a Docker container
+     ```bash
+     sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+     ```
+
+### Jenkins Installation Options
+
+This section presents two primary methods for installing Jenkins, allowing you to choose the best approach based on your infrastructure and specific requirements.
+
+#### Option 1: Run Jenkins as a Docker Container
+
+- [x] Task 1: Run Jenkins as a Docker container
   - **Start the Jenkins container:**
     - Run the following command on the remote server to start a Jenkins container:
 
@@ -81,7 +88,7 @@
 
 ![Screenshot of Jenkins installation as a Docker container](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/49efa231-a4fb-4478-9465-1fef641ac406)
 
-### Option 2: Install Jenkins Locally on the Remote Server
+#### Option 2: Install Jenkins Locally on the Remote Server
 
 - [ ] Task 1: Clone the repository and copy the installation script
   - **Clone the repository:**
