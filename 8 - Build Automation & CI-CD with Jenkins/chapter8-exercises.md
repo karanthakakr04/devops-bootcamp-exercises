@@ -58,7 +58,7 @@ This section outlines the initial steps required to set up the environment for r
 
 This section presents two primary methods for installing Jenkins, allowing you to choose the best approach based on your infrastructure and specific requirements.
 
-#### Option 1: Run Jenkins as a Docker Container
+#### Method 1: Run Jenkins as a Docker Container
 
 - [x] Task 1: Run Jenkins as a Docker container
   - **Start the Jenkins container:**
@@ -88,7 +88,7 @@ This section presents two primary methods for installing Jenkins, allowing you t
 
 ![Screenshot of Jenkins installation as a Docker container](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/49efa231-a4fb-4478-9465-1fef641ac406)
 
-#### Option 2: Install Jenkins Locally on the Remote Server
+#### Method 2: Install Jenkins Locally on the Remote Server
 
 - [ ] Task 1: Clone the repository and copy the installation script
   - **Clone the repository:**
@@ -258,7 +258,7 @@ After installing Jenkins (either as a container or locally), you need to perform
 
 ### Install Build Tools for Jenkins
 
-#### Option 1: Install build tools as Plugins in Jenkins
+#### Method 1: Install build tools as Plugins in Jenkins
 
 - [x] Task 1: Install build tools directly from the Jenkins web UI (if available)
   - **Check if the desired build tool is available in the Jenkins web UI:**
@@ -287,7 +287,7 @@ Choosing to install Node.js directly on a Jenkins container rather than relying 
 
 However, the choice between direct installation and using a plugin should be based on your specific needs, the scale of your projects, and your team's familiarity with managing Jenkins and its environments. Plugins can offer convenience and easier setup for teams that prefer a more integrated approach within the Jenkins UI. On the other hand, direct installation offers more control and flexibility, which can be crucial for complex projects.
 
-#### Option 2: Install build tools directly on the server where Jenkins is running
+#### Method 2: Install build tools directly on the server where Jenkins is running
 
 ##### Option 2.1: Install build tools in a Jenkins container
 
