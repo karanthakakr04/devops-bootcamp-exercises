@@ -102,16 +102,19 @@ This section presents two primary methods for installing Jenkins, allowing you t
     - Replace `<repository-url>` with the actual URL of this repository.
 
   - **Copy the installation script to the remote server:**
-    - Use the `scp` command to securely copy the `install_jenkins.sh` script from your local machine to the remote server:
+    - Use the `scp` command with the SSH key to securely copy the `install_jenkins.sh` script from your local machine to the remote server:
 
       ```bash
-      scp path/to/install_jenkins.sh <username>@<remote-server-ip>:/path/on/remote/server
+      scp -i <path-to-ssh-key> path/to/install_jenkins.sh <username>@<remote-server-ip>:/path/on/remote/server
       ```
 
+    - Replace `<path-to-ssh-key>` with the actual path to your SSH key file.
     - Replace `path/to/install_jenkins.sh` with the actual path to the script on your local machine.
     - Replace `<username>` with your username on the remote server.
     - Replace `<remote-server-ip>` with the IP address or hostname of the remote server.
     - Replace `/path/on/remote/server` with the desired destination path on the remote server.
+
+    - The `-i` option in the `scp` command specifies the path to the SSH key file that should be used for authentication when copying the file to the remote server.
 
 - [ ] Task 2: Use the provided script to install Jenkins locally
   - **Make the script executable:**
