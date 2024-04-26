@@ -451,7 +451,7 @@ To enable Docker-in-Docker functionality in a Jenkins container using the privil
   - Use the following command to start a Jenkins container that includes mounting the Docker socket, allowing it to access the host's Docker daemon:
 
     ```bash
-    docker run -p 8080:8080 -p 50000:50000 -d -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkins/jenkins:lts
+    docker run -p 8080:8080 -p 50000:50000 -d -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkins/jenkins:lts-jdk17
     ```
 
   - `-p 8080:8080 -p 50000:50000`: Maps the container's ports to the host's ports for accessing the Jenkins web interface and enabling agent communication.
