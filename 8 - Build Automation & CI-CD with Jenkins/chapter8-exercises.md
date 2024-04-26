@@ -318,7 +318,7 @@ However, the choice between direct installation and using a plugin should be bas
       cat /etc/os-release
       ```
 
-    - Take note of the distribution information, as it will be important for installing compatible versions of the build tools.
+    - Take note of the distribution information, as it will be important for installing compatible versions of the build tools. In this case, it is a Debian based distribution.
 
     ![Find out the distribution of this container OS](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/4767b189-dec8-4d79-907b-cbeff7457305)
 
