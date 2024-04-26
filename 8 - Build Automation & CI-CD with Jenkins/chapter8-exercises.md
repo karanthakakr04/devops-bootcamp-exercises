@@ -626,31 +626,64 @@ networks:
 - [ ] Task 1: Install Sysbox on the host system
   - Follow the installation instructions provided in the [Sysbox documentation](https://github.com/nestybox/sysbox/blob/master/docs/user-guide/install.md) for your specific operating system.
 
-- [ ] Task 2: Run the Jenkins container with Docker-in-Docker using Sysbox
+- [ ] Task 2: Create a custom Jenkins image with Java 17, Jenkins, and Docker preinstalled
+  - Create a new directory for your custom image and navigate to it:
 
-  ```bash
-  docker run --runtime=sysbox-runc -d --name jenkins-docker -p 8080:8080 -p 50000:50000 jenkins/jenkins:lts
+    ```bash
+    mkdir jenkins-docker-image
+    cd jenkins-docker-image
+    ```
+
+  - Create a Dockerfile inside the directory with the following content:
+
+  ```dockerfile
+  FROM ubuntu:22.04
+
+  # Install Java 17
+  RUN apt update && \
+      apt install -y openjdk-17-jdk
+
+  # Install Jenkins
+  RUN apt install -y wget && \
+      wget -O /usr/share/keyrings/jenkins-keyring.asc \
+      https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key && \
+      echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+      https://pkg.jenkins.io/debian-stable binary/" | tee \
+      /etc/apt/sources.list.d/jenkins.list > /dev/null && \
+      apt update && \
+      apt install -y jenkins
+
+  # Install Docker
+  RUN apt install -y ca-certificates curl && \
+      install -m 0755 -d /etc/apt/keyrings && \
+      curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc && \
+      chmod a+r /etc/apt/keyrings/docker.asc && \
+      echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] \
+      https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | \
+      tee /etc/apt/sources.list.d/docker.list > /dev/null && \
+      apt update && \
+      apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+  # Set the entrypoint to start Jenkins using tini
+  ENTRYPOINT ["/usr/bin/tini", "--", "/usr/bin/jenkins"]
   ```
 
-- [ ] Task 3: Install Docker inside the Jenkins container
+  - The `ENTRYPOINT` command in the Dockerfile sets the default command that will be executed when the container starts. In this case, it uses `tini` as the entrypoint to manage the Jenkins process and ensure proper signal handling. The `/usr/bin/jenkins` command is passed as an argument to `tini`, which starts the Jenkins server inside the container.
+
+- [ ] Task 3: Build the custom Jenkins image
+  - Choose a concise and descriptive name for your custom image, such as `jenkins-docker-bundle:1.0`.
+  - Build the image using the following command:
+
+    ```bash
+    docker build -t jenkins-docker-bundle:1.0 .
+    ```
+
+- [ ] Task 4: Run the custom Jenkins container with Docker-in-Docker using Sysbox
 
   ```bash
-  docker exec -it jenkins-docker bash
-  apt-get update
-  apt-get install docker.io
+  docker run --runtime=sysbox-runc -d --name jenkins-docker -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins-docker-bundle:1.0
   ```
 
-- [ ] Task 4: Start Docker inside the Jenkins container
+- [ ] Task 5: Access Jenkins by opening a web browser and navigating to `http://<your-remote-server-ip>:8080`
 
-  ```bash
-  dockerd &
-  ```
-
-  - Pros:
-    - Provides a secure and isolated environment for running Docker-in-Docker.
-    - Eliminates the need for privileged mode or exposing the host's Docker socket.
-    - Offers a virtual machine-like experience inside the container.
-    - Supports running systemd and other system-level processes inside the container.
-  - Cons:
-    - Requires the installation of Sysbox on the host system.
-    - May have some additional overhead compared to running Jenkins directly on the host.
+- [ ] Task 6: Follow the Jenkins setup wizard to complete the initial configuration and customize Jenkins according to your needs.
