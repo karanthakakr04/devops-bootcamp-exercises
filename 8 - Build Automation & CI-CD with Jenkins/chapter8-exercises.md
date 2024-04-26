@@ -331,6 +331,7 @@ However, the choice between direct installation and using a plugin should be bas
       ```
 
     - This will install NodeJS in your Jenkins container.
+    - _Please note that this installation process is for Debian based distributions._
 
     ![Install Nodejs Part 1](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/4daed4c3-14c1-4158-858e-81c36a6c1059)
 
