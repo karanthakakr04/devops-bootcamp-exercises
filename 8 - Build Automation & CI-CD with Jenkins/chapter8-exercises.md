@@ -666,9 +666,6 @@ networks:
 
   # Expose the Jenkins port
   EXPOSE 8080
-
-  # Set the entrypoint to start Jenkins using tini
-  ENTRYPOINT ["/usr/bin/tini", "--", "/usr/bin/jenkins"]
   ```
 
   - The `ENTRYPOINT` command in the Dockerfile sets the default command that will be executed when the container starts. In this case, it uses `tini` as the entrypoint to manage the Jenkins process and ensure proper signal handling. The `/usr/bin/jenkins` command is passed as an argument to `tini`, which starts the Jenkins server inside the container.
