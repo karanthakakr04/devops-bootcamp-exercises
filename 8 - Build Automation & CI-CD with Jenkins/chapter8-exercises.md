@@ -497,7 +497,7 @@ To enable Docker-in-Docker functionality in a Jenkins container using the privil
 4. **Compatibility**: Installing Docker inside the Jenkins container ensures that the version of Docker used by Jenkins is compatible with the installation script. However, it's important to note that the version of Docker installed inside the container may differ from the version running on the host.
 
 > [!WARNING]
-> Granting Jenkins container access to the host's Docker daemon can lead to significant security vulnerabilities, including potential for privilege escalation and unauthorized host access. It is crucial to evaluate the security implications carefully. For production environments, consider more isolated methods and ensure that access to the Docker socket is tightly controlled and monitored.
+> **Granting Jenkins container access to the host's Docker daemon can lead to significant security vulnerabilities, including potential for privilege escalation and unauthorized host access. It is crucial to evaluate the security implications carefully. For production environments, consider more isolated methods and ensure that access to the Docker socket is tightly controlled and monitored.**
 
 #### Method 2: Docker-in-Docker Using Privileged Containers
 
@@ -619,7 +619,7 @@ networks:
 2. **Communication Security**: The communication between the Jenkins container and the Docker-in-Docker container in this setup does not use TLS, meaning it is not encrypted. For learning and experimentation purposes, this may be acceptable, but it is strongly recommended to implement Docker TLS in production environments to ensure secure communication between containers.
 
 > [!CAUTION]
-> Running Jenkins in Docker with privileged mode and wide-open socket permissions poses security risks, including potential for privilege escalation and unauthorized access to the host system. This setup is not recommended for production environments without additional security measures.
+> **Running Jenkins in Docker with privileged mode and wide-open socket permissions poses security risks, including potential for privilege escalation and unauthorized access to the host system. This setup is not recommended for production environments without additional security measures.**
 
 #### Method 3: Docker-in-Docker with Sysbox (Recommended)
 
