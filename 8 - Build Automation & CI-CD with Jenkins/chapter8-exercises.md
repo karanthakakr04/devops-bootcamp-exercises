@@ -668,7 +668,8 @@ networks:
   EXPOSE 8080
   ```
 
-  - The `ENTRYPOINT` command in the Dockerfile sets the default command that will be executed when the container starts. In this case, it uses `tini` as the entrypoint to manage the Jenkins process and ensure proper signal handling. The `/usr/bin/jenkins` command is passed as an argument to `tini`, which starts the Jenkins server inside the container.
+  - With this Dockerfile, when you build the image and run a container from it, the Jenkins service will automatically start as a daemon, listening on port 8080, based on the configuration set up by the installation script.
+  - You can access the Jenkins web interface by opening a browser and navigating to `http://<remote-server-ip>:8080` if you have mapped the container's port to the host
 
 - [ ] Task 3: Build the custom Jenkins image
   - Choose a concise and descriptive name for your custom image, such as `jenkins-docker-bundle:1.0`.
