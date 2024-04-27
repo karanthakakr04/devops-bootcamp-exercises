@@ -636,37 +636,37 @@ networks:
 
   - Create a Dockerfile inside the directory with the following content:
 
-  ```dockerfile
-  FROM ubuntu:22.04
+    ```dockerfile
+    FROM ubuntu:22.04
 
-  # Install Java 17
-  RUN apt update && \
-      apt install -y openjdk-17-jdk
+    # Install Java 17
+    RUN apt update && \
+        apt install -y openjdk-17-jdk
 
-  # Install Jenkins
-  RUN apt install -y wget && \
-      wget -O /usr/share/keyrings/jenkins-keyring.asc \
-      https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key && \
-      echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
-      https://pkg.jenkins.io/debian-stable binary/" | tee \
-      /etc/apt/sources.list.d/jenkins.list > /dev/null && \
-      apt update && \
-      apt install -y jenkins
+    # Install Jenkins
+    RUN apt install -y wget && \
+        wget -O /usr/share/keyrings/jenkins-keyring.asc \
+        https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key && \
+        echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+        https://pkg.jenkins.io/debian-stable binary/" | tee \
+        /etc/apt/sources.list.d/jenkins.list > /dev/null && \
+        apt update && \
+        apt install -y jenkins
 
-  # Install Docker
-  RUN apt install -y ca-certificates curl && \
-      install -m 0755 -d /etc/apt/keyrings && \
-      curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc && \
-      chmod a+r /etc/apt/keyrings/docker.asc && \
-      echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] \
-      https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | \
-      tee /etc/apt/sources.list.d/docker.list > /dev/null && \
-      apt update && \
-      apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    # Install Docker
+    RUN apt install -y ca-certificates curl && \
+        install -m 0755 -d /etc/apt/keyrings && \
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc && \
+        chmod a+r /etc/apt/keyrings/docker.asc && \
+        echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] \
+        https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | \
+        tee /etc/apt/sources.list.d/docker.list > /dev/null && \
+        apt update && \
+        apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-  # Expose the Jenkins port
-  EXPOSE 8080
-  ```
+    # Expose the Jenkins port
+    EXPOSE 8080
+    ```
 
   - With this Dockerfile, when you build the image and run a container from it, the Jenkins service will automatically start as a daemon, listening on port 8080, based on the configuration set up by the installation script.
   - You can access the Jenkins web interface by opening a browser and navigating to `http://<remote-server-ip>:8080` if you have mapped the container's port to the host
