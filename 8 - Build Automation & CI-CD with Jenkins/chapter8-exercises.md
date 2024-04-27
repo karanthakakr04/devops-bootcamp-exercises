@@ -525,7 +525,8 @@ There are two ways to implement this setup:
       --privileged --network jenkins --network-alias docker \
       --volume jenkins-data:/var/jenkins_home \
       --publish 2376:2376 \
-      docker:dind --storage-driver overlay2
+      docker:26.1.0-dind-alpine3.19 \
+      --storage-driver overlay2
     ```
 
     - `--name jenkins-docker`: Assigns a name to the container for easier management.
@@ -537,7 +538,31 @@ There are two ways to implement this setup:
     - `--volume jenkins-data:/var/jenkins_home`: Maps a volume for persistent data.
     - `--publish 2376:2376`: Exposes the Docker daemon port to the host.
 
-- [ ] Task 3: Run the Jenkins container
+- [ ] Task 3: Create a custom Jenkins image
+  - Create a Dockerfile with the following content:
+
+     ```dockerfile
+     FROM jenkins/jenkins:lts-jdk17
+     USER root
+     RUN apt-get update && apt-get install -y lsb-release
+     RUN curl -fsSLo /usr/share/keyrings/docker-archive-keyring.asc \
+         https://download.docker.com/linux/debian/gpg
+     RUN echo "deb [arch=$(dpkg --print-architecture) \
+               signed-by=/usr/share/keyrings/docker-archive-keyring.asc] \
+               https://download.docker.com/linux/debian \
+               $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
+     RUN apt-get update && apt-get install -y docker-ce-cli
+     USER jenkins
+     RUN jenkins-plugin-cli --plugins "blueocean docker-workflow"
+     ```
+
+  - Build the custom Jenkins image:
+
+     ```bash
+     docker build -t jenkins-blueocean .
+     ```
+
+- [ ] Task 4: Run the Jenkins container
   - Start Jenkins and configure it to communicate with the Docker-in-Docker service:
 
     ```bash
@@ -545,14 +570,14 @@ There are two ways to implement this setup:
       --network jenkins --env DOCKER_HOST=tcp://docker:2376 \
       --publish 8080:8080 --publish 50000:50000 \
       --volume jenkins-data:/var/jenkins_home \
-      jenkins/jenkins:lts
+      jenkins-blueocean
     ```
 
     - `--name jenkins-blueocean`: Sets the name of the Jenkins container.
     - `--env DOCKER_HOST=tcp://docker:2376`: Configures Jenkins to use the Docker daemon running in the DinD container.
     - `--publish 8080:8080` and `--publish 50000:50000`: Exposes Jenkins web and agent ports.
 
-- [ ] Task 4: Verify the setup
+- [ ] Task 5: Verify the setup
   - Check that both containers are running and communicating correctly:
     - Use `docker ps` to ensure both containers are listed as running.
     - Access Jenkins via `http://<remote-server-ip>:8080` and verify that it can launch Docker containers.
@@ -565,7 +590,7 @@ Alternatively, you can use Docker Compose to manage the setup, which simplifies 
 version: '3.8'
 services:
   jenkins:
-    image: jenkins/jenkins:lts
+    image: jenkins/jenkins:lts-jdk17
     privileged: true
     user: root
     ports:
@@ -580,7 +605,7 @@ services:
       - DOCKER_HOST=tcp://docker:2376
 
   docker:
-    image: docker:26.0.2-dind-alpine3.19
+    image: docker:26.1.0-dind-alpine3.19
     privileged: true
     container_name: jenkins-docker
     ports:
@@ -690,3 +715,76 @@ networks:
 - [ ] Task 6: Follow the Jenkins setup wizard to complete the initial configuration and customize Jenkins according to your needs.
 
 ## Exercise 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+After analyzing the Jenkins documentation you provided, it seems that the steps involved in setting up Jenkins with Docker are slightly different from the previous task list. The documentation suggests creating a custom Jenkins image that includes the necessary Docker components, rather than using the official Jenkins image directly.
+
+Here's an updated task list based on the Jenkins documentation, focusing on Linux:
+
+1. Create a bridge network in Docker:
+
+   ```bash
+   docker network create jenkins
+   ```
+
+2. Run a docker:dind container:
+
+   ```bash
+   docker run --name jenkins-docker --rm --detach \
+     --privileged --network jenkins --network-alias docker \
+     --env DOCKER_TLS_CERTDIR=/certs \
+     --volume jenkins-docker-certs:/certs/client \
+     --volume jenkins-data:/var/jenkins_home \
+     --publish 2376:2376 \
+     docker:dind --storage-driver overlay2
+   ```
+
+3. :
+
+
+4. Run the custom Jenkins image as a container:
+
+   ```bash
+   docker run --name jenkins-blueocean --restart=on-failure --detach \
+     --network jenkins --env DOCKER_HOST=tcp://docker:2376 \
+     --env DOCKER_CERT_PATH=/certs/client --env DOCKER_TLS_VERIFY=1 \
+     --publish 8080:8080 --publish 50000:50000 \
+     --volume jenkins-data:/var/jenkins_home \
+     --volume jenkins-docker-certs:/certs/client:ro \
+     myjenkins-blueocean:2.440.3-1
+   ```
+
+5. Proceed to the Jenkins setup wizard.
+
+The reason for creating a custom Jenkins image is to include the necessary Docker components and plugins directly into the image. This ensures that the Jenkins container has the required dependencies to interact with Docker and run Docker commands.
+
+In the custom Dockerfile, the following steps are performed:
+- Start from the official Jenkins image.
+- Switch to the root user.
+- Install necessary dependencies and add the Docker repository.
+- Install the Docker CLI.
+- Switch back to the Jenkins user.
+- Install the "blueocean" and "docker-workflow" plugins.
+
+By building this custom image, you have a Jenkins environment that is preconfigured with Docker support and the required plugins.
+
+Please note that this setup assumes you are running Docker on the same machine as Jenkins. If you have Docker running on a separate machine, you would need to adjust the configuration accordingly.
+
+Let me know if you have any further questions!
