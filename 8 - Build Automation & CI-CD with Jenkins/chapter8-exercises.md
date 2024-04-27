@@ -664,6 +664,9 @@ networks:
       apt update && \
       apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
+  # Expose the Jenkins port
+  EXPOSE 8080
+
   # Set the entrypoint to start Jenkins using tini
   ENTRYPOINT ["/usr/bin/tini", "--", "/usr/bin/jenkins"]
   ```
