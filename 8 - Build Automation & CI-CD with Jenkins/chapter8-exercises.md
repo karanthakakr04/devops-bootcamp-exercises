@@ -688,3 +688,5 @@ networks:
 - [ ] Task 5: Access Jenkins by opening a web browser and navigating to `http://<your-remote-server-ip>:8080`
 
 - [ ] Task 6: Follow the Jenkins setup wizard to complete the initial configuration and customize Jenkins according to your needs.
+
+## Exercise 1
