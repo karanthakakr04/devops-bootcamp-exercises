@@ -1,51 +1,73 @@
+<!DOCTYPE html>
 <html lang="en">
-<style>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team Projects</title>
+  <style>
+    :root {
+      --primary-color: #007bff;
+      --secondary-color: #6c757d;
+      --container-width: 80%;
+      --profile-image-size: 128px;
+    }
+
     .container {
-        margin: 20px auto;
-        width: 80%;
-    }
-    img {
-        width: 128px;
-        height: 187px;
-        display: block;
-        margin-bottom: 20px;
-    }
-    hr {
-        width: 400px;
-        margin-left: 0;
-    }
-    h3 {
-        display: inline-block;
+      margin: 20px auto;
+      width: var(--container-width);
     }
 
-    img {
-        float: left;
-        margin-right: 30px;
-    }
     .member {
-        margin: 30px 0;
+      margin: 30px 0;
     }
-</style>
-<body>
-    <div class='container' id='container'>
-        <h1>List of projects team is working on</h1>
-        <div class="member">
-            <img src='profile-picture-andrea' alt="user-profile">
-            <span>Name: </span><h3>Andrea Hill</h3>
-            <hr />
-            <span>Role: </span><h3>DevOps engineer</h3>
-            <hr />
-            <span>Projects: </span><h3>AWS migration, Backup Automation</h3>
-        </div>
 
-        <div class="member">
-            <img src='profile-picture-ari' alt="user-profile">
-            <span>Name: </span><h3>Ari Baker</h3>
-            <hr />
-            <span>Role: </span><h3>Software developer</h3>
-            <hr />
-            <span>Projects: </span><h3>Online Shop, ERP Software</h3>
-        </div>
-    </div>
+    .member img {
+      width: var(--profile-image-size);
+      height: auto;
+      display: block;
+      margin-bottom: 20px;
+      float: left;
+      margin-right: 30px;
+    }
+
+    .member hr {
+      width: 400px;
+      margin-left: 0;
+    }
+
+    .member h3 {
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1>List of projects team is working on</h1>
+    <section class="member">
+      <figure>
+        <img src="profile-picture-andrea" alt="user profile picture">
+        <figcaption>
+          <span>Name: </span><h3>Andrea Hill</h3>
+          <hr />
+          <span>Role: </span><h3>DevOps engineer</h3>
+          <hr />
+          <span>Projects: </span><h3>AWS migration, Backup Automation</h3>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section class="member">
+      <figure>
+        <img src="profile-picture-ari" alt="user profile picture">
+        <figcaption>
+          <span>Name: </span><h3>Ari Baker</h3>
+          <hr />
+          <span>Role: </span><h3>Software developer</h3>
+          <hr />
+          <span>Projects: </span><h3>Online Shop, ERP Software</h3>
+        </figcaption>
+      </figure>
+    </section>
+  </main>
 </body>
 </html>
