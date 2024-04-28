@@ -552,7 +552,7 @@ There are two ways to implement this setup:
                https://download.docker.com/linux/debian \
                $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
      RUN apt-get update && apt-get install -y docker-ce-cli
-     RUN usermod -aG docker jenkins
+     # RUN usermod -aG docker jenkins
      USER jenkins
      RUN jenkins-plugin-cli --plugins "blueocean docker-workflow"
      ```
