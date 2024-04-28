@@ -716,3 +716,67 @@ networks:
 - [ ] Task 6: Follow the Jenkins setup wizard to complete the initial configuration and customize Jenkins according to your needs.
 
 ## Exercise 1
+
+`docker init` is a command introduced in Docker v20.10.0 that helps you quickly create a Dockerfile, docker-compose.yaml, and .dockerignore file for your application. It simplifies the process of containerizing your application by generating a Dockerfile with best practices and sensible defaults based on your project's language and framework.
+
+- [x] Task 1: Use `docker init` to generate a Dockerfile for the NodeJS application
+  - Open a terminal and navigate to the root directory of your NodeJS application.
+  - Run the following command:
+
+    ```bash
+    docker init
+    ```
+
+  - Docker will ask you a series of questions to gather information about your application. Here's an example of how the interaction might look:
+
+    ![docker init command screenshot]()
+
+    In this example:
+    - The application platform is Node.
+    - The desired Node version is 20.12.2.
+    - The package manager is npm.
+    - The command to start the application is `npm start`.
+    - The server listens on port 3000.
+
+  - After answering the questions, `docker init` will generate the following files:
+    - `.dockerignore`: Lists files and directories that should be excluded from the Docker build context.
+    - `Dockerfile`: Contains the instructions to build your NodeJS application as a Docker image.
+    - `compose.yaml`: Defines services, networks, and volumes for running your application using Docker Compose.
+    - `README.Docker.md`: Provides information about using the generated files.
+
+- [x] Task 2: Review the generated Dockerfile to understand its contents and ensure it aligns with the application's requirements
+  - Here's an example of what the generated Dockerfile might look like:
+
+    ```dockerfile
+    # syntax=docker/dockerfile:1
+
+    ARG NODE_VERSION=20.12.2
+
+    FROM node:${NODE_VERSION}-alpine
+
+    ENV NODE_ENV production
+
+    WORKDIR /usr/src/app
+
+    RUN --mount=type=bind,source=package.json,target=package.json \
+        --mount=type=bind,source=package-lock.json,target=package-lock.json \
+        --mount=type=cache,target=/root/.npm \
+        npm ci --omit=dev
+
+    USER node
+
+    COPY . .
+
+    EXPOSE 3000
+
+    CMD ["npm", "start"]
+    ```
+
+  - This Dockerfile follows best practices and includes the following:
+    - Use of the official Node.js Alpine base image for a smaller image size.
+    - Setting the `NODE_ENV` environment variable to `production` for optimized performance.
+    - Copying only the necessary files to the image.
+    - Installing production dependencies using `npm ci` for faster and reproducible builds.
+    - Running the application as a non-root user for improved security.
+    - Exposing the port on which the application listens.
+    - Specifying the command to start the application.
