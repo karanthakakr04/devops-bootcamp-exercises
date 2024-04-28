@@ -12,11 +12,11 @@
   "author": "NJ",
   "license": "ISC",
   "dependencies": {
-    "express": "4.19.2"
+    "express": "4.19.2",
+    "jest": "29.7.0"
   },
   "devDependencies": {
     "eslint": "^9.0.0",
-    "jest": "29.6.1",
     "nodemon": "^3.0.0",
     "supertest": "^7.0.0"
   },
