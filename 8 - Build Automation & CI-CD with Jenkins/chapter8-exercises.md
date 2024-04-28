@@ -729,7 +729,7 @@ networks:
 
   - Docker will ask you a series of questions to gather information about your application. Here's an example of how the interaction might look:
 
-    ![docker init command screenshot]()
+    ![docker init command screenshot](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/bf778393-591f-4f98-9434-a58bf9a1c78e)
 
     In this example:
     - The application platform is Node.
