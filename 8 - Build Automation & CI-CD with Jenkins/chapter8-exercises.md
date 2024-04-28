@@ -745,7 +745,7 @@ networks:
     - `README.Docker.md`: Provides information about using the generated files.
 
 - [x] Task 2: Review the generated Dockerfile to understand its contents and ensure it aligns with the application's requirements
-  - Here's an example of what the generated Dockerfile might look like:
+  - Here is what the generated Dockerfile looks like for our Node.js project:
 
     ```dockerfile
     # syntax=docker/dockerfile:1
