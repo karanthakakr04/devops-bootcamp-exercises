@@ -645,7 +645,7 @@ networks:
 2. **Communication Security**: The communication between the Jenkins container and the Docker-in-Docker container in this setup does not use TLS, meaning it is not encrypted. For learning and experimentation purposes, this may be acceptable, but it is strongly recommended to implement Docker TLS in production environments to ensure secure communication between containers.
 
 > [!CAUTION]
-> **Running Jenkins in Docker with privileged mode and wide-open socket permissions poses security risks, including potential for privilege escalation and unauthorized access to the host system. This setup is not recommended for production environments without additional security measures.**
+> **Running Jenkins in Docker with [privileged mode](https://docs.docker.com/reference/cli/docker/container/run/#privileged) and wide-open socket permissions poses security risks, including potential for privilege escalation and unauthorized access to the host system. This setup is not recommended for production environments without additional security measures.**
 
 #### Method 3: Docker-in-Docker with Sysbox (Recommended)
 
