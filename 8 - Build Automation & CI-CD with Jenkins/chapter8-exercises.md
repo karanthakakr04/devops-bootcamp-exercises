@@ -719,7 +719,7 @@ networks:
 
 `docker init` is a command introduced in Docker v20.10.0 that helps you quickly create a Dockerfile, docker-compose.yaml, and .dockerignore file for your application. It simplifies the process of containerizing your application by generating a Dockerfile with best practices and sensible defaults based on your project's language and framework.
 
-- [x] Task 1: Use `docker init` to generate a Dockerfile for the NodeJS application
+- [ ] Task 1: Use `docker init` to generate a Dockerfile for the NodeJS application
   - Open a terminal and navigate to the root directory of your NodeJS application.
   - Run the following command:
 
@@ -744,7 +744,7 @@ networks:
     - `compose.yaml`: Defines services, networks, and volumes for running your application using Docker Compose.
     - `README.Docker.md`: Provides information about using the generated files.
 
-- [x] Task 2: Review the generated Dockerfile to understand its contents and ensure it aligns with the application's requirements
+- [ ] Task 2: Review the generated Dockerfile to understand its contents and ensure it aligns with the application's requirements
   - Here is what the generated Dockerfile looks like for our Node.js project:
 
     ```dockerfile
