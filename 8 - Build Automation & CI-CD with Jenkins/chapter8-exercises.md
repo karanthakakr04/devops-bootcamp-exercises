@@ -790,7 +790,7 @@ networks:
 
 Inside the Jenkins volume, you can find the files related to your pipeline in the following directory:
 
-```bash
+```plaintext
 /var/jenkins_home/jobs/<job-name>/builds/<build-number>/
 ```
 
@@ -809,7 +809,7 @@ Inside the `<build-number>` directory, you'll find various files and directories
 
 When you configure your pipeline to fetch code from a Git repository, Jenkins typically clones the repository inside a workspace directory within the build directory. The location of the cloned repository inside the container volume would be:
 
-```bash
+```plaintext
 /var/jenkins_home/workspace/<job-name>
 ```
 
