@@ -486,6 +486,11 @@ To enable Docker-in-Docker functionality in a Jenkins container using the privil
     chmod 666 /var/run/docker.sock
     ```
 
+  - Persistence of Docker Socket Permissions:
+    - When running Jenkins in a container and allowing it to access the Docker daemon on the host system, you may encounter an issue with the persistence of the Docker socket (`/var/run/docker.sock`) permissions.
+    - If you modify the permissions of the `docker.sock` file inside the Jenkins container using the `chmod` command, the changes will not persist when the container is stopped and restarted. This is because the `/var/run/docker.sock` file is a Unix domain socket created and managed by the Docker daemon on the host system. When the Jenkins container starts, it mounts the `docker.sock` file from the host into the container, and the permissions of the mounted file are determined by the host system, not the container.
+    - To address this issue, you need to modify the permissions of the Docker socket (`/var/run/docker.sock`) inside the Jenkins container **again** to allow Jenkins to access the Docker daemon. Note that you will require root permissions inside the container to do it.
+
 ##### Considerations
 
 1. **Simplicity**: Installing Docker inside the Jenkins container using the installation script is straightforward and requires fewer steps compared to setting up a separate Docker-in-Docker container.
