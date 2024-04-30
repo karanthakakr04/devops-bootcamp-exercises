@@ -785,3 +785,49 @@ networks:
     - Running the application as a non-root user for improved security.
     - Exposing the port on which the application listens.
     - Specifying the command to start the application.
+
+### Pipeline and Repository Storage in Jenkins Volume
+
+Inside the Jenkins volume, you can find the files related to your pipeline in the following directory:
+
+```bash
+/var/jenkins_home/jobs/<job-name>/builds/<build-number>/
+```
+
+Here's a breakdown of the directory structure:
+
+- `/var/jenkins_home/jobs/`: This directory contains subdirectories for each Jenkins job or pipeline.
+- `<job-name>/`: Replace this with the name of your specific job or pipeline.
+- `builds/`: This directory contains subdirectories for each build of the job.
+- `<build-number>/`: Replace this with the specific build number.
+
+Inside the `<build-number>` directory, you'll find various files and directories related to that particular build of your pipeline, such as:
+
+- `build.xml`: Contains information about the build, including the build number, timestamp, and status.
+- `log`: Contains the console output of the build.
+- `workflow/`: Contains files related to the pipeline execution, such as the pipeline script and stage information.
+
+When you configure your pipeline to fetch code from a Git repository, Jenkins typically clones the repository inside a workspace directory within the build directory. The location of the cloned repository inside the container volume would be:
+
+```bash
+/var/jenkins_home/workspace/<job-name>
+```
+
+Here's a breakdown of the directory structure:
+
+- `/var/jenkins_home/workspace/`: This directory contains subdirectories for each job's workspace.
+- `<job-name>/`: Replace this with the name of your specific job or pipeline.
+
+Inside the `<job-name>` directory, you'll find the cloned Git repository that Jenkins fetched during the build process. The repository files and directories will be available in this location.
+
+It's important to note that the workspace directory is typically used as a temporary location for each build. By default, Jenkins doesn't persist the workspace across builds unless explicitly configured to do so. If you need to persist the workspace data, you can use Jenkins plugins like "Workspace Cleanup" or manually configure the job to archive the necessary files.
+
+To access these directories and files, you can use the `docker exec` command to enter the running Jenkins container and navigate to the respective paths. For example:
+
+```bash
+docker exec -it <container-id-or-name> /bin/bash
+```
+
+Once inside the container, you can use common Linux commands like `cd`, `ls`, and `cat` to explore and view the contents of the directories and files.
+
+Remember that the actual paths and directory names may vary depending on your Jenkins configuration and job setup. The examples provided above are based on typical Jenkins conventions.
