@@ -205,7 +205,7 @@ After installing Jenkins (either as a container or locally), you need to perform
     - Once inside the container, run the following command to retrieve the initial admin password:
 
       ```bash
-      cat /var/jenkins_home/secrets/initialAdminPassword
+      cat /var/jenkins_home/secrets/initialAdminPassword; echo
       ```
 
     ![Retrieve the initial admin password](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/a5f74901-71d9-40c2-9825-1aaaf0f2ff4c)
