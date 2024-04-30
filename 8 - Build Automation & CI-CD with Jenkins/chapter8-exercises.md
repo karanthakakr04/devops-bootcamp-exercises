@@ -149,21 +149,21 @@ When setting up Jenkins, it's important to consider how the Jenkins data (config
 
 When running Jenkins as a Docker container, it is recommended to use a Docker named volume (`-v jenkins_home:/var/jenkins_home`) to store the Jenkins data. This approach has several benefits:
 
-1. **Data Persistence**: By mounting a named volume to the `/var/jenkins_home` directory inside the container, the Jenkins data persists even if the container is stopped, removed, or recreated. The data is stored on the host machine's filesystem, separate from the container's lifecycle.
+1. **Data Persistence:** By mounting a named volume to the `/var/jenkins_home` directory inside the container, the Jenkins data persists even if the container is stopped, removed, or recreated. The data is stored on the host machine's filesystem, separate from the container's lifecycle.
 
-2. **Easy Backup and Restore**: With a named volume, you can easily backup and restore the Jenkins data. You can use Docker commands to create a backup of the volume or copy the data to another location. This allows for quick recovery in case of any issues or when migrating to a different host.
+2. **Easy Backup and Restore:** With a named volume, you can easily backup and restore the Jenkins data. You can use Docker commands to create a backup of the volume or copy the data to another location. This allows for quick recovery in case of any issues or when migrating to a different host.
 
-3. **Separation of Concerns**: By using a named volume, you keep the Jenkins data separate from the container itself. This allows you to upgrade or replace the Jenkins container image without affecting the stored data. You can stop the container, pull a new Jenkins image version, and start a new container while still preserving the existing data.
+3. **Separation of Concerns:** By using a named volume, you keep the Jenkins data separate from the container itself. This allows you to upgrade or replace the Jenkins container image without affecting the stored data. You can stop the container, pull a new Jenkins image version, and start a new container while still preserving the existing data.
 
 #### Installing Jenkins Directly on the Host Machine
 
 When installing Jenkins using the provided script (`install_jenkins.sh`), the Jenkins data is typically stored directly on the host machine's filesystem, usually under the `/var/lib/jenkins` directory. In this case:
 
-1. **Data Persistence**: The Jenkins data is still persisted on the host machine's filesystem, but it is not managed by Docker. As long as the host machine's filesystem remains intact, the Jenkins data will persist.
+1. **Data Persistence:** The Jenkins data is still persisted on the host machine's filesystem, but it is not managed by Docker. As long as the host machine's filesystem remains intact, the Jenkins data will persist.
 
-2. **Manual Backup and Restore**: Without using Docker volumes, you need to manually manage the backup and restore process of the Jenkins data. You can use traditional file backup tools or create scripts to backup and restore the `/var/lib/jenkins` directory.
+2. **Manual Backup and Restore:** Without using Docker volumes, you need to manually manage the backup and restore process of the Jenkins data. You can use traditional file backup tools or create scripts to backup and restore the `/var/lib/jenkins` directory.
 
-3. **Upgrade and Maintenance**: When installing Jenkins directly on the host machine, upgrading Jenkins or performing maintenance tasks requires more manual steps. You need to stop the Jenkins service, update the package, and start the service again. This process is not as streamlined as updating a Docker container image.
+3. **Upgrade and Maintenance:** When installing Jenkins directly on the host machine, upgrading Jenkins or performing maintenance tasks requires more manual steps. You need to stop the Jenkins service, update the package, and start the service again. This process is not as streamlined as updating a Docker container image.
 
 The choice between running Jenkins as a container with a named volume or installing it directly on the host machine depends on your specific requirements, infrastructure setup, and personal preferences. Using Docker provides a more portable and easily manageable solution, while installing Jenkins directly offers more control over the host machine's filesystem and integration with existing systems.
 
@@ -221,7 +221,7 @@ After installing Jenkins (either as a container or locally), you need to perform
     - Run the following command to retrieve the initial admin password:
 
       ```bash
-      cat /var/lib/jenkins/secrets/initialAdminPassword
+      cat /var/lib/jenkins/secrets/initialAdminPassword; echo
       ```
 
 - [x] Task 2: Enter the initial admin password
@@ -510,8 +510,8 @@ This method involves setting up Docker-in-Docker (DinD) functionality using priv
 
 There are two ways to implement this setup:
 
-1. **Using Individual Docker Commands**: This approach involves manually running each Docker command to set up and connect the containers.
-2. **Using Docker Compose**: This method utilizes a Docker Compose file to manage the containers, simplifying the process by defining all configurations in a single file.
+1. **Using Individual Docker Commands:** This approach involves manually running each Docker command to set up and connect the containers.
+2. **Using Docker Compose:** This method utilizes a Docker Compose file to manage the containers, simplifying the process by defining all configurations in a single file.
 
 ##### Setup Using Individual Docker Commands
 
@@ -645,9 +645,9 @@ networks:
 
 ##### Security Considerations
 
-1. **Docker-in-Docker with Privileged Mode**: Running containers in privileged mode poses significant security risks, such as the potential for privileged escalation and unauthorized access to the host machine.
+1. **Docker-in-Docker with Privileged Mode:** Running containers in privileged mode poses significant security risks, such as the potential for privileged escalation and unauthorized access to the host machine.
 
-2. **Communication Security**: The communication between the Jenkins container and the Docker-in-Docker container in this setup does not use TLS, meaning it is not encrypted. For learning and experimentation purposes, this may be acceptable, but it is strongly recommended to implement Docker TLS in production environments to ensure secure communication between containers.
+2. **Communication Security:** The communication between the Jenkins container and the Docker-in-Docker container in this setup does not use TLS, meaning it is not encrypted. For learning and experimentation purposes, this may be acceptable, but it is strongly recommended to implement Docker TLS in production environments to ensure secure communication between containers.
 
 > [!CAUTION]
 > **Running Jenkins in Docker with [privileged mode](https://docs.docker.com/reference/cli/docker/container/run/#privileged) and wide-open socket permissions poses security risks, including potential for privilege escalation and unauthorized access to the host system. This setup is not recommended for production environments without additional security measures.**
