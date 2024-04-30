@@ -493,7 +493,8 @@ Volumes are useful in several scenarios:
 
   - Take note of the password for future use.
   
-  > Note: Using the default admin credentials is not recommended for production environments. It is advised to change the password and secure the Nexus instance properly.
+> [!WARNING]
+> Using the default admin credentials is not recommended for production environments. It is advised to change the password and secure the Nexus instance properly.
 
 - [x] Task 4: Configure Nexus Docker repository
   - Access the Nexus web interface at `http://<remote-server-ip>:8081`.
@@ -790,7 +791,8 @@ Remember to replace the placeholders (`<repository-host>`, `<repository-port>`, 
   - If the firewall rule is configured correctly and the application is running, you should see the application's interface in the browser.
   - Test the functionality of your application to ensure it is accessible and working as expected.
 
-Note: Make sure you have the correct IP address or domain name of your DigitalOcean server. You can find this information in your DigitalOcean account's Droplet settings.
+> [!NOTE]
+> Make sure you have the correct IP address or domain name of your DigitalOcean server. You can find this information in your DigitalOcean account's Droplet settings.
 
 If you encounter any issues accessing the application, double-check the firewall rule configuration and ensure that the application is running correctly on the server.
 
