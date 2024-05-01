@@ -201,8 +201,4 @@ In this exercise, you will SSH into the EC2 instance created in Exercise 4 and i
 
 > [!NOTE]
 > After completing this exercise, the EC2 instance is now ready to run the dockerized application from Exercise 1.
->
-> [!IMPORTANT]
 > Remember to stop or terminate the EC2 instance when you are done to avoid incurring unnecessary charges.
-
-These exercises demonstrate how to set up the necessary AWS resources using the AWS CLI to prepare for deploying a dockerized application. You can now proceed with deploying the Docker image created in Exercise 1 on the EC2 instance.
