@@ -846,3 +846,45 @@ docker exec -it <container-id-or-name> /bin/bash
 Once inside the container, you can use common Linux commands like `cd`, `ls`, and `cat` to explore and view the contents of the directories and files.
 
 Remember that the actual paths and directory names may vary depending on your Jenkins configuration and job setup. The examples provided above are based on typical Jenkins conventions.
+
+### Docker Login for Different Registries
+
+When using the `docker login` command to authenticate with a Docker registry that isn't Docker Hub, you must specify the hostname of the repository. This is because Docker defaults to Docker Hub if no server is specified. Here's how you do it for various registries like Nexus or AWS ECR:
+
+1. **Nexus Repository as Docker Registry**
+   - If you are using Nexus as your Docker registry, you need to specify the Nexus repository URL in your `docker login` command. The command format is:
+
+     ```bash
+     docker login [nexus-repository-url]
+     ```
+
+   - Example:
+
+     ```bash
+     docker login nexus.yourcompany.com
+     ```
+
+   - You will then be prompted to enter the username and password for your Nexus Docker registry unless you provide them directly in the command.
+
+2. **AWS Elastic Container Registry (ECR)**
+   - For AWS ECR, the process involves using the `aws` CLI to get the login password and then piping it to a `docker login` command. You also need to specify the AWS region.
+   - First, retrieve the authentication token using the AWS CLI, then use it to log in:
+
+     ```bash
+     aws ecr get-login-password --region your-region | docker login --username AWS --password-stdin your-aws-account-id.dkr.ecr.region.amazonaws.com
+     ```
+
+   - Example for region us-east-1:
+
+     ```bash
+     aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 123456789012.dkr.ecr.us-east-1.amazonaws.com
+     ```
+
+### Why Specify the Hostname?
+
+- **Targeting the Correct Registry**: Specifying the hostname ensures that the Docker client knows exactly which registry to authenticate against. Without the hostname, Docker would default to Docker Hub, which might not be intended.
+- **Security**: This prevents accidentally sending your credentials to the wrong registry. Ensuring you're logging into the correct registry is crucial, especially in environments where security and data privacy are paramount.
+
+### Using Docker Configurations
+
+For ease of use, especially if you regularly interact with a non-Docker Hub registry, you can configure your Docker client to manage multiple registry logins. This involves setting up a `config.json` file in your Docker directory (typically `~/.docker/config.json`), where you can store encoded credentials for each registry. However, managing credentials in plaintext or encoded form in configuration files should be handled cautiously from a security perspective.
