@@ -1,6 +1,6 @@
 # TASK BREAKDOWN
 
-## EXERCISE 1: Create IAM user
+## EXERCISE 1
 
 In this exercise, you will create a new IAM user with the necessary permissions to execute the subsequent tasks.
 
@@ -37,7 +37,7 @@ In this exercise, you will create a new IAM user with the necessary permissions 
 > [!IMPORTANT]
 > **The IAM user created in this exercise will have full access to EC2, IAM, and VPC services. In a production environment, it is recommended to follow the principle of least privilege and grant only the necessary permissions based on the specific requirements of the user or application.**
 
-## EXERCISE 2: Configure AWS CLI
+## EXERCISE 2
 
 In this exercise, you will configure the AWS CLI to interact with your AWS account using the IAM user credentials created in Exercise 1.
 
@@ -77,7 +77,7 @@ In this exercise, you will configure the AWS CLI to interact with your AWS accou
 
   - The command should return the IAM user details, confirming that AWS CLI is properly configured.
 
-## EXERCISE 3: Create VPC
+## EXERCISE 3
 
 In this exercise, you will create a new VPC (Virtual Private Cloud) with a subnet and a security group using the AWS CLI.
 
@@ -125,7 +125,7 @@ In this exercise, you will create a new VPC (Virtual Private Cloud) with a subne
 > [!NOTE]
 > **In a production environment, it is recommended to restrict the inbound rules to specific IP ranges or security groups instead of allowing access from anywhere (0.0.0.0/0).**
 
-## EXERCISE 4: Create EC2 Instance
+## EXERCISE 4
 
 In this exercise, you will create an EC2 instance within the VPC created in Exercise 3 using the AWS CLI.
 
@@ -157,7 +157,7 @@ In this exercise, you will create an EC2 instance within the VPC created in Exer
 > [!TIP]
 > **The `ami-0c94855ba95c71c99` used in the command represents the Amazon Machine Image (AMI) ID for Amazon Linux 2 in the US East (N. Virginia) region. If you are using a different region, you may need to find the appropriate AMI ID for that region.**
 
-## EXERCISE 5: SSH into the server and install Docker on it
+## EXERCISE 5
 
 In this exercise, you will SSH into the EC2 instance created in Exercise 4 and install Docker on it to prepare the server for running the dockerized application.
 
