@@ -880,11 +880,11 @@ When using the `docker login` command to authenticate with a Docker registry tha
      aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 123456789012.dkr.ecr.us-east-1.amazonaws.com
      ```
 
-### Why Specify the Hostname?
+#### Why Specify the Hostname?
 
 - **Targeting the Correct Registry**: Specifying the hostname ensures that the Docker client knows exactly which registry to authenticate against. Without the hostname, Docker would default to Docker Hub, which might not be intended.
 - **Security**: This prevents accidentally sending your credentials to the wrong registry. Ensuring you're logging into the correct registry is crucial, especially in environments where security and data privacy are paramount.
 
-### Using Docker Configurations
+#### Using Docker Configurations
 
 For ease of use, especially if you regularly interact with a non-Docker Hub registry, you can configure your Docker client to manage multiple registry logins. This involves setting up a `config.json` file in your Docker directory (typically `~/.docker/config.json`), where you can store encoded credentials for each registry. However, managing credentials in plaintext or encoded form in configuration files should be handled cautiously from a security perspective.
