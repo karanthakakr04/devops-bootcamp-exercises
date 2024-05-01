@@ -35,7 +35,7 @@ In this exercise, you will create a new IAM user with the necessary permissions 
   - Store the downloaded file securely, as it contains the access key ID and secret access key for the IAM user.
 
 > [!IMPORTANT]
-> The IAM user created in this exercise will have full access to EC2, IAM, and VPC services. In a production environment, it is recommended to follow the principle of least privilege and grant only the necessary permissions based on the specific requirements of the user or application.
+> **The IAM user created in this exercise will have full access to EC2, IAM, and VPC services. In a production environment, it is recommended to follow the principle of least privilege and grant only the necessary permissions based on the specific requirements of the user or application.**
 
 ## EXERCISE 2: Configure AWS CLI
 
@@ -123,7 +123,7 @@ In this exercise, you will create a new VPC (Virtual Private Cloud) with a subne
   - The second command allows HTTP access (port 80) from anywhere.
 
 > [!NOTE]
-> In a production environment, it is recommended to restrict the inbound rules to specific IP ranges or security groups instead of allowing access from anywhere (0.0.0.0/0).
+> **In a production environment, it is recommended to restrict the inbound rules to specific IP ranges or security groups instead of allowing access from anywhere (0.0.0.0/0).**
 
 ## EXERCISE 4: Create EC2 Instance
 
@@ -155,7 +155,7 @@ In this exercise, you will create an EC2 instance within the VPC created in Exer
   - Take note of the Instance ID returned by the command.
 
 > [!TIP]
-> The `ami-0c94855ba95c71c99` used in the command represents the Amazon Machine Image (AMI) ID for Amazon Linux 2 in the US East (N. Virginia) region. If you are using a different region, you may need to find the appropriate AMI ID for that region.
+> **The `ami-0c94855ba95c71c99` used in the command represents the Amazon Machine Image (AMI) ID for Amazon Linux 2 in the US East (N. Virginia) region. If you are using a different region, you may need to find the appropriate AMI ID for that region.**
 
 ## EXERCISE 5: SSH into the server and install Docker on it
 
@@ -200,5 +200,6 @@ In this exercise, you will SSH into the EC2 instance created in Exercise 4 and i
   - The command should display the Docker version installed.
 
 > [!NOTE]
-> After completing this exercise, the EC2 instance is now ready to run the dockerized application from Exercise 1.
-> Remember to stop or terminate the EC2 instance when you are done to avoid incurring unnecessary charges.
+> **After completing this exercise, the EC2 instance is now ready to run the dockerized application from Exercise 1.**
+>
+> **Remember to stop or terminate the EC2 instance when you are done to avoid incurring unnecessary charges.**
