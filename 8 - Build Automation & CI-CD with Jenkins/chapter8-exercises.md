@@ -905,7 +905,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
   - Specify the branch to build (e.g., "_/main" or "_/master").
   - Leave the script path as "Jenkinsfile" (assuming you have a Jenkinsfile in your repository root).
 
-- [ ] Task 3: Configure the Jenkins job to use the GitHub token
+- [ ] Task 2: Configure the Jenkins job to use the GitHub token
   - **Open the Jenkins job configuration:**
     - Navigate to the Jenkins job you want to configure.
     - Click on "Configure" in the left sidebar.
