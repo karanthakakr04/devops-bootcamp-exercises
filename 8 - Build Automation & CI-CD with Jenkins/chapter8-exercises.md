@@ -905,25 +905,38 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
   - Specify the branch to build (e.g., "_/main" or "_/master").
   - Leave the script path as "Jenkinsfile" (assuming you have a Jenkinsfile in your repository root).
 
-- [ ] Task 2: Configure the Jenkins job to use the GitHub token
+- [ ] Task 2: Configure the Jenkins job to access the GitHub repository
   - **Open the Jenkins job configuration:**
     - Navigate to the Jenkins job you want to configure.
     - Click on "Configure" in the left sidebar.
 
-  - **Configure the Git repository:**
-    - Scroll down to the "Source Code Management" section.
-    - Select "Git" as the source code management tool.
-    - In the "Repository URL" field, enter the URL that directly points to the folder containing your code files:
-      `https://github.com/karanthakakr04/devops-bootcamp-exercises/tree/main/8%20-%20Build%20Automation%20%26%20CI-CD%20with%20Jenkins/jenkins-exercises`
-    - In the "Credentials" dropdown, select the GitHub token credential you created earlier.
+  - **Configure the Pipeline:**
+    - Scroll down to the "Pipeline" section.
+    - In the "Definition" field, select "Pipeline script from SCM".
+    - In the "SCM" field, select "Git".
 
-  - **Specify the branch:**
-    - In the "Branch Specifier" field, enter the branch name you want to build (e.g., "*/main").
+  - **Configure the Git repository:**
+    - In the "Repository URL" field, enter the URL of your GitHub repository:
+      `https://github.com/karanthakakr04/devops-bootcamp-exercises.git`
+    - In the "Credentials" dropdown, select the GitHub token credential you created earlier.
+    - In the "Branch Specifier" field, enter the branch name you want to build (e.g., `*/main`).
+    - In the "Script Path" field, provide the relative path to the `Jenkinsfile` within the repository:
+      `8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/Jenkinsfile`
 
   - **Save the job configuration:**
     - Click on the "Save" button to apply the changes.
 
-- [ ] Task 3: Create the Jenkinsfile
+- [ ] Task 3: Verify the configuration
+  - **Run the Jenkins job:**
+    - Navigate to the Jenkins job.
+    - Click on "Build Now" to trigger a new build.
+
+  - **Check the build log:**
+    - Once the build starts, click on the build number to view its details.
+    - Click on the "Console Output" to view the build log.
+    - Verify that Jenkins is able to access the GitHub repository and locate the `Jenkinsfile`.
+
+- [ ] Task 4: Create the Jenkinsfile
   - In your local development environment, create a new file named "Jenkinsfile" in the root directory of your NodeJS application repository.
   - Open the Jenkinsfile in a text editor.
 
