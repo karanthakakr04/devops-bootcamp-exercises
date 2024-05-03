@@ -888,3 +888,5 @@ When using the `docker login` command to authenticate with a Docker registry tha
 #### Using Docker Configurations
 
 For ease of use, especially if you regularly interact with a non-Docker Hub registry, you can configure your Docker client to manage multiple registry logins. This involves setting up a `config.json` file in your Docker directory (typically `~/.docker/config.json`), where you can store encoded credentials for each registry. However, managing credentials in plaintext or encoded form in configuration files should be handled cautiously from a security perspective.
+
+## Exercise 2
