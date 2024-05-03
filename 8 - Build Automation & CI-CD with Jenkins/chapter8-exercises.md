@@ -890,3 +890,183 @@ When using the `docker login` command to authenticate with a Docker registry tha
 For ease of use, especially if you regularly interact with a non-Docker Hub registry, you can configure your Docker client to manage multiple registry logins. This involves setting up a `config.json` file in your Docker directory (typically `~/.docker/config.json`), where you can store encoded credentials for each registry. However, managing credentials in plaintext or encoded form in configuration files should be handled cautiously from a security perspective.
 
 ## Exercise 2
+
+In this exercise, you will create a comprehensive pipeline for your NodeJS application that includes version incrementing, running tests, building and pushing the Docker image, and committing changes to a Git repository.
+
+- [ ] Task 1: Set up the Jenkins pipeline
+  - Open the Jenkins web interface.
+  - Click on "New Item" in the left sidebar.
+  - Enter a name for your pipeline (e.g., "nodejs-app-pipeline") and select "Pipeline" as the item type.
+  - Click "OK" to create the pipeline.
+
+- [ ] Task 2: Configure the pipeline
+  - In the pipeline configuration page, scroll down to the "Pipeline" section.
+  - Select "Pipeline script from SCM" as the pipeline definition.
+  - Choose "Git" as the SCM.
+  - Enter the repository URL for your NodeJS application.
+  - Specify the branch to build (e.g., "*/main" or "*/master").
+  - Leave the script path as "Jenkinsfile" (assuming you have a Jenkinsfile in your repository root).
+
+- [ ] Task 3: Create the Jenkinsfile
+  - In your local development environment, create a new file named "Jenkinsfile" in the root directory of your NodeJS application repository.
+  - Open the Jenkinsfile in a text editor.
+
+- [ ] Task 4: Define the pipeline stages
+  - Begin the Jenkinsfile with the `pipeline` block:
+
+    ```groovy
+    pipeline {
+      agent any
+
+      stages {
+        // Pipeline stages will be defined here
+      }
+    }
+    ```
+
+  - Add the following stages to the pipeline:
+
+    ```groovy
+    stage('Increment Version') {
+      steps {
+        script {
+          // Increment the application version
+          // You can use a npm package like 'npm-version' or write a custom script to increment the version
+          // Example: sh 'npm run version:increment'
+        }
+      }
+    }
+
+    stage('Run Tests') {
+      steps {
+        script {
+          // Run tests for the application
+          // Example: sh 'npm test'
+        }
+      }
+    }
+
+    stage('Build Docker Image') {
+      steps {
+        script {
+          // Build the Docker image with the incremented version
+          // Example: sh 'docker build -t myapp:${version} .'
+        }
+      }
+    }
+
+    stage('Push Docker Image') {
+      steps {
+        script {
+          // Push the Docker image to a registry
+          // Example: sh 'docker push myapp:${version}'
+        }
+      }
+    }
+
+    stage('Commit Version') {
+      steps {
+        script {
+          // Commit the version increment to Git
+          // Example:
+          // sh 'git add package.json'
+          // sh 'git commit -m "Increment version to ${version}"'
+          // sh 'git push origin main'
+        }
+      }
+    }
+    ```
+
+  - Customize the steps within each stage according to your specific application and requirements.
+
+- [ ] Task 5: Implement version incrementing
+  - In the "Increment Version" stage, add the necessary steps to increment your application's version.
+  - You can use a npm package like 'npm-version' or write a custom script to increment the version based on your versioning strategy (e.g., semantic versioning).
+  - Example:
+
+    ```groovy
+    stage('Increment Version') {
+      steps {
+        script {
+          def currentVersion = sh(returnStdout: true, script: 'npm run get-version').trim()
+          def nextVersion = incrementVersion(currentVersion)
+          sh "npm version ${nextVersion} --no-git-tag-version"
+          env.VERSION = nextVersion
+        }
+      }
+    }
+    ```
+
+- [ ] Task 6: Run tests
+  - In the "Run Tests" stage, add the step to run tests for your NodeJS application.
+  - Use the appropriate command to run your tests (e.g., `npm test`).
+  - Example:
+
+    ```groovy
+    stage('Run Tests') {
+      steps {
+        script {
+          sh 'npm test'
+        }
+      }
+    }
+    ```
+
+- [ ] Task 7: Build Docker image
+  - In the "Build Docker Image" stage, add the step to build the Docker image for your application.
+  - Use the `docker build` command to build the image, tagging it with the incremented version.
+  - Example:
+
+    ```groovy
+    stage('Build Docker Image') {
+      steps {
+        script {
+          sh "docker build -t myapp:${env.VERSION} ."
+        }
+      }
+    }
+    ```
+
+- [ ] Task 8: Push Docker image
+  - In the "Push Docker Image" stage, add the step to push the built Docker image to a registry.
+  - Use the `docker push` command to push the image to your desired registry.
+  - Example:
+
+    ```groovy
+    stage('Push Docker Image') {
+      steps {
+        script {
+          sh "docker push myapp:${env.VERSION}"
+        }
+      }
+    }
+    ```
+
+- [ ] Task 9: Commit version changes
+  - In the "Commit Version" stage, add the steps to commit the version increment to your Git repository.
+  - Use Git commands to stage, commit, and push the changes.
+  - Example:
+
+    ```groovy
+    stage('Commit Version') {
+      steps {
+        script {
+          sh 'git add package.json'
+          sh "git commit -m 'Increment version to ${env.VERSION}'"
+          sh 'git push origin main'
+        }
+      }
+    }
+    ```
+
+> [!TIP]
+> You can enhance the pipeline further by adding error handling, notifications, or additional stages based on your specific requirements.
+
+- [ ] Task 10: Save and run the pipeline
+  - Save the Jenkinsfile and commit it to your Git repository.
+  - In the Jenkins web interface, navigate to your pipeline.
+  - Click on "Build Now" to trigger the pipeline execution.
+  - Monitor the pipeline stages and verify that each stage runs successfully.
+
+> [!NOTE]
+> Make sure you have the necessary plugins installed in Jenkins to support the pipeline steps (e.g., Docker, Git).
