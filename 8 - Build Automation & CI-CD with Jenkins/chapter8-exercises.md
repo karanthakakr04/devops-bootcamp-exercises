@@ -891,8 +891,6 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
 
 ## Exercise 2
 
-In this exercise, you will create a comprehensive pipeline for your NodeJS application that includes version incrementing, running tests, building and pushing the Docker image, and committing changes to a Git repository.
-
 - [ ] Task 1: Set up the Jenkins pipeline
   - Open the Jenkins web interface.
   - Click on "New Item" in the left sidebar.
