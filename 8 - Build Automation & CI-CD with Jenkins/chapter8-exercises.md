@@ -917,8 +917,8 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
 
   - **Enter the repository URL:**
     - In the "Repository URL" field, enter the URL of your GitHub repository.
-    - Since your code files are inside a specific folder, you need to append the folder path to the repository URL.
-    - In your case, the repository URL should be: `https://github.com/karanthakakr04/devops-bootcamp-exercises.git`
+    - Since my code files are inside a specific folder, I need to append the folder path to the repository URL.
+    - In my case, the repository URL should is: `https://github.com/karanthakakr04/devops-bootcamp-exercises.git`
     - Append the folder path to the URL: `https://github.com/karanthakakr04/devops-bootcamp-exercises.git/8 - Build Automation & CI-CD with Jenkins/jenkins-exercises`
 
   - **Specify the branch:**
