@@ -905,29 +905,22 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
   - Specify the branch to build (e.g., "_/main" or "_/master").
   - Leave the script path as "Jenkinsfile" (assuming you have a Jenkinsfile in your repository root).
 
-- [ ] Task 2: Configure the Jenkins pipeline to use the GitHub repository
-  - **Open the pipeline configuration:**
-    - In the Jenkins dashboard, click on your pipeline project.
+- [ ] Task 3: Configure the Jenkins job to use the GitHub token
+  - **Open the Jenkins job configuration:**
+    - Navigate to the Jenkins job you want to configure.
     - Click on "Configure" in the left sidebar.
 
-  - **Configure the pipeline:**
-    - Scroll down to the "Pipeline" section.
-    - In the "Definition" field, select "Pipeline script from SCM".
-    - From the "SCM" dropdown, select "Git".
-
-  - **Enter the repository URL:**
-    - In the "Repository URL" field, enter the URL of your GitHub repository.
-    - Since my code files are inside a specific folder, I need to append the folder path to the repository URL.
-    - In my case, the repository URL should is: `https://github.com/karanthakakr04/devops-bootcamp-exercises.git`
-    - Append the folder path to the URL: `https://github.com/karanthakakr04/devops-bootcamp-exercises.git/8 - Build Automation & CI-CD with Jenkins/jenkins-exercises`
+  - **Configure the Git repository:**
+    - Scroll down to the "Source Code Management" section.
+    - Select "Git" as the source code management tool.
+    - In the "Repository URL" field, enter the URL that directly points to the folder containing your code files:
+      `https://github.com/karanthakakr04/devops-bootcamp-exercises/tree/main/8%20-%20Build%20Automation%20%26%20CI-CD%20with%20Jenkins/jenkins-exercises`
+    - In the "Credentials" dropdown, select the GitHub token credential you created earlier.
 
   - **Specify the branch:**
-    - In the "Branch Specifier" field, enter the branch name you want to build (e.g., "_/main" or "_/master").
+    - In the "Branch Specifier" field, enter the branch name you want to build (e.g., "*/main").
 
-  - **Select the credential:**
-    - From the "Credentials" dropdown, select the GitHub token credential you created earlier.
-
-  - **Save the pipeline configuration:**
+  - **Save the job configuration:**
     - Click on the "Save" button to apply the changes.
 
 - [ ] Task 3: Create the Jenkinsfile
