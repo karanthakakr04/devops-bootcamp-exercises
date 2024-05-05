@@ -937,7 +937,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
 
 - [ ] Task 4: Create the Jenkinsfile
   - In your local development environment, create a new file named "Jenkinsfile" in the root directory of your NodeJS application repository.
-  - Open the Jenkinsfile in a IDE.
+  - Open the Jenkinsfile in an IDE or text editor.
   
 - [ ] Task 5: Define the pipeline stages
   - Begin the Jenkinsfile with the `pipeline` block:
