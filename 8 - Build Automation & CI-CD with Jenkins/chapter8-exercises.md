@@ -914,7 +914,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
     - Leave the "Branch Specifier" field as "*/main" or change to whatever branch you want to use.
 
   - **Configure the script path:**
-    - In the "Script Path" field, provide the relative path to the `Jenkinsfile` within the repository:
+    - In the "Script Path" field, provide the relative path to the `Jenkinsfile` within the repository. In this case, it is:
       `8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/Jenkinsfile`
 
   - **Enable lightweight checkout (optional):**
@@ -932,7 +932,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
     - Once the build starts, click on the build number to view its details.
     - Click on the "Console Output" to view the build log.
     - Verify that Jenkins is able to access the GitHub repository and locate the `Jenkinsfile`.
-   
+
 ![Pipeline Configuration](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/98bd6525-b2b2-46b7-94a0-b354d6bd546c)
 
 - [ ] Task 4: Create the Jenkinsfile
