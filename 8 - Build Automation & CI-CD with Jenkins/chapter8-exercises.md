@@ -908,12 +908,17 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
     - In the "SCM" field, select "Git".
 
   - **Configure the Git repository:**
-    - In the "Repository URL" field, enter the URL of your GitHub repository:
+    - In the "Repository URL" field, enter the URL of your GitHub repository. In this case:
       `https://github.com/karanthakakr04/devops-bootcamp-exercises.git`
-    - In the "Credentials" dropdown, select the GitHub token credential you created earlier.
-    - In the "Branch Specifier" field, enter the branch name you want to build (e.g., `*/main`).
+    - In the "Credentials" dropdown, select the GitHub token credential you created earlier (e.g., "username/******").
+    - Leave the "Branch Specifier" field as "*/main" or change to whatever branch you want to use.
+
+  - **Configure the script path:**
     - In the "Script Path" field, provide the relative path to the `Jenkinsfile` within the repository:
       `8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/Jenkinsfile`
+
+  - **Enable lightweight checkout (optional):**
+    - If desired, you can enable the "Lightweight checkout" option to optimize the checkout process.
 
   - **Save the job configuration:**
     - Click on the "Save" button to apply the changes.
