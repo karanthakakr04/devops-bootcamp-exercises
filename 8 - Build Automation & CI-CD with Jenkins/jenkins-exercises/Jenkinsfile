@@ -10,6 +10,9 @@ pipeline {
 
                 script {
                     echo "Increment the application version..."
+                    dir ("app") {
+                        
+                    }
                     // Increment the application version
                     // You can use a npm package like 'npm-version' or write a custom script to increment the version
                     // Example: sh 'npm run version:increment'
