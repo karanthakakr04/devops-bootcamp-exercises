@@ -1007,7 +1007,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
 
   - Customize the steps within each stage according to your specific application and requirements.
 
-- [ ] Task 5: Implement version incrementing
+- [ ] Task 6: Implement version incrementing
   - In the "Increment Version" stage, add the necessary steps to increment your application's version.
   - You can use a npm package like 'npm-version' or write a custom script to increment the version based on your versioning strategy (e.g., semantic versioning).
   - Example:
@@ -1025,7 +1025,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
     }
     ```
 
-- [ ] Task 6: Run tests
+- [ ] Task 7: Run tests
   - In the "Run Tests" stage, add the step to run tests for your NodeJS application.
   - Use the appropriate command to run your tests (e.g., `npm test`).
   - Example:
@@ -1040,7 +1040,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
     }
     ```
 
-- [ ] Task 7: Build Docker image
+- [ ] Task 8: Build Docker image
   - In the "Build Docker Image" stage, add the step to build the Docker image for your application.
   - Use the `docker build` command to build the image, tagging it with the incremented version.
   - Example:
@@ -1055,7 +1055,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
     }
     ```
 
-- [ ] Task 8: Push Docker image
+- [ ] Task 9: Push Docker image
   - In the "Push Docker Image" stage, add the step to push the built Docker image to a registry.
   - Use the `docker push` command to push the image to your desired registry.
   - Example:
@@ -1070,7 +1070,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
     }
     ```
 
-- [ ] Task 9: Commit version changes
+- [ ] Task 10: Commit version changes
   - In the "Commit Version" stage, add the steps to commit the version increment to your Git repository.
   - Use Git commands to stage, commit, and push the changes.
   - Example:
