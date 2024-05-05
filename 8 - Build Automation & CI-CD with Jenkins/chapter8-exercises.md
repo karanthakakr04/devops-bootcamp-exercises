@@ -905,6 +905,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
       stages {
         // Pipeline stages will be defined here
       }
+
     }
     ```
 
@@ -912,52 +913,77 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
 
     ```groovy
     stage('Increment Version') {
+
       steps {
+
         script {
+          echo 'Increment the application version...'
           // Increment the application version
           // You can use a npm package like 'npm-version' or write a custom script to increment the version
           // Example: sh 'npm run version:increment'
         }
+
       }
+
     }
 
     stage('Run Tests') {
+
       steps {
+
         script {
+          echo 'Run tests for the application...'
           // Run tests for the application
           // Example: sh 'npm test'
         }
+
       }
+
     }
 
     stage('Build Docker Image') {
+
       steps {
+
         script {
+          echo 'Build the Docker image with the incremented version...'
           // Build the Docker image with the incremented version
           // Example: sh 'docker build -t myapp:${version} .'
         }
+
       }
+
     }
 
     stage('Push Docker Image') {
+
       steps {
+
         script {
+          echo 'Push the Docker image to a registry...'
           // Push the Docker image to a registry
           // Example: sh 'docker push myapp:${version}'
         }
+
       }
+
     }
 
     stage('Commit Version') {
+
       steps {
+
         script {
+          echo 'Commit the version increment to Git...'
           // Commit the version increment to Git
           // Example:
           // sh 'git add package.json'
           // sh 'git commit -m "Increment version to ${version}"'
           // sh 'git push origin main'
         }
+
       }
+      
     }
     ```
 
