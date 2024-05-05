@@ -932,12 +932,14 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
     - Once the build starts, click on the build number to view its details.
     - Click on the "Console Output" to view the build log.
     - Verify that Jenkins is able to access the GitHub repository and locate the `Jenkinsfile`.
+   
+![Pipeline Configuration](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/98bd6525-b2b2-46b7-94a0-b354d6bd546c)
 
 - [ ] Task 4: Create the Jenkinsfile
   - In your local development environment, create a new file named "Jenkinsfile" in the root directory of your NodeJS application repository.
   - Open the Jenkinsfile in a IDE.
-
-- [ ] Task 4: Define the pipeline stages
+  
+- [ ] Task 5: Define the pipeline stages
   - Begin the Jenkinsfile with the `pipeline` block:
 
     ```groovy
