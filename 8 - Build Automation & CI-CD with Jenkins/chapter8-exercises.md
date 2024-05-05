@@ -891,55 +891,11 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
 
 ## Exercise 2
 
-- [ ] Task 1: Set up the Jenkins pipeline
-  - Open the Jenkins web interface.
-  - Click on "New Item" in the left sidebar.
-  - Enter a name for your pipeline (e.g., "nodejs-app-pipeline") and select "Pipeline" as the item type.
-  - Click "OK" to create the pipeline.
-
-- [ ] Task 2: Configure the Jenkins job to access the GitHub repository
-  - **Open the Jenkins job configuration:**
-    - Navigate to the Jenkins job you want to configure.
-    - Click on "Configure" in the left sidebar.
-
-  - **Configure the Pipeline:**
-    - Scroll down to the "Pipeline" section.
-    - In the "Definition" field, select "Pipeline script from SCM".
-    - In the "SCM" field, select "Git".
-
-  - **Configure the Git repository:**
-    - In the "Repository URL" field, enter the URL of your GitHub repository. In this case:
-      `https://github.com/karanthakakr04/devops-bootcamp-exercises.git`
-    - In the "Credentials" dropdown, select the GitHub token credential you created earlier (e.g., "username/******").
-    - Leave the "Branch Specifier" field as "*/main" or change to whatever branch you want to use.
-
-  - **Configure the script path:**
-    - In the "Script Path" field, provide the relative path to the `Jenkinsfile` within the repository. In this case, it is:
-      `8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/Jenkinsfile`
-
-  - **Enable lightweight checkout (optional):**
-    - If desired, you can enable the "Lightweight checkout" option to optimize the checkout process.
-
-  - **Save the job configuration:**
-    - Click on the "Save" button to apply the changes.
-
-- [ ] Task 3: Verify the configuration
-  - **Run the Jenkins job:**
-    - Navigate to the Jenkins job.
-    - Click on "Build Now" to trigger a new build.
-
-  - **Check the build log:**
-    - Once the build starts, click on the build number to view its details.
-    - Click on the "Console Output" to view the build log.
-    - Verify that Jenkins is able to access the GitHub repository and locate the `Jenkinsfile`.
-
-![Pipeline Configuration](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/98bd6525-b2b2-46b7-94a0-b354d6bd546c)
-
-- [ ] Task 4: Create the Jenkinsfile
+- [ ] Task 1: Create the Jenkinsfile
   - In your local development environment, create a new file named "Jenkinsfile" in the root directory of your NodeJS application repository.
   - Open the Jenkinsfile in an IDE or text editor.
   
-- [ ] Task 5: Define the pipeline stages
+- [ ] Task 2: Define the pipeline stages
   - Begin the Jenkinsfile with the `pipeline` block:
 
     ```groovy
@@ -1005,7 +961,51 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
     }
     ```
 
-  - Customize the steps within each stage according to your specific application and requirements.
+  - We will customize the steps within each stage according to the specific requirements in the exercise.
+
+- [ ] Task 3: Set up the Jenkins pipeline
+  - Open the Jenkins web interface.
+  - Click on "New Item" in the left sidebar.
+  - Enter a name for your pipeline (e.g., "nodejs-app-pipeline") and select "Pipeline" as the item type.
+  - Click "OK" to create the pipeline.
+
+- [ ] Task 4: Configure the Jenkins job to access the GitHub repository
+  - **Open the Jenkins job configuration:**
+    - Navigate to the Jenkins job you want to configure.
+    - Click on "Configure" in the left sidebar.
+
+  - **Configure the Pipeline:**
+    - Scroll down to the "Pipeline" section.
+    - In the "Definition" field, select "Pipeline script from SCM".
+    - In the "SCM" field, select "Git".
+
+  - **Configure the Git repository:**
+    - In the "Repository URL" field, enter the URL of your GitHub repository. In this case:
+      `https://github.com/karanthakakr04/devops-bootcamp-exercises.git`
+    - In the "Credentials" dropdown, select the GitHub token credential you created earlier (e.g., "username/******").
+    - Leave the "Branch Specifier" field as "*/main" or change to whatever branch you want to use.
+
+  - **Configure the script path:**
+    - In the "Script Path" field, provide the relative path to the `Jenkinsfile` within the repository. In this case, it is:
+      `8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/Jenkinsfile`
+
+  - **Enable lightweight checkout (optional):**
+    - If desired, you can enable the "Lightweight checkout" option to optimize the checkout process.
+
+  - **Save the job configuration:**
+    - Click on the "Save" button to apply the changes.
+
+- [ ] Task 5: Verify the configuration
+  - **Run the Jenkins job:**
+    - Navigate to the Jenkins job.
+    - Click on "Build Now" to trigger a new build.
+
+  - **Check the build log:**
+    - Once the build starts, click on the build number to view its details.
+    - Click on the "Console Output" to view the build log.
+    - Verify that Jenkins is able to access the GitHub repository and locate the `Jenkinsfile`.
+
+![Pipeline Configuration](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/98bd6525-b2b2-46b7-94a0-b354d6bd546c)
 
 - [ ] Task 6: Implement version incrementing
   - In the "Increment Version" stage, add the necessary steps to increment your application's version.
