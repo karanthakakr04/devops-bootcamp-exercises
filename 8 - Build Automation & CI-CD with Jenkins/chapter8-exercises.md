@@ -1031,7 +1031,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
     - Click on the "Console Output" to view the build log.
     - Verify that Jenkins is able to access the GitHub repository and locate the `Jenkinsfile`.
 
-![Pipeline Configuration]([https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/98bd6525-b2b2-46b7-94a0-b354d6bd546c](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/2caab711-58ca-4189-a065-290aca47ecbb))
+![Pipeline Configuration](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/109099be-5381-4c93-9ad1-6c7ae66c1d9a)
 
 - [ ] Task 6: Implement version incrementing
   - In the "Increment Version" stage, add the necessary steps to increment your application's version.
