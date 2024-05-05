@@ -9,8 +9,8 @@ pipeline {
             steps {
 
                 script {
-                    echo "Increment the application version..."
-                    dir ("app") {
+                    echo 'Increment the application version...'
+                    dir ('app') {
                         
                     }
                     // Increment the application version
@@ -27,7 +27,7 @@ pipeline {
             steps {
 
                 script {
-                    echo "Run tests for the application..."
+                    echo 'Run tests for the application...'
                     // Run tests for the application
                     // Example: sh 'npm test'
                 }
@@ -41,7 +41,7 @@ pipeline {
             steps {
 
                 script {
-                    echo "Build the Docker image with the incremented version..."
+                    echo 'Build the Docker image with the incremented version...'
                     // Build the Docker image with the incremented version
                     // Example: sh 'docker build -t myapp:${version} .'
                 }
@@ -55,7 +55,7 @@ pipeline {
             steps {
 
                 script {
-                    echo "Push the Docker image to a registry..."
+                    echo 'Push the Docker image to a registry...'
                     // Push the Docker image to a registry
                     // Example: sh 'docker push myapp:${version}'
                 }
@@ -69,7 +69,7 @@ pipeline {
             steps {
 
                 script {
-                    echo "Commit the version increment to Git..."
+                    echo 'Commit the version increment to Git...'
                     // Commit the version increment to Git
                     // Example:
                     // sh 'git add package.json'
