@@ -897,14 +897,6 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
   - Enter a name for your pipeline (e.g., "nodejs-app-pipeline") and select "Pipeline" as the item type.
   - Click "OK" to create the pipeline.
 
-- [ ] Task 2: Configure the pipeline
-  - In the pipeline configuration page, scroll down to the "Pipeline" section.
-  - Select "Pipeline script from SCM" as the pipeline definition.
-  - Choose "Git" as the SCM.
-  - Enter the repository URL for your NodeJS application.
-  - Specify the branch to build (e.g., `*/main` or `*/master`).
-  - Leave the script path as "Jenkinsfile" (assuming you have a Jenkinsfile in your repository root).
-
 - [ ] Task 2: Configure the Jenkins job to access the GitHub repository
   - **Open the Jenkins job configuration:**
     - Navigate to the Jenkins job you want to configure.
