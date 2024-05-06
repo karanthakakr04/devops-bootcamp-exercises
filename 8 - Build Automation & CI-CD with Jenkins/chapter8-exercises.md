@@ -1334,7 +1334,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
     - Pass the Docker Hub password to the `docker login` command using the `--password-stdin` flag. This prevents the password from being visible in the command line or build logs.
     - Consider using Docker Content Trust (DCT) to sign and verify the integrity of your Docker images. DCT ensures that the images are not tampered with during the push and pull processes.
 
-  - Example Jenkinsfile code:
+  - Jenkinsfile configuration for `stage('Push Docker Image')`:
 
     ```groovy
     stage('Push Docker Image') {
