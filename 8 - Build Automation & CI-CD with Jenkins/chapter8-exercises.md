@@ -1099,7 +1099,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
     - Parameterize the pipeline by allowing user input for the version increment type. This makes the pipeline more flexible and reusable, as the version can be incremented based on the specific requirements of each build.
     - Store important values like the application version and image version in environment variables (`env.IMAGE_VERSION`). This allows easy access to these values across different stages of the pipeline.
     - Use the `dir` command to change the directory context when necessary. This ensures that commands are executed in the correct location, such as the `app` folder where the `package.json` file and Dockerfile are located.
-    - Utilize ***Jenkins Pipeline Utility Steps*** plugin functions like `readJSON` and `writeJSON` to read and write JSON files. These functions simplify file manipulations and make the code more readable.
+    - Utilize _**Jenkins Pipeline Utility Steps**_ plugin functions like `readJSON` and `writeJSON` to read and write JSON files. These functions simplify file manipulations and make the code more readable.
 
   - Add the `tools` block in the pipeline to specify the Node.js installation:
     - The `tools` block is used to define the tools and their versions required for the pipeline.
