@@ -56,10 +56,10 @@ pipeline {
                     // Example: sh 'npm test'
                     echo 'Run tests for the application...'
                     dir('app') {
-                        sh "npm install"
+                        sh 'npm install'
                         catchError(buildResult:'FAILURE', stageResult: 'FAILURE'){
-                            sh "npm test" 
-                            error "Tests failed. Please fix the failing tests and rerun the pipeline."
+                            sh 'npm test' 
+                            error 'Tests failed. Please fix the failing tests and rerun the pipeline.'
                         }  
                     }
                 }
