@@ -59,7 +59,7 @@ pipeline {
                         sh 'npm install'
                         catchError(buildResult:'FAILURE', stageResult: 'FAILURE'){
                             sh 'npm test' 
-                            error 'Tests failed. Please fix the failing tests and rerun the pipeline.'
+                            error "Tests failed. Please fix the failing tests and rerun the pipeline."
                         }  
                     }
                 }
