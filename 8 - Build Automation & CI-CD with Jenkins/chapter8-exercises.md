@@ -1031,7 +1031,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
     - Click on the "Console Output" to view the build log.
     - Verify that Jenkins is able to access the GitHub repository and locate the `Jenkinsfile`.
 
-![Pipeline Configuration](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/109099be-5381-4c93-9ad1-6c7ae66c1d9a)
+    ![Pipeline Configuration](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/109099be-5381-4c93-9ad1-6c7ae66c1d9a)
 
 - [ ] Task 6: Implement version incrementing
   - Update the `Increment Version` stage in the Jenkinsfile to include the following steps:
@@ -1129,6 +1129,10 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
         }
       }
       ```
+
+    ![Node.js Plugin Installation](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/44c8aae7-583f-4fc2-a60e-049281b80e6f)
+    
+    ![Jenkins Global Tools Configuration](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/b7a347a9-f0a1-48e5-a7d6-cf7e305eb7b1)
 
   - Jenkinsfile configuration for `stage('Increment Version')`:
 
