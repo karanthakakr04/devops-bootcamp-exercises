@@ -1094,29 +1094,12 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
       env.IMAGE_VERSION = imageVersion
       ```
 
-  - Update the `Build Docker Image` stage in the Jenkinsfile:
-    - Use the `dir` command to change the current directory to the `app` folder, where the Dockerfile is located.
-    - Execute the `docker build` command to build the Docker image. Use the `--tag` or `-t` flag to specify the image name and version.
-    - Tag the Docker image with `myapp:${env.IMAGE_VERSION}`, which includes the application version and the build number stored in the `env.IMAGE_VERSION` variable.
-
-      ```groovy
-      stage('Build Docker Image') {
-        steps {
-          script {
-            dir('app') {
-              sh "docker build -t myapp:${env.IMAGE_VERSION} ."
-            }
-          }
-        }
-      }
-      ```
-
   - Best practices:
     - Use meaningful names for variables and environment variables to enhance code readability. For example, `appVersion`, `buildNumber`, and `imageVersion` clearly indicate what each variable represents.
     - Parameterize the pipeline by allowing user input for the version increment type. This makes the pipeline more flexible and reusable, as the version can be incremented based on the specific requirements of each build.
     - Store important values like the application version and image version in environment variables (`env.IMAGE_VERSION`). This allows easy access to these values across different stages of the pipeline.
     - Use the `dir` command to change the directory context when necessary. This ensures that commands are executed in the correct location, such as the `app` folder where the `package.json` file and Dockerfile are located.
-    - Utilize **Jenkins Pipeline Utility Steps** plugin functions like `readJSON` and `writeJSON` to read and write JSON files. These functions simplify file manipulations and make the code more readable.
+    - Utilize ***Jenkins Pipeline Utility Steps*** plugin functions like `readJSON` and `writeJSON` to read and write JSON files. These functions simplify file manipulations and make the code more readable.
 
   - Add the `tools` block in the pipeline to specify the Node.js installation:
     - The `tools` block is used to define the tools and their versions required for the pipeline.
@@ -1147,7 +1130,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
       }
       ```
 
-  - Example Jenkinsfile code:
+  - Jenkinsfile configuration for `stage('Increment Version')`:
 
     ```groovy
     pipeline {
