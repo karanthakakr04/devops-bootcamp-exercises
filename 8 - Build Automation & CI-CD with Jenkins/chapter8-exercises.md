@@ -1350,17 +1350,78 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
     ```
 
 - [ ] Task 10: Commit version changes
-  - In the "Commit Version" stage, add the steps to commit the version increment to your Git repository.
-  - Use Git commands to stage, commit, and push the changes.
-  - Example:
+  - Update the Jenkinsfile to include a new stage for committing the version changes to GitHub:
+    - Add a new stage called "Commit Version Changes" after the "Push Docker Image" stage.
+    - Inside the "Commit Version Changes" stage, use the `steps` block to define the steps for committing the changes.
+    - Use the `script` block to write Groovy code for executing shell commands and interacting with GitHub.
+
+      ```groovy
+      stage('Commit Version Changes') {
+        steps {
+          script {
+            // Git commit and push steps will be added here
+          }
+        }
+      }
+      ```
+
+  - Configure Git user name and email:
+    - Use the `sh` command to set the Git user name and email configuration.
+    - This step is necessary to ensure that the commits are properly attributed to a user.
+
+      ```groovy
+      sh 'git config --global user.email "jenkins@example.com"'
+      sh 'git config --global user.name "Jenkins"'
+      ```
+
+    - Replace `"jenkins@example.com"` with a suitable email address for your Jenkins user and `"Jenkins"` with an appropriate name.
+
+  - Stage and commit the version changes:
+    - Use the `dir` command to change the current directory to the root of your repository.
+    - Use the `sh` command to execute Git commands for staging and committing the changes.
+    - Stage the `package.json` file using `git add`.
+    - Commit the changes with a meaningful commit message, including the new version number.
+
+      ```groovy
+      dir('jenkins-exercises') {
+        sh 'git add app/package.json'
+        sh "git commit -m 'Update version to ${env.IMAGE_VERSION}'"
+      }
+      ```
+
+  - Push the changes to GitHub:
+    - Use the `withCredentials` block to securely access the GitHub credentials stored in Jenkins.
+    - Inside the `withCredentials` block, use the `sh` command to execute the `git push` command.
+    - Since your GitHub repository is public, you don't need to provide any additional authentication details.
+
+      ```groovy
+      withCredentials([usernamePassword(credentialsId: 'github-credentials', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_PASSWORD')]) {
+        sh 'git push https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com/your-username/your-repository.git HEAD:main'
+      }
+      ```
+
+    - Replace `'github-credentials'` with the ID of your GitHub credentials stored in Jenkins, `your-username` with your GitHub username, and `your-repository` with the name of your repository.
+
+  - Best practices:
+    - Use meaningful commit messages that describe the changes made, including the new version number.
+    - Keep the number of files committed in this stage minimal, focusing only on the version change in the `package.json` file.
+    - Use the `withCredentials` block to securely access the GitHub credentials stored in Jenkins, even for public repositories.
+
+  - Jenkinsfile configuration for `stage('Commit Version Changes')`:
 
     ```groovy
-    stage('Commit Version') {
+    stage('Commit Version Changes') {
       steps {
         script {
-          sh 'git add package.json'
-          sh "git commit -m 'Increment version to ${env.VERSION}'"
-          sh 'git push origin main'
+          sh 'git config --global user.email "jenkins@example.com"'
+          sh 'git config --global user.name "Jenkins"'
+          dir('jenkins-exercises') {
+            sh 'git add app/package.json'
+            sh "git commit -m 'Update version to ${env.IMAGE_VERSION}'"
+          }
+          withCredentials([usernamePassword(credentialsId: 'github-credentials', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_PASSWORD')]) {
+            sh 'git push https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com/your-username/your-repository.git HEAD:main'
+          }
         }
       }
     }
