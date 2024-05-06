@@ -41,7 +41,6 @@ pipeline {
                         def imageVersion = "${appVersion}-${buildNumber}"
                         env.IMAGE_VERSION = imageVersion
                     }
-
                 }
 
             }
