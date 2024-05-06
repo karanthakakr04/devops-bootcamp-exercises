@@ -1034,19 +1034,158 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
 ![Pipeline Configuration](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/109099be-5381-4c93-9ad1-6c7ae66c1d9a)
 
 - [ ] Task 6: Implement version incrementing
-  - In the "Increment Version" stage, add the necessary steps to increment your application's version.
-  - You can use a npm package like 'npm-version' or write a custom script to increment the version based on your versioning strategy (e.g., semantic versioning).
-  - Example:
+  - Update the `Increment Version` stage in the Jenkinsfile to include the following steps:
+    - Change the current directory to the `app` folder using the `dir` command. This is necessary because the `package.json` file, which contains the version information, is located inside the `app` folder.
+
+      ```groovy
+      dir('app') {
+        // Version increment steps will be added here
+      }
+      ```
+
+    - Prompt the user to select the version increment type (patch, minor, or major) using the `input` function. This allows for flexibility in choosing the appropriate version increment based on the changes made to the application.
+      - Use the `id` parameter to provide a unique identifier for the input prompt.
+      - Use the `message` parameter to display a message to the user, indicating what they need to select.
+      - Use the `ok` parameter to customize the label of the "OK" button in the input prompt.
+      - Use the `parameters` parameter to define the available version increment types as a choice parameter. The user will be presented with a dropdown menu to select from the available options.
+
+      ```groovy
+      def versionType = input(
+        id: 'versionType',
+        message: 'Select the version increment type:',
+        ok: 'Increment',
+        parameters: [
+          choice(name: 'type', choices: ['patch', 'minor', 'major'], description: 'Version increment type')
+        ]
+      )
+      ```
+
+    - Store the selected version increment type in the `versionType` variable. This variable will be used later to increment the version using the `npm version` command.
+    - Execute the `npm version` command with the selected `versionType` to increment the version in the `package.json` file. The `npm version` command automatically updates the `version` field in `package.json` based on the specified increment type.
+
+      ```groovy
+      sh "npm version ${versionType}"
+      ```
+
+    - Read the updated `package.json` file using the `readJSON` function from the Pipeline Utility Steps plugin. This function parses the JSON content of `package.json` and returns it as a Groovy object.
+      - Make sure you have the "Pipeline Utility Steps" plugin installed in Jenkins. You can check this by going to "Manage Jenkins" > "Manage Plugins" and searching for the plugin.
+
+      ```groovy
+      def packageJson = readJSON file: 'package.json'
+      ```
+
+    - Extract the incremented application version from `packageJson.version` and store it in the `appVersion` variable. This variable will be used to create the image version.
+    - Retrieve the current build number using the `env.BUILD_NUMBER` variable. Jenkins automatically assigns a unique build number to each build, which can be accessed through this environment variable.
+    - Construct the image version by combining the `appVersion` and `buildNumber` in the format `"${appVersion}-${buildNumber}"`. This ensures that each image version includes both the application version and the unique build number.
+    - Store the constructed image version in the `env.IMAGE_VERSION` environment variable. This variable will be used in subsequent stages, such as building the Docker image.
+
+      ```groovy
+      def appVersion = packageJson.version
+      def buildNumber = env.BUILD_NUMBER
+      def imageVersion = "${appVersion}-${buildNumber}"
+      env.IMAGE_VERSION = imageVersion
+      ```
+
+  - Update the `Build Docker Image` stage in the Jenkinsfile:
+    - Use the `dir` command to change the current directory to the `app` folder, where the Dockerfile is located.
+    - Execute the `docker build` command to build the Docker image. Use the `--tag` or `-t` flag to specify the image name and version.
+    - Tag the Docker image with `myapp:${env.IMAGE_VERSION}`, which includes the application version and the build number stored in the `env.IMAGE_VERSION` variable.
+
+      ```groovy
+      stage('Build Docker Image') {
+        steps {
+          script {
+            dir('app') {
+              sh "docker build -t myapp:${env.IMAGE_VERSION} ."
+            }
+          }
+        }
+      }
+      ```
+
+  - Best practices:
+    - Use meaningful names for variables and environment variables to enhance code readability. For example, `appVersion`, `buildNumber`, and `imageVersion` clearly indicate what each variable represents.
+    - Parameterize the pipeline by allowing user input for the version increment type. This makes the pipeline more flexible and reusable, as the version can be incremented based on the specific requirements of each build.
+    - Store important values like the application version and image version in environment variables (`env.IMAGE_VERSION`). This allows easy access to these values across different stages of the pipeline.
+    - Use the `dir` command to change the directory context when necessary. This ensures that commands are executed in the correct location, such as the `app` folder where the `package.json` file and Dockerfile are located.
+    - Utilize **Jenkins Pipeline Utility Steps** plugin functions like `readJSON` and `writeJSON` to read and write JSON files. These functions simplify file manipulations and make the code more readable.
+
+  - Add the `tools` block in the pipeline to specify the Node.js installation:
+    - The `tools` block is used to define the tools and their versions required for the pipeline.
+    - In this case, we specify the Node.js installation by adding `nodejs 'node'` inside the `tools` block.
+    - Make sure you have the Node.js plugin installed in Jenkins and a Node.js installation configured with the name 'node' in the Jenkins Global Tool Configuration.
+
+      ```groovy
+      pipeline {
+        agent any
+
+        tools {
+          nodejs 'node' // Specify the Node.js installation name configured in Jenkins
+        }
+
+        stages {
+          // ...
+          stage('Increment Version') {
+            steps {
+              script {
+                dir('app') {
+                  // ...
+                }
+              }
+            }
+          }
+          // ...
+        }
+      }
+      ```
+
+  - Example Jenkinsfile code:
 
     ```groovy
-    stage('Increment Version') {
-      steps {
-        script {
-          def currentVersion = sh(returnStdout: true, script: 'npm run get-version').trim()
-          def nextVersion = incrementVersion(currentVersion)
-          sh "npm version ${nextVersion} --no-git-tag-version"
-          env.VERSION = nextVersion
+    pipeline {
+      agent any
+
+      tools {
+        nodejs 'node'
+      }
+
+      stages {
+        // ...
+
+        stage('Increment Version') {
+          steps {
+            script {
+              dir('app') {
+                def versionType = input(
+                  id: 'versionType',
+                  message: 'Select the version increment type:',
+                  ok: 'Increment',
+                  parameters: [
+                    choice(name: 'type', choices: ['patch', 'minor', 'major'], description: 'Version increment type')
+                  ]
+                )
+                sh "npm version ${versionType}"
+                def packageJson = readJSON file: 'package.json'
+                def appVersion = packageJson.version
+                def buildNumber = env.BUILD_NUMBER
+                def imageVersion = "${appVersion}-${buildNumber}"
+                env.IMAGE_VERSION = imageVersion
+              }
+            }
+          }
         }
+
+        stage('Build Docker Image') {
+          steps {
+            script {
+              dir('app') {
+                sh "docker build -t myapp:${env.IMAGE_VERSION} ."
+              }
+            }
+          }
+        }
+
+        // ...
       }
     }
     ```
