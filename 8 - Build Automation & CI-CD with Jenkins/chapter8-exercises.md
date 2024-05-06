@@ -1237,7 +1237,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
     - Use the `catchError` block to handle test failures gracefully. If the tests fail, the pipeline will be aborted, and an appropriate error message will be displayed.
     - Consider running tests in parallel if you have a large test suite. This can significantly reduce the overall execution time of the pipeline. You can use Jenkins plugins like "Parallel Test Executor" to achieve this.
 
-  - Example Jenkinsfile code:
+  - Jenkinsfile configuration for `stage('Run Tests')`:
 
     ```groovy
     stage('Run Tests') {
