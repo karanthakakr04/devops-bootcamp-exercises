@@ -1150,9 +1150,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
         // ...
 
         stage('Increment Version') {
-
           steps {
-
             script {
               dir('app') {
                 def versionType = input(
@@ -1171,9 +1169,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
                 env.IMAGE_VERSION = imageVersion
               }
             }
-
           }
-
         }
 
         // ...
@@ -1256,30 +1252,98 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
     ```
 
 - [ ] Task 8: Build Docker image
-  - In the "Build Docker Image" stage, add the step to build the Docker image for your application.
-  - Use the `docker build` command to build the image, tagging it with the incremented version.
-  - Example:
+  - Update the Jenkinsfile to include a new stage for building the Docker image:
+    - Add a new stage called "Build Docker Image" after the "Run Tests" stage.
+    - Inside the "Build Docker Image" stage, use the `steps` block to define the steps for building the Docker image.
+    - Use the `script` block to write Groovy code for executing shell commands.
+
+      ```groovy
+      stage('Build Docker Image') {
+        steps {
+          script {
+            // Docker image build steps will be added here
+          }
+        }
+      }
+      ```
+
+  - Build the Docker image:
+    - Use the `sh` command to execute the `docker build` command.
+    - Specify the path to the `Dockerfile` using the `-f` flag. In this case, the `Dockerfile` is located in the `jenkins-exercises` directory.
+    - Use the `-t` flag to provide a tag for the Docker image. The tag should include your Docker Hub username, the repository name, and the version number.
+    - The version number can be obtained from the `env.IMAGE_VERSION` environment variable, which was set in the "Increment Version" stage.
+
+      ```groovy
+      sh "docker build -t your-dockerhub-username/your-repository-name:${env.IMAGE_VERSION} -f jenkins-exercises/Dockerfile ."
+      ```
+
+    - Replace `your-dockerhub-username` with your actual Docker Hub username and `your-repository-name` with the name of your private repository.
+
+  - Jenkinsfile configuration for `stage('Build Docker Image')`:
 
     ```groovy
     stage('Build Docker Image') {
       steps {
         script {
-          sh "docker build -t myapp:${env.VERSION} ."
+          sh "docker build -t your-dockerhub-username/your-repository-name:${env.IMAGE_VERSION} -f jenkins-exercises/Dockerfile ."
         }
       }
     }
     ```
 
 - [ ] Task 9: Push Docker image
-  - In the "Push Docker Image" stage, add the step to push the built Docker image to a registry.
-  - Use the `docker push` command to push the image to your desired registry.
-  - Example:
+  - Update the Jenkinsfile to include a new stage for pushing the Docker image to Docker Hub:
+    - Add a new stage called "Push Docker Image" after the "Build Docker Image" stage.
+    - Inside the "Push Docker Image" stage, use the `steps` block to define the steps for pushing the Docker image.
+    - Use the `script` block to write Groovy code for executing shell commands.
+
+      ```groovy
+      stage('Push Docker Image') {
+        steps {
+          script {
+            // Docker login and push steps will be added here
+          }
+        }
+      }
+      ```
+
+  - Log in to Docker Hub securely:
+    - Use the `withCredentials` block to access the stored Docker Hub credentials in Jenkins securely.
+    - Inside the `withCredentials` block, use the `sh` command to execute the `docker login` command.
+    - Pass the username and password credentials to the `docker login` command using the `$DOCKER_USERNAME` and `$DOCKER_PASSWORD` variables provided by the `withCredentials` block.
+    - Use the `--password-stdin` flag to securely pass the password to the `docker login` command through standard input.
+
+      ```groovy
+      withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+        sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
+      }
+      ```
+
+    - Replace `'dockerhub-credentials'` with the ID of your Docker Hub credentials stored in Jenkins.
+
+  - Push the Docker image to Docker Hub:
+    - Use the `sh` command to execute the `docker push` command.
+    - Specify the same image tag used during the build step, including your Docker Hub username, repository name, and version number.
+
+      ```groovy
+      sh "docker push your-dockerhub-username/your-repository-name:${env.IMAGE_VERSION}"
+      ```
+
+  - Best practices:
+    - Use the `withCredentials` block to securely access and manage the Docker Hub credentials stored in Jenkins. This ensures that the credentials are not exposed in the pipeline code or logs.
+    - Pass the Docker Hub password to the `docker login` command using the `--password-stdin` flag. This prevents the password from being visible in the command line or build logs.
+    - Consider using Docker Content Trust (DCT) to sign and verify the integrity of your Docker images. DCT ensures that the images are not tampered with during the push and pull processes.
+
+  - Example Jenkinsfile code:
 
     ```groovy
     stage('Push Docker Image') {
       steps {
         script {
-          sh "docker push myapp:${env.VERSION}"
+          withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+            sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
+            sh "docker push your-dockerhub-username/your-repository-name:${env.IMAGE_VERSION}"
+          }
         }
       }
     }
