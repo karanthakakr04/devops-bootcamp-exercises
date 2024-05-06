@@ -1172,18 +1172,9 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
           }
         }
 
-        stage('Build Docker Image') {
-          steps {
-            script {
-              dir('app') {
-                sh "docker build -t myapp:${env.IMAGE_VERSION} ."
-              }
-            }
-          }
-        }
-
         // ...
       }
+      
     }
     ```
 
