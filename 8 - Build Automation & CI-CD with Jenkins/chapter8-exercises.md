@@ -1100,7 +1100,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
     - Store important values like the application version and image version in environment variables (`env.IMAGE_VERSION`). This allows easy access to these values across different stages of the pipeline.
     - Use the `dir` command to change the directory context when necessary. This ensures that commands are executed in the correct location, such as the `app` folder where the `package.json` file and Dockerfile are located.
     - Utilize _**Pipeline Utility Steps**_ plugin functions like `readJSON` and `writeJSON` to read and write JSON files. These functions simplify file manipulations and make the code more readable.
-     
+
     ![Pipeline Utility Plugin Install](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/e0a96828-03d9-41f1-9cef-7525f821c112)
 
   - Add the `tools` block in the pipeline to specify the Node.js installation:
@@ -1173,7 +1173,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
             }
 
           }
-          
+
         }
 
         // ...
@@ -1183,15 +1183,79 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
     ```
 
 - [ ] Task 7: Run tests
-  - In the "Run Tests" stage, add the step to run tests for your NodeJS application.
-  - Use the appropriate command to run your tests (e.g., `npm test`).
-  - Example:
+  - Update the Jenkinsfile to include a new stage for running tests:
+    - Add a new stage called "Run Tests" after the "Increment Version" stage.
+    - Inside the "Run Tests" stage, use the `steps` block to define the steps for running tests.
+    - Use the `script` block to write Groovy code for executing shell commands and handling directory navigation.
+
+      ```groovy
+      stage('Run Tests') {
+        steps {
+          script {
+            // Test execution steps will be added here
+          }
+        }
+      }
+      ```
+
+  - Navigate to the `app` directory:
+    - Use the `dir` command to change the current working directory to the `app` folder.
+    - This is necessary because the `package.json` file, which contains the dependencies and test scripts, is located inside the `app` folder.
+
+      ```groovy
+      dir('app') {
+        // Package installation and test execution steps will be added here
+      }
+      ```
+
+  - Install the project dependencies:
+    - Use the `sh` command to execute the `npm install` command.
+    - This command reads the `package.json` file and installs all the required dependencies listed in the `dependencies` and `devDependencies` sections.
+    - Installing the dependencies ensures that all the necessary packages are available for running tests and building the application.
+
+      ```groovy
+      sh 'npm install'
+      ```
+
+  - Run the tests:
+    - Use the `sh` command to execute the `npm test` command (or the appropriate test command specified in your `package.json` file).
+    - This command runs the test script defined in the `scripts` section of the `package.json` file.
+    - The test script typically executes the test runner (e.g., Jest, Mocha) and runs the test cases defined in your project.
+
+      ```groovy
+      sh 'npm test'
+      ```
+
+  - Handle test failures:
+    - Add a `catchError` block to catch any errors that occur during the test execution.
+    - Inside the `catchError` block, you can define the steps to be taken if the tests fail.
+    - For example, you can use the `error` command to mark the build as failed and provide an appropriate error message.
+    - This ensures that the pipeline fails early if the tests do not pass, preventing further execution of subsequent stages.
+
+      ```groovy
+      catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+        error "Tests failed. Please fix the failing tests and rerun the pipeline."
+      }
+      ```
+
+  - Best practices:
+    - Use the `dir` command to navigate to the correct directory before executing commands. This ensures that the commands are run in the appropriate context and avoids issues related to incorrect file paths.
+    - Run the tests before building the Docker image. This allows for early detection of test failures and prevents building and deploying a faulty application.
+    - Handle test failures gracefully by using `catchError` or similar error handling mechanisms. This helps in identifying and fixing test-related issues promptly.
+    - Consider running tests in parallel if you have a large test suite. This can significantly reduce the overall execution time of the pipeline. You can use Jenkins plugins like "Parallel Test Executor" to achieve this.
+
+  - Example Jenkinsfile code:
 
     ```groovy
     stage('Run Tests') {
       steps {
         script {
-          sh 'npm test'
+          dir('app') {
+            sh 'npm install'
+            catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+              sh 'npm test'
+            }
+          }
         }
       }
     }
