@@ -1055,7 +1055,15 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
         message: 'Select the version increment type:',
         ok: 'Increment',
         parameters: [
-          choice(name: 'type', choices: ['patch', 'minor', 'major'], description: 'Version increment type')
+          choice(
+            name: 'type', 
+            choices: [
+              'patch', 
+              'minor', 
+              'major'
+            ], 
+            description: 'Version increment type'
+          )
         ]
       )
       ```
