@@ -1217,23 +1217,16 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
       sh 'npm install'
       ```
 
-  - Run the tests:
-    - Use the `sh` command to execute the `npm test` command (or the appropriate test command specified in your `package.json` file).
-    - This command runs the test script defined in the `scripts` section of the `package.json` file.
-    - The test script typically executes the test runner (e.g., Jest, Mocha) and runs the test cases defined in your project.
-
-      ```groovy
-      sh 'npm test'
-      ```
-
-  - Handle test failures:
-    - Add a `catchError` block to catch any errors that occur during the test execution.
-    - Inside the `catchError` block, you can define the steps to be taken if the tests fail.
-    - For example, you can use the `error` command to mark the build as failed and provide an appropriate error message.
-    - This ensures that the pipeline fails early if the tests do not pass, preventing further execution of subsequent stages.
+  - Run the tests and handle test failures:
+    - Use the `catchError` block to wrap the test execution command.
+    - Inside the `catchError` block, use the `sh` command to execute the `npm test` command (or the appropriate test command specified in your `package.json` file).
+    - If the tests fail, the `catchError` block will catch the error and execute the specified steps.
+    - Use the `error` command inside the `catchError` block to mark the build as failed and provide an appropriate error message.
+    - The `error` command will abort the pipeline and prevent further execution of subsequent stages.
 
       ```groovy
       catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+        sh 'npm test'
         error "Tests failed. Please fix the failing tests and rerun the pipeline."
       }
       ```
@@ -1241,7 +1234,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
   - Best practices:
     - Use the `dir` command to navigate to the correct directory before executing commands. This ensures that the commands are run in the appropriate context and avoids issues related to incorrect file paths.
     - Run the tests before building the Docker image. This allows for early detection of test failures and prevents building and deploying a faulty application.
-    - Handle test failures gracefully by using `catchError` or similar error handling mechanisms. This helps in identifying and fixing test-related issues promptly.
+    - Use the `catchError` block to handle test failures gracefully. If the tests fail, the pipeline will be aborted, and an appropriate error message will be displayed.
     - Consider running tests in parallel if you have a large test suite. This can significantly reduce the overall execution time of the pipeline. You can use Jenkins plugins like "Parallel Test Executor" to achieve this.
 
   - Example Jenkinsfile code:
@@ -1254,6 +1247,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
             sh 'npm install'
             catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
               sh 'npm test'
+              error "Tests failed. Please fix the failing tests and rerun the pipeline."
             }
           }
         }
