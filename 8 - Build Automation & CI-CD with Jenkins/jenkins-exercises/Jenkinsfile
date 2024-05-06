@@ -2,6 +2,10 @@ pipeline {
 
     agent any
 
+    tools {
+        
+    }
+
     stages {
 
         stage('Increment Version') {
