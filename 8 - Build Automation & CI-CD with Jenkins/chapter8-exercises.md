@@ -1150,7 +1150,9 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
         // ...
 
         stage('Increment Version') {
+
           steps {
+
             script {
               dir('app') {
                 def versionType = input(
@@ -1169,12 +1171,14 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
                 env.IMAGE_VERSION = imageVersion
               }
             }
+
           }
+          
         }
 
         // ...
       }
-      
+
     }
     ```
 
