@@ -1430,7 +1430,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
 > [!TIP]
 > You can enhance the pipeline further by adding error handling, notifications, or additional stages based on your specific requirements.
 
-- [ ] Task 10: Save and run the pipeline
+- [ ] Task 11: Save and run the pipeline
   - Save the Jenkinsfile and commit it to your Git repository.
   - In the Jenkins web interface, navigate to your pipeline.
   - Click on "Build Now" to trigger the pipeline execution.
