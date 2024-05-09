@@ -1419,7 +1419,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
             sh 'git add package.json'
             sh "git commit -m 'Update version to ${env.IMAGE_VERSION}'"
           }
-          withCredentials([usernamePassword(credentialsId: 'github-credentials', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_PASSWORD')]) {
+          withCredentials([usernamePassword(credentialsId: 'your-credentials-id', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_PASSWORD')]) {
             sh 'git push https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com/your-username/your-repository.git HEAD:main'
           }
         }
