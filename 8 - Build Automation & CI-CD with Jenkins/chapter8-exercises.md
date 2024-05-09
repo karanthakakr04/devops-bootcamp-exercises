@@ -1415,8 +1415,8 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
         script {
           sh 'git config --global user.email "jenkins@example.com"'
           sh 'git config --global user.name "Jenkins"'
-          dir('jenkins-exercises') {
-            sh 'git add app/package.json'
+          dir('app') {
+            sh 'git add package.json'
             sh "git commit -m 'Update version to ${env.IMAGE_VERSION}'"
           }
           withCredentials([usernamePassword(credentialsId: 'github-credentials', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_PASSWORD')]) {
