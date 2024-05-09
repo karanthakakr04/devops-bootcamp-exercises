@@ -1537,8 +1537,8 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
   - Replace `$DOCKER_HUB_PASSWORD` with the environment variable storing your Docker Hub password and `<docker-hub-username>` with your Docker Hub username.
   - The command will read the password from the environment variable and securely pass it to the `docker login` command.
 
-  > [!CAUTION]
-  > **Ensure that you have securely set the `DOCKER_HUB_PASSWORD` environment variable with your Docker Hub password before running the command. Avoid storing the password directly in script files or version control repositories.**
+> [!CAUTION]
+> **Ensure that you have securely set the `DOCKER_HUB_PASSWORD` environment variable with your Docker Hub password before running the command. Avoid storing the password directly in script files or version control repositories.**
 
 - [ ] Task 5: Pull the New Docker Image from Private Repository
   - After logging in to Docker Hub, use the `docker pull` command to pull the new Docker image from your private repository:
@@ -1585,10 +1585,4 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
   - Be cautious when removing images, as they may be used by other containers or have dependencies.
 
 > [!NOTE]
-> Make sure you have the necessary permissions and access to perform these tasks on your DigitalOcean droplet.
->
-> It's also important to ensure that your Docker application is properly configured to listen on the appropriate ports and that any required environment variables or configurations are properly set during the container creation process.
-
-Remember to replace the placeholders (`<key-path>`, `<username>`, `<droplet-ip-address>`, `$DOCKER_HUB_PASSWORD`, `<docker-hub-username>`, `<repository>`, `<tag>`, `<container-name>`, `<host-port>`, `<container-port>`, `<image-id>`) with the actual values specific to your environment and application.
-
-Let me know if you have any further questions or if there's anything else you'd like me to include in the task list.
+> **It's also important to ensure that your Docker application is properly configured to listen on the appropriate ports and that any required environment variables or configurations are properly set during the container creation process.**
