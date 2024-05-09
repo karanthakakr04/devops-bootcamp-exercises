@@ -1500,3 +1500,95 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
 
 > [!NOTE]
 > **Make sure you have the necessary plugins installed in Jenkins to support the pipeline steps (e.g., Docker, Git).**
+
+## Exercise 3
+
+- [ ] Task 1: Access the DigitalOcean Droplet
+  - Open a web browser and log in to your DigitalOcean account.
+  - Navigate to the "Droplets" section in the DigitalOcean control panel.
+  - Locate the droplet where you want to deploy the new Docker image.
+
+- [ ] Task 2: Configure Firewall Rules
+  - In the DigitalOcean control panel, navigate to the "Networking" section.
+  - Click on "Firewalls" to manage the firewall rules for your droplet.
+  - Create a new firewall rule or update an existing one to allow inbound traffic on the necessary ports for your Docker application.
+  - Ensure that the firewall rule is applied to the droplet where you will deploy the Docker image.
+  - Save the firewall rule configuration.
+
+- [ ] Task 3: Connect to the Droplet via SSH
+  - Open a terminal or command prompt on your local machine.
+  - Use the SSH command with the `-i` flag to specify the path to your SSH private key:
+
+    ```bash
+    ssh -i <key-path> <username>@<droplet-ip-address>
+    ```
+
+  - Replace `<key-path>` with the path to your SSH private key file, `<username>` with the username for your droplet, and `<droplet-ip-address>` with the IP address of your droplet.
+  - If your SSH key has a passphrase, enter it when prompted.
+
+- [ ] Task 4: Log in to Docker Hub
+  - To log in to Docker Hub securely from inside the droplet, use the `docker login` command with the `--password-stdin` flag. This allows you to provide the password through standard input, avoiding the need to store it in the command history or expose it in the terminal.
+  - Run the following command to log in to Docker Hub:
+
+    ```bash
+    echo "$DOCKER_HUB_PASSWORD" | docker login -u "<docker-hub-username>" --password-stdin
+    ```
+
+  - Replace `$DOCKER_HUB_PASSWORD` with the environment variable storing your Docker Hub password and `<docker-hub-username>` with your Docker Hub username.
+  - The command will read the password from the environment variable and securely pass it to the `docker login` command.
+
+  > [!CAUTION]
+  > **Ensure that you have securely set the `DOCKER_HUB_PASSWORD` environment variable with your Docker Hub password before running the command. Avoid storing the password directly in script files or version control repositories.**
+
+- [ ] Task 5: Pull the New Docker Image from Private Repository
+  - After logging in to Docker Hub, use the `docker pull` command to pull the new Docker image from your private repository:
+
+    ```bash
+    docker pull <docker-hub-username>/<repository>:<tag>
+    ```
+
+  - Replace `<docker-hub-username>` with your Docker Hub username, `<repository>` with the name of your private image repository, and `<tag>` with the specific tag of the new image you want to deploy.
+
+- [ ] Task 6: Stop and Remove the Existing Docker Container (if applicable)
+  - If you have an existing Docker container running the previous version of your application, stop and remove it using the following commands:
+
+    ```bash
+    docker stop <container-name>
+    docker rm <container-name>
+    ```
+
+  - Replace `<container-name>` with the name or ID of the existing container.
+
+- [ ] Task 7: Run the New Docker Container
+  - Use the `docker run` command to start a new container based on the pulled Docker image:
+
+    ```bash
+    docker run -d --name <container-name> -p <host-port>:<container-port> <docker-hub-username>/<repository>:<tag>
+    ```
+
+  - Replace `<container-name>` with a desired name for the new container, `<host-port>` with the port number on the host machine to map to the container's exposed port, `<container-port>` with the port number exposed by the container, `<docker-hub-username>` with your Docker Hub username, `<repository>` with the name of your private image repository, and `<tag>` with the specific tag of the new image.
+  - Adjust any additional configuration options as needed for your specific application.
+
+- [ ] Task 8: Verify the Deployment
+  - Check the status of the newly created container using the `docker ps` command.
+  - Verify that the container is running and mapped to the correct ports.
+  - Access your application using the appropriate URL or IP address and port number to ensure it is functioning as expected.
+
+- [ ] Task 9: Clean Up (Optional)
+  - If you have any old Docker images that are no longer needed, you can remove them to free up disk space:
+
+    ```bash
+    docker rmi <image-id>
+    ```
+
+  - Replace `<image-id>` with the ID of the Docker image you want to remove.
+  - Be cautious when removing images, as they may be used by other containers or have dependencies.
+
+> [!NOTE]
+> Make sure you have the necessary permissions and access to perform these tasks on your DigitalOcean droplet.
+>
+> It's also important to ensure that your Docker application is properly configured to listen on the appropriate ports and that any required environment variables or configurations are properly set during the container creation process.
+
+Remember to replace the placeholders (`<key-path>`, `<username>`, `<droplet-ip-address>`, `$DOCKER_HUB_PASSWORD`, `<docker-hub-username>`, `<repository>`, `<tag>`, `<container-name>`, `<host-port>`, `<container-port>`, `<image-id>`) with the actual values specific to your environment and application.
+
+Let me know if you have any further questions or if there's anything else you'd like me to include in the task list.
