@@ -1490,7 +1490,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
     ```
 
 > [!TIP]
-> You can enhance the pipeline further by adding error handling, notifications, or additional stages based on your specific requirements.
+> **You can enhance the pipeline further by adding error handling, notifications, or additional stages based on your specific requirements.**
 
 - [ ] Task 11: Save and run the pipeline
   - Save the Jenkinsfile and commit it to your Git repository.
@@ -1499,4 +1499,4 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
   - Monitor the pipeline stages and verify that each stage runs successfully.
 
 > [!NOTE]
-> Make sure you have the necessary plugins installed in Jenkins to support the pipeline steps (e.g., Docker, Git).
+> **Make sure you have the necessary plugins installed in Jenkins to support the pipeline steps (e.g., Docker, Git).**
