@@ -1376,46 +1376,70 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
 
     - Replace `"jenkins@example.com"` with a suitable email address for your Jenkins user and `"Jenkins"` with an appropriate name.
 
-  - Stage and commit the version changes:
-    - Use the `dir` command to change the current directory to the `app` directory where the `package.json` file is located.
-    - Use the `sh` command to execute Git commands for staging and committing the changes.
-    - Stage the `package.json` file using `git add`.
-    - Commit the changes with a meaningful commit message, including the new version number.
-
-      ```groovy
-      dir('app') {
-        sh 'git add package.json'
-        sh "git commit -m 'Update version to ${env.IMAGE_VERSION}'"
-      }
-      ```
-
   - Push the changes to GitHub (choose one of the following methods):
 
     **Method 1: Using `withCredentials` block**
     - Use the `withCredentials` block to securely access the GitHub credentials stored in Jenkins.
-    - Inside the `withCredentials` block, use the `sh` command to execute the `git push` command.
-    - Since your GitHub repository is public, you don't need to provide any additional authentication details.
+    - Inside the `withCredentials` block, use the `sh` command to execute the following steps:
+      - Set the remote URL of the origin repository to use HTTPS protocol and the credentials variables:
 
-      ```groovy
-      withCredentials([usernamePassword(credentialsId: 'github-credentials', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_PASSWORD')]) {
-        sh 'git push https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com/your-username/your-repository.git HEAD:main'
-      }
-      ```
+        ```groovy
+        sh "git remote set-url origin https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com/your-username/your-repository.git"
+        ```
 
-    - Replace `'github-credentials'` with the ID of your GitHub credentials stored in Jenkins, `your-username` with your GitHub username, and `your-repository` with the name of your repository.
+      - Stage the `package.json` file using `git add`:
+
+        ```groovy
+        dir('app') {
+          sh 'git add package.json'
+        }
+        ```
+
+      - Commit the changes with a meaningful commit message, including the new version number:
+
+        ```groovy
+        sh "git commit -m 'Update version to ${env.IMAGE_VERSION}'"
+        ```
+
+      - Push the changes to the desired branch:
+
+        ```groovy
+        sh 'git push origin HEAD:main'
+        ```
+
+    - Replace `your-username` and `your-repository` with your GitHub username and repository name.
 
     **Method 2: Using `sshagent` block**
     - Use the `sshagent` block to securely access the SSH key for authentication with GitHub.
     - Inside the `sshagent` block, specify the ID of the SSH credential stored in Jenkins.
-    - Use the `sh` command to execute the `git push` command, specifying the remote repository URL and the branch to push to.
+    - Use the `sh` command to execute the following steps:
+      - Set the remote URL of the origin repository to use SSH protocol:
 
-      ```groovy
-      sshagent(['github-ssh-credentials']) {
-        sh 'git push git@github.com:your-username/your-repository.git HEAD:main'
-      }
-      ```
+        ```groovy
+        sh 'git remote set-url origin git@github.com:your-username/your-repository.git'
+        ```
 
-    - Replace `'github-ssh-credentials'` with the ID of your SSH credential stored in Jenkins, `your-username` with your GitHub username, and `your-repository` with the name of your repository.
+      - Stage the `package.json` file using `git add`:
+
+        ```groovy
+        dir('app') {
+          sh 'git add package.json'
+        }
+        ```
+
+      - Commit the changes with a meaningful commit message, including the new version number:
+
+        ```groovy
+        sh "git commit -m 'Update version to ${env.IMAGE_VERSION}'"
+        ```
+
+      - Push the changes to the desired branch:
+
+        ```groovy
+        sh 'git push origin HEAD:main'
+        ```
+
+    - Replace `your-username` and `your-repository` with your GitHub username and repository name.
 
   - Best practices:
     - Use meaningful commit messages that describe the changes made, including the new version number.
@@ -1423,7 +1447,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
     - Use either the `withCredentials` block with username and password or the `sshagent` block with SSH key for authentication, depending on your organization's structure and processes.
     - Avoid hardcoding sensitive information, such as credentials or SSH keys, directly in the Jenkinsfile. Instead, store them securely in Jenkins credentials and access them using the appropriate credential binding (`withCredentials` or `sshagent`).
 
-  - Jenkinsfile configuration for `stage('Commit Version Changes')`:
+  - Example Jenkinsfile code for Method 1 (`withCredentials`):
 
     ```groovy
     stage('Commit Version Changes') {
@@ -1431,18 +1455,34 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
         script {
           sh 'git config --global user.email "jenkins@example.com"'
           sh 'git config --global user.name "Jenkins"'
-          dir('app') {
-            sh 'git add package.json'
-            sh "git commit -m 'Update version to ${env.IMAGE_VERSION}'"
-          }
-          // Choose one of the following methods for pushing changes to GitHub
-          // Method 1: Using withCredentials
           withCredentials([usernamePassword(credentialsId: 'github-credentials', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_PASSWORD')]) {
-            sh 'git push https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com/your-username/your-repository.git HEAD:main'
+            sh "git remote set-url origin https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com/your-username/your-repository.git"
+            dir('app') {
+              sh 'git add package.json'
+            }
+            sh "git commit -m 'Update version to ${env.IMAGE_VERSION}'"
+            sh 'git push origin HEAD:main'
           }
-          // Method 2: Using sshagent
+        }
+      }
+    }
+    ```
+
+  - Example Jenkinsfile code for Method 2 (`sshagent`):
+
+    ```groovy
+    stage('Commit Version Changes') {
+      steps {
+        script {
+          sh 'git config --global user.email "jenkins@example.com"'
+          sh 'git config --global user.name "Jenkins"'
           sshagent(['github-ssh-credentials']) {
-            sh 'git push git@github.com:your-username/your-repository.git HEAD:main'
+            sh 'git remote set-url origin git@github.com:your-username/your-repository.git'
+            dir('app') {
+              sh 'git add package.json'
+            }
+            sh "git commit -m 'Update version to ${env.IMAGE_VERSION}'"
+            sh 'git push origin HEAD:main'
           }
         }
       }
