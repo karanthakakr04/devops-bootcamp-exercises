@@ -1377,14 +1377,14 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
     - Replace `"jenkins@example.com"` with a suitable email address for your Jenkins user and `"Jenkins"` with an appropriate name.
 
   - Stage and commit the version changes:
-    - Use the `dir` command to change the current directory to the root of your repository.
+    - Use the `dir` command to change the current directory to the `app` directory where the `package.json` file is located.
     - Use the `sh` command to execute Git commands for staging and committing the changes.
     - Stage the `package.json` file using `git add`.
     - Commit the changes with a meaningful commit message, including the new version number.
 
       ```groovy
-      dir('jenkins-exercises') {
-        sh 'git add app/package.json'
+      dir('app') {
+        sh 'git add package.json'
         sh "git commit -m 'Update version to ${env.IMAGE_VERSION}'"
       }
       ```
@@ -1438,3 +1438,60 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
 
 > [!NOTE]
 > Make sure you have the necessary plugins installed in Jenkins to support the pipeline steps (e.g., Docker, Git).
+
+
+
+
+
+  - Push the changes to GitHub:
+    - Use the `sshagent` block to securely access the SSH key for authentication with GitHub.
+    - Inside the `sshagent` block, specify the ID of the SSH credential stored in Jenkins.
+    - Use the `sh` command to execute the `git push` command, specifying the remote repository URL and the branch to push to.
+
+      ```groovy
+      sshagent(['github-ssh-credentials']) {
+        sh 'git push git@github.com:your-username/your-repository.git HEAD:main'
+      }
+      ```
+
+    - Replace `'github-ssh-credentials'` with the ID of your SSH credential stored in Jenkins, `your-username` with your GitHub username, and `your-repository` with the name of your repository.
+
+  - Best practices:
+    - Use meaningful commit messages that describe the changes made, including the new version number.
+    - Keep the number of files committed in this stage minimal, focusing only on the version change in the `package.json` file.
+    - Use SSH authentication with `sshagent` instead of HTTPS with username and password. SSH authentication is more secure and recommended for automated processes like CI/CD pipelines.
+    - Avoid hardcoding sensitive information, such as SSH keys or credentials, directly in the Jenkinsfile. Instead, store them securely in Jenkins credentials and access them using the appropriate credential binding (`sshagent` in this case).
+
+  - Example Jenkinsfile code:
+
+    ```groovy
+    stage('Commit Version Changes') {
+      steps {
+        script {
+          sh 'git config --global user.email "jenkins@example.com"'
+          sh 'git config --global user.name "Jenkins"'
+          dir('app') {
+            sh 'git add package.json'
+            sh "git commit -m 'Update version to ${env.IMAGE_VERSION}'"
+          }
+          sshagent(['github-ssh-credentials']) {
+            sh 'git push git@github.com:your-username/your-repository.git HEAD:main'
+          }
+        }
+      }
+    }
+    ```
+
+In this refined task list, we make the following improvements:
+
+- We use the `dir` command to change the directory to the `app` directory where the `package.json` file is located, ensuring that only the necessary file is staged and committed.
+
+- Instead of using HTTPS with username and password, we use SSH authentication with the `sshagent` block. SSH authentication is more secure and recommended for automated processes like CI/CD pipelines. Make sure you have the appropriate SSH credential stored in Jenkins and provide its ID in the `sshagent` block.
+
+- We avoid hardcoding sensitive information directly in the Jenkinsfile. The SSH key is securely stored as a credential in Jenkins and accessed using the `sshagent` block.
+
+The best practices section emphasizes using meaningful commit messages, keeping the number of committed files minimal, using SSH authentication with `sshagent`, and avoiding hardcoding sensitive information in the Jenkinsfile.
+
+Remember to replace `"jenkins@example.com"`, `"Jenkins"`, `'github-ssh-credentials'`, `your-username`, and `your-repository` with your actual values.
+
+Let me know if you have any further questions or if there's anything else you'd like me to clarify or modify in the refined task list.
