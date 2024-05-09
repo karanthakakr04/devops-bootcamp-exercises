@@ -54,6 +54,9 @@ This section outlines the initial steps required to set up the environment for r
      sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
      ```
 
+> [!NOTE]
+> **For detailed instructions on installing Docker on Amazon Linux 2, please refer to the [official AWS documentation](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-docker.html).**
+
 ### Jenkins Installation Options
 
 This section presents two primary methods for installing Jenkins, allowing you to choose the best approach based on your infrastructure and specific requirements.
