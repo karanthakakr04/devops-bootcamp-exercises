@@ -343,7 +343,7 @@ However, the choice between direct installation and using a plugin should be bas
       ```
 
     - This will install NodeJS in your Jenkins container.
-    - _Please note that this installation process is for Debian based distributions._
+    - *Please note that this installation process is for Debian based distributions.*
 
     ![Install Nodejs Part 1](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/4daed4c3-14c1-4158-858e-81c36a6c1059)
 
@@ -1111,7 +1111,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
     - Parameterize the pipeline by allowing user input for the version increment type. This makes the pipeline more flexible and reusable, as the version can be incremented based on the specific requirements of each build.
     - Store important values like the application version and image version in environment variables (`env.IMAGE_VERSION`). This allows easy access to these values across different stages of the pipeline.
     - Use the `dir` command to change the directory context when necessary. This ensures that commands are executed in the correct location, such as the `app` folder where the `package.json` file and Dockerfile are located.
-    - Utilize _**Pipeline Utility Steps**_ plugin functions like `readJSON` and `writeJSON` to read and write JSON files. These functions simplify file manipulations and make the code more readable.
+    - Utilize ***Pipeline Utility Steps*** plugin functions like `readJSON` and `writeJSON` to read and write JSON files. These functions simplify file manipulations and make the code more readable.
 
     ![Pipeline Utility Plugin Install](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/e0a96828-03d9-41f1-9cef-7525f821c112)
 
@@ -1598,3 +1598,86 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
 
 > [!NOTE]
 > **It's also important to ensure that your Docker application is properly configured to listen on the appropriate ports and that any required environment variables or configurations are properly set during the container creation process.**
+
+### Jenkins Shared Library
+
+Jenkins Shared Library is a powerful feature that allows you to create reusable code snippets, functions, and classes that can be shared across multiple Jenkins pipelines. It enables you to write common functionality once and use it in different pipelines, promoting code reuse, maintainability, and consistency.
+
+#### Why Use Jenkins Shared Library?
+
+There are several benefits of using Jenkins Shared Library:
+
+1. **Code Reusability:** Instead of duplicating code across multiple pipelines, you can extract common functionality into a shared library and reuse it. This reduces duplication, makes your pipelines more concise, and simplifies maintenance.
+
+2. **Modularity:** Shared libraries enable you to break down your pipeline logic into smaller, modular components. You can create separate functions or classes for specific tasks, making your pipeline code more organized and easier to understand.
+
+3. **Consistency:** By centralizing common code in a shared library, you ensure that all pipelines using that library follow the same logic and behavior. This promotes consistency across your Jenkins pipelines and reduces the chances of errors or discrepancies.
+
+4. **Maintainability:** When you need to update or fix a piece of code, you only need to modify it in the shared library, and all pipelines using that library will automatically inherit the changes. This makes maintaining and updating your pipelines much easier.
+
+#### How Does Jenkins Shared Library Work?
+
+Jenkins Shared Library is typically stored in a separate source code repository, such as Git. The library contains reusable code, usually written in Groovy, that can be called from Jenkins pipelines.
+
+The shared library repository follows a specific directory structure:
+
+```plaintext
+jenkins-shared-library/
+├── src/
+│   └── org/
+│       └── example/
+│           ├── BuildUtils.groovy
+│           ├── DeployUtils.groovy
+│           └── ...
+├── vars/
+│   ├── buildApp.groovy
+│   ├── deployApp.groovy
+│   └── ...
+└── resources/
+    └── ...
+```
+
+- The `src` directory contains custom Groovy classes or utility functions that can be used in pipelines.
+- The `vars` directory contains global variables, which are essentially Groovy scripts that define global functions or variables accessible in pipelines.
+- The `resources` directory can contain non-Groovy files, such as configuration files or templates, that can be used in pipelines.
+
+To use a shared library in a Jenkins pipeline, you need to configure Jenkins to recognize the library. This is done by adding the library configuration in the Jenkins system settings or in the pipeline script itself using the `@Library` annotation.
+
+```groovy
+@Library('my-shared-library') _
+```
+
+Once the library is configured, you can call the functions or classes defined in the library from your pipeline script.
+
+```groovy
+stage('Build') {
+    steps {
+        script {
+            def buildUtils = new org.example.BuildUtils()
+            buildUtils.buildApp()
+        }
+    }
+}
+```
+
+In this example, we import the `BuildUtils` class from the shared library and call the `buildApp()` function defined in that class.
+
+#### Best Practices
+
+When using Jenkins Shared Library, consider the following best practices:
+
+1. **Version Control:** Store your shared library in a version control system, such as Git, to track changes, collaborate with others, and manage different versions of the library.
+
+2. **Documentation:** Provide clear documentation for your shared library, including usage instructions, function descriptions, and examples. This helps other team members understand and utilize the library effectively.
+
+3. **Testing:** Write unit tests for your shared library code to ensure its correctness and reliability. You can use testing frameworks like JUnit or Spock to test your Groovy code.
+
+4. **Versioning:** Use versioning for your shared library to manage different releases and ensure compatibility with pipelines. You can tag specific versions of the library and reference them in your pipelines.
+
+5. **Modularity:** Design your shared library in a modular way, separating different functionalities into distinct classes or scripts. This promotes reusability and makes it easier to maintain and update the library.
+
+6. **Security:** Be cautious when using shared libraries, especially if they contain sensitive information or perform critical operations. Ensure that the library code is secure, follows best practices, and has appropriate access controls.
+
+By leveraging Jenkins Shared Library, you can create a collection of reusable code that streamlines your pipeline development, promotes code reuse, and enhances the maintainability and consistency of your Jenkins pipelines.
+
+Feel free to include this explanation in the README to provide users with a comprehensive understanding of Jenkins Shared Library and its benefits.
