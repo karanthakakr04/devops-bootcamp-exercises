@@ -29,7 +29,7 @@ This section outlines the initial steps required to set up the environment for r
        docker --version
        ```
 
-     - If Docker is installed, the command will display the Docker version. Proceed to Jenkins installation.
+     - If Docker is installed, the command will display the Docker version. Proceed to *Jenkins installation*.
      - If Docker is not installed, continue with the installation steps provided below.
 
 3. **Set up Docker's apt repository:**
