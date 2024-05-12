@@ -1712,15 +1712,10 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
 
 The directory structure for Jenkins Shared Libraries is a recommended convention, but it's not strictly mandatory. However, following the recommended structure helps maintain consistency, readability, and organization across different projects. The structure remains the same regardless of the programming language or project type (e.g., Node.js, Java, Python).
 
-- [ ] Task 1: Create a new branch for the Jenkins Shared Library
-  - Open your application repository on GitHub.
-  - Create a new branch named "jenkins-shared-library" (or any other suitable name) from the main branch.
-  - Clone the repository to your local machine, if you haven't already.
-  - Switch to the newly created branch:
-
-    ```bash
-    git switch -c jenkins-shared-library
-    ```
+- [ ] Task 1: Create a new repository for the Jenkins Shared Library
+  - Go to your GitHub account and create a new repository for the Jenkins Shared Library.
+  - Choose a meaningful name for the repository, such as "jenkins-shared-library".
+  - Initialize the repository with a README file.
 
 - [ ] Task 2: Set up the directory structure for the Jenkins Shared Library
   - Clone the newly created Jenkins Shared Library repository to your local machine.
@@ -1745,7 +1740,7 @@ The directory structure for Jenkins Shared Libraries is a recommended convention
   - The `README.md` file will provide documentation and usage instructions for the shared library.
 
 - [ ] Task 3: Extract the logic for the versioning stage
-  - Create a new file named `VersioningStage.groovy` under the `src/org/example` directory.
+  - In the Jenkins Shared Library repository, create a new file named `VersioningStage.groovy` under the `src/org/example` directory.
   - Move the logic for the versioning stage from the Jenkinsfile to `VersioningStage.groovy`.
   - Modify the code to accept parameters and make it reusable.
   - Example:
@@ -1782,7 +1777,7 @@ The directory structure for Jenkins Shared Libraries is a recommended convention
     ```
 
 - [ ] Task 4: Extract the logic for the build stage
-  - Create a new file named `BuildStage.groovy` under the `src/org/example` directory.
+  - In the Jenkins Shared Library repository, create a new file named `BuildStage.groovy` under the `src/org/example` directory.
   - Move the logic for the build stage from the Jenkinsfile to `BuildStage.groovy`.
   - Modify the code to accept parameters and make it reusable.
   - Example:
@@ -1798,7 +1793,7 @@ The directory structure for Jenkins Shared Libraries is a recommended convention
     ```
 
 - [ ] Task 5: Extract the logic for the deploy stage
-  - Create a new file named `DeployStage.groovy` under the `src/org/example` directory.
+  - In the Jenkins Shared Library repository, create a new file named `DeployStage.groovy` under the `src/org/example` directory.
   - Move the logic for the deploy stage from the Jenkinsfile to `DeployStage.groovy`.
   - Modify the code to accept parameters and make it reusable.
   - Example:
@@ -1819,7 +1814,7 @@ The directory structure for Jenkins Shared Libraries is a recommended convention
     ```
 
 - [ ] Task 6: Create a global variable for the pipeline
-  - Create a new file named `buildPipeline.groovy` under the `vars` directory.
+  - In the Jenkins Shared Library repository, create a new file named `buildPipeline.groovy` under the `vars` directory.
   - Define a global variable that represents the entire pipeline.
   - Call the extracted stage functions from the global variable.
   - Example:
@@ -1870,7 +1865,7 @@ The directory structure for Jenkins Shared Libraries is a recommended convention
 - [ ] Task 7: Update the Jenkinsfile to use the Jenkins Shared Library
   - Open the Jenkinsfile in your application repository.
   - Remove the extracted logic from the Jenkinsfile.
-  - Add the necessary configuration to use the Jenkins Shared Library from the "jenkins-shared-library" branch.
+  - Add the necessary configuration to use the Jenkins Shared Library from the separate repository.
   - Call the global pipeline variable from the Jenkinsfile.
   - Example:
 
@@ -1892,28 +1887,23 @@ The directory structure for Jenkins Shared Libraries is a recommended convention
   - Scroll down to the "Global Pipeline Libraries" section.
   - Click on "Add" to add a new library.
   - Provide a name for the library, such as "jenkins-shared-library".
-  - Set the default version or branch for the library to "jenkins-shared-library".
+  - Set the default version or branch for the library.
   - In the "Retrieval method" section, select "Modern SCM".
   - Choose "Git" as the source code management tool.
   - Provide the repository URL for your application repository.
-  - Specify the "jenkins-shared-library" branch in the "Branch" field.
+  - Provide the repository URL for the Jenkins Shared Library repository.
   - Save the configuration.
 
 - [ ] Task 9: Test the Jenkins Shared Library
-  - Push the changes in the Jenkinsfile and the Jenkins Shared Library to the "jenkins-shared-library" branch.
+  - Push the changes in the Jenkins Shared Library repository.
   - In Jenkins, navigate to your pipeline job.
-  - Configure the job to use the updated Jenkinsfile from the "jenkins-shared-library" branch.
+  - Configure the job to use the updated Jenkinsfile that references the shared library.
   - Trigger a new build of the pipeline.
   - Verify that the pipeline executes successfully using the shared library code.
 
 - [ ] Task 10: Document the Jenkins Shared Library
-  - Open the `README.md` file in the "jenkins-shared-library" branch.
+  - Open the `README.md` file in the Jenkins Shared Library repository.
   - Provide clear instructions on how to use the shared library, including the available stages, parameters, and any dependencies.
   - Explain the purpose and functionality of each stage in the shared library.
   - Include examples of how to reference and configure the shared library in a Jenkinsfile.
   - Provide any additional information or best practices for using the shared library effectively.
-
-- [ ] Task 11: Merge the Jenkins Shared Library branch
-  - Once you have tested and verified the functionality of the shared library, create a pull request from the "jenkins-shared-library" branch to the main branch.
-  - Review the changes and ensure that the shared library code is properly organized and documented.
-  - Merge the pull request to incorporate the shared library into the main branch of your application repository.
