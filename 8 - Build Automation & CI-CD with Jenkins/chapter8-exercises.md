@@ -436,6 +436,7 @@ However, the choice between direct installation and using a plugin should be bas
   - **Enter the GitHub token details:**
     - From the "Kind" dropdown, select "Username with password".
     - In the "Username" field, enter your GitHub username.
+    - Check the "Treat username as a secret" checkbox to ensure the username is stored securely.
     - In the "Password" field, paste the personal access token you generated on GitHub.
     - In the "ID" field, provide a unique identifier for this credential (e.g., "GitHub-token").
     - In the "Description" field, provide a description for the credential (optional).
@@ -859,6 +860,20 @@ Once inside the container, you can use common Linux commands like `cd`, `ls`, an
 
 Remember that the actual paths and directory names may vary depending on your Jenkins configuration and job setup. The examples provided above are based on typical Jenkins conventions.
 
+### Configure Jenkins to Access Docker Hub Repository
+
+- [ ] Task 1: Create credentials for Docker Hub in Jenkins
+  - Open the Jenkins web interface.
+  - Go to "Manage Jenkins" > "Manage Credentials".
+  - Click on "Global" or the appropriate domain.
+  - Click on "Add Credentials".
+  - Select "Username with password" as the kind.
+  - Enter your Docker Hub username and password.
+  - Check the "Treat username as a secret" checkbox to ensure the username is stored securely.
+  - Provide an ID for the credentials (e.g., "dockerhub-credentials").
+  - In the "Description" field, provide a description for the credential (optional).
+  - Click "OK" to save the credentials.
+
 ### Docker Login for Different Registries
 
 When using the `docker login` command to authenticate with a Docker registry that isn't Docker Hub, you must specify the hostname of the repository. This is because Docker defaults to Docker Hub if no server is specified. Here's how you do it for various registries like Nexus or AWS ECR:
@@ -1118,31 +1133,41 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
   - Add the `tools` block in the pipeline to specify the Node.js installation:
     - The `tools` block is used to define the tools and their versions required for the pipeline.
     - In this case, we specify the Node.js installation by adding `nodejs 'node'` inside the `tools` block.
-    - Make sure you have the Node.js plugin installed in Jenkins and a Node.js installation configured with the name 'node' in the Jenkins Global Tool Configuration.
+  - Add the `environment` block in the pipeline to define environment variables:
+    - The `environment` block is used to define environment variables that can be accessed throughout the pipeline.
+    - In this case, we use the `credentials()` function to securely retrieve the values of `DOCKERHUB_REPO` and `DOCKERHUB_USERNAME` from Jenkins credentials and assign them to environment variables.
+  - Make sure you have the Node.js plugin installed in Jenkins and a Node.js installation configured with the name 'node' in the Jenkins Global Tool Configuration.
 
-      ```groovy
-      pipeline {
+    ```groovy
+    pipeline {
         agent any
-
+        
         tools {
-          nodejs 'node' // Specify the Node.js installation name configured in Jenkins
+            nodejs 'node' // Specify the Node.js installation name configured in Jenkins
         }
-
+        
+        environment {
+            DOCKERHUB_REPO = credentials('DOCKERHUB_REPO') // Define environment variable for Docker Hub repository
+            DOCKERHUB_USERNAME = credentials('DOCKERHUB_USERNAME') // Define environment variable for Docker Hub username
+        }
+        
         stages {
-          // ...
-          stage('Increment Version') {
-            steps {
-              script {
-                dir('app') {
-                  // ...
+            // ...
+            
+            stage('Increment Version') {
+                steps {
+                    script {
+                        dir('app') {
+                            // ...
+                        }
+                    }
                 }
-              }
             }
-          }
-          // ...
+            
+            // ...
         }
-      }
-      ```
+    }
+    ```
 
     ![Node.js Plugin Installation](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/44c8aae7-583f-4fc2-a60e-049281b80e6f)
 
@@ -1156,6 +1181,11 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
 
       tools {
         nodejs 'node'
+      }
+
+      environment {
+        DOCKERHUB_REPO = credentials('DOCKERHUB_REPO')
+        DOCKERHUB_USERNAME = credentials('DOCKERHUB_USERNAME')
       }
 
       stages {
@@ -1282,14 +1312,12 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
   - Build the Docker image:
     - Use the `sh` command to execute the `docker build` command.
     - Specify the path to the `Dockerfile` using the `-f` flag. In this case, the `Dockerfile` is located in the `jenkins-exercises` directory.
-    - Use the `-t` flag to provide a tag for the Docker image. The tag should include your Docker Hub username, the repository name, and the version number.
-    - The version number can be obtained from the `env.IMAGE_VERSION` environment variable, which was set in the "Increment Version" stage.
+    - Use the `-t` flag to provide a tag for the Docker image. The tag should include the Docker Hub username (`${DOCKERHUB_USERNAME}`), the repository name (`${DOCKERHUB_REPO}`), and the version number (`${env.IMAGE_VERSION}`).
+    - The `DOCKERHUB_USERNAME` and `DOCKERHUB_REPO` environment variables are used to dynamically set the Docker Hub username and repository name.
 
       ```groovy
-      sh "docker build -t your-dockerhub-username/your-repository-name:${env.IMAGE_VERSION} -f jenkins-exercises/Dockerfile ."
+      sh "docker build -t ${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}:${env.IMAGE_VERSION} -f jenkins-exercises/Dockerfile ."
       ```
-
-    - Replace `your-dockerhub-username` with your actual Docker Hub username and `your-repository-name` with the name of your private repository.
 
   - Jenkinsfile configuration for `stage('Build Docker Image')`:
 
@@ -1297,7 +1325,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
     stage('Build Docker Image') {
       steps {
         script {
-          sh "docker build -t your-dockerhub-username/your-repository-name:${env.IMAGE_VERSION} -f jenkins-exercises/Dockerfile ."
+          sh "docker build -t ${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}:${env.IMAGE_VERSION} -f jenkins-exercises/Dockerfile ."
         }
       }
     }
@@ -1335,10 +1363,10 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
 
   - Push the Docker image to Docker Hub:
     - Use the `sh` command to execute the `docker push` command.
-    - Specify the same image tag used during the build step, including your Docker Hub username, repository name, and version number.
+    - Specify the image tag using the `${DOCKERHUB_USERNAME}`, `${DOCKERHUB_REPO}`, and `${env.IMAGE_VERSION}` environment variables.
 
       ```groovy
-      sh "docker push your-dockerhub-username/your-repository-name:${env.IMAGE_VERSION}"
+      sh "docker push ${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}:${env.IMAGE_VERSION}"
       ```
 
   - Best practices:
@@ -1354,7 +1382,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
         script {
           withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
             sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
-            sh "docker push your-dockerhub-username/your-repository-name:${env.IMAGE_VERSION}"
+            sh "docker push ${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}:${env.IMAGE_VERSION}"
           }
         }
       }
