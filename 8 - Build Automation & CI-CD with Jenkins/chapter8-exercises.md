@@ -1887,7 +1887,7 @@ The directory structure for Jenkins Shared Libraries is a recommended convention
   - Scroll down to the "Global Pipeline Libraries" section.
   - Click on "Add" to add a new library.
   - Provide a name for the library, such as "jenkins-shared-library".
-  - Set the default version or branch for the library.
+  - Set the default version or branch for the library. In this case, we will use the branch name `main`.
   - In the "Retrieval method" section, select "Modern SCM".
   - Choose "Git" as the source code management tool.
   - Provide the repository URL for your application repository.
