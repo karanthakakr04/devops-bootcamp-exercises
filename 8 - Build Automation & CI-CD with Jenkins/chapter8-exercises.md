@@ -1679,5 +1679,3 @@ When using Jenkins Shared Library, consider the following best practices:
 6. **Security:** Be cautious when using shared libraries, especially if they contain sensitive information or perform critical operations. Ensure that the library code is secure, follows best practices, and has appropriate access controls.
 
 By leveraging Jenkins Shared Library, you can create a collection of reusable code that streamlines your pipeline development, promotes code reuse, and enhances the maintainability and consistency of your Jenkins pipelines.
-
-Feel free to include this explanation in the README to provide users with a comprehensive understanding of Jenkins Shared Library and its benefits.
