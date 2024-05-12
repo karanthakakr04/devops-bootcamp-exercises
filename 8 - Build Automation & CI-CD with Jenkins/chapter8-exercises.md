@@ -9,7 +9,19 @@ This section outlines the initial steps required to set up the environment for r
 
 ### Install Docker (if not already installed)
 
-1. **Check if Docker is installed:**
+1. **Check the operating system:**
+   - SSH into the remote server.
+   - Run the following command to determine the operating system:
+
+     ```bash
+     cat /etc/os-release
+     ```
+
+   - If the output indicates that the operating system is Ubuntu, proceed with step 2 provided below.
+   - If the output indicates that the operating system is Amazon Linux 2, refer to the official AWS documentation for installing Docker on Amazon Linux 2:
+     - [Installing Docker on Amazon Linux 2](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html#install_docker)
+
+2. **Check if Docker is installed:**
    - SSH into the remote server.
      - Run the following command to check if Docker is already installed:
 
@@ -17,10 +29,10 @@ This section outlines the initial steps required to set up the environment for r
        docker --version
        ```
 
-     - If Docker is installed, the command will display the Docker version. Proceed to the next step.
-     - If Docker is not installed, continue with the installation steps.
+     - If Docker is installed, the command will display the Docker version. Proceed to Jenkins installation.
+     - If Docker is not installed, continue with the installation steps provided below.
 
-2. **Set up Docker's apt repository:**
+3. **Set up Docker's apt repository:**
    - Add Docker's official GPG key:
 
      ```bash
@@ -40,22 +52,19 @@ This section outlines the initial steps required to set up the environment for r
      sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
      ```
 
-3. **Update the package lists:**
+4. **Update the package lists:**
    - Run the following command to update the package lists:
 
      ```bash
      sudo apt update
      ```
 
-4. **Install Docker:**
+5. **Install Docker:**
    - Run the following command to install the latest version of Docker:
 
      ```bash
      sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
      ```
-
-> [!NOTE]
-> **For detailed instructions on installing Docker on Amazon Linux 2, please refer to the [official AWS documentation](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-docker.html).**
 
 ### Jenkins Installation Options
 
