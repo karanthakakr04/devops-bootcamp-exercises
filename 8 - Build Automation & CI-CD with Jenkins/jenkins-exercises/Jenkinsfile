@@ -7,11 +7,8 @@ pipeline {
     }
 
     stages {
-
         stage('Increment Version') {
-            
             steps {
-
                 script {
                     // Increment the application version
                     // You can use a npm package like 'npm-version' or write a custom script to increment the version
@@ -42,15 +39,11 @@ pipeline {
                         env.IMAGE_VERSION = imageVersion
                     }
                 }
-
             }
-
         }
 
         stage('Run Tests') {
-
             steps {
-
                 script {
                     // Run tests for the application
                     // Example: sh 'npm test'
@@ -63,56 +56,55 @@ pipeline {
                         }  
                     }
                 }
-
             }
-
         }
 
         stage('Build Docker Image') {
-
             steps {
-
                 script {
-                    echo 'Build the Docker image with the incremented version...'
                     // Build the Docker image with the incremented version
                     // Example: sh 'docker build -t myapp:${version} .'
+                    echo 'Build the Docker image with the incremented version...'
+                    sh "docker build -t your-dockerhub-username/your-repository-name:${env.IMAGE_VERSION} -f jenkins-exercises/Dockerfile ."
                 }
-
             }
-
         }
 
         stage('Push Docker Image') {
-
             steps {
-
                 script {
-                    echo 'Push the Docker image to a registry...'
                     // Push the Docker image to a registry
                     // Example: sh 'docker push myapp:${version}'
+                    echo 'Push the Docker image to a registry...'
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
+                        sh "docker push your-dockerhub-username/your-repository-name:${env.IMAGE_VERSION}"
+                    }
                 }
-
             }
-
         }
 
         stage('Commit Version') {
-
             steps {
-
                 script {
-                    echo 'Commit the version increment to Git...'
                     // Commit the version increment to Git
                     // Example:
                     // sh 'git add package.json'
                     // sh 'git commit -m "Increment version to ${version}"'
                     // sh 'git push origin main'
+                    echo 'Commit the version increment to Git...'
+                    sh 'git config --global user.email "jenkins@example.com"'
+                    sh 'git config --global user.name "Jenkins"'
+                    withCredentials([usernamePassword(credentialsId: 'github-credentials', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_PASSWORD')]) {
+                        sh "git remote set-url origin https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com/your-username/your-repository.git"
+                        dir('app') {
+                            sh 'git add package.json'
+                        }
+                        sh "git commit -m 'Update version to ${env.IMAGE_VERSION}'"
+                        sh 'git push origin HEAD:main'
+                    }
                 }
-
             }
-
         }
-
     }
-
 }
