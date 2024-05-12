@@ -1679,3 +1679,166 @@ When using Jenkins Shared Library, consider the following best practices:
 6. **Security:** Be cautious when using shared libraries, especially if they contain sensitive information or perform critical operations. Ensure that the library code is secure, follows best practices, and has appropriate access controls.
 
 By leveraging Jenkins Shared Library, you can create a collection of reusable code that streamlines your pipeline development, promotes code reuse, and enhances the maintainability and consistency of your Jenkins pipelines.
+
+## Exercise 4
+
+- [ ] Task 1: Create a new branch for the Jenkins Shared Library
+  - Open your application repository on GitHub.
+  - Create a new branch named "jenkins-shared-library" (or any other suitable name) from the main branch.
+  - Clone the repository to your local machine, if you haven't already.
+  - Switch to the newly created branch:
+
+    ```bash
+    git switch -c jenkins-shared-library
+    ```
+
+- [ ] Task 2: Set up the directory structure for the Jenkins Shared Library
+  - In the cloned repository, create the necessary directory structure for the Jenkins Shared Library:
+
+    ```plaintext
+    jenkins-shared-library/
+    ├── src/
+    │   └── org/
+    │       └── example/
+    │           ├── BuildStage.groovy
+    │           ├── DeployStage.groovy
+    │           └── VersioningStage.groovy
+    ├── vars/
+    │   └── buildPipeline.groovy
+    └── README.md
+    ```
+
+  - The `src` directory will contain the reusable code for different stages of the pipeline.
+  - The `vars` directory will contain the global variables and functions that can be called from the pipeline.
+
+- [ ] Task 3: Extract the logic for versioning stage
+  - Create a new file named `VersioningStage.groovy` under the `src/org/example` directory.
+  - Move the logic for the versioning stage from the Jenkinsfile to `VersioningStage.groovy`.
+  - Modify the code to accept parameters and make it reusable.
+  - Example:
+
+    ```groovy
+    package org.example
+
+    def call(String versionIncrement) {
+      // Versioning stage logic goes here
+      // Use the versionIncrement parameter as needed
+      // ...
+    }
+    ```
+
+- [ ] Task 4: Extract the logic for build stage
+  - Create a new file named `BuildStage.groovy` under the `src/org/example` directory.
+  - Move the logic for the build stage from the Jenkinsfile to `BuildStage.groovy`.
+  - Modify the code to accept parameters and make it reusable.
+  - Example:
+
+    ```groovy
+    package org.example
+
+    def call(String imageName, String imageTag) {
+      // Build stage logic goes here
+      // Use the imageName and imageTag parameters as needed
+      // ...
+    }
+    ```
+
+- [ ] Task 5: Extract the logic for deploy stage
+  - Create a new file named `DeployStage.groovy` under the `src/org/example` directory.
+  - Move the logic for the deploy stage from the Jenkinsfile to `DeployStage.groovy`.
+  - Modify the code to accept parameters and make it reusable.
+  - Example:
+
+    ```groovy
+    package org.example
+
+    def call(String imageName, String imageTag) {
+      // Deploy stage logic goes here
+      // Use the imageName and imageTag parameters as needed
+      // ...
+    }
+    ```
+
+- [ ] Task 6: Create a global variable for the pipeline
+  - Create a new file named `buildPipeline.groovy` under the `vars` directory.
+  - Define a global variable that represents the entire pipeline.
+  - Call the extracted stage functions from the global variable.
+  - Example:
+
+    ```groovy
+    def call(Map pipelineParams) {
+      pipeline {
+        agent any
+
+        stages {
+          stage('Increment Version') {
+            steps {
+              script {
+                def versioningStage = new org.example.VersioningStage()
+                versioningStage(pipelineParams.versionIncrement)
+              }
+            }
+          }
+
+          stage('Build Image') {
+            steps {
+              script {
+                def buildStage = new org.example.BuildStage()
+                buildStage(pipelineParams.imageName, pipelineParams.imageTag)
+              }
+            }
+          }
+
+          stage('Deploy') {
+            steps {
+              script {
+                def deployStage = new org.example.DeployStage()
+                deployStage(pipelineParams.imageName, pipelineParams.imageTag)
+              }
+            }
+          }
+        }
+      }
+    }
+    ```
+
+- [ ] Task 7: Update the Jenkinsfile to use the Jenkins Shared Library
+  - Open the Jenkinsfile in your application repository.
+  - Remove the extracted logic from the Jenkinsfile.
+  - Add the necessary configuration to use the Jenkins Shared Library from the "jenkins-shared-library" branch.
+  - Call the global pipeline variable from the Jenkinsfile.
+  - Example:
+
+    ```groovy
+    @Library('jenkins-shared-library@jenkins-shared-library') _
+
+    buildPipeline(
+      versionIncrement: 'patch',
+      imageName: 'my-app',
+      imageTag: '1.0.0'
+    )
+    ```
+
+- [ ] Task 8: Configure Jenkins to use the Shared Library
+  - Open the Jenkins web interface.
+  - Go to "Manage Jenkins" > "Configure System".
+  - Scroll down to the "Global Pipeline Libraries" section.
+  - Click on "Add" to add a new library.
+  - Provide a name for the library, such as "jenkins-shared-library".
+  - Set the default version or branch for the library to "jenkins-shared-library".
+  - In the "Retrieval method" section, select "Modern SCM".
+  - Choose "Git" as the source code management tool.
+  - Provide the repository URL for your application repository.
+  - Specify the "jenkins-shared-library" branch in the "Branch" field.
+  - Save the configuration.
+
+- [ ] Task 9: Test the Jenkins Shared Library
+  - Push the changes in the Jenkinsfile and the Jenkins Shared Library to their respective repositories.
+  - Trigger a new build of your pipeline.
+  - Verify that the pipeline executes successfully using the shared library code.
+
+- [ ] Task 10: Document the Jenkins Shared Library
+  - Update the README file in the Jenkins Shared Library repository.
+  - Provide clear instructions on how to use the shared library, including the available stages, parameters, and any dependencies.
+  - Include examples of how to reference the shared library in a Jenkinsfile.
+  - Explain any specific requirements or considerations for using the shared library.
