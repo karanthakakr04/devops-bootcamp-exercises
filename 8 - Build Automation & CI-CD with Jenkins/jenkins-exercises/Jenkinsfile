@@ -6,6 +6,12 @@ pipeline {
         nodejs 'node'  // Specify the Node.js installation name configured in Jenkins
     }
 
+    environment {
+        DOCKERHUB_REPO = credentials('DOCKERHUB_REPO')
+        DOCKERHUB_USERNAME = credentials('DOCKERHUB_USERNAME')
+    }
+
+
     stages {
         stage('Increment Version') {
             steps {
@@ -65,7 +71,7 @@ pipeline {
                     // Build the Docker image with the incremented version
                     // Example: sh 'docker build -t myapp:${version} .'
                     echo 'Build the Docker image with the incremented version...'
-                    sh "docker build -t your-dockerhub-username/your-repository-name:${env.IMAGE_VERSION} -f jenkins-exercises/Dockerfile ."
+                    sh "docker build -t ${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}:${env.IMAGE_VERSION} -f jenkins-exercises/Dockerfile ."
                 }
             }
         }
@@ -78,7 +84,7 @@ pipeline {
                     echo 'Push the Docker image to a registry...'
                     withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                         sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
-                        sh "docker push your-dockerhub-username/your-repository-name:${env.IMAGE_VERSION}"
+                        sh "docker push ${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}:${env.IMAGE_VERSION}"
                     }
                 }
             }
