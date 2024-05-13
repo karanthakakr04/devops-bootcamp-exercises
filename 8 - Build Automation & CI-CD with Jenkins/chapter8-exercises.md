@@ -1128,7 +1128,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
     - Use the `dir` command to change the directory context when necessary. This ensures that commands are executed in the correct location, such as the `app` folder where the `package.json` file and Dockerfile are located.
     - Utilize ***Pipeline Utility Steps*** plugin functions like `readJSON` and `writeJSON` to read and write JSON files. These functions simplify file manipulations and make the code more readable.
 
-    ![Pipeline Utility Plugin Install](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/e0a96828-03d9-41f1-9cef-7525f821c112)
+     ![Pipeline Utility Plugin Install](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/e0a96828-03d9-41f1-9cef-7525f821c112)
 
   - Add the `tools` block in the pipeline to specify the Node.js installation:
     - The `tools` block is used to define the tools and their versions required for the pipeline.
