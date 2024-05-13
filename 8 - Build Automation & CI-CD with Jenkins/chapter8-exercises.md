@@ -1710,14 +1710,12 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
 
 ## Exercise 4
 
-The directory structure for Jenkins Shared Libraries is a recommended convention, but it's not strictly mandatory. However, following the recommended structure helps maintain consistency, readability, and organization across different projects. The structure remains the same regardless of the programming language or project type (e.g., Node.js, Java, Python).
-
-- [ ] Task 1: Create a new repository for the Jenkins Shared Library
+- [x] Task 1: Create a new repository for the Jenkins Shared Library
   - Go to your GitHub account and create a new repository for the Jenkins Shared Library.
   - Choose a meaningful name for the repository, such as "jenkins-shared-library".
   - Initialize the repository with a README file.
 
-- [ ] Task 2: Set up the directory structure for the Jenkins Shared Library
+- [x] Task 2: Set up the directory structure for the Jenkins Shared Library
   - Clone the newly created Jenkins Shared Library repository to your local machine.
   - Create the necessary directory structure for the Jenkins Shared Library:
 
@@ -1729,9 +1727,10 @@ The directory structure for Jenkins Shared Libraries is a recommended convention
     │   └── org/
     │       └── example/
     │           ├── BuildStage.groovy
+    │           ├── CommitStage.groovy
     │           ├── DeployStage.groovy
-    │           ├── VersioningStage.groovy
-    │           └── ...
+    │           ├── TestStage.groovy
+    │           └── VersioningStage.groovy
     └── README.md
     ```
 
@@ -1739,19 +1738,19 @@ The directory structure for Jenkins Shared Libraries is a recommended convention
   - The `src` directory will contain the reusable code for different stages of the pipeline, organized in a package structure.
   - The `README.md` file will provide documentation and usage instructions for the shared library.
 
-- [ ] Task 3: Extract the logic for the versioning stage
+- [x] Task 3: Extract the logic for the versioning stage
   - In the Jenkins Shared Library repository, create a new file named `VersioningStage.groovy` under the `src/org/example` directory.
   - Move the logic for the versioning stage from the Jenkinsfile to `VersioningStage.groovy`.
   - Modify the code to accept parameters and make it reusable.
   - Example:
 
     ```groovy
+    #!/usr/bin/env groovy
     package org.example
 
     def call(String versionIncrement) {
       echo "Incrementing application version with ${versionIncrement}"
       dir('app') {
-        // Prompt the user to select the version increment type
         def versionType = input(
           id: 'versionType',
           message: 'Select the version increment type:',
@@ -1760,78 +1759,162 @@ The directory structure for Jenkins Shared Libraries is a recommended convention
             choice(name: 'type', choices: ['patch', 'minor', 'major'], description: 'Version increment type')
           ]
         )
-        // Increment the version using the selected version type
         sh "npm version ${versionType}"
-        // Read the updated package.json file
         def packageJson = readJSON file: 'package.json'
-        // Extract the incremented app version
         def appVersion = packageJson.version
-        // Get the current build number
         def buildNumber = env.BUILD_NUMBER
-        // Construct the image version using app version and build number
         def imageVersion = "${appVersion}-${buildNumber}"
-        // Store the image version in an environment variable
         env.IMAGE_VERSION = imageVersion
       }
     }
     ```
 
-- [ ] Task 4: Extract the logic for the build stage
+    Explanation:
+    - The script defines a `call` method that takes a `versionIncrement` parameter.
+    - It prompts the user to select the version increment type using the `input` step.
+    - It executes the `npm version` command with the selected version type.
+    - It reads the updated `package.json` file and extracts the app version.
+    - It combines the app version and build number to create the image version.
+    - The image version is stored in the `env.IMAGE_VERSION` environment variable.
+
+- [x] Task 4: Extract the logic for the test stage
+  - In the Jenkins Shared Library repository, create a new file named `TestStage.groovy` under the `src/org/example` directory.
+  - Move the logic for the test stage from the Jenkinsfile to `TestStage.groovy`.
+  - Modify the code to make it reusable.
+  - Example:
+
+    ```groovy
+    #!/usr/bin/env groovy
+    package org.example
+
+    def call() {
+      echo 'Running tests for the application...'
+      dir('app') {
+        sh 'npm install'
+        catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+          sh 'npm test'
+          error "Tests failed. Please fix the failing tests and rerun the pipeline."
+        }
+      }
+    }
+    ```
+
+    Explanation:
+    - The script defines a `call` method that runs tests for the application.
+    - It navigates to the `app` directory and installs dependencies using `npm install`.
+    - It executes the `npm test` command within a `catchError` block.
+    - If the tests fail, it throws an error with a message indicating the failure.
+
+- [x] Task 5: Extract the logic for the build stage
   - In the Jenkins Shared Library repository, create a new file named `BuildStage.groovy` under the `src/org/example` directory.
   - Move the logic for the build stage from the Jenkinsfile to `BuildStage.groovy`.
   - Modify the code to accept parameters and make it reusable.
   - Example:
 
     ```groovy
+    #!/usr/bin/env groovy
     package org.example
 
-    def call(String imageName, String imageTag) {
-      echo "Building Docker image ${imageName}:${imageTag}"
-      // Build the Docker image with the specified name and tag
-      sh "docker build -t ${imageName}:${imageTag} -f jenkins-exercises/Dockerfile ."
+    def call(String dockerhubUsername, String dockerhubRepo, String imageTag) {
+      echo "Building Docker image ${dockerhubUsername}/${dockerhubRepo}:${imageTag}"
+      sh "docker build -t ${dockerhubUsername}/${dockerhubRepo}:${imageTag} ."
     }
     ```
 
-- [ ] Task 5: Extract the logic for the deploy stage
+    Explanation:
+    - The script defines a `call` method that takes `dockerhubRepo`, `dockerhubUsername` and `imageTag` parameters.
+    - It builds the Docker image using the `docker build` command with the provided repository name and image tag.
+
+- [x] Task 6: Extract the logic for the deploy stage
   - In the Jenkins Shared Library repository, create a new file named `DeployStage.groovy` under the `src/org/example` directory.
   - Move the logic for the deploy stage from the Jenkinsfile to `DeployStage.groovy`.
   - Modify the code to accept parameters and make it reusable.
   - Example:
 
     ```groovy
+    #!/usr/bin/env groovy
     package org.example
 
-    def call(String imageName, String imageTag) {
-      echo "Deploying Docker image ${imageName}:${imageTag}"
-      // Use the 'dockerhub-credentials' to securely access Docker Hub
+    def call(String dockerhubUsername, String dockerhubRepo, String imageTag) {
+      echo "Pushing Docker image ${dockerhubUsername}/${dockerhubRepo}:${imageTag}"
       withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-        // Log in to Docker Hub using the provided credentials
         sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
-        // Push the Docker image to Docker Hub
-        sh "docker push ${imageName}:${imageTag}"
+        sh "docker push ${dockerhubUsername}/${dockerhubRepo}:${imageTag}"
       }
     }
     ```
 
-- [ ] Task 6: Create a global variable for the pipeline
+    Explanation:
+    - The script defines a `call` method that takes `dockerhubRepo`, `dockerhubUsername` and `imageTag` parameters.
+    - It uses the `withCredentials` block to securely access the Docker Hub credentials.
+    - It logs in to Docker Hub using the provided credentials.
+    - It pushes the Docker image to the specified repository with the provided image tag.
+
+- [x] Task 7: Extract the logic for the commit stage
+  - In the Jenkins Shared Library repository, create a new file named `CommitStage.groovy` under the `src/org/example` directory.
+  - Move the logic for the commit stage from the Jenkinsfile to `CommitStage.groovy`.
+  - Modify the code to accept parameters and make it reusable.
+  - Example:
+
+    ```groovy
+    #!/usr/bin/env groovy
+    package org.example
+
+    def call(String imageVersion) {
+      echo 'Committing the version increment to Git...'
+      withCredentials([usernamePassword(credentialsId: 'github-credentials', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_PASSWORD')]) {
+        sh "git config user.email 'jenkins@example.com'"
+        sh "git config user.name 'Jenkins'"
+        sh "git remote set-url origin https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com/your-username/your-repository.git"
+        dir('app') {
+          sh "git add package.json"
+        }
+        sh "git commit -m 'Update version to ${imageVersion}'"
+        sh "git push origin HEAD:main"
+      }
+    }
+    ```
+
+    Explanation:
+    - The script defines a `call` method that takes an `imageVersion` parameter.
+    - It uses the `withCredentials` block to securely access the GitHub credentials.
+    - It sets the Git user email and name.
+    - It updates the remote URL of the Git repository with the GitHub credentials.
+    - It adds the `package.json` file to the staging area.
+    - It commits the changes with a message indicating the version update.
+    - It pushes the changes to the `main` branch of the remote repository.
+
+- [x] Task 8: Create a global variable for the pipeline
   - In the Jenkins Shared Library repository, create a new file named `buildPipeline.groovy` under the `vars` directory.
   - Define a global variable that represents the entire pipeline.
   - Call the extracted stage functions from the global variable.
   - Example:
 
     ```groovy
+    #!/usr/bin/env groovy
     def call(Map pipelineParams) {
       pipeline {
         agent any
+
+        environment {
+          IMAGE_TAG = "${env.IMAGE_VERSION}"
+        }
 
         stages {
           stage('Increment Version') {
             steps {
               script {
-                // Create an instance of the VersioningStage class
                 def versioningStage = new org.example.VersioningStage()
-                // Call the versioning stage with the provided version increment
                 versioningStage(pipelineParams.versionIncrement)
+              }
+            }
+          }
+
+          stage('Run Tests') {
+            steps {
+              script {
+                def testStage = new org.example.TestStage()
+                testStage()
               }
             }
           }
@@ -1839,10 +1922,8 @@ The directory structure for Jenkins Shared Libraries is a recommended convention
           stage('Build Image') {
             steps {
               script {
-                // Create an instance of the BuildStage class
                 def buildStage = new org.example.BuildStage()
-                // Call the build stage with the image name and tag
-                buildStage(pipelineParams.imageName, pipelineParams.imageTag)
+                buildStage(pipelineParams.dockerhubUsername, pipelineParams.dockerhubRepo, env.IMAGE_TAG)
               }
             }
           }
@@ -1850,19 +1931,43 @@ The directory structure for Jenkins Shared Libraries is a recommended convention
           stage('Deploy') {
             steps {
               script {
-                // Create an instance of the DeployStage class
                 def deployStage = new org.example.DeployStage()
-                // Call the deploy stage with the image name and tag
-                deployStage(pipelineParams.imageName, pipelineParams.imageTag)
+                deployStage(pipelineParams.dockerhubUsername, pipelineParams.dockerhubRepo, env.IMAGE_TAG)
               }
             }
+          }
+
+          stage('Commit Version') {
+            steps {
+              script {
+                def commitStage = new org.example.CommitStage()
+                commitStage(env.IMAGE_TAG)
+              }
+            }
+          }
+        }
+
+        post {
+          success {
+            echo 'Pipeline executed successfully!'
+          }
+          failure {
+            echo 'Pipeline execution failed!'
           }
         }
       }
     }
     ```
 
-- [ ] Task 7: Update the Jenkinsfile to use the Jenkins Shared Library
+    Explanation:
+    - The script defines a `call` method that takes a `pipelineParams` map.
+    - It uses the declarative pipeline syntax to define the pipeline structure.
+    - The `environment` block defines the `IMAGE_TAG` variable using the `IMAGE_VERSION` environment variable set in the `VersioningStage`.
+    - The pipeline consists of five stages: "Increment Version", "Run Tests", "Build Image", "Deploy", and "Commit Version".
+    - Each stage instantiates the corresponding stage class and calls its `call` method with the required parameters.
+    - The `post` block defines actions to be executed based on the pipeline's success or failure.
+
+- [x] Task 9: Update the Jenkinsfile to use the Jenkins Shared Library
   - Open the Jenkinsfile in your application repository.
   - Remove the extracted logic from the Jenkinsfile.
   - Add the necessary configuration to use the Jenkins Shared Library from the separate repository.
@@ -1870,40 +1975,185 @@ The directory structure for Jenkins Shared Libraries is a recommended convention
   - Example:
 
     ```groovy
-    // Use the Jenkins Shared Library from the "jenkins-shared-library" branch
-    @Library('jenkins-shared-library@jenkins-shared-library') _
+    #!/usr/bin/env groovy
+    @Library('jenkins-shared-library') _
 
-    // Call the buildPipeline function with the required parameters
-    buildPipeline(
-      versionIncrement: 'patch',
-      imageName: env.DOCKERHUB_REPO,
-      imageTag: env.IMAGE_VERSION
-    )
+    pipeline {
+      agent any
+
+      tools {
+        nodejs 'node'
+      }
+
+      environment {
+        DOCKERHUB_REPO = credentials('DOCKERHUB_REPO')
+        DOCKERHUB_USERNAME = credentials('DOCKERHUB_USERNAME')
+      }
+
+      stages {
+        stage('Build') {
+          steps {
+            buildPipeline(
+              versionIncrement: 'patch',
+              dockerhubRepo: env.DOCKERHUB_REPO,
+              dockerhubUsername: env.DOCKERHUB_USERNAME
+            )
+          }
+        }
+      }
+    }
     ```
 
-- [ ] Task 8: Configure Jenkins to use the Shared Library
+    Explanation:
+    - The `@Library` annotation is used to import the Jenkins Shared Library.
+    - The `_` symbol is used as a placeholder to avoid naming conflicts with other annotations or steps.
+    - The `DOCKERHUB_REPO` and `DOCKERHUB_USERNAME` environment variables are defined using the `credentials` function to securely fetch the value from Jenkins credentials.
+    - The `buildPipeline` global variable is called with the desired version increment type, `DOCKERHUB_REPO` value and `DOCKERHUB_USERNAME` value.
+
+- [x] Task 10: Configure Jenkins to use the Shared Library
   - Open the Jenkins web interface.
   - Go to "Manage Jenkins" > "Configure System".
   - Scroll down to the "Global Pipeline Libraries" section.
   - Click on "Add" to add a new library.
   - Provide a name for the library, such as "jenkins-shared-library".
-  - Set the default version or branch for the library. In this case, we will use the branch name `main`.
+  - Set the default version or branch for the library.
   - In the "Retrieval method" section, select "Modern SCM".
   - Choose "Git" as the source code management tool.
-  - Provide the repository URL for your application repository.
   - Provide the repository URL for the Jenkins Shared Library repository.
   - Save the configuration.
 
-- [ ] Task 9: Test the Jenkins Shared Library
+- [x] Task 11: Test the Jenkins Shared Library
   - Push the changes in the Jenkins Shared Library repository.
   - In Jenkins, navigate to your pipeline job.
   - Configure the job to use the updated Jenkinsfile that references the shared library.
   - Trigger a new build of the pipeline.
   - Verify that the pipeline executes successfully using the shared library code.
 
-- [ ] Task 10: Document the Jenkins Shared Library
-  - Open the `README.md` file in the Jenkins Shared Library repository.
-  - Provide clear instructions on how to use the shared library, including the available stages, parameters, and any dependencies.
-  - Explain the purpose and functionality of each stage in the shared library.
-  - Include examples of how to reference and configure the shared library in a Jenkinsfile.
-  - Provide any additional information or best practices for using the shared library effectively.
+## Additional Information
+
+### Environment Variables and Scope
+
+Environment variables defined in the Jenkinsfile are accessible within the scope of that particular pipeline. They are not directly accessible by the scripts in the Jenkins Shared Library.
+
+To pass environment variables from the Jenkinsfile to the shared library scripts, you can use parameters when calling the shared library functions. For example:
+
+```groovy
+// Jenkinsfile
+environment {
+  DOCKERHUB_REPO = credentials('DOCKERHUB_REPO')
+  DOCKERHUB_USERNAME = credentials('DOCKERHUB_USERNAME')
+}
+
+stages {
+  stage('Build') {
+    steps {
+      buildPipeline(
+        versionIncrement: 'patch',
+        dockerhubRepo: env.DOCKERHUB_REPO
+        dockerhubUsername: env.DOCKERHUB_USERNAME
+      )
+    }
+  }
+}
+```
+
+In the shared library script (`buildPipeline.groovy`), you can access the passed environment variables using the `pipelineParams` map. For example:
+
+```groovy
+// buildPipeline.groovy
+def call(Map pipelineParams) {
+  pipeline {
+    environment {
+      IMAGE_NAME = "${pipelineParams.dockerhubRepo}"
+      IMAGE_TAG = "${env.IMAGE_VERSION}"
+    }
+
+    // ...
+  }
+}
+```
+
+### Importing the Jenkins Shared Library
+
+There are two common ways to import the Jenkins Shared Library in the Jenkinsfile:
+
+1. Using the `@Library` annotation:
+
+   ```groovy
+   @Library('jenkins-shared-library') _
+   ```
+
+   This approach is concise and allows you to import the library at the global level in the Jenkinsfile. The `_` symbol is used as a placeholder to avoid naming conflicts with other annotations or steps.
+
+2. Using the `library` step:
+
+   ```groovy
+   library identifier: 'jenkins-shared-library@main', retriever: modernSCM(
+     [$class: 'GitSCMSource',
+     remote: 'https://github.com/your-username/jenkins-shared-library.git',
+     credentialsId: 'github-credentials'])
+   ```
+
+   This approach provides more flexibility and allows you to specify the library version, retrieval method, and additional configuration options.
+
+Choose the approach that best fits your requirements and Jenkins setup.
+
+### Post Actions in the Pipeline
+
+The `post` block in the pipeline allows you to define actions that should be executed based on the pipeline's status (success, failure, always, etc.). You can use the `post` block to perform additional actions, such as sending notifications, archiving artifacts, or cleaning up resources.
+
+```groovy
+post {
+  success {
+    echo 'Pipeline executed successfully!'
+  }
+  failure {
+    echo 'Pipeline execution failed!'
+  }
+}
+```
+
+Customize the `post` block according to your specific requirements, such as sending email notifications, updating job status, or triggering downstream jobs.
+
+Apologies for the incomplete information. Let me continue the explanation from where I left off.
+
+### Using Declarative Pipeline Syntax in Shared Libraries
+
+Starting from Jenkins Pipeline 2.5, you can use the declarative pipeline syntax inside the shared library scripts. This allows you to encapsulate the pipeline structure and stages within the shared library, making it reusable across multiple pipelines.
+
+In the `buildPipeline.groovy` script, the declarative pipeline syntax is used to define the pipeline structure and stages. This approach promotes code reusability and maintainability.
+
+```groovy
+def call(Map pipelineParams) {
+  pipeline {
+    // Pipeline configuration
+    stages {
+      // Pipeline stages
+    }
+    post {
+      // Post actions
+    }
+  }
+}
+```
+
+Using declarative pipeline syntax in shared libraries offers several benefits:
+
+1. **Encapsulation**: By defining the pipeline structure and stages within the shared library, you can encapsulate the logic and make it self-contained. This promotes a modular and reusable approach to pipeline development.
+
+2. **Consistency**: Shared libraries with declarative pipeline syntax ensure that the pipeline structure and stages are consistent across multiple pipelines. This helps maintain uniformity and reduces the chances of errors or discrepancies.
+
+3. **Parameterization**: You can define parameters in the shared library function to customize the behavior of the pipeline. This allows you to create flexible and configurable pipelines that can adapt to different scenarios.
+
+4. **Readability**: Declarative pipeline syntax is more readable and easier to understand compared to scripted pipelines. It provides a clear and concise representation of the pipeline structure and stages.
+
+5. **Maintainability**: With the pipeline logic encapsulated in the shared library, maintenance becomes easier. You can update and enhance the shared library code independently of the individual pipelines, and the changes will be reflected in all pipelines that use the shared library.
+
+When using declarative pipeline syntax in shared libraries, keep in mind the following considerations:
+
+- The shared library function should return a valid declarative pipeline.
+- The pipeline configuration, stages, and post actions should be defined within the `pipeline` block.
+- Parameters can be defined in the shared library function to customize the pipeline behavior.
+- The shared library script should be compatible with the Jenkins Pipeline version and any required plugins.
+
+By leveraging declarative pipeline syntax in shared libraries, you can create reusable and maintainable pipelines that adhere to a consistent structure and promote best practices in pipeline development.
