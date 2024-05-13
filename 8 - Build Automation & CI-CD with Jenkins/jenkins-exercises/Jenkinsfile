@@ -11,7 +11,6 @@ pipeline {
         DOCKERHUB_USERNAME = credentials('DOCKERHUB_USERNAME')
     }
 
-
     stages {
         stage('Increment Version') {
             steps {
