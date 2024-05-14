@@ -1531,8 +1531,15 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
     }
     ```
 
-> [!TIP]
-> **You can enhance the pipeline further by adding error handling, notifications, or additional stages based on your specific requirements.**
+> [!NOTE]
+> To use the `sshagent` block in your pipeline, ensure that you have the "SSH Agent Plugin" installed in Jenkins. You can install it by following these steps:
+>
+> 1. Navigate to the Jenkins web interface.
+> 2. Go to "Manage Jenkins" > "Manage Plugins".
+> 3. Click on the "Available" tab.
+> 4. Search for "SSH Agent" in the search bar.
+> 5. Check the checkbox next to the plugin and click on "Install".
+> 6. Once the installation is complete, you can use the `sshagent` block in your pipeline.
 
 - [ ] Task 11: Save and run the pipeline
   - Save the Jenkinsfile and commit it to your Git repository.
@@ -1540,8 +1547,8 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
   - Click on "Build Now" to trigger the pipeline execution.
   - Monitor the pipeline stages and verify that each stage runs successfully.
 
-> [!NOTE]
-> **Make sure you have the necessary plugins installed in Jenkins to support the pipeline steps (e.g., Docker, Git).**
+> [!TIP]
+> **You can enhance the pipeline further by adding error handling, notifications, or additional stages based on your specific requirements.**
 
 ## Exercise 3
 
