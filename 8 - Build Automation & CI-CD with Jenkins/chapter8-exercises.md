@@ -1149,6 +1149,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
         environment {
             DOCKERHUB_REPO = credentials('DOCKERHUB_REPO') // Define environment variable for Docker Hub repository
             DOCKERHUB_USERNAME = credentials('DOCKERHUB_USERNAME') // Define environment variable for Docker Hub username
+            GITHUB_REPO_URL = credentials('GITHUB_REPO_URL') // Define environment variable for GitHub repository URL
         }
         
         stages {
@@ -1186,6 +1187,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
       environment {
         DOCKERHUB_REPO = credentials('DOCKERHUB_REPO')
         DOCKERHUB_USERNAME = credentials('DOCKERHUB_USERNAME')
+        GITHUB_REPO_URL = credentials('GITHUB_REPO_URL')
       }
 
       stages {
@@ -1421,10 +1423,10 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
     **Method 1: Using `withCredentials` block**
     - Use the `withCredentials` block to securely access the GitHub credentials stored in Jenkins.
     - Inside the `withCredentials` block, use the `sh` command to execute the following steps:
-      - Set the remote URL of the origin repository to use HTTPS protocol and the credentials variables:
+      - Use the environment variable `GITHUB_REPO_URL` to set the remote URL of the origin repository to use HTTPS protocol and the credentials variables:
 
         ```groovy
-        sh "git remote set-url origin https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com/your-username/your-repository.git"
+        sh "git remote set-url origin https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@${GITHUB_REPO_URL}"
         ```
 
       - Stage the `package.json` file using `git add`:
@@ -1453,10 +1455,10 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
     - Use the `sshagent` block to securely access the SSH key for authentication with GitHub.
     - Inside the `sshagent` block, specify the ID of the SSH credential stored in Jenkins.
     - Use the `sh` command to execute the following steps:
-      - Set the remote URL of the origin repository to use SSH protocol:
+      - Use the environment variable `GITHUB_REPO_URL` to set the remote URL of the origin repository to use SSH protocol:
 
         ```groovy
-        sh 'git remote set-url origin git@github.com:your-username/your-repository.git'
+        sh "git remote set-url origin git@${GITHUB_REPO_URL}"
         ```
 
       - Stage the `package.json` file using `git add`:
@@ -1496,7 +1498,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
           sh 'git config --global user.email "jenkins@example.com"'
           sh 'git config --global user.name "Jenkins"'
           withCredentials([usernamePassword(credentialsId: 'github-credentials', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_PASSWORD')]) {
-            sh "git remote set-url origin https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com/your-username/your-repository.git"
+            sh "git remote set-url origin https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@${GITHUB_REPO_URL}"
             dir('app') {
               sh 'git add package.json'
             }
@@ -1517,7 +1519,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
           sh 'git config --global user.email "jenkins@example.com"'
           sh 'git config --global user.name "Jenkins"'
           sshagent(['github-ssh-credentials']) {
-            sh 'git remote set-url origin git@github.com:your-username/your-repository.git'
+            sh "git remote set-url origin git@${GITHUB_REPO_URL}"
             dir('app') {
               sh 'git add package.json'
             }
@@ -1860,12 +1862,12 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
     #!/usr/bin/env groovy
     package org.example
 
-    def call(String imageVersion) {
+    def call(String imageVersion, String githubRepoUrl) {
       echo 'Committing the version increment to Git...'
       withCredentials([usernamePassword(credentialsId: 'github-credentials', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_PASSWORD')]) {
         sh "git config user.email 'jenkins@example.com'"
         sh "git config user.name 'Jenkins'"
-        sh "git remote set-url origin https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com/your-username/your-repository.git"
+        sh "git remote set-url origin https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@${githubRepoUrl}"
         dir('app') {
           sh "git add package.json"
         }
@@ -1951,7 +1953,7 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
             steps {
               script {
                 def commitStage = new org.example.CommitStage()
-                commitStage(env.IMAGE_TAG)
+                commitStage(env.IMAGE_TAG, pipelineParams.githubRepoUrl)
               }
             }
           }
@@ -1998,6 +2000,7 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
       environment {
         DOCKERHUB_REPO = credentials('DOCKERHUB_REPO')
         DOCKERHUB_USERNAME = credentials('DOCKERHUB_USERNAME')
+        GITHUB_REPO_URL = credentials('GITHUB_REPO_URL')
       }
 
       stages {
@@ -2005,7 +2008,8 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
           steps {
             buildPipeline(
               dockerhubRepo: env.DOCKERHUB_REPO,
-              dockerhubUsername: env.DOCKERHUB_USERNAME
+              dockerhubUsername: env.DOCKERHUB_USERNAME,
+              githubRepoUrl: env.GITHUB_REPO_URL
             )
           }
         }
