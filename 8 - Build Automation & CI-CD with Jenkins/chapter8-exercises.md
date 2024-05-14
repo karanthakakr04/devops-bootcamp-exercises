@@ -1900,13 +1900,13 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
           IMAGE_TAG = "${env.IMAGE_VERSION}"
         }
 
-      parameters {
-        choice(
-          name: 'VERSION_INCREMENT',
-          choices: ['patch', 'minor', 'major'],
-          description: 'Select the version increment type'
-        )
-      }
+        parameters {
+          choice(
+            name: 'VERSION_INCREMENT',
+            choices: ['patch', 'minor', 'major'],
+            description: 'Select the version increment type'
+          )
+        }
 
         stages {
           stage('Increment Version') {
