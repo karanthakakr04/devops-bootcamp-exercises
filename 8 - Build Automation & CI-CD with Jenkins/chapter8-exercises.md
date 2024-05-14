@@ -800,19 +800,19 @@ networks:
     - Specifying the command to start the application.
 
 > [!IMPORTANT]
-> It's important to note that the `docker init` command may generate a Dockerfile with `CMD npm start` instead of `CMD ["npm", "start"]`. While both forms are valid, there is a difference in how they are executed by the Docker container.
+> **It's important to note that the `docker init` command may generate a Dockerfile with `CMD npm start` instead of `CMD ["npm", "start"]`. While both forms are valid, there is a difference in how they are executed by the Docker container.**
 >
-> - `CMD ["npm", "start"]` (exec form):
->   - This form specifies the command as a JSON array, where each element is a separate string.
->   - The command is executed directly, without invoking a shell.
->   - It is the recommended form for executing commands in Docker as it avoids shell interpretation and potential command injection vulnerabilities.
+> - **`CMD ["npm", "start"]` (exec form):**
+>   - **This form specifies the command as a JSON array, where each element is a separate string.**
+>   - **The command is executed directly, without invoking a shell.**
+>   - **It is the recommended form for executing commands in Docker as it avoids shell interpretation and potential command injection vulnerabilities.**
 >
-> - `CMD npm start` (shell form):
->   - This form specifies the command as a plain string.
->   - The command is executed using the default shell (`/bin/sh -c`) inside the container.
->   - Using the shell form can be useful when you need shell features like environment variable expansion or command chaining.
+> - **`CMD npm start` (shell form):**
+>   - **This form specifies the command as a plain string.**
+>   - **The command is executed using the default shell (`/bin/sh -c`) inside the container.**
+>   - **Using the shell form can be useful when you need shell features like environment variable expansion or command chaining.**
 >
-> In most cases, it is recommended to use the exec form (`CMD ["npm", "start"]`) for clarity, control, and security. However, if the generated Dockerfile uses the shell form, it is important to review and modify it to ensure it aligns with your application's requirements and best practices.
+> **In most cases, it is recommended to use the exec form (`CMD ["npm", "start"]`) for clarity, control, and security. However, if the generated Dockerfile uses the shell form, it is important to review and modify it to ensure it aligns with your application's requirements and best practices.**
 
 ### Pipeline and Repository Storage in Jenkins Volume
 
