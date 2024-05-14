@@ -1541,7 +1541,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
 > 5. **Check the checkbox next to the plugin and click on "Install".**
 > 6. **Once the installation is complete, you can use the `sshagent` block in your pipeline.**
 
-![docker init command screenshot](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/41fdecc0-15f3-48da-bcf5-da676a910d13)
+![sshagent plugin screenshot](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/41fdecc0-15f3-48da-bcf5-da676a910d13)
 
 - [ ] Task 11: Save and run the pipeline
   - Save the Jenkinsfile and commit it to your Git repository.
