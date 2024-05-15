@@ -2049,9 +2049,9 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
   - Trigger a new build of the pipeline.
   - Verify that the pipeline executes successfully using the shared library code.
 
-## Additional Information
+### Additional Information
 
-### Environment Variables and Scope
+#### Environment Variables and Scope
 
 Environment variables defined in the Jenkinsfile are accessible within the scope of that particular pipeline. They are not directly accessible by the scripts in the Jenkins Shared Library.
 
@@ -2093,7 +2093,15 @@ def call(Map pipelineParams) {
 }
 ```
 
-### Importing the Jenkins Shared Library
+#### Jenkins Environment Variables
+
+For more information about the available Jenkins environment variables that can be used in shell and batch build steps, refer to the following URL:
+
+`<server-address>:8080/env-vars.html/`
+
+This URL provides details on the various environment variables accessible within Jenkins pipelines and how to use them effectively.
+
+#### Importing the Jenkins Shared Library
 
 There are two common ways to import the Jenkins Shared Library in the Jenkinsfile:
 
@@ -2118,7 +2126,7 @@ There are two common ways to import the Jenkins Shared Library in the Jenkinsfil
 
 Choose the approach that best fits your requirements and Jenkins setup.
 
-### Post Actions in the Pipeline
+#### Post Actions in the Pipeline
 
 The `post` block in the pipeline allows you to define actions that should be executed based on the pipeline's status (success, failure, always, etc.). You can use the `post` block to perform additional actions, such as sending notifications, archiving artifacts, or cleaning up resources.
 
@@ -2137,7 +2145,7 @@ Customize the `post` block according to your specific requirements, such as send
 
 Apologies for the incomplete information. Let me continue the explanation from where I left off.
 
-### Using Declarative Pipeline Syntax in Shared Libraries
+#### Using Declarative Pipeline Syntax in Shared Libraries
 
 Starting from Jenkins Pipeline 2.5, you can use the declarative pipeline syntax inside the shared library scripts. This allows you to encapsulate the pipeline structure and stages within the shared library, making it reusable across multiple pipelines.
 
