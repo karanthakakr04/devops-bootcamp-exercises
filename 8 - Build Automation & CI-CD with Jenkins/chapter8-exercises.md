@@ -1170,7 +1170,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
     }
     ```
 
-    ![Node.js Plugin Installation](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/44c8aae7-583f-4fc2-a60e-049281b80e6f)
+    ![Node.js Plugin Installation](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/3e51dc7d-c321-44ab-b36e-3c45f15fa2f2)
 
     ![Jenkins Global Tools Configuration](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/b7a347a9-f0a1-48e5-a7d6-cf7e305eb7b1)
 
