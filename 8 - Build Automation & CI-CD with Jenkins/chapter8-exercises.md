@@ -2103,7 +2103,7 @@ For more information about the available Jenkins environment variables that can 
 <server-address>:8080/env-vars.html/
 ```
 
-This URL provides details on the various environment variables accessible within Jenkins pipelines and how to use them effectively.
+This URL provides details on the various environment variables accessible within Jenkins pipelines and how to use them effectively. You need to replace `<server-address>` with your server IP address or DNS name.
 
 #### Importing the Jenkins Shared Library
 
