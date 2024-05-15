@@ -436,10 +436,10 @@ However, the choice between direct installation and using a plugin should be bas
   - **Enter the GitHub token details:**
     - From the "Kind" dropdown, select "Username with password".
     - In the "Username" field, enter your GitHub username.
-    - Check the "Treat username as a secret" checkbox to ensure the username is stored securely.
+    - Check the "Treat username as a secret" checkbox to ensure the username is stored securely (optional).
     - In the "Password" field, paste the personal access token you generated on GitHub.
     - In the "ID" field, provide a unique identifier for this credential (e.g., "GitHub-token").
-    - In the "Description" field, provide a description for the credential (optional).
+    - In the "Description" field, provide a description for the credential.
     - Click on the "Create" button to save the credential.
 
 - [x] Task 3: Configure the Jenkins job to use the GitHub token
@@ -869,9 +869,9 @@ Remember that the actual paths and directory names may vary depending on your Je
   - Click on "Add Credentials".
   - Select "Username with password" as the kind.
   - Enter your Docker Hub username and password.
-  - Check the "Treat username as a secret" checkbox to ensure the username is stored securely.
+  - Check the "Treat username as a secret" checkbox to ensure the username is stored securely. (optional)
   - Provide an ID for the credentials (e.g., "dockerhub-credentials").
-  - In the "Description" field, provide a description for the credential (optional).
+  - In the "Description" field, provide a description for the credential.
   - Click "OK" to save the credentials.
 
 ### Docker Login for Different Registries
