@@ -2097,13 +2097,11 @@ def call(Map pipelineParams) {
 
 #### Jenkins Environment Variables
 
-For more information about the available Jenkins environment variables that can be used in shell and batch build steps, refer to the following URL:
+For more information about the available Jenkins environment variables that can be used in shell and batch build steps, navigate to the following URL within your Jenkins instance:
 
-```plaintext
-<server-address>:8080/env-vars.html/
-```
+`env-vars.html/`
 
-This URL provides details on the various environment variables accessible within Jenkins pipelines and how to use them effectively. You need to replace `<server-address>` with your server IP address or DNS name.
+This URL provides details on the various environment variables accessible within Jenkins pipelines and how to use them effectively. Note that the base URL (e.g., `http://34.229.55.186:8080`) may vary depending on your Jenkins server configuration, but the `env-vars.html/` path remains constant.
 
 #### Importing the Jenkins Shared Library
 
