@@ -2103,6 +2103,8 @@ For more information about the available Jenkins environment variables that can 
 
 This URL provides details on the various environment variables accessible within Jenkins pipelines and how to use them effectively. Note that the base URL (e.g., `http://34.229.55.186:8080`) may vary depending on your Jenkins server configuration, but the `env-vars.html/` path remains constant.
 
+![Jenkins Environment Variables screenshot](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/94bcfa0f-4c73-4485-80cd-b613d27d9cba)
+
 #### Importing the Jenkins Shared Library
 
 There are two common ways to import the Jenkins Shared Library in the Jenkinsfile:
