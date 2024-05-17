@@ -61,7 +61,6 @@
 > [!WARNING]
 > **Make sure to store the downloaded .csv file containing the IAM user credentials securely. Do not share or expose the credentials publicly, as they provide access to your AWS resources.**
 
-
 ## Exercise 2
 
 In this exercise, you will configure the AWS CLI to interact with your AWS account using the IAM user credentials created in Exercise 1.
