@@ -54,12 +54,12 @@
 
 - [ ] **Task 5: Add tags to the IAM user (optional)**
   - On the _Add tags_ page, you can optionally add tags to the IAM user for better organization and management. Here are some suggested tags:
-    - Project: `DevOpsBootcamp`
-    - Role: `NodeJSAppDeployment`
-    - Environment: `Development`
-    - Department: `Engineering`
-    - CreatedBy: `Admin`
-    - CreationDate: `2024-05-19`
+    - Project: DevOpsBootcamp
+    - Role: NodeJSAppDeployment
+    - Environment: Development
+    - Department: Engineering
+    - CreatedBy: Admin
+    - CreationDate: 2024-05-19
   - Click _Next: Review_.
 
 - [ ] **Task 6: Review and create the IAM user**
