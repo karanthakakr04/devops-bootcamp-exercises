@@ -21,7 +21,9 @@
 
 - [ ] **Task 3: Set user details**
   - On the _Create user_ page:
-    - You will be presented with two options: _AWS IAM Identity Center_ and _IAM User_.
+    - You will be presented with two options:
+      - _AWS IAM Identity Center_
+      - _IAM User_
     - Select _IAM User_ to create a new IAM user.
     - _User name:_ Enter a desired username for the IAM user (e.g., "dev-user"). Replace "dev-user" with your preferred username.
     - _Select AWS credential type:_ Choose both "Access key - Programmatic access" and "Password - AWS Management Console access".
