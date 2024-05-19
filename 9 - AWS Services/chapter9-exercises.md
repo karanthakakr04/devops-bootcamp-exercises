@@ -7,7 +7,7 @@
 
 - [ ] **Task 1: Login to AWS Management Console**
   - Open your web browser.
-  - Navigate to the AWS Management Console at [https://aws.amazon.com/console/](https://aws.amazon.com/console/).
+  - Navigate to the [AWS Management Console](https://aws.amazon.com/console/).
   - Enter your admin username and password.
   - Click on **Sign In**.
 
