@@ -31,6 +31,9 @@
     - _Password reset required:_ Keep the _User must create a new password at next sign-in_ option selected.
     - Click _Next: Permissions_.
 
+> [!NOTE]
+> **AWS recommends using AWS IAM Identity Center for centralized access management and short-term credentials. However, for this exercise, we will use _IAM User_ as it is within the scope of our demonstration. For more information, refer to the [AWS IAM Identity Center User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction_identity-management.html#intro-identity-users). You can also watch this [YouTube tutorial](https://www.youtube.com/watch?v=_KhrGFV_Npw) for a detailed setup of AWS IAM Identity Center.**
+
 - [ ] **Task 4: Set permissions for the IAM user**
   - On the "Set permissions" page, you will see three options to set permissions:
     - _Add user to group_
