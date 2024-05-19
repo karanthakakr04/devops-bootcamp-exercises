@@ -44,23 +44,24 @@
     - _Group name:_ Enter `devops`.
     - In the _Filter policies_ box, type relevant policies based on the permissions the user needs. Avoid using overly permissive policies such as `AdministratorAccess`.
     - Consider policies like:
-      - _AmazonEC2ReadOnlyAccess_
-      - _AmazonS3ReadOnlyAccess_
-      - _CloudWatchReadOnlyAccess_
+      - _AmazonEC2FullAccess_ - For managing EC2 instances.
+      - _AmazonVPCFullAccess_ - For managing VPCs, subnets, and security groups.
+      - _CloudWatchFullAccess_ - For logging and monitoring.
+      - _AmazonS3ReadOnlyAccess_ - For read-only access to S3 buckets (if needed for storing/retrieving objects).
     - Click the _Create group_ button.
   - Ensure the new user is added to the `devops` group.
   - Click _Next: Tags_.
 
 - [ ] **Task 5: Add tags to the IAM user (optional)**
-  - On the "Add tags" page, you can optionally add tags to the IAM user for better organization and management.
+  - On the _Add tags_ page, you can optionally add tags to the IAM user for better organization and management.
   - Click _Next: Review_.
 
 - [ ] **Task 6: Review and create the IAM user**
-  - On the "Review" page, review the user details, permissions, and tags.
+  - On the _Review_ page, review the user details, permissions, and tags.
   - If everything looks correct, click on the _Create user_ button.
 
 - [ ] **Task 7: Retrieve the IAM user credentials**
-  - You will be presented with the "Step 4: Retrieve password" page.
+  - You will be presented with the _Step 4: Retrieve password_ page.
   - Click on the _Download .csv_ button to download the credentials file, which contains the access key ID, secret access key, and password for the IAM user.
   - Store the downloaded file securely, as it contains sensitive information.
   - Click on the _Return to users list_ button.
