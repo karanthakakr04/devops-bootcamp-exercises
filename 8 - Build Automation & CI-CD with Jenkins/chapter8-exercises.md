@@ -1356,12 +1356,12 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
     - Use the `--password-stdin` flag to securely pass the password to the `docker login` command through standard input.
 
       ```groovy
-      withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+      withCredentials([usernamePassword(credentialsId: 'docker-hub-access', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
         sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
       }
       ```
 
-    - Replace `'dockerhub-credentials'` with the ID of your Docker Hub credentials stored in Jenkins.
+    - Replace `'docker-hub-access'` with the ID of your Docker Hub credentials stored in Jenkins.
 
   - Push the Docker image to Docker Hub:
     - Use the `sh` command to execute the `docker push` command.
@@ -1382,7 +1382,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
     stage('Push Docker Image') {
       steps {
         script {
-          withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+          withCredentials([usernamePassword(credentialsId: 'docker-hub-access', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
             sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
             sh "docker push ${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}:${env.IMAGE_VERSION}"
           }
@@ -1497,7 +1497,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
         script {
           sh 'git config --global user.email "jenkins@example.com"'
           sh 'git config --global user.name "Jenkins"'
-          withCredentials([usernamePassword(credentialsId: 'github-credentials', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_PASSWORD')]) {
+          withCredentials([usernamePassword(credentialsId: 'github-personal-access', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_PASSWORD')]) {
             sh "git remote set-url origin https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@${GITHUB_REPO_URL}"
             dir('app') {
               sh 'git add package.json'
@@ -1848,7 +1848,7 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
 
     def call(String dockerhubUsername, String dockerhubRepo, String imageTag) {
       echo "Pushing Docker image ${dockerhubUsername}/${dockerhubRepo}:${imageTag}"
-      withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+      withCredentials([usernamePassword(credentialsId: 'docker-hub-access', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
         sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
         sh "docker push ${dockerhubUsername}/${dockerhubRepo}:${imageTag}"
       }
@@ -1873,7 +1873,7 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
 
     def call(String imageVersion, String githubRepoUrl) {
       echo 'Committing the version increment to Git...'
-      withCredentials([usernamePassword(credentialsId: 'github-credentials', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_PASSWORD')]) {
+      withCredentials([usernamePassword(credentialsId: 'github-personal-access', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_PASSWORD')]) {
         sh "git config user.email 'jenkins@example.com'"
         sh "git config user.name 'Jenkins'"
         sh "git remote set-url origin https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@${githubRepoUrl}"
