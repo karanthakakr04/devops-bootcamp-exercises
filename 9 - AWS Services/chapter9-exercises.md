@@ -76,9 +76,7 @@
 
 ## Exercise 2
 
-In this exercise, you will configure the AWS CLI to interact with your AWS account using the IAM user credentials created in Exercise 1.
-
-- [ ] Task 1: Install AWS CLI
+- [ ] **Task 1: Install AWS CLI**
   - Go to the [AWS CLI installation guide](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html), choose the appropriate installation method for your operating system, and follow the provided installation instructions.
   - Verify the installation by running:
 
@@ -86,7 +84,7 @@ In this exercise, you will configure the AWS CLI to interact with your AWS accou
     aws --version
     ```
 
-- [ ] Task 2: Configure AWS CLI with IAM user credentials
+- [ ] **Task 2: Configure AWS CLI with IAM user credentials**
   - Run the following command to configure AWS CLI:
 
     ```bash
@@ -99,7 +97,7 @@ In this exercise, you will configure the AWS CLI to interact with your AWS accou
     - Default region name: Enter the desired AWS region (e.g., us-east-1).
     - Default output format: Press Enter to use the default format (json).
 
-- [ ] Task 3: Verify AWS CLI configuration
+- [ ] **Task 3: Verify AWS CLI configuration**
   - Run the following command to verify the configured credentials:
 
     ```bash
@@ -114,55 +112,51 @@ In this exercise, you will configure the AWS CLI to interact with your AWS accou
 
 ## Exercise 3
 
-In this exercise, you will create a new VPC (Virtual Private Cloud) with a subnet and a security group using the AWS CLI.
-
-- [ ] Task 1: Create a new VPC
+- [ ] **Task 1: Create a new VPC**
   - Run the following command to create a new VPC:
 
     ```bash
-    aws ec2 create-vpc --cidr-block 10.0.0.0/16 --query Vpc.VpcId --output text
+    aws ec2 create-vpc --cidr-block 10.0.0.0/16 --tag-specifications 'ResourceType=vpc,Tags=[{Key=Name,Value=my-vpc}]' --query Vpc.VpcId --output text
     ```
 
   - Take note of the VPC ID returned by the command.
 
-- [ ] Task 2: Create a subnet within the VPC
+- [ ] **Task 2: Create a subnet within the VPC**
   - Run the following command to create a subnet within the VPC:
 
     ```bash
-    aws ec2 create-subnet --vpc-id <vpc-id> --cidr-block 10.0.1.0/24 --query Subnet.SubnetId --output text
+    aws ec2 create-subnet --vpc-id <VPC_ID> --cidr-block 10.0.1.0/24 --availability-zone <AVAILABILITY_ZONE> --tag-specifications 'ResourceType=subnet,Tags=[{Key=Name,Value=my-subnet}]' --query Subnet.SubnetId --output text
     ```
 
   - Replace `<vpc-id>` with the VPC ID obtained in Task 1.
   - Take note of the Subnet ID returned by the command.
 
-- [ ] Task 3: Create a security group
+- [ ] **Task 3: Create a security group**
   - Run the following command to create a security group:
 
     ```bash
-    aws ec2 create-security-group --group-name my-sg --description "My security group" --vpc-id <vpc-id>
+    aws ec2 create-security-group --group-name my-sg --description "My security group" --vpc-id <VPC_ID> --tag-specifications 'ResourceType=security-group,Tags=[{Key=Name,Value=my-sg}]' --query GroupId --output text
     ```
 
   - Replace `<vpc-id>` with the VPC ID obtained in Task 1.
   - Take note of the Security Group ID returned by the command.
 
-- [ ] Task 4: Configure inbound rules for the security group
-  - Run the following commands to add inbound rules to the security group:
-
+- [ ] **Task 4: Configure Security Group Rules**
+  - Run the following command to allow inbound SSH (port 22) access from a specific IP address or range:
+  
     ```bash
-    aws ec2 authorize-security-group-ingress --group-id <security-group-id> --protocol tcp --port 22 --cidr 0.0.0.0/0
-    aws ec2 authorize-security-group-ingress --group-id <security-group-id> --protocol tcp --port 80 --cidr 0.0.0.0/0
+    aws ec2 authorize-security-group-ingress --group-id <SECURITY_GROUP_ID> --protocol tcp --port 22 --cidr <YOUR_IP_ADDRESS>/32
     ```
 
-  - Replace `<security-group-id>` with the Security Group ID obtained in Task 3.
-  - The first command allows SSH access (port 22) from anywhere.
-  - The second command allows HTTP access (port 80) from anywhere.
+  - Replace `<SECURITY_GROUP_ID>` with the Security Group ID from Task 3.
+  - Replace `<YOUR_IP_ADDRESS>` with your specific IP address or the IP range you want to allow SSH access from. For example, if your IP address is `203.0.113.0`, you would use `203.0.113.0/32`. If you want to allow access from a range, you can use a subnet mask like `203.0.113.0/24`.
+  - Run the following command to allow inbound HTTP (port 80) access:
 
-> [!NOTE]
-> **In a production environment, it is recommended to restrict the inbound rules to specific IP ranges or security groups instead of allowing access from anywhere (0.0.0.0/0).**
+    ```bash
+    aws ec2 authorize-security-group-ingress --group-id <SECURITY_GROUP_ID> --protocol tcp --port 80 --cidr 0.0.0.0/0
+    ```
 
 ## Exercise 4
-
-In this exercise, you will create an EC2 instance within the VPC created in Exercise 3 using the AWS CLI.
 
 - [ ] Task 1: Generate an SSH key pair
   - Run the following command to generate an SSH key pair:
@@ -193,8 +187,6 @@ In this exercise, you will create an EC2 instance within the VPC created in Exer
 > **The `ami-0c94855ba95c71c99` used in the command represents the Amazon Machine Image (AMI) ID for Amazon Linux 2 in the US East (N. Virginia) region. If you are using a different region, you may need to find the appropriate AMI ID for that region.**
 
 ## Exercise 5
-
-In this exercise, you will SSH into the EC2 instance created in Exercise 4 and install Docker on it to prepare the server for running the dockerized application.
 
 - [ ] Task 1: SSH into the EC2 instance
   - Run the following command to retrieve the public IP address of the EC2 instance:
