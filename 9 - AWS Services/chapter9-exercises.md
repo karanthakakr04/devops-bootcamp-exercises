@@ -226,45 +226,71 @@ This refined task list incorporates the following best practices:
 
 ## Exercise 5
 
-- [ ] Task 1: SSH into the EC2 instance
-  - Run the following command to retrieve the public IP address of the EC2 instance:
+- [ ] **Task 1: SSH into the EC2 instance**
+  - Open a terminal or command prompt.
+  - Navigate to the directory where you saved the key pair file (`my-key.pem`) in Exercise 4.
+  - Run the following command to SSH into the EC2 instance:
 
     ```bash
-    aws ec2 describe-instances --instance-ids <instance-id> --query 'Reservations[].Instances[].PublicIpAddress' --output text
+    ssh -i /path/to/my-key.pem ec2-user@<PUBLIC_IP_ADDRESS>
     ```
 
-  - Replace `<instance-id>` with the Instance ID obtained in Exercise 4.
-  - Use the public IP address to SSH into the EC2 instance:
+  - Replace `/path/to/my-key.pem` with the actual path to your key pair file.
+  - Replace `<PUBLIC_IP_ADDRESS>` with the public IP address of the EC2 instance obtained in Exercise 4, Task 5.
+  - If prompted, type "yes" to add the instance to the known hosts list.
 
-    ```bash
-    ssh -i mykey.pem ec2-user@<public-ip>
-    ```
-
-  - Replace `<public-ip>` with the public IP address obtained in the previous step.
-
-- [ ] Task 2: Install Docker on the EC2 instance
-  - Once connected to the EC2 instance via SSH, run the following commands to install Docker:
+- [ ] **Task 2: Update the installed packages and package cache on your instance**
+  - Run the following command to update the installed packages and package cache:
 
     ```bash
     sudo yum update -y
-    sudo amazon-linux-extras install docker -y
-    sudo service docker start
-    sudo usermod -a -G docker ec2-user
     ```
 
-  - These commands update the package manager, install Docker, start the Docker service, and add the `ec2-user` to the `docker` group.
-
-- [ ] Task 3: Verify Docker installation
-  - Log out and log back in to the EC2 instance for the group membership changes to take effect.
-  - Run the following command to verify that Docker is installed and running correctly:
+- [ ] **Task 3: Install Docker**
+  - Run the following command to install the most recent Docker Community Edition package:
 
     ```bash
-    docker --version
+    sudo amazon-linux-extras install docker -y
     ```
 
-  - The command should display the Docker version installed.
+  - This command installs Docker using the Amazon Linux Extras repository.
+  - For more detailed instructions and alternative installation methods, refer to the [official AWS documentation on installing Docker](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-docker.html).
+
+- [ ] **Task 4: Start the Docker service**
+  - Run the following command to start the Docker service:
+
+    ```bash
+    sudo service docker start
+    ```
+
+- [ ] **Task 5: Add the `ec2-user` to the `docker` group**
+  - Run the following command to add the `ec2-user` to the `docker` group:
+
+    ```bash
+    sudo usermod -aG docker ec2-user
+    ```
+
+  - This command grants the `ec2-user` permission to run Docker commands without using `sudo`.
+
+- [ ] **Task 6: Log out and log back in to pick up the new `docker` group permissions**
+  - Log out of the SSH session by running:
+
+    ```bash
+    exit
+    ```
+
+  - SSH back into the EC2 instance using the same command from Task 1.
+  - This ensures that the new SSH session has the appropriate `docker` group permissions.
+
+- [ ] **Task 7: Verify Docker installation and permissions**
+  - Run the following command to verify that the `ec2-user` can run Docker commands without using `sudo`:
+
+    ```bash
+    docker ps
+    ```
+
+  - If Docker is installed correctly and the `ec2-user` has the necessary permissions, you should see an empty list of containers (since no containers are running yet).
 
 > [!NOTE]
-> **After completing this exercise, the EC2 instance is now ready to run the dockerized application from Exercise 1.**
->
-> **Remember to stop or terminate the EC2 instance when you are done to avoid incurring unnecessary charges.**
+> For more detailed instructions and troubleshooting tips, refer to the [official AWS documentation on installing Docker](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-docker.html).
+
