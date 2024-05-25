@@ -293,3 +293,63 @@ This refined task list incorporates the following best practices:
 
 > [!NOTE]
 > For more detailed instructions and troubleshooting tips, refer to the [official AWS documentation on installing Docker](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-docker.html).
+
+## Exercise 6
+
+- [ ] **Task 1: Use `docker init` to generate Docker configuration files**
+  - Open a terminal and navigate to the `aws-exercises/app` directory.
+  - Run the `docker init` command to automatically generate the following files:
+    - `.dockerignore`
+    - `Dockerfile`
+    - `compose.yaml`
+  - Provide the necessary information when prompted, such as the application platform, desired Node.js version, package manager, entry point, and port.
+
+- [ ] **Task 2: Review and customize the generated Docker configuration files**
+  - Open the generated `Dockerfile` and review its contents.
+  - Customize the `Dockerfile` if needed, based on your application's specific requirements.
+  - Open the generated `compose.yaml` file and review its contents.
+  - Customize the `compose.yaml` file if needed, such as adding additional services or volumes.
+
+- [ ] **Task 3: Commit and push the changes**
+  - Open a terminal and navigate to the root directory of your project.
+  - Run the following commands to stage and commit the changes:
+
+    ```bash
+    git add .
+    git commit -m "Add Docker Compose for deployment"
+    ```
+
+  - Push the changes to your remote repository:
+
+    ```bash
+    git push origin main
+    ```
+
+- [ ] **Task 4: Build and run the application using Docker Compose**
+  - Open a terminal and navigate to the `aws-exercises/app` directory.
+  - Run the following command to build the Docker image and start the containers:
+
+    ```bash
+    docker compose up -d
+    ```
+
+  - Wait for the build process to complete and the containers to start.
+
+- [ ] **Task 5: Test the application**
+  - Access the application in your web browser at `http://localhost:3000`.
+  - Verify that the application is running correctly and the images are being served.
+  - Run the tests using the following command:
+
+    ```bash
+    docker compose run app npm test
+    ```
+
+  - Ensure that the tests pass successfully.
+
+- [ ] **Task 6: Stop the application**
+  - In the terminal where the application is running, press `Ctrl+C` to stop the containers.
+  - Run the following command to remove the stopped containers:
+
+    ```bash
+    docker compose down
+    ```
