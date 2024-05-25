@@ -158,33 +158,71 @@
 
 ## Exercise 4
 
-- [ ] Task 1: Generate an SSH key pair
-  - Run the following command to generate an SSH key pair:
+- [ ] **Task 1: Create Key Pair**
+  - Run the following command to create a new key pair:
 
     ```bash
-    aws ec2 create-key-pair --key-name mykey --query KeyMaterial --output text > mykey.pem
+    aws ec2 create-key-pair --key-name my-key --query 'KeyMaterial' --output text > my-key.pem
     ```
 
-  - This command generates a new key pair named "mykey" and saves the private key to a file named "mykey.pem".
-  - Change the permissions of the private key file:
+  - This command creates a new key pair named "my-key" and saves the private key to a file named "my-key.pem" in the current directory.
+  - For Linux and MacOS, secure the key pair file by running the following command:
 
     ```bash
-    chmod 400 mykey.pem
+    chmod 400 my-key.pem
     ```
 
-- [ ] Task 2: Create an EC2 instance
+- [ ] **Task 2: Get the Latest Amazon Linux 2 AMI ID**
+  - Run the following command to retrieve the latest Amazon Linux 2 AMI ID:
+
+    ```bash
+    aws ssm get-parameters --names /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2 --region <REGION> --query 'Parameters[0].[Value]' --output text
+    ```
+
+  - Replace `<REGION>` with your desired AWS region (e.g., us-east-1).
+  - Save the AMI ID returned by the command.
+
+- [ ] **Task 3: Create EC2 Instance**
   - Run the following command to create an EC2 instance:
 
     ```bash
-    aws ec2 run-instances --image-id ami-0c94855ba95c71c99 --instance-type t2.micro --key-name mykey --subnet-id <subnet-id> --security-group-ids <security-group-id> --associate-public-ip-address
+    aws ec2 run-instances --image-id <AMI_ID> --instance-type t2.micro --key-name my-key --security-group-ids <SECURITY_GROUP_ID> --subnet-id <SUBNET_ID> --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=my-instance}]' --block-device-mappings '[{"DeviceName":"/dev/xvda","Ebs":{"VolumeSize":8,"VolumeType":"gp3","DeleteOnTermination":true,"Encrypted":true}}]' --metadata-options '{"HttpTokens":"required","HttpPutResponseHopLimit":1,"HttpEndpoint":"enabled"}' --query 'Instances[0].InstanceId' --output text
     ```
 
-  - Replace `<subnet-id>` with the Subnet ID obtained in Exercise 3, Task 2.
-  - Replace `<security-group-id>` with the Security Group ID obtained in Exercise3, Task 3.
-  - Take note of the Instance ID returned by the command.
+  - Replace `<AMI_ID>` with the AMI ID from Task 2.
+  - Replace `<SECURITY_GROUP_ID>` with the Security Group ID from Exercise 3, Task 3.
+  - Replace `<SUBNET_ID>` with the Subnet ID from Exercise 3, Task 2.
+  - The command uses the `t2.micro` instance type, which is eligible for the free tier.
+  - The `--block-device-mappings` option specifies the EBS volume configuration, including the volume size (8 GB), volume type (gp2), and encryption.
+  - The `--metadata-options` option configures the instance metadata service to require token-based access and limit the number of hops.
+  - Save the Instance ID returned by the command.
 
-> [!TIP]
-> **The `ami-0c94855ba95c71c99` used in the command represents the Amazon Machine Image (AMI) ID for Amazon Linux 2 in the US East (N. Virginia) region. If you are using a different region, you may need to find the appropriate AMI ID for that region.**
+- [ ] **Task 4: Verify EC2 Instance Creation**
+  - Run the following command to describe the EC2 instance:
+
+    ```bash
+    aws ec2 describe-instances --instance-ids <INSTANCE_ID>
+    ```
+
+  - Replace `<INSTANCE_ID>` with the Instance ID from Task 3.
+  - Review the output to ensure the instance details are correct, such as the VPC, subnet, security group, and key pair.
+
+- [ ] **Task 5: Retrieve Public IP Address**
+  - Run the following command to retrieve the public IP address of the EC2 instance:
+
+    ```bash
+    aws ec2 describe-instances --instance-ids <INSTANCE_ID> --query 'Reservations[0].Instances[0].PublicIpAddress' --output text
+    ```
+
+  - Replace `<INSTANCE_ID>` with the Instance ID from Task 3.
+  - Save the public IP address for connecting to the instance via SSH in Exercise 5.
+
+This refined task list incorporates the following best practices:
+
+- Using the latest Amazon Linux 2 AMI ID retrieved via AWS Systems Manager Parameter Store.
+- Configuring the EBS volume with encryption and appropriate size and type.
+- Configuring the instance metadata service to require token-based access and limit the number of hops.
+- Using the `t2.micro` instance type, which is eligible for the free tier.
 
 ## Exercise 5
 
