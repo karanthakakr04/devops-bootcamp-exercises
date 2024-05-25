@@ -293,4 +293,3 @@ This refined task list incorporates the following best practices:
 
 > [!NOTE]
 > For more detailed instructions and troubleshooting tips, refer to the [official AWS documentation on installing Docker](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-docker.html).
-
