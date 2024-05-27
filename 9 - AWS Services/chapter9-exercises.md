@@ -203,7 +203,7 @@
   - Run the following command to create an EC2 instance:
 
     ```bash
-    aws ec2 run-instances --image-id <AMI_ID> --instance-type t2.micro --key-name my-key --security-group-ids <SECURITY_GROUP_ID> --subnet-id <SUBNET_ID> --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=my-instance}]' --block-device-mappings '[{"DeviceName":"/dev/xvda","Ebs":{"VolumeSize":8,"VolumeType":"gp3","DeleteOnTermination":true,"Encrypted":true}}]' --metadata-options '{"HttpTokens":"required","HttpPutResponseHopLimit":1,"HttpEndpoint":"enabled"}' --query 'Instances[0].InstanceId' --output text
+    aws ec2 run-instances --image-id <AMI_ID> --instance-type t2.micro --key-name my-key --security-group-ids <SECURITY_GROUP_ID> --subnet-id <SUBNET_ID> --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=MyDeploymentServer},{Key=Environment,Value=Development},{Key=Owner,Value=JohnDoe},{Key=Project,Value=AlphaProject},{Key=Application,Value=AlphaDeployApp},{Key=CostCenter,Value=12345},{Key=Department,Value=Operations},{Key=Purpose,Value=CI/CDPipeline},{Key=CreatedBy,Value=AWSCLI}]' --block-device-mappings '[{"DeviceName":"/dev/xvda","Ebs":{"VolumeSize":8,"VolumeType":"gp3","DeleteOnTermination":true,"Encrypted":true}}]' --metadata-options '{"HttpTokens":"required","HttpPutResponseHopLimit":1,"HttpEndpoint":"enabled"}' --query 'Instances[0].InstanceId' --output text
     ```
 
   - Replace `<AMI_ID>` with the AMI ID from Task 2.
