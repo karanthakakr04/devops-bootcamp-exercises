@@ -78,6 +78,7 @@
 
 - [ ] **Task 1: Install AWS CLI**
   - Go to the [AWS CLI installation guide](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html), choose the appropriate installation method for your operating system, and follow the provided installation instructions.
+  - For more detailed information, source code, and to report issues, visit the [AWS CLI GitHub repository](https://github.com/aws/aws-cli).
   - Verify the installation by running:
 
     ```bash
