@@ -226,6 +226,9 @@ This refined task list incorporates the following best practices:
 
 ## Exercise 5
 
+> [!IMPORTANT]
+> **The following task list assumes you are using an Amazon Linux 2023 AMI for your EC2 instance. If you are using a different operating system, such as Ubuntu or another Linux distribution, please be aware that the specific commands and steps may vary. In such cases, it is recommended to refer to the official documentation and guides specific to your operating system for installing Docker and Docker Compose.**
+
 - [ ] **Task 1: SSH into the EC2 instance**
   - Open a terminal or command prompt.
   - Navigate to the directory where you saved the key pair file (`my-key.pem`) in Exercise 4.
