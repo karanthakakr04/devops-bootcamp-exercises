@@ -309,7 +309,10 @@ This refined task list incorporates the following best practices:
   - You should see the version information for Docker Compose.
 
 > [!TIP]
-> For a detailed installation guide and additional information, you can refer to this helpful Medium blog post: [How To configure Docker & Docker-Compose in AWS EC2 [Amazon Linux 2023 AMI]](https://medium.com/@fredmanre/how-to-configure-docker-docker-compose-in-aws-ec2-amazon-linux-2023-ami-ab4d10b2bcdc)
+> For detailed installation guides and additional information, you can refer to the following resources:
+>
+> - [How To configure Docker & Docker-Compose in AWS EC2 [Amazon Linux 2023 AMI]](https://medium.com/@fredmanre/how-to-configure-docker-docker-compose-in-aws-ec2-amazon-linux-2023-ami-ab4d10b2bcdc)
+> - [Docker & Docker Compose Installation Guide for Amazon Linux 2023](https://gist.github.com/npearce/6f3c7826c7499587f00957fee62f8ee9)
 
 ## Exercise 6
 
