@@ -291,8 +291,25 @@ This refined task list incorporates the following best practices:
 
   - If Docker is installed correctly and the `ec2-user` has the necessary permissions, you should see an empty list of containers (since no containers are running yet).
 
-> [!NOTE]
-> For more detailed instructions and troubleshooting tips, refer to the [official AWS documentation on installing Docker](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-docker.html).
+- [ ] **Task 8: Install Docker Compose**
+  - Since Amazon Linux 2023 AMI does not come with Docker Compose pre-installed, we need to install it separately.
+  - Run the following commands to download and install the latest version of Docker Compose:
+
+    ```bash
+    sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
+    ```
+
+  - Verify the installation by running:
+
+    ```bash
+    docker-compose version
+    ```
+
+  - You should see the version information for Docker Compose.
+
+> [!TIP]
+> For a detailed installation guide and additional information, you can refer to this helpful Medium blog post: [How To configure Docker & Docker-Compose in AWS EC2 [Amazon Linux 2023 AMI]](https://medium.com/@fredmanre/how-to-configure-docker-docker-compose-in-aws-ec2-amazon-linux-2023-ami-ab4d10b2bcdc)
 
 ## Exercise 6
 
