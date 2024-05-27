@@ -374,7 +374,7 @@
     git push origin main
     ```
 
-## Exercise 7: Add "deploy to EC2" step to your existing pipeline
+## Exercise 7
 
 - [ ] Task 1: Set up SSH credentials in Jenkins
   - In the Jenkins web interface, navigate to "Manage Jenkins" > "Manage Credentials".
@@ -416,7 +416,7 @@
   - Trigger the Jenkins pipeline and verify that the application is deployed successfully on the EC2 instance.
   - Access the application using the public IP or DNS name of the EC2 instance.
 
-## Exercise 8: Configure access from browser (EC2 Security Group)
+## Exercise 8
 
 - [ ] Task 1: Retrieve the security group ID
   - Open the AWS Management Console and navigate to the EC2 dashboard.
@@ -464,7 +464,7 @@
 
 6. **Monitor and Alert**: Implement monitoring and alerting mechanisms to detect and notify you of any unauthorized or suspicious changes to your security group configurations. This enables you to take prompt action in case of any security breaches or misconfigurations.
 
-## Exercise 9: Configure automatic triggering of multi-branch pipeline
+## Exercise 9
 
 - [ ] Task 1: Update the Jenkinsfile with branch-based logic
   - Open the Jenkinsfile in your project repository.
