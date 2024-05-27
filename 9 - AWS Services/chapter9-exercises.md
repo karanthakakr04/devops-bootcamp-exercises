@@ -398,36 +398,80 @@ While these alternative methods provide more secure ways to establish SSH connec
 
 For the purpose of this exercise, we will proceed with using the `-o StrictHostKeyChecking=no` flag, but it is important to be aware of the security implications and consider implementing more secure methods in production environments.
 
-- [ ] Task 1: Update the Jenkinsfile
-  - Open the Jenkinsfile from the previous exercise's project.
-  - Add a new stage called "Deploy" after the existing stages.
-  - Inside the "Deploy" stage, use the `sshagent` block to connect to the deployment server using the existing SSH key (`my-key.pem`) created in Exercise 4.
-  - Use the `sh` step to execute the necessary commands to deploy the application on the deployment server. For example:
+- [ ] Task 1: Create a shell script for deployment commands
+  - Create a new file named `server-commands.sh` in your project repository.
+  - Open the `server-commands.sh` file and add the following content:
+
+    ```bash
+    #!/usr/bin/env bash
+
+    export IMAGE=$1
+
+    docker-compose -f docker-compose.yaml up --detach
+
+    echo "success"
+    ```
+
+  - This shell script takes the image name as an argument, sets it as an environment variable, and runs the `docker-compose up` command with the provided `docker-compose.yaml` file to start the application container.
+
+- [ ] Task 2: Create a `docker-compose.yaml` file
+  - Create a new file named `docker-compose.yaml` in your project repository.
+  - Open the `docker-compose.yaml` file and add the following content:
+
+    ```yaml
+    version: '3'
+    services:
+      my-app:
+        image: <docker-registry>/<image-name>:${IMAGE}
+        container_name: my-app
+        ports:
+          - 80:3000
+    ```
+
+  - Replace `<docker-registry>` and `<image-name>` with the appropriate values for your Docker registry and image name.
+  - The `docker-compose.yaml` file defines a service named `my-app` that uses the Docker image specified by the `IMAGE` environment variable. It maps port 80 on the host to port 3000 in the container.
+
+- [ ] Task 3: Update the Jenkinsfile
+  - Open the `Jenkinsfile` in your project repository.
+  - Add a new stage named "Deploy" after the existing stages:
 
     ```groovy
-    stage('Deploy') {
+    stage("Deploy") {
       steps {
-        sshagent(['my-ssh-key']) {
-          sh '''
-            ssh -o StrictHostKeyChecking=no ec2-user@<deployment-server-public-ip> "
-              docker stop my-app || true
-              docker rm my-app || true
-              docker pull <docker-registry>/<image-name>:${env.IMAGE_VERSION}
-              docker run -d --name my-app -p 80:3000 <docker-registry>/<image-name>:${env.IMAGE_VERSION}
-            "
-          '''
+        script {
+          echo 'Deploying the Docker image to the deployment server...'
+          def shellCmd = "bash ./server-commands.sh ${IMAGE_NAME}"
+          def deploymentServer = "ec2-user@<deployment-server-public-ip>"
+
+          sshagent(['my-ssh-key']) {
+            sh "scp -o StrictHostKeyChecking=no server-commands.sh ${deploymentServer}:/home/ec2-user"
+            sh "scp -o StrictHostKeyChecking=no docker-compose.yaml ${deploymentServer}:/home/ec2-user"
+            sh "ssh -o StrictHostKeyChecking=no ${deploymentServer} ${shellCmd}"
+          }
         }
       }
     }
     ```
 
-  - Replace `<deployment-server-public-ip>` and `<docker-registry>` with the appropriate values for your deployment server and Docker registry.
-  - Use the `${env.IMAGE_VERSION}` variable to reference the incremented version from the previous stages.
+  - Replace `<deployment-server-public-ip>` with the public IP address of your deployment server.
+  - The `sshagent` block is used to authenticate with the deployment server using the SSH key stored in the Jenkins credentials.
+  - The `scp` commands copy the `server-commands.sh` and `docker-compose.yaml` files to the deployment server.
+  - The `ssh` command connects to the deployment server and executes the `server-commands.sh` script with the `${IMAGE_NAME}` as an argument.
 
-- [ ] Task 2: Test the deployment
-  - Push the updated Jenkinsfile to the Git repository.
-  - Trigger the Jenkins pipeline and verify that the application is deployed successfully on the deployment server.
-  - Access the application using the public IP or DNS name of the deployment server.
+- [ ] Task 4: Configure Jenkins credentials for SSH access
+  - In the Jenkins web interface, navigate to "Manage Jenkins" > "Manage Credentials".
+  - Click on "Jenkins" in the "Stores scoped to Jenkins" section.
+  - Click on "Global credentials" and then "Add Credentials".
+  - Select "SSH Username with private key" as the kind.
+  - Provide a meaningful ID (e.g., "my-ssh-key") and description for the credentials.
+  - Enter the username for accessing the deployment server (e.g., "ec2-user").
+  - Select "Enter directly" for the private key and paste the contents of the SSH private key.
+  - Click "OK" to save the credentials.
+
+- [ ] Task 5: Run the Jenkins pipeline
+  - Push the updated `Jenkinsfile`, `server-commands.sh`, and `docker-compose.yaml` files to your project repository.
+  - In the Jenkins web interface, navigate to your pipeline and click on "Build Now" to trigger a new build.
+  - Monitor the pipeline execution and verify that the deployment stage runs successfully.
 
 ## Exercise 8
 
