@@ -2147,8 +2147,6 @@ post {
 
 Customize the `post` block according to your specific requirements, such as sending email notifications, updating job status, or triggering downstream jobs.
 
-Apologies for the incomplete information. Let me continue the explanation from where I left off.
-
 #### Using Declarative Pipeline Syntax in Shared Libraries
 
 Starting from Jenkins Pipeline 2.5, you can use the declarative pipeline syntax inside the shared library scripts. This allows you to encapsulate the pipeline structure and stages within the shared library, making it reusable across multiple pipelines.
