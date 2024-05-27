@@ -363,3 +363,131 @@ This refined task list incorporates the following best practices:
     ```bash
     git push origin main
     ```
+
+## Exercise 7: Add "deploy to EC2" step to your existing pipeline
+
+- [ ] Task 1: Set up SSH credentials in Jenkins
+  - In the Jenkins web interface, navigate to "Manage Jenkins" > "Manage Credentials".
+  - Click on "Jenkins" in the "Stores scoped to Jenkins" section.
+  - Click on "Global credentials" and then "Add Credentials".
+  - Select "SSH Username with private key" as the kind.
+  - Provide a meaningful ID and description for the credentials.
+  - Enter the username for accessing the EC2 instance (e.g., "ubuntu").
+  - Select "Enter directly" for the private key and paste the contents of the private key file associated with the EC2 instance.
+  - Click "OK" to save the credentials.
+
+- [ ] Task 2: Update the Jenkinsfile
+  - Open the Jenkinsfile from the previous exercise's project.
+  - Add a new stage called "Deploy to EC2" after the existing stages.
+  - Inside the new stage, use the `sshagent` block to connect to the EC2 instance using the SSH credentials created in the previous task.
+  - Use the `sh` step to execute the necessary commands to deploy the application on the EC2 instance. For example:
+
+    ```groovy
+    stage('Deploy to EC2') {
+      steps {
+        sshagent(['ec2-ssh-credentials']) {
+          sh '''
+            ssh -o StrictHostKeyChecking=no ubuntu@<ec2-instance-public-ip> "
+              docker stop my-app || true
+              docker rm my-app || true
+              docker pull <docker-registry>/<image-name>:<tag>
+              docker run -d --name my-app -p 80:3000 <docker-registry>/<image-name>:<tag>
+            "
+          '''
+        }
+      }
+    }
+    ```
+
+  - Replace `<ec2-instance-public-ip>`, `<docker-registry>`, `<image-name>`, and `<tag>` with the appropriate values for your EC2 instance and Docker image.
+
+- [ ] Task 3: Test the deployment
+  - Push the updated Jenkinsfile to the Git repository.
+  - Trigger the Jenkins pipeline and verify that the application is deployed successfully on the EC2 instance.
+  - Access the application using the public IP or DNS name of the EC2 instance.
+
+## Exercise 8: Configure access from browser (EC2 Security Group)
+
+- [ ] Task 1: Configure the security group through the AWS Management Console
+  - Open the AWS Management Console and navigate to the EC2 dashboard.
+  - In the left sidebar, click on "Security Groups" under the "Network & Security" section.
+  - Locate the security group associated with your EC2 instance and select it.
+  - In the "Inbound rules" tab, click on "Edit inbound rules".
+  - Click on "Add rule" and configure the following:
+    - Type: Custom TCP
+    - Port range: 80 (or the port your application is running on)
+    - Source: Custom, 0.0.0.0/0 (allows access from any IP address)
+  - Click on "Save rules" to apply the changes.
+
+> [!NOTE]
+> **Alternatively, you can configure the security group using the AWS CLI. Here's an example command:**
+>
+> ```bash
+> aws ec2 authorize-security-group-ingress --group-id <security-group-id> --protocol tcp --port 80 --cidr 0.0.0.0/0
+> ```
+>
+> Replace `<security-group-id>` with the ID of the security group associated with your EC2 instance.
+
+- [ ] Task 2: Verify access from the browser
+  - Open a web browser.
+  - Enter the public IP or DNS name of your EC2 instance in the address bar.
+  - Verify that you can access the deployed application successfully.
+
+## Exercise 9: Configure automatic triggering of multi-branch pipeline
+
+- [ ] Task 1: Update the Jenkinsfile with branch-based logic
+  - Open the Jenkinsfile in your project repository.
+  - Add a condition to execute certain stages only for the master branch. For example:
+
+    ```groovy
+    stage('Deploy') {
+      when {
+        branch 'master'
+      }
+      steps {
+        // Deployment steps for the master branch
+      }
+    }
+
+    stage('Run Tests') {
+      when {
+        not {
+          branch 'master'
+        }
+      }
+      steps {
+        // Test execution steps for non-master branches
+      }
+    }
+    ```
+
+  - Use the `when` directive to specify conditions for executing specific stages based on the branch name.
+  - In this example, the "Deploy" stage runs only for the master branch, while the "Run Tests" stage runs for all other branches.
+
+- [ ] Task 2: Set up a multi-branch pipeline in Jenkins
+  - In the Jenkins web interface, click on "New Item".
+  - Enter a name for your multi-branch pipeline and select "Multibranch Pipeline" as the item type.
+  - Click "OK" to create the multi-branch pipeline.
+  - In the configuration page, under the "Branch Sources" section, click "Add source" and select "Git".
+  - Provide the repository URL and credentials for accessing the Git repository.
+  - Configure any additional settings, such as the branch naming convention or automatic branch discovery.
+  - Save the multi-branch pipeline configuration.
+
+- [ ] Task 3: Configure webhook in the Git repository
+  - Go to your Git repository's settings page (e.g., GitHub, GitLab).
+  - Navigate to the webhooks section.
+  - Click on "Add webhook" or similar option.
+  - Provide the Jenkins URL where the webhook should be sent. For example:
+
+    ```bash
+    http://<jenkins-url>/multibranch-webhook-trigger/invoke?token=<token>
+    ```
+
+  - Replace `<jenkins-url>` with the URL of your Jenkins server and `<token>` with a unique token for authentication (if required).
+  - Select the desired events that should trigger the webhook (e.g., push events).
+  - Save the webhook configuration.
+
+- [ ] Task 4: Test the multi-branch pipeline
+  - Create a new branch in your Git repository and push some changes.
+  - Verify that the multi-branch pipeline automatically detects the new branch and triggers the pipeline execution.
+  - Confirm that the appropriate stages are executed based on the branch-based logic defined in the Jenkinsfile.
