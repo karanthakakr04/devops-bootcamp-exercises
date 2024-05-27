@@ -332,47 +332,34 @@ This refined task list incorporates the following best practices:
   - Customize the `Dockerfile` if needed, based on your application's specific requirements.
   - Open the generated `compose.yaml` file and review its contents.
   - Customize the `compose.yaml` file if needed, such as adding additional services or volumes.
+  - Open the generated `.dockerignore` file and review its contents.
+  - Customize the `.dockerignore` file if needed, adding any additional files or directories to be excluded from the Docker build context.
 
 - [ ] **Task 3: Commit and push the changes**
   - Open a terminal and navigate to the root directory of your project.
-  - Run the following commands to stage and commit the changes:
+  - Run the following commands to stage and commit the `.dockerignore` file:
 
     ```bash
-    git add .
-    git commit -m "Add Docker Compose for deployment"
+    git add .dockerignore
+    git commit -m "Add .dockerignore file"
+    ```
+
+  - Run the following commands to stage and commit the `Dockerfile`:
+
+    ```bash
+    git add Dockerfile
+    git commit -m "Add Dockerfile for containerization"
+    ```
+
+  - Run the following commands to stage and commit the `compose.yaml` file:
+
+    ```bash
+    git add compose.yaml
+    git commit -m "Add Docker Compose configuration"
     ```
 
   - Push the changes to your remote repository:
 
     ```bash
     git push origin main
-    ```
-
-- [ ] **Task 4: Build and run the application using Docker Compose**
-  - Open a terminal and navigate to the `aws-exercises/app` directory.
-  - Run the following command to build the Docker image and start the containers:
-
-    ```bash
-    docker compose up -d
-    ```
-
-  - Wait for the build process to complete and the containers to start.
-
-- [ ] **Task 5: Test the application**
-  - Access the application in your web browser at `http://localhost:3000`.
-  - Verify that the application is running correctly and the images are being served.
-  - Run the tests using the following command:
-
-    ```bash
-    docker compose run app npm test
-    ```
-
-  - Ensure that the tests pass successfully.
-
-- [ ] **Task 6: Stop the application**
-  - In the terminal where the application is running, press `Ctrl+C` to stop the containers.
-  - Run the following command to remove the stopped containers:
-
-    ```bash
-    docker compose down
     ```
