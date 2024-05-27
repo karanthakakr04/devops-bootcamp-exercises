@@ -2,7 +2,7 @@
 
 ## Exercise 1
 
-> [!IMPORTANT]
+> [!CAUTION]
 > **The IAM user created in this exercise should only have the necessary permissions to perform their required tasks. Avoid using overly permissive policies such as `AdministratorAccess`.**
 
 - [ ] **Task 1: Login to AWS Management Console**
