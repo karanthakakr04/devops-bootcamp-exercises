@@ -24,5 +24,20 @@ pipeline {
         )
       }
     }
+    stage("Deploy") {
+      steps {
+        script {
+          echo 'Deploying the Docker image to the deployment server...'
+          def shellCmd = "bash ./server-commands.sh ${IMAGE_NAME}"
+          def deploymentServer = "ec2-user@<deployment-server-public-ip>"
+
+          sshagent(['my-ssh-key']) {
+            sh "scp -o StrictHostKeyChecking=no server-commands.sh ${deploymentServer}:/home/ec2-user"
+            sh "scp -o StrictHostKeyChecking=no docker-compose.yaml ${deploymentServer}:/home/ec2-user"
+            sh "ssh -o StrictHostKeyChecking=no ${deploymentServer} ${shellCmd}"
+          }
+        }
+      }
+    }
   }
 }
