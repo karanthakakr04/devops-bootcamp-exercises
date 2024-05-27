@@ -376,47 +376,56 @@
 
 ## Exercise 7
 
-- [ ] Task 1: Set up SSH credentials in Jenkins
-  - In the Jenkins web interface, navigate to "Manage Jenkins" > "Manage Credentials".
-  - Click on "Jenkins" in the "Stores scoped to Jenkins" section.
-  - Click on "Global credentials" and then "Add Credentials".
-  - Select "SSH Username with private key" as the kind.
-  - Provide a meaningful ID and description for the credentials.
-  - Enter the username for accessing the EC2 instance (e.g., "ubuntu").
-  - Select "Enter directly" for the private key and paste the contents of the private key file associated with the EC2 instance.
-  - Click "OK" to save the credentials.
+### Understanding the `-o StrictHostKeyChecking=no` Flag
 
-- [ ] Task 2: Update the Jenkinsfile
+In the provided pipeline script, the `-o StrictHostKeyChecking=no` flag is used in the SSH command to disable strict host key checking. While this flag simplifies the SSH connection process by automatically adding the server's public key to the `known_hosts` file without verification, it poses a security risk.
+
+When connecting to an SSH server for the first time, the server sends its public key to the client, which is then stored in the `~/.ssh/known_hosts` file. In subsequent connections, the client compares the server's public key with the one stored in the `known_hosts` file to verify the server's identity and prevent man-in-the-middle attacks.
+
+By using `-o StrictHostKeyChecking=no`, the client automatically adds the server's public key to the `known_hosts` file without prompting or verifying it. If an attacker manages to intercept the connection and present a different public key, the client will trust it blindly, potentially compromising the security of the connection.
+
+#### Alternative Methods for Secure SSH Connection
+
+1. **Manual Verification**: Instead of using `-o StrictHostKeyChecking=no`, you can manually verify the server's public key by connecting to the server separately and comparing the displayed public key with the one provided by the server administrator or through a secure channel.
+
+2. **SSH CA (Certificate Authority)**: Implement an SSH CA to manage and sign host keys. By using signed host keys, clients can verify the authenticity of the server's public key against the trusted CA, eliminating the need for manual verification or disabling strict host key checking.
+
+3. **SSH Fingerprints**: Compare the SSH fingerprint of the server's public key with a pre-shared fingerprint. The fingerprint can be obtained securely from the server administrator or through a trusted source. If the fingerprints match, the client can trust the server's identity.
+
+While these alternative methods provide more secure ways to establish SSH connections, they may require additional setup and coordination with the server administrator.
+
+For the purpose of this exercise, we will proceed with using the `-o StrictHostKeyChecking=no` flag, but it is important to be aware of the security implications and consider implementing more secure methods in production environments.
+
+- [ ] Task 1: Update the Jenkinsfile
   - Open the Jenkinsfile from the previous exercise's project.
   - Add a new stage called "Deploy" after the existing stages.
-  - Inside the new stage, use the `sshagent` block to connect to the EC2 instance using the SSH credentials created in the previous task.
-  - Use the `sh` step to execute the necessary commands to deploy the application on the EC2 instance. For example:
+  - Inside the "Deploy" stage, use the `sshagent` block to connect to the deployment server using the existing SSH key (`my-key.pem`) created in Exercise 4.
+  - Use the `sh` step to execute the necessary commands to deploy the application on the deployment server. For example:
 
     ```groovy
     stage('Deploy') {
       steps {
-        script {
-          sshagent(['my-ssh-key']) {
-            sh """
-              ssh -o StrictHostKeyChecking=no ec2-user@<ec2-instance-public-ip> "
-                docker stop my-app || true
-                docker rm my-app || true
-                docker pull ${DOCKER_REGISTRY}/${IMAGE_NAME}:${env.IMAGE_VERSION}
-                docker run -d --name my-app -p 80:3000 ${DOCKER_REGISTRY}/${IMAGE_NAME}:${env.IMAGE_VERSION}
-              "
-            """
-          }
+        sshagent(['my-ssh-key']) {
+          sh '''
+            ssh -o StrictHostKeyChecking=no ec2-user@<deployment-server-public-ip> "
+              docker stop my-app || true
+              docker rm my-app || true
+              docker pull <docker-registry>/<image-name>:${env.IMAGE_VERSION}
+              docker run -d --name my-app -p 80:3000 <docker-registry>/<image-name>:${env.IMAGE_VERSION}
+            "
+          '''
         }
       }
     }
     ```
 
-  - Replace `<ec2-instance-public-ip>`, `<docker-registry>`, `<image-name>`, and `<tag>` with the appropriate values for your EC2 instance and Docker image.
+  - Replace `<deployment-server-public-ip>` and `<docker-registry>` with the appropriate values for your deployment server and Docker registry.
+  - Use the `${env.IMAGE_VERSION}` variable to reference the incremented version from the previous stages.
 
-- [ ] Task 3: Test the deployment
+- [ ] Task 2: Test the deployment
   - Push the updated Jenkinsfile to the Git repository.
-  - Trigger the Jenkins pipeline and verify that the application is deployed successfully on the EC2 instance.
-  - Access the application using the public IP or DNS name of the EC2 instance.
+  - Trigger the Jenkins pipeline and verify that the application is deployed successfully on the deployment server.
+  - Access the application using the public IP or DNS name of the deployment server.
 
 ## Exercise 8
 
