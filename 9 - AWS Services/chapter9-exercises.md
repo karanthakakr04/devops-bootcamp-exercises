@@ -173,6 +173,12 @@
     chmod 400 my-key.pem
     ```
 
+  - Validate the key pair creation by checking the file existence and permissions:
+
+    ```bash
+    ls -l my-key.pem
+    ```
+
 - [ ] **Task 2: Get the Latest Amazon Linux 2 AMI ID**
   - Run the following command to retrieve the latest Amazon Linux 2 AMI ID:
 
@@ -183,7 +189,17 @@
   - Replace `<REGION>` with your desired AWS region (e.g., us-east-1).
   - Save the AMI ID returned by the command.
 
-- [ ] **Task 3: Create EC2 Instance**
+- [ ] **Task 3: Validate the AMI ID**
+  - Run the following command to get detailed information about the AMI:
+
+    ```bash
+    aws ec2 describe-images --image-ids <AMI_ID> --query 'Images[0].{ID:ImageId,Name:Name,State:State,Description:Description,CreationDate:CreationDate,OwnerId:OwnerId,Public:Public,RootDeviceType:RootDeviceType,VirtualizationType:VirtualizationType,Architecture:Architecture,Platform:Platform,Tags:Tags,Hypervisor:Hypervisor}' --output table
+    ```
+
+  - Replace `<AMI_ID>` with the AMI ID from Task 2.
+  - Verify the details of the AMI to ensure it meets your requirements.
+
+- [ ] **Task 4: Create EC2 Instance**
   - Run the following command to create an EC2 instance:
 
     ```bash
@@ -198,7 +214,7 @@
   - The `--metadata-options` option configures the instance metadata service to require token-based access and limit the number of hops.
   - Save the Instance ID returned by the command.
 
-- [ ] **Task 4: Verify EC2 Instance Creation**
+- [ ] **Task 5: Verify EC2 Instance Creation**
   - Run the following command to describe the EC2 instance:
 
     ```bash
@@ -208,7 +224,7 @@
   - Replace `<INSTANCE_ID>` with the Instance ID from Task 3.
   - Review the output to ensure the instance details are correct, such as the VPC, subnet, security group, and key pair.
 
-- [ ] **Task 5: Retrieve Public IP Address**
+- [ ] **Task 6: Retrieve Public IP Address**
   - Run the following command to retrieve the public IP address of the EC2 instance:
 
     ```bash
