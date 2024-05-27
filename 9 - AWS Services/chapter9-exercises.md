@@ -374,6 +374,8 @@
     git push origin main
     ```
 
+![Screenshot of docker init command](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/c51d4747-4c24-40fa-ae2e-87c1b619061c)
+
 ## Exercise 7
 
 ### Understanding the `-o StrictHostKeyChecking=no` Flag
