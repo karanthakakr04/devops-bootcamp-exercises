@@ -187,7 +187,7 @@
   - Run the following command to retrieve the latest Amazon Linux 2 AMI ID:
 
     ```bash
-    aws ssm get-parameters --names /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2 --region <REGION> --query 'Parameters[0].[Value]' --output text
+    aws ssm get-parameter --name /aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64 --region <REGION> --query 'Parameter.Value' --output text
     ```
 
   - Replace `<REGION>` with your desired AWS region (e.g., us-east-1).
