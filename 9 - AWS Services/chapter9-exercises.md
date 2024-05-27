@@ -398,7 +398,7 @@
         script {
           sshagent(['my-ssh-key']) {
             sh """
-              ssh -o StrictHostKeyChecking=no ec2-user@$<ec2-instance-public-ip> "
+              ssh -o StrictHostKeyChecking=no ec2-user@<ec2-instance-public-ip> "
                 docker stop my-app || true
                 docker rm my-app || true
                 docker pull ${DOCKER_REGISTRY}/${IMAGE_NAME}:${env.IMAGE_VERSION}
