@@ -217,6 +217,7 @@
   - The `--block-device-mappings` option specifies the EBS volume configuration, including the volume size (8 GB), volume type (gp3), and encryption.
   - The `--metadata-options` option configures the instance metadata service to require token-based access and limit the number of hops.
   - Save the Instance ID returned by the command.
+  - For more information about Amazon Linux 2023, refer to the [Amazon Linux 2023 Documentation](https://docs.aws.amazon.com/linux/al2023/ug/ec2.html).
 
 - [ ] **Task 5: Verify EC2 Instance Creation**
   - Run the following command to describe the EC2 instance:
