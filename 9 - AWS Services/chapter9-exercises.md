@@ -463,7 +463,7 @@ This refined task list incorporates the following best practices:
     ```groovy
     stage('Deploy') {
       when {
-        branch 'master'
+        branch 'main'
       }
       steps {
         // Deployment steps for the master branch
@@ -473,7 +473,7 @@ This refined task list incorporates the following best practices:
     stage('Run Tests') {
       when {
         not {
-          branch 'master'
+          branch 'main'
         }
       }
       steps {
