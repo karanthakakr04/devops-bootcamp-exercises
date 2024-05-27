@@ -5,21 +5,21 @@
 > [!CAUTION]
 > **The IAM user created in this exercise should only have the necessary permissions to perform their required tasks. Avoid using overly permissive policies such as `AdministratorAccess`.**
 
-- [ ] **Task 1: Login to AWS Management Console**
+- [x] **Task 1: Login to AWS Management Console**
   - Open your web browser.
   - Navigate to the [AWS Management Console](https://aws.amazon.com/console/).
   - Click on the _Sign in to the Console_ button.
   - Enter your admin username and password.
   - Click on _Sign In_.
 
-- [ ] **Task 2: Navigate to IAM Service**
+- [x] **Task 2: Navigate to IAM Service**
   - On the AWS Management Console home page, you can either:
     - Find _IAM_ under the _Security, Identity, & Compliance_ section and click on it, or
     - Use the search bar at the top to search for _IAM_ and click on the _IAM_ result.
   - In the IAM dashboard, click on _Users_ in the left sidebar.
   - Click on the _Create user_ button.
 
-- [ ] **Task 3: Enter user details**
+- [x] **Task 3: Enter user details**
   - On the _Specify user details_ page:
     - You will be presented with two options:
       - _AWS IAM Identity Center_
@@ -35,7 +35,7 @@
 > [!NOTE]
 > **AWS recommends using AWS IAM Identity Center for centralized access management and short-term credentials. However, for this exercise, we will use _IAM User_ as it is within the scope of our demonstration. For more information, refer to the [AWS IAM Identity Center User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction_identity-management.html#intro-identity-users). You can also watch this [YouTube tutorial](https://www.youtube.com/watch?v=_KhrGFV_Npw) for a detailed setup of AWS IAM Identity Center.**
 
-- [ ] **Task 4: Assign permissions to the IAM user**
+- [x] **Task 4: Assign permissions to the IAM user**
   - On the _Set permissions_ page, you will see three options to set permissions:
     - _Add user to group_
     - _Copy permissions from existing user_
@@ -53,7 +53,7 @@
   - Ensure the new user is added to the `devops` group.
   - Click on _Next_ button.
 
-- [ ] **Task 5: Finalize and create the IAM user**
+- [x] **Task 5: Finalize and create the IAM user**
   - On the _Review and create_ page:
     - Review the user details and permissions.
     - Optionally, add tags to the IAM user for better organization and management. Here are some suggested tags:
@@ -65,7 +65,7 @@
       - CreationDate: 2024-05-19
     - If everything looks correct, click on the _Create user_ button.
 
-- [ ] **Task 6: Save IAM user credentials**
+- [x] **Task 6: Save IAM user credentials**
   - You will be presented with the _Step 4: Retrieve password_ page.
   - Click on the _Download .csv_ button to download the credentials file, which contains the access key ID, secret access key, and password for the IAM user.
   - Store the downloaded file securely, as it contains sensitive information.
@@ -76,7 +76,7 @@
 
 ## Exercise 2
 
-- [ ] **Task 1: Install AWS CLI**
+- [x] **Task 1: Install AWS CLI**
   - Go to the [AWS CLI installation guide](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html), choose the appropriate installation method for your operating system, and follow the provided installation instructions.
   - For more detailed information, source code, and to report issues, visit the [AWS CLI GitHub repository](https://github.com/aws/aws-cli).
   - Verify the installation by running:
@@ -85,7 +85,7 @@
     aws --version
     ```
 
-- [ ] **Task 2: Configure AWS CLI with IAM user credentials**
+- [x] **Task 2: Configure AWS CLI with IAM user credentials**
   - Run the following command to configure AWS CLI:
 
     ```bash
@@ -98,7 +98,7 @@
     - Default region name: Enter the desired AWS region (e.g., us-east-1).
     - Default output format: Press Enter to use the default format (json).
 
-- [ ] **Task 3: Verify AWS CLI configuration**
+- [x] **Task 3: Verify AWS CLI configuration**
   - Run the following command to verify the IAM identity and account information:
 
     ```bash
@@ -117,7 +117,7 @@
 
 ## Exercise 3
 
-- [ ] **Task 1: Create a new VPC**
+- [x] **Task 1: Create a new VPC**
   - Run the following command to create a new VPC:
 
     ```bash
@@ -126,7 +126,7 @@
 
   - Take note of the VPC ID returned by the command.
 
-- [ ] **Task 2: Create a subnet within the VPC**
+- [x] **Task 2: Create a subnet within the VPC**
   - Run the following command to create a subnet within the VPC:
 
     ```bash
@@ -136,7 +136,7 @@
   - Replace `<vpc-id>` with the VPC ID obtained in Task 1.
   - Take note of the Subnet ID returned by the command.
 
-- [ ] **Task 3: Create a security group**
+- [x] **Task 3: Create a security group**
   - Run the following command to create a security group:
 
     ```bash
@@ -146,7 +146,7 @@
   - Replace `<vpc-id>` with the VPC ID obtained in Task 1.
   - Take note of the Security Group ID returned by the command.
 
-- [ ] **Task 4: Configure Security Group Rules**
+- [x] **Task 4: Configure Security Group Rules**
   - Run the following command to allow inbound SSH (port 22) access from a specific IP address or range:
   
     ```bash
@@ -163,7 +163,7 @@
 
 ## Exercise 4
 
-- [ ] **Task 1: Create Key Pair**
+- [x] **Task 1: Create Key Pair**
   - Run the following command to create a new key pair:
 
     ```bash
@@ -183,7 +183,7 @@
     ls -l my-key.pem
     ```
 
-- [ ] **Task 2: Get the Latest Amazon Linux 2 AMI ID**
+- [x] **Task 2: Get the Latest Amazon Linux 2 AMI ID**
   - Run the following command to retrieve the latest Amazon Linux 2 AMI ID:
 
     ```bash
@@ -193,7 +193,7 @@
   - Replace `<REGION>` with your desired AWS region (e.g., us-east-1).
   - Save the AMI ID returned by the command.
 
-- [ ] **Task 3: Validate the AMI ID**
+- [x] **Task 3: Validate the AMI ID**
   - Run the following command to get detailed information about the AMI:
 
     ```bash
@@ -203,7 +203,7 @@
   - Replace `<AMI_ID>` with the AMI ID from Task 2.
   - Verify the details of the AMI to ensure it meets your requirements.
 
-- [ ] **Task 4: Create EC2 Instance**
+- [x] **Task 4: Create EC2 Instance**
   - Run the following command to create an EC2 instance:
 
     ```bash
@@ -219,7 +219,7 @@
   - Save the Instance ID returned by the command.
   - For more information about Amazon Linux 2023, refer to the [Amazon Linux 2023 Documentation](https://docs.aws.amazon.com/linux/al2023/ug/ec2.html).
 
-- [ ] **Task 5: Verify EC2 Instance Creation**
+- [x] **Task 5: Verify EC2 Instance Creation**
   - Run the following command to describe the EC2 instance:
 
     ```bash
@@ -229,7 +229,7 @@
   - Replace `<INSTANCE_ID>` with the Instance ID from Task 3.
   - Review the output to ensure the instance details are correct, such as the VPC, subnet, security group, and key pair.
 
-- [ ] **Task 6: Retrieve Public IP Address**
+- [x] **Task 6: Retrieve Public IP Address**
   - Run the following command to retrieve the public IP address of the EC2 instance:
 
     ```bash
@@ -244,7 +244,7 @@
 > [!IMPORTANT]
 > **The following task list assumes you are using an Amazon Linux 2023 AMI for your EC2 instance. If you are using a different operating system, such as Ubuntu or another Linux distribution, please be aware that the specific commands and steps may vary. In such cases, it is recommended to refer to the official documentation and guides specific to your operating system for installing Docker and Docker Compose.**
 
-- [ ] **Task 1: SSH into the EC2 instance**
+- [x] **Task 1: SSH into the EC2 instance**
   - Open a terminal or command prompt.
   - Navigate to the directory where you saved the key pair file (`my-key.pem`) in Exercise 4.
   - Run the following command to SSH into the EC2 instance:
@@ -257,14 +257,14 @@
   - Replace `<PUBLIC_IP_ADDRESS>` with the public IP address of the EC2 instance obtained in Exercise 4, Task 5.
   - If prompted, type "yes" to add the instance to the known hosts list.
 
-- [ ] **Task 2: Update the installed packages and package cache on your instance**
+- [x] **Task 2: Update the installed packages and package cache on your instance**
   - Run the following command to update the installed packages and package cache:
 
     ```bash
     sudo yum update -y
     ```
 
-- [ ] **Task 3: Install Docker**
+- [x] **Task 3: Install Docker**
   - Run the following command to install the most recent Docker Community Edition package:
 
     ```bash
@@ -274,14 +274,14 @@
   - This command installs Docker using the Amazon Linux Extras repository.
   - For more detailed instructions and alternative installation methods, refer to the [official AWS documentation on installing Docker](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-docker.html).
 
-- [ ] **Task 4: Start the Docker service**
+- [x] **Task 4: Start the Docker service**
   - Run the following command to start the Docker service:
 
     ```bash
     sudo service docker start
     ```
 
-- [ ] **Task 5: Add the `ec2-user` to the `docker` group**
+- [x] **Task 5: Add the `ec2-user` to the `docker` group**
   - Run the following command to add the `ec2-user` to the `docker` group:
 
     ```bash
@@ -290,7 +290,7 @@
 
   - This command grants the `ec2-user` permission to run Docker commands without using `sudo`.
 
-- [ ] **Task 6: Log out and log back in to pick up the new `docker` group permissions**
+- [x] **Task 6: Log out and log back in to pick up the new `docker` group permissions**
   - Log out of the SSH session by running:
 
     ```bash
@@ -300,7 +300,7 @@
   - SSH back into the EC2 instance using the same command from Task 1.
   - This ensures that the new SSH session has the appropriate `docker` group permissions.
 
-- [ ] **Task 7: Verify Docker installation and permissions**
+- [x] **Task 7: Verify Docker installation and permissions**
   - Run the following command to verify that the `ec2-user` can run Docker commands without using `sudo`:
 
     ```bash
@@ -309,7 +309,7 @@
 
   - If Docker is installed correctly and the `ec2-user` has the necessary permissions, you should see an empty list of containers (since no containers are running yet).
 
-- [ ] **Task 8: Install Docker Compose**
+- [x] **Task 8: Install Docker Compose**
   - Since Amazon Linux 2023 AMI does not come with Docker Compose pre-installed, we need to install it separately.
   - Run the following commands to download and install the latest version of Docker Compose:
 
@@ -334,7 +334,7 @@
 
 ## Exercise 6
 
-- [ ] **Task 1: Use `docker init` to generate Docker configuration files**
+- [x] **Task 1: Use `docker init` to generate Docker configuration files**
   - Open a terminal and navigate to the `aws-exercises/app` directory.
   - Run the `docker init` command to automatically generate the following files:
     - `.dockerignore`
@@ -342,7 +342,7 @@
     - `compose.yaml`
   - Provide the necessary information when prompted, such as the application platform, desired Node.js version, package manager, entry point, and port.
 
-- [ ] **Task 2: Review and customize the generated Docker configuration files**
+- [x] **Task 2: Review and customize the generated Docker configuration files**
   - Open the generated `Dockerfile` and review its contents.
   - Customize the `Dockerfile` if needed, based on your application's specific requirements.
   - Open the generated `compose.yaml` file and review its contents.
@@ -350,7 +350,7 @@
   - Open the generated `.dockerignore` file and review its contents.
   - Customize the `.dockerignore` file if needed, adding any additional files or directories to be excluded from the Docker build context.
 
-- [ ] **Task 3: Commit and push the changes**
+- [x] **Task 3: Commit and push the changes**
   - Open a terminal and navigate to the root directory of your project.
   - Run the following commands to stage and commit the `.dockerignore` file:
 
