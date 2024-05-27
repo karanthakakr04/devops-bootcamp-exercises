@@ -193,7 +193,7 @@
   - Replace `<SECURITY_GROUP_ID>` with the Security Group ID from Exercise 3, Task 3.
   - Replace `<SUBNET_ID>` with the Subnet ID from Exercise 3, Task 2.
   - The command uses the `t2.micro` instance type, which is eligible for the free tier.
-  - The `--block-device-mappings` option specifies the EBS volume configuration, including the volume size (8 GB), volume type (gp2), and encryption.
+  - The `--block-device-mappings` option specifies the EBS volume configuration, including the volume size (8 GB), volume type (gp3), and encryption.
   - The `--metadata-options` option configures the instance metadata service to require token-based access and limit the number of hops.
   - Save the Instance ID returned by the command.
 
