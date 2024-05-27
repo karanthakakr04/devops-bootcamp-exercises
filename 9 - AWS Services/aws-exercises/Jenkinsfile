@@ -1,0 +1,28 @@
+#!/usr/bin/env groovy
+@Library('jenkins-shared-library') _
+
+pipeline {
+  agent any
+
+  tools {
+    nodejs 'node'
+  }
+
+  environment {
+    DOCKERHUB_REPO = credentials('DOCKERHUB_REPO')
+    DOCKERHUB_USERNAME = credentials('DOCKERHUB_USERNAME')
+    GITHUB_REPO_URL = credentials('GITHUB_REPO_URL')
+  }
+
+  stages {
+    stage('Build') {
+      steps {
+        buildPipeline(
+          dockerhubRepo: env.DOCKERHUB_REPO,
+          dockerhubUsername: env.DOCKERHUB_USERNAME,
+          githubRepoUrl: env.GITHUB_REPO_URL
+        )
+      }
+    }
+  }
+}
