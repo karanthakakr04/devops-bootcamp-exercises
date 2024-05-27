@@ -217,13 +217,6 @@
   - Replace `<INSTANCE_ID>` with the Instance ID from Task 3.
   - Save the public IP address for connecting to the instance via SSH in Exercise 5.
 
-This refined task list incorporates the following best practices:
-
-- Using the latest Amazon Linux 2 AMI ID retrieved via AWS Systems Manager Parameter Store.
-- Configuring the EBS volume with encryption and appropriate size and type.
-- Configuring the instance metadata service to require token-based access and limit the number of hops.
-- Using the `t2.micro` instance type, which is eligible for the free tier.
-
 ## Exercise 5
 
 > [!IMPORTANT]
