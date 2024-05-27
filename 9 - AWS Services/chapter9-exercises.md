@@ -388,22 +388,24 @@
 
 - [ ] Task 2: Update the Jenkinsfile
   - Open the Jenkinsfile from the previous exercise's project.
-  - Add a new stage called "Deploy to EC2" after the existing stages.
+  - Add a new stage called "Deploy" after the existing stages.
   - Inside the new stage, use the `sshagent` block to connect to the EC2 instance using the SSH credentials created in the previous task.
   - Use the `sh` step to execute the necessary commands to deploy the application on the EC2 instance. For example:
 
     ```groovy
-    stage('Deploy to EC2') {
+    stage('Deploy') {
       steps {
-        sshagent(['ec2-ssh-credentials']) {
-          sh '''
-            ssh -o StrictHostKeyChecking=no ubuntu@<ec2-instance-public-ip> "
-              docker stop my-app || true
-              docker rm my-app || true
-              docker pull <docker-registry>/<image-name>:<tag>
-              docker run -d --name my-app -p 80:3000 <docker-registry>/<image-name>:<tag>
-            "
-          '''
+        script {
+          sshagent(['my-ssh-key']) {
+            sh """
+              ssh -o StrictHostKeyChecking=no ec2-user@$<ec2-instance-public-ip> "
+                docker stop my-app || true
+                docker rm my-app || true
+                docker pull ${DOCKER_REGISTRY}/${IMAGE_NAME}:${env.IMAGE_VERSION}
+                docker run -d --name my-app -p 80:3000 ${DOCKER_REGISTRY}/${IMAGE_NAME}:${env.IMAGE_VERSION}
+              "
+            """
+          }
         }
       }
     }
