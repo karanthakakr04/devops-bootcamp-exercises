@@ -408,30 +408,53 @@ This refined task list incorporates the following best practices:
 
 ## Exercise 8: Configure access from browser (EC2 Security Group)
 
-- [ ] Task 1: Configure the security group through the AWS Management Console
+- [ ] Task 1: Retrieve the security group ID
   - Open the AWS Management Console and navigate to the EC2 dashboard.
-  - In the left sidebar, click on "Security Groups" under the "Network & Security" section.
-  - Locate the security group associated with your EC2 instance and select it.
-  - In the "Inbound rules" tab, click on "Edit inbound rules".
-  - Click on "Add rule" and configure the following:
-    - Type: Custom TCP
-    - Port range: 80 (or the port your application is running on)
-    - Source: Custom, 0.0.0.0/0 (allows access from any IP address)
-  - Click on "Save rules" to apply the changes.
+  - In the left sidebar, click on "Instances" to view the list of EC2 instances.
+  - Select the EC2 instance where your application is deployed.
+  - In the "Description" tab, locate the "Security groups" section and note down the security group ID associated with the instance.
 
-> [!NOTE]
-> **Alternatively, you can configure the security group using the AWS CLI. Here's an example command:**
->
-> ```bash
-> aws ec2 authorize-security-group-ingress --group-id <security-group-id> --protocol tcp --port 80 --cidr 0.0.0.0/0
-> ```
->
-> Replace `<security-group-id>` with the ID of the security group associated with your EC2 instance.
+- [ ] Task 2: Modify the security group using AWS CLI
+  - Open a terminal or command prompt.
+  - Run the following command to add an inbound rule to the security group, allowing access to the application port (e.g., port 80) from any IP address:
 
-- [ ] Task 2: Verify access from the browser
+    ```bash
+    aws ec2 authorize-security-group-ingress --group-id <security-group-id> --protocol tcp --port 80 --cidr 0.0.0.0/0
+    ```
+
+  - Replace `<security-group-id>` with the ID of the security group associated with your EC2 instance.
+  - This command allows incoming traffic on port 80 from any IP address.
+
+- [ ] Task 3: Verify the updated security group
+  - Run the following command to describe the security group and verify the new inbound rule:
+
+    ```bash
+    aws ec2 describe-security-groups --group-ids <security-group-id>
+    ```
+
+  - Replace `<security-group-id>` with the ID of the security group.
+  - Look for the new inbound rule in the output and ensure it allows traffic on port 80 from the specified IP range.
+
+- [ ] Task 4: Access the application from a web browser
   - Open a web browser.
-  - Enter the public IP or DNS name of your EC2 instance in the address bar.
+  - Enter the public IPv4 address (e.g., http://54.237.83.125:8080) or public IPv4 DNS name (e.g., http://ec2-54-237-83-125.compute-1.amazonaws.com:8080) of your EC2 instance in the address bar.
   - Verify that you can access the deployed application successfully.
+
+### Best Practices
+
+1. **Principle of Least Privilege**: When configuring security group rules, follow the principle of least privilege. Only allow the minimum required access and ports necessary for your application to function properly. Avoid using overly permissive rules like allowing all traffic from any IP address.
+
+2. **Use Specific IP Ranges**: Instead of allowing access from any IP address (0.0.0.0/0), consider restricting access to specific IP ranges or addresses that require access to your application. This can be achieved by specifying the appropriate CIDR block in the `--cidr` parameter of the `authorize-security-group-ingress` command.
+
+3. **Regularly Review and Audit**: Regularly review and audit your security group configurations to ensure that only the necessary inbound and outbound rules are in place. Remove any unused or unnecessary rules to maintain a secure environment.
+
+4. **Document Security Group Configuration**: Maintain documentation of your security group configurations, including the purpose and justification for each inbound and outbound rule. This helps in understanding the security posture of your application and makes it easier to manage and update the configurations in the future.
+
+5. **Use Naming Conventions**: Follow a consistent naming convention for your security groups to easily identify their purpose and associated resources. This helps in managing and organizing security groups effectively.
+
+6. **Monitor and Alert**: Implement monitoring and alerting mechanisms to detect and notify you of any unauthorized or suspicious changes to your security group configurations. This enables you to take prompt action in case of any security breaches or misconfigurations.
+
+By following these best practices, you can enhance the security of your EC2 instances and ensure that only authorized access is granted to your application.
 
 ## Exercise 9: Configure automatic triggering of multi-branch pipeline
 
