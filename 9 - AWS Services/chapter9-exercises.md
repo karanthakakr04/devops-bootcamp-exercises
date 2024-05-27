@@ -454,8 +454,6 @@ This refined task list incorporates the following best practices:
 
 6. **Monitor and Alert**: Implement monitoring and alerting mechanisms to detect and notify you of any unauthorized or suspicious changes to your security group configurations. This enables you to take prompt action in case of any security breaches or misconfigurations.
 
-By following these best practices, you can enhance the security of your EC2 instances and ensure that only authorized access is granted to your application.
-
 ## Exercise 9: Configure automatic triggering of multi-branch pipeline
 
 - [ ] Task 1: Update the Jenkinsfile with branch-based logic
