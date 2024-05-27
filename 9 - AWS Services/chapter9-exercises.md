@@ -99,17 +99,21 @@
     - Default output format: Press Enter to use the default format (json).
 
 - [ ] **Task 3: Verify AWS CLI configuration**
-  - Run the following command to verify the configured credentials:
+  - Run the following command to verify the IAM identity and account information:
 
     ```bash
     aws sts get-caller-identity
     ```
 
-  - Run the following command to verify the configured region and output format:
+  - This command returns details about the IAM identity used to make the request, including the UserId, Account, and ARN.
+
+  - Run the following command to list the current configuration settings, including the default region and output format:
 
     ```bash
     aws configure list
     ```
+
+  - This command displays the AWS CLI configuration values, including the profile being used, access keys, region, and output format.
 
 ## Exercise 3
 
