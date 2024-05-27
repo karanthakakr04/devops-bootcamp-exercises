@@ -437,7 +437,7 @@ This refined task list incorporates the following best practices:
 
 - [ ] Task 4: Access the application from a web browser
   - Open a web browser.
-  - Enter the public IPv4 address (e.g., http://54.237.83.125:8080) or public IPv4 DNS name (e.g., http://ec2-54-237-83-125.compute-1.amazonaws.com:8080) of your EC2 instance in the address bar.
+  - Enter the public IPv4 address (e.g., <http://54.237.83.125:80>) or public IPv4 DNS name (e.g., <http://ec2-54-237-83-125.compute-1.amazonaws.com:80>) of your EC2 instance in the address bar.
   - Verify that you can access the deployed application successfully.
 
 ### Best Practices
