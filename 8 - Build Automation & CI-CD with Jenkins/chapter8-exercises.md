@@ -1135,7 +1135,7 @@ For ease of use, especially if you regularly interact with a non-Docker Hub regi
     - In this case, we specify the Node.js installation by adding `nodejs 'node'` inside the `tools` block.
   - Add the `environment` block in the pipeline to define environment variables:
     - The `environment` block is used to define environment variables that can be accessed throughout the pipeline.
-    - In this case, we use the `credentials()` function to securely retrieve the values of `DOCKERHUB_REPO` and `DOCKERHUB_USERNAME` from Jenkins credentials and assign them to environment variables.
+    - In this case, we use the `credentials()` function to securely retrieve the values of `DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, and `GITHUB_REPO_URL` from Jenkins credentials and assign them to environment variables.
   - Make sure you have the Node.js plugin installed in Jenkins and a Node.js installation configured with the name 'node' in the Jenkins Global Tool Configuration.
 
     ```groovy
