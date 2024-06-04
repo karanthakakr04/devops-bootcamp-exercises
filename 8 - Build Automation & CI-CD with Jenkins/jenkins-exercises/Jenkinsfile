@@ -65,7 +65,7 @@ pipeline {
             steps {
                 script {
                     dir('8 - Build Automation & CI-CD with Jenkins/jenkins-exercises') {
-                        sh "docker build -t ${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}:${env.IMAGE_VERSION} -f Dockerfile ."
+                        sh "docker build -t ${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}:${IMAGE_VERSION} -f Dockerfile ."
                     }
                 }
             }
@@ -77,7 +77,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'docker-hub-access', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                         sh '''
                             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-                            docker push ${DOCKER_USERNAME}/demo-app:${env.IMAGE_VERSION}
+                            docker push ${DOCKER_USERNAME}/demo-app:${IMAGE_VERSION}
                         '''
                     }
                 }
@@ -97,7 +97,7 @@ pipeline {
                         dir('8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/app') {
                             sh 'git add package.json'
                         }
-                        sh "git commit -m 'Update version to ${env.IMAGE_VERSION}'"
+                        sh "git commit -m 'Update version to ${IMAGE_VERSION}'"
                         sh 'git push origin HEAD:main'
                     }
                 }
