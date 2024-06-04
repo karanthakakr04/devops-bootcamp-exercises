@@ -74,7 +74,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub-access', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                         sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
                         sh "docker push ${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}:${env.IMAGE_VERSION}"
                     }
@@ -87,7 +87,7 @@ pipeline {
                 script {
                     sh 'git config --global user.email "jenkins@example.com"'
                     sh 'git config --global user.name "Jenkins"'
-                    withCredentials([usernamePassword(credentialsId: 'github-credentials', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_PASSWORD')]) {
+                    withCredentials([usernamePassword(credentialsId: 'github-personal-access', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_PASSWORD')]) {
                         sh "git remote set-url origin https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@${GITHUB_REPO_URL}"
                         dir('8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/app') {
                             sh 'git add package.json'
