@@ -17,4 +17,4 @@ COPY 8\ -\ Build\ Automation\ \&\ CI-CD\ with\ Jenkins/jenkins-exercises/app/ ./
 EXPOSE 3000
 
 # Define the command to run the app
-CMD ["node", "server.js"]
+CMD ["npm", "start"]
