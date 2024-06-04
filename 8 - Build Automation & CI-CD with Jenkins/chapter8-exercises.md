@@ -102,7 +102,7 @@ This section presents two primary methods for installing Jenkins, allowing you t
 
 #### Method 2: Install Jenkins Locally on the Remote Server
 
-- [ ] Task 1: Clone the repository and copy the installation script
+- [x] Task 1: Clone the repository and copy the installation script
   - **Clone the repository:**
     - Open a terminal on your local machine.
     - Run the following command to clone the repository containing the `install_jenkins.sh` script:
@@ -129,7 +129,7 @@ This section presents two primary methods for installing Jenkins, allowing you t
     - The `-i` option in the `scp` command specifies the path to the SSH key file that should be used for authentication when copying the file to the remote server.
     - You can also use `-v` flag to enable verbose mode, which displays detailed information about the SSH connection process. It can be helpful for debugging purposes or understanding what's happening during the connection establishment.
 
-- [ ] Task 2: Use the provided script to install Jenkins locally
+- [x] Task 2: Use the provided script to install Jenkins locally
   - **Make the script executable:**
     - SSH into the remote server.
     - Navigate to the directory where you copied the `install_jenkins.sh` script.
@@ -360,7 +360,7 @@ However, the choice between direct installation and using a plugin should be bas
 
 ##### Option 2.2: Install build tools on a server with local Jenkins installation
 
-- [ ] Task 1: Install build tools on a server with local Jenkins installation
+- [x] Task 1: Install build tools on a server with local Jenkins installation
   - **SSH into the server:**
     - Open a terminal and SSH into the server where Jenkins is installed locally.
 
@@ -462,7 +462,7 @@ However, the choice between direct installation and using a plugin should be bas
 
 To enable Docker-in-Docker functionality in a Jenkins container using the privileged mode, follow these detailed tasks:
 
-- [ ] Task 1: Run the Jenkins container with Docker socket
+- [x] Task 1: Run the Jenkins container with Docker socket
   - Use the following command to start a Jenkins container that includes mounting the Docker socket, allowing it to access the host's Docker daemon:
 
     ```bash
@@ -474,7 +474,7 @@ To enable Docker-in-Docker functionality in a Jenkins container using the privil
   - `-v jenkins_home:/var/jenkins_home`: Mounts a volume for persisting Jenkins data.
   - `-v /var/run/docker.sock:/var/run/docker.sock`: Mounts the host's Docker socket inside the container, allowing the container to communicate with the host's Docker daemon.
 
-- [ ] Task 2: Access the Jenkins container
+- [x] Task 2: Access the Jenkins container
   - Gain root access inside the running Jenkins container to perform administrative tasks:
 
     ```bash
@@ -483,7 +483,7 @@ To enable Docker-in-Docker functionality in a Jenkins container using the privil
 
   - Replace `<container-id>` with the ID of your running Jenkins container.
 
-- [ ] Task 3: Install Docker inside the Jenkins container
+- [x] Task 3: Install Docker inside the Jenkins container
   - Install Docker in the container to enable Docker command functionality internally:
 
     ```bash
@@ -492,7 +492,7 @@ To enable Docker-in-Docker functionality in a Jenkins container using the privil
 
   - This command is executed to install Docker inside the container. It downloads the installation script from `https://get.docker.com/`, saves it to a file named `dockerinstall`, makes the file executable (`chmod 777 dockerinstall`), and then runs the installation script (`./dockerinstall`).
 
-- [ ] Task 4: Adjust Docker socket permissions
+- [x] Task 4: Adjust Docker socket permissions
   - Modify the permissions of the Docker socket to allow the Jenkins user to execute Docker commands:
 
     ```bash
@@ -528,14 +528,14 @@ There are two ways to implement this setup:
 
 ##### Setup Using Individual Docker Commands
 
-- [ ] Task 1: Create a Docker network
+- [x] Task 1: Create a Docker network
   - Run the command to create a dedicated Docker network for container communication:
 
     ```bash
     docker network create jenkins
     ```
 
-- [ ] Task 2: Start the Docker-in-Docker container
+- [x] Task 2: Start the Docker-in-Docker container
   - Pull and run the Docker-in-Docker image in privileged mode:
 
     ```bash
@@ -556,7 +556,7 @@ There are two ways to implement this setup:
     - `--volume jenkins-data:/var/jenkins_home`: Maps a volume for persistent data.
     - `--publish 2376:2376`: Exposes the Docker daemon port to the host.
 
-- [ ] Task 3: Create a custom Jenkins image
+- [x] Task 3: Create a custom Jenkins image
   - Create a Dockerfile with the following content:
 
      ```dockerfile
@@ -581,7 +581,7 @@ There are two ways to implement this setup:
      docker build -t jenkins-blueocean .
      ```
 
-- [ ] Task 4: Run the Jenkins container
+- [x] Task 4: Run the Jenkins container
   - Start Jenkins and configure it to communicate with the Docker-in-Docker service:
 
     ```bash
@@ -596,7 +596,7 @@ There are two ways to implement this setup:
     - `--env DOCKER_HOST=tcp://docker:2376`: Configures Jenkins to use the Docker daemon running in the DinD container.
     - `--publish 8080:8080` and `--publish 50000:50000`: Exposes Jenkins web and agent ports.
 
-- [ ] Task 5: Verify the setup
+- [x] Task 5: Verify the setup
   - Check that both containers are running and communicating correctly:
     - Use `docker ps` to ensure both containers are listed as running.
     - Access Jenkins via `http://<remote-server-ip>:8080` and verify that it can launch Docker containers.
@@ -643,7 +643,7 @@ networks:
   jenkins:
 ```
 
-- [ ] Task 1: Deploy using Docker Compose
+- [x] Task 1: Deploy using Docker Compose
   - Navigate to the directory containing the `compose.yaml` file:
 
     ```bash
@@ -667,10 +667,10 @@ networks:
 
 #### Method 3: Docker-in-Docker with Sysbox (Recommended)
 
-- [ ] Task 1: Install Sysbox on the host system
+- [x] Task 1: Install Sysbox on the host system
   - Follow the installation instructions provided in the [Sysbox documentation](https://github.com/nestybox/sysbox/blob/master/docs/user-guide/install.md) for your specific operating system.
 
-- [ ] Task 2: Create a custom Jenkins image with Java 17, Jenkins, and Docker preinstalled
+- [x] Task 2: Create a custom Jenkins image with Java 17, Jenkins, and Docker preinstalled
   - Create a new directory for your custom image and navigate to it:
 
     ```bash
@@ -715,7 +715,7 @@ networks:
   - With this Dockerfile, when you build the image and run a container from it, the Jenkins service will automatically start as a daemon, listening on port 8080, based on the configuration set up by the installation script.
   - You can access the Jenkins web interface by opening a browser and navigating to `http://<remote-server-ip>:8080` if you have mapped the container's port to the host
 
-- [ ] Task 3: Build the custom Jenkins image
+- [x] Task 3: Build the custom Jenkins image
   - Choose a concise and descriptive name for your custom image, such as `jenkins-docker-bundle:1.0`.
   - Build the image using the following command:
 
@@ -723,21 +723,21 @@ networks:
     docker build -t jenkins-docker-bundle:1.0 .
     ```
 
-- [ ] Task 4: Run the custom Jenkins container with Docker-in-Docker using Sysbox
+- [x] Task 4: Run the custom Jenkins container with Docker-in-Docker using Sysbox
 
   ```bash
   docker run --runtime=sysbox-runc -d --name jenkins-docker -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins-docker-bundle:1.0
   ```
 
-- [ ] Task 5: Access Jenkins by opening a web browser and navigating to `http://<your-remote-server-ip>:8080`
+- [x] Task 5: Access Jenkins by opening a web browser and navigating to `http://<your-remote-server-ip>:8080`
 
-- [ ] Task 6: Follow the Jenkins setup wizard to complete the initial configuration and customize Jenkins according to your needs.
+- [x] Task 6: Follow the Jenkins setup wizard to complete the initial configuration and customize Jenkins according to your needs.
 
 ## Exercise 1
 
 `docker init` is a command introduced in Docker v20.10.0 that helps you quickly create a Dockerfile, docker-compose.yaml, and .dockerignore file for your application. It simplifies the process of containerizing your application by generating a Dockerfile with best practices and sensible defaults based on your project's language and framework.
 
-- [ ] Task 1: Use `docker init` to generate a Dockerfile for the NodeJS application
+- [x] Task 1: Use `docker init` to generate a Dockerfile for the NodeJS application
   - Open a terminal and navigate to the root directory of your NodeJS application.
   - Run the following command:
 
@@ -762,7 +762,7 @@ networks:
     - `compose.yaml`: Defines services, networks, and volumes for running your application using Docker Compose.
     - `README.Docker.md`: Provides information about using the generated files.
 
-- [ ] Task 2: Review the generated Dockerfile to understand its contents and ensure it aligns with the application's requirements
+- [x] Task 2: Review the generated Dockerfile to understand its contents and ensure it aligns with the application's requirements
   - Here is what the generated Dockerfile looks like for our Node.js project:
 
     ```dockerfile
@@ -862,7 +862,7 @@ Remember that the actual paths and directory names may vary depending on your Je
 
 ### Configure Jenkins to Access Docker Hub Repository
 
-- [ ] Task 1: Create credentials for Docker Hub in Jenkins
+- [x] Task 1: Create credentials for Docker Hub in Jenkins
   - Open the Jenkins web interface.
   - Go to "Manage Jenkins" > "Manage Credentials".
   - Click on "Global" or the appropriate domain.
@@ -970,11 +970,11 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
 
 ## Exercise 2
 
-- [ ] Task 1: Create the Jenkinsfile
+- [x] Task 1: Create the Jenkinsfile
   - In your local development environment, create a new file named "Jenkinsfile" in the root directory of your NodeJS application repository.
   - Open the Jenkinsfile in an IDE or text editor.
   
-- [ ] Task 2: Define the pipeline stages
+- [x] Task 2: Define the pipeline stages
   - Begin the Jenkinsfile with the `pipeline` block:
 
     ```groovy
@@ -1068,13 +1068,13 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
 
   - We will customize the steps within each stage according to the specific requirements in the exercise.
 
-- [ ] Task 3: Set up the Jenkins pipeline
+- [x] Task 3: Set up the Jenkins pipeline
   - Open the Jenkins web interface.
   - Click on "New Item" in the left sidebar.
   - Enter a name for your pipeline (e.g., "nodejs-app-pipeline") and select "Pipeline" as the item type.
   - Click "OK" to create the pipeline.
 
-- [ ] Task 4: Configure the Jenkins job to access the GitHub repository
+- [x] Task 4: Configure the Jenkins job to access the GitHub repository
   - **Open the Jenkins job configuration:**
     - Navigate to the Jenkins job you want to configure.
     - Click on "Configure" in the left sidebar.
@@ -1100,7 +1100,7 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
   - **Save the job configuration:**
     - Click on the "Save" button to apply the changes.
 
-- [ ] Task 5: Verify the configuration
+- [x] Task 5: Verify the configuration
   - **Run the Jenkins job:**
     - Navigate to the Jenkins job.
     - Click on "Build Now" to trigger a new build.
@@ -1112,7 +1112,7 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
 
     ![Pipeline Configuration](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/109099be-5381-4c93-9ad1-6c7ae66c1d9a)
 
-- [ ] Task 6: Implement version incrementing
+- [x] Task 6: Implement version incrementing
   - Update the `Increment Version` stage in the Jenkinsfile to include the following steps:
     - Change the current directory to the `app` folder using the `dir` command. This is necessary because the `package.json` file, which contains the version information, is located inside the `app` folder.
 
@@ -1274,7 +1274,7 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
     }
     ```
 
-- [ ] Task 7: Run tests
+- [x] Task 7: Run tests
   - Update the Jenkinsfile to include a new stage for running tests:
     - Add a new stage called "Run Tests" after the "Increment Version" stage.
     - Inside the "Run Tests" stage, use the `steps` block to define the steps for running tests.
@@ -1347,7 +1347,7 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
     }
     ```
 
-- [ ] Task 8: Build Docker image
+- [x] Task 8: Build Docker image
   - Update the Jenkinsfile to include a new stage for building the Docker image:
     - Add a new stage called "Build Docker Image" after the "Run Tests" stage.
     - Inside the "Build Docker Image" stage, use the `steps` block to define the steps for building the Docker image.
@@ -1385,7 +1385,7 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
     }
     ```
 
-- [ ] Task 9: Push Docker image
+- [x] Task 9: Push Docker image
   - Update the Jenkinsfile to include a new stage for pushing the Docker image to Docker Hub:
     - Add a new stage called "Push Docker Image" after the "Build Docker Image" stage.
     - Inside the "Push Docker Image" stage, use the `steps` block to define the steps for pushing the Docker image.
@@ -1443,7 +1443,7 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
     }
     ```
 
-- [ ] Task 10: Commit version changes
+- [x] Task 10: Commit version changes
   - Update the Jenkinsfile to include a new stage for committing the version changes to GitHub:
     - Add a new stage called "Commit Version Changes" after the "Push Docker Image" stage.
     - Inside the "Commit Version Changes" stage, use the `steps` block to define the steps for committing the changes.
@@ -1595,7 +1595,7 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
 
 ![sshagent plugin screenshot](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/41fdecc0-15f3-48da-bcf5-da676a910d13)
 
-- [ ] Task 11: Save and run the pipeline
+- [x] Task 11: Save and run the pipeline
   - Save the Jenkinsfile and commit it to your Git repository.
   - In the Jenkins web interface, navigate to your pipeline.
   - Click on "Build Now" to trigger the pipeline execution.
@@ -1606,19 +1606,19 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
 
 ## Exercise 3
 
-- [ ] Task 1: Access the DigitalOcean Droplet
+- [x] Task 1: Access the DigitalOcean Droplet
   - Open a web browser and log in to your DigitalOcean account.
   - Navigate to the "Droplets" section in the DigitalOcean control panel.
   - Locate the droplet where you want to deploy the new Docker image.
 
-- [ ] Task 2: Configure Firewall Rules
+- [x] Task 2: Configure Firewall Rules
   - In the DigitalOcean control panel, navigate to the "Networking" section.
   - Click on "Firewalls" to manage the firewall rules for your droplet.
   - Create a new firewall rule or update an existing one to allow inbound traffic on the necessary ports for your Docker application.
   - Ensure that the firewall rule is applied to the droplet where you will deploy the Docker image.
   - Save the firewall rule configuration.
 
-- [ ] Task 3: Connect to the Droplet via SSH
+- [x] Task 3: Connect to the Droplet via SSH
   - Open a terminal or command prompt on your local machine.
   - Use the SSH command with the `-i` flag to specify the path to your SSH private key:
 
@@ -1629,7 +1629,7 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
   - Replace `<key-path>` with the path to your SSH private key file, `<username>` with the username for your droplet, and `<droplet-ip-address>` with the IP address of your droplet.
   - If your SSH key has a passphrase, enter it when prompted.
 
-- [ ] Task 4: Log in to Docker Hub
+- [x] Task 4: Log in to Docker Hub
   - To log in to Docker Hub securely from inside the droplet, use the `docker login` command with the `--password-stdin` flag. This allows you to provide the password through standard input, avoiding the need to store it in the command history or expose it in the terminal.
   - Run the following command to log in to Docker Hub:
 
@@ -1643,7 +1643,7 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
 > [!CAUTION]
 > **Ensure that you have securely set the `DOCKER_HUB_PASSWORD` environment variable with your Docker Hub password before running the command. Avoid storing the password directly in script files or version control repositories.**
 
-- [ ] Task 5: Pull the New Docker Image from Private Repository
+- [x] Task 5: Pull the New Docker Image from Private Repository
   - After logging in to Docker Hub, use the `docker pull` command to pull the new Docker image from your private repository:
 
     ```bash
@@ -1652,7 +1652,7 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
 
   - Replace `<docker-hub-username>` with your Docker Hub username, `<repository>` with the name of your private image repository, and `<tag>` with the specific tag of the new image you want to deploy.
 
-- [ ] Task 6: Stop and Remove the Existing Docker Container (if applicable)
+- [x] Task 6: Stop and Remove the Existing Docker Container (if applicable)
   - If you have an existing Docker container running the previous version of your application, stop and remove it using the following commands:
 
     ```bash
@@ -1662,7 +1662,7 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
 
   - Replace `<container-name>` with the name or ID of the existing container.
 
-- [ ] Task 7: Run the New Docker Container
+- [x] Task 7: Run the New Docker Container
   - Use the `docker run` command to start a new container based on the pulled Docker image:
 
     ```bash
@@ -1672,12 +1672,12 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
   - Replace `<container-name>` with a desired name for the new container, `<host-port>` with the port number on the host machine to map to the container's exposed port, `<container-port>` with the port number exposed by the container, `<docker-hub-username>` with your Docker Hub username, `<repository>` with the name of your private image repository, and `<tag>` with the specific tag of the new image.
   - Adjust any additional configuration options as needed for your specific application.
 
-- [ ] Task 8: Verify the Deployment
+- [x] Task 8: Verify the Deployment
   - Check the status of the newly created container using the `docker ps` command.
   - Verify that the container is running and mapped to the correct ports.
   - Access your application using the appropriate URL or IP address and port number to ensure it is functioning as expected.
 
-- [ ] Task 9: Clean Up (Optional)
+- [x] Task 9: Clean Up (Optional)
   - If you have any old Docker images that are no longer needed, you can remove them to free up disk space:
 
     ```bash
