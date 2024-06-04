@@ -90,7 +90,10 @@ pipeline {
                     sh 'git config --global user.email "jenkins@example.com"'
                     sh 'git config --global user.name "Jenkins"'
                     withCredentials([usernamePassword(credentialsId: 'github-personal-access', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_PASSWORD')]) {
-                        sh "git remote set-url origin https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@${GITHUB_REPO_URL}"
+                        script {
+                            def gitRepoUrl = env.GITHUB_REPO_URL
+                            sh "git remote set-url origin https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@${gitRepoUrl}"
+                        }
                         dir('8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/app') {
                             sh 'git add package.json'
                         }
