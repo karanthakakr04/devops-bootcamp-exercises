@@ -937,12 +937,11 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
     - Click on the "Create" button to save the credential.
 
   - For `DOCKERHUB_USERNAME`:
-    - Kind: Select "Username with password".
+    - Kind: Select "Secret text".
     - Scope: Select "Global".
-    - Username: Enter your Docker Hub username.
-    - Password: Enter your Docker Hub password or access token.
+    - Secret: Enter the value for your Docker Hub username.
     - ID: Enter "DOCKERHUB_USERNAME".
-    - Description: Provide a meaningful description for the credential, such as "Docker Hub username and password for publishing the NodeJS application image".
+    - Description: Provide a meaningful description for the credential, such as "Docker Hub username for publishing the NodeJS application image".
     - Click on the "Create" button to save the credential.
 
   - For `GITHUB_REPO_URL`:
