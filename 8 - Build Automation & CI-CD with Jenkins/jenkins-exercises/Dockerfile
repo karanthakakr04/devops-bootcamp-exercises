@@ -5,7 +5,7 @@ FROM node:20.12.2-alpine
 WORKDIR /usr/src/app
 
 # Copy the package.json and package-lock.json files
-COPY app/package*.json ./
+COPY app/package.json ./
 
 # Install dependencies
 RUN npm ci --omit=dev
