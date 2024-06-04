@@ -5,13 +5,13 @@ FROM node:20.12.2-alpine
 WORKDIR /usr/src/app
 
 # Copy the package.json and package-lock.json files
-COPY 8\ -\ Build\ Automation\ \&\ CI-CD\ with\ Jenkins/jenkins-exercises/app/package*.json ./
+COPY app/package*.json ./
 
 # Install dependencies
 RUN npm ci --omit=dev
 
 # Copy the rest of the application code
-COPY 8\ -\ Build\ Automation\ \&\ CI-CD\ with\ Jenkins/jenkins-exercises/app/ ./
+COPY app/ ./
 
 # Expose the port the app runs on
 EXPOSE 3000
