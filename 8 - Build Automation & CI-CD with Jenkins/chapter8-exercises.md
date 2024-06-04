@@ -916,6 +916,59 @@ When using the `docker login` command to authenticate with a Docker registry tha
 
 For ease of use, especially if you regularly interact with a non-Docker Hub registry, you can configure your Docker client to manage multiple registry logins. This involves setting up a `config.json` file in your Docker directory (typically `~/.docker/config.json`), where you can store encoded credentials for each registry. However, managing credentials in plaintext or encoded form in configuration files should be handled cautiously from a security perspective.
 
+### Configuring Environment Variables in Jenkins Pipeline
+
+To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHUB_REPO_URL`) defined in the `environment` block of the Jenkinsfile, you need to create corresponding credential entries in Jenkins. Follow these steps to configure the environment variables:
+
+- [x] Task 1: Open the Jenkins web interface and navigate to the credentials page
+  - In the Jenkins dashboard, click on "Manage Jenkins" in the left sidebar.
+  - Click on "Manage Credentials" under the "Security" section.
+  - Click on "Jenkins" under "Stores scoped to Jenkins".
+  - Click on "Global credentials (unrestricted)".
+  - Click on the "Add Credentials" link on the right side.
+
+- [x] Task 2: Create credential entries for each environment variable
+  - For `DOCKERHUB_REPO`:
+    - Kind: Select "Secret text".
+    - Scope: Select "Global".
+    - Secret: Enter the value for your Docker Hub repository name.
+    - ID: Enter "DOCKERHUB_REPO".
+    - Description: Provide a meaningful description for the credential, such as "Docker Hub repository name for the NodeJS application".
+    - Click on the "Create" button to save the credential.
+
+  - For `DOCKERHUB_USERNAME`:
+    - Kind: Select "Username with password".
+    - Scope: Select "Global".
+    - Username: Enter your Docker Hub username.
+    - Password: Enter your Docker Hub password or access token.
+    - ID: Enter "DOCKERHUB_USERNAME".
+    - Description: Provide a meaningful description for the credential, such as "Docker Hub username and password for publishing the NodeJS application image".
+    - Click on the "Create" button to save the credential.
+
+  - For `GITHUB_REPO_URL`:
+    - Kind: Select "Secret text".
+    - Scope: Select "Global".
+    - Secret: Enter the URL of your GitHub repository.
+    - ID: Enter "GITHUB_REPO_URL".
+    - Description: Provide a meaningful description for the credential, such as "GitHub repository URL for the NodeJS application source code".
+    - Click on the "Create" button to save the credential.
+
+- [x] Task 3: Use the configured credentials in the Jenkinsfile
+  - In the Jenkinsfile, you can access the values of the environment variables using the `credentials()` function with the respective credential IDs. For example:
+
+    ```groovy
+    environment {
+      DOCKERHUB_REPO = credentials('DOCKERHUB_REPO')
+      DOCKERHUB_USERNAME = credentials('DOCKERHUB_USERNAME')
+      GITHUB_REPO_URL = credentials('GITHUB_REPO_URL')
+    }
+    ```
+
+  - Jenkins will retrieve the corresponding values from the configured credentials and assign them to the environment variables during the pipeline execution.
+
+> [!NOTE]
+> **Make sure to replace the placeholders (Docker Hub repository name, Docker Hub username and password, GitHub repository URL) with your actual values when creating the credentials.**
+
 ## Exercise 2
 
 - [ ] Task 1: Create the Jenkinsfile
