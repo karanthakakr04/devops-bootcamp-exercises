@@ -89,7 +89,7 @@ pipeline {
                 script {
                     sh 'git config --global user.email "jenkins@example.com"'
                     sh 'git config --global user.name "Jenkins"'
-                    withCredentials([usernamePassword(credentialsId: 'github-personal-access', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_PAT')]) {
+                    withCredentials([usernamePassword(credentialsId: 'github-pat', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_PAT')]) {
                         script {
                             def gitRepoUrl = env.GITHUB_REPO_URL
                             sh "git remote set-url origin https://${GITHUB_USERNAME}:${GITHUB_PAT}@${gitRepoUrl.replace('https://', '')}"
