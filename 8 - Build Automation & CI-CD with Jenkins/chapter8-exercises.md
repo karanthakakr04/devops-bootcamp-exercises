@@ -1855,8 +1855,8 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
     #!/usr/bin/env groovy
     package org.example
 
-    def call(String versionIncrement) {
-      echo "Incrementing application version with ${versionIncrement}"
+    def call() {
+      echo "Entering versioning stage..."
       dir('8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/app') {
         if (fileExists('package.json')) {
           def versionType = input(
@@ -2022,20 +2022,12 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
           IMAGE_TAG = "${env.IMAGE_VERSION}"
         }
 
-        parameters {
-          choice(
-            name: 'VERSION_INCREMENT',
-            choices: ['patch', 'minor', 'major'],
-            description: 'Select the version increment type'
-          )
-        }
-
         stages {
           stage('Increment Version') {
             steps {
               script {
                 def versioningStage = new org.example.VersioningStage()
-                versioningStage(params.VERSION_INCREMENT)
+                versioningStage()
               }
             }
           }
