@@ -424,7 +424,7 @@ For the purpose of this exercise, we will proceed with using the `-o StrictHostK
   - Open the `docker-compose.yaml` file and add the following content:
 
     ```yaml
-    version: '3'
+    version: '3.8'
     services:
       my-app:
         image: <docker-registry>/<image-name>:${IMAGE}
