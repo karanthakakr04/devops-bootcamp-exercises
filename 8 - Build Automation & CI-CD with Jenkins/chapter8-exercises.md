@@ -1114,11 +1114,21 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
 
 - [x] Task 6: Implement version incrementing
   - Update the `Increment Version` stage in the Jenkinsfile to include the following steps:
-    - Change the current directory to the `app` folder using the `dir` command. This is necessary because the `package.json` file, which contains the version information, is located inside the `app` folder.
+    - Change the current directory to the `8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/app` folder using the `dir` command. This is necessary because the `package.json` file, which contains the version information, is located inside the `app` folder.
 
       ```groovy
-      dir('app') {
+      dir('8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/appp') {
         // Version increment steps will be added here
+      }
+      ```
+
+    - Add a check to verify if the `package.json` file exists in the `app` directory. If the file is not found, throw an error and stop the pipeline execution.
+
+      ```groovy
+      if (fileExists('package.json')) {
+        // Version increment steps
+      } else {
+        error "package.json file not found in the app directory"
       }
       ```
 
@@ -1290,12 +1300,12 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
       }
       ```
 
-  - Navigate to the `app` directory:
-    - Use the `dir` command to change the current working directory to the `app` folder.
+  - Navigate to the `8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/app` directory:
+    - Use the `dir` command to change the current working directory to the `8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/app` folder.
     - This is necessary because the `package.json` file, which contains the dependencies and test scripts, is located inside the `app` folder.
 
       ```groovy
-      dir('app') {
+      dir('8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/app') {
         // Package installation and test execution steps will be added here
       }
       ```
@@ -1310,16 +1320,20 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
       ```
 
   - Run the tests and handle test failures:
-    - Use the `catchError` block to wrap the test execution command.
-    - Inside the `catchError` block, use the `sh` command to execute the `npm test` command (or the appropriate test command specified in your `package.json` file).
-    - If the tests fail, the `catchError` block will catch the error and execute the specified steps.
+    - Use the `catchError` block to have a `buildResult` of `'SUCCESS'` and a `stageResult` of `'FAILURE'` wrap the test execution command.
+    - Inside the `catchError` block, use a `script` block to execute the `npm test` command with the `--detectOpenHandles` flag. Store the exit status of the command in a variable named `testResult`.
+    - Check the value of `testResult`. If it is not equal to 0 (indicating test failures), throw an error with an appropriate message.
     - Use the `error` command inside the `catchError` block to mark the build as failed and provide an appropriate error message.
     - The `error` command will abort the pipeline and prevent further execution of subsequent stages.
 
       ```groovy
-      catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
-        sh 'npm test'
-        error "Tests failed. Please fix the failing tests and rerun the pipeline."
+      catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+        script {
+          def testResult = sh(script: 'npm test -- --detectOpenHandles', returnStatus: true)
+          if (testResult != 0) {
+            error "Tests failed. Please fix the failing tests and rerun the pipeline."
+          }
+        }
       }
       ```
 
@@ -1335,11 +1349,15 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
     stage('Run Tests') {
       steps {
         script {
-          dir('app') {
+          dir('8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/app') {
             sh 'npm install'
-            catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
-              sh 'npm test'
-              error "Tests failed. Please fix the failing tests and rerun the pipeline."
+            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+              script {
+                def testResult = sh(script: 'npm test -- --detectOpenHandles', returnStatus: true)
+                if (testResult != 0) {
+                  error "Tests failed. Please fix the failing tests and rerun the pipeline."
+                }
+              }
             }
           }
         }
@@ -1365,12 +1383,12 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
 
   - Build the Docker image:
     - Use the `sh` command to execute the `docker build` command.
-    - Specify the path to the `Dockerfile` using the `-f` flag. In this case, the `Dockerfile` is located in the `jenkins-exercises` directory.
-    - Use the `-t` flag to provide a tag for the Docker image. The tag should include the Docker Hub username (`${DOCKERHUB_USERNAME}`), the repository name (`${DOCKERHUB_REPO}`), and the version number (`${env.IMAGE_VERSION}`).
+    - Specify the path to the `Dockerfile` using the `-f` flag. In this case, the `Dockerfile` is located in the `8 - Build Automation & CI-CD with Jenkins/jenkins-exercises` directory.
+    - Use the `-t` flag to provide a tag for the Docker image. The tag should include the Docker Hub username (`${DOCKERHUB_USERNAME}`), the repository name (`${DOCKERHUB_REPO}`), and the version number (`${IMAGE_VERSION}`).
     - The `DOCKERHUB_USERNAME` and `DOCKERHUB_REPO` environment variables are used to dynamically set the Docker Hub username and repository name.
 
       ```groovy
-      sh "docker build -t ${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}:${env.IMAGE_VERSION} -f jenkins-exercises/Dockerfile ."
+      sh "docker build -t ${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}:${IMAGE_VERSION} -f Dockerfile ."
       ```
 
   - Jenkinsfile configuration for `stage('Build Docker Image')`:
@@ -1379,7 +1397,9 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
     stage('Build Docker Image') {
       steps {
         script {
-          sh "docker build -t ${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}:${env.IMAGE_VERSION} -f jenkins-exercises/Dockerfile ."
+          dir('8 - Build Automation & CI-CD with Jenkins/jenkins-exercises') {
+            sh "docker build -t ${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}:${IMAGE_VERSION} -f Dockerfile ."
+          }
         }
       }
     }
@@ -1409,7 +1429,7 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
 
       ```groovy
       withCredentials([usernamePassword(credentialsId: 'docker-hub-access', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-        sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
+        // perform docker login and docker push here
       }
       ```
 
@@ -1417,10 +1437,14 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
 
   - Push the Docker image to Docker Hub:
     - Use the `sh` command to execute the `docker push` command.
-    - Specify the image tag using the `${DOCKERHUB_USERNAME}`, `${DOCKERHUB_REPO}`, and `${env.IMAGE_VERSION}` environment variables.
+    - Use a multi-line string (`'''`) to write the shell commands for logging in to Docker Hub and pushing the Docker image.
+    - Specify the image tag using the `${DOCKER_USERNAME}`, `${DOCKERHUB_REPO}`, and `${IMAGE_VERSION}` environment variables.
 
       ```groovy
-      sh "docker push ${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}:${env.IMAGE_VERSION}"
+      sh '''
+        echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        docker push ${DOCKER_USERNAME}/${DOCKERHUB_REPO}:${IMAGE_VERSION}
+      '''
       ```
 
   - Best practices:
@@ -1435,8 +1459,10 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
       steps {
         script {
           withCredentials([usernamePassword(credentialsId: 'docker-hub-access', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-            sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
-            sh "docker push ${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}:${env.IMAGE_VERSION}"
+            sh '''
+                echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+                docker push ${DOCKER_USERNAME}/${DOCKERHUB_REPO}:${IMAGE_VERSION}
+            '''
           }
         }
       }
@@ -1475,16 +1501,31 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
     **Method 1: Using `withCredentials` block**
     - Use the `withCredentials` block to securely access the GitHub credentials stored in Jenkins.
     - Inside the `withCredentials` block, use the `sh` command to execute the following steps:
+
+      - Change the credential ID used in the `withCredentials` block to `'github-pat'`.
+
+        ```groovy
+        withCredentials([usernamePassword(credentialsId: 'github-pat', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_PAT')]) {
+          // Commit steps
+        }
+        ```
+
+      - Retrieve the GitHub repository URL from the `GITHUB_REPO_URL` environment variable and store it in a variable named `gitRepoUrl`.
+
+        ```groovy
+        def gitRepoUrl = env.GITHUB_REPO_URL
+        ```
+
       - Use the environment variable `GITHUB_REPO_URL` to set the remote URL of the origin repository to use HTTPS protocol and the credentials variables:
 
         ```groovy
-        sh "git remote set-url origin https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@${GITHUB_REPO_URL}"
+        sh "git remote set-url origin https://${GITHUB_USERNAME}:${GITHUB_PAT}@${gitRepoUrl.replace('https://', '')}"
         ```
 
       - Stage the `package.json` file using `git add`:
 
         ```groovy
-        dir('app') {
+        dir('8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/app') {
           sh 'git add package.json'
         }
         ```
@@ -1492,7 +1533,7 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
       - Commit the changes with a meaningful commit message, including the new version number:
 
         ```groovy
-        sh "git commit -m 'Update version to ${env.IMAGE_VERSION}'"
+        sh "git commit -m 'Update version to ${IMAGE_VERSION}'"
         ```
 
       - Push the changes to the desired branch:
@@ -1516,7 +1557,7 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
       - Stage the `package.json` file using `git add`:
 
         ```groovy
-        dir('app') {
+        dir('8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/app') {
           sh 'git add package.json'
         }
         ```
@@ -1524,7 +1565,7 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
       - Commit the changes with a meaningful commit message, including the new version number:
 
         ```groovy
-        sh "git commit -m 'Update version to ${env.IMAGE_VERSION}'"
+        sh "git commit -m 'Update version to ${IMAGE_VERSION}'"
         ```
 
       - Push the changes to the desired branch:
@@ -1544,17 +1585,20 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
   - Example Jenkinsfile code for Method 1 (`withCredentials`):
 
     ```groovy
-    stage('Commit Version Changes') {
+    stage('Commit Version') {
       steps {
         script {
           sh 'git config --global user.email "jenkins@example.com"'
           sh 'git config --global user.name "Jenkins"'
-          withCredentials([usernamePassword(credentialsId: 'github-personal-access', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_PASSWORD')]) {
-            sh "git remote set-url origin https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@${GITHUB_REPO_URL}"
-            dir('app') {
+          withCredentials([usernamePassword(credentialsId: 'github-pat', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_PAT')]) {
+            script {
+              def gitRepoUrl = env.GITHUB_REPO_URL
+              sh "git remote set-url origin https://${GITHUB_USERNAME}:${GITHUB_PAT}@${gitRepoUrl.replace('https://', '')}"
+            }
+            dir('8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/app') {
               sh 'git add package.json'
             }
-            sh "git commit -m 'Update version to ${env.IMAGE_VERSION}'"
+            sh "git commit -m 'Update version to ${IMAGE_VERSION}'"
             sh 'git push origin HEAD:main'
           }
         }
@@ -1572,10 +1616,10 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
           sh 'git config --global user.name "Jenkins"'
           sshagent(['github-ssh-credentials']) {
             sh "git remote set-url origin git@${GITHUB_REPO_URL}"
-            dir('app') {
+            dir('8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/app') {
               sh 'git add package.json'
             }
-            sh "git commit -m 'Update version to ${env.IMAGE_VERSION}'"
+            sh "git commit -m 'Update version to ${IMAGE_VERSION}'"
             sh 'git push origin HEAD:main'
           }
         }
