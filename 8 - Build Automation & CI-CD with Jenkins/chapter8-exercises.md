@@ -735,69 +735,97 @@ networks:
 
 ## Exercise 1
 
-`docker init` is a command introduced in Docker v20.10.0 that helps you quickly create a Dockerfile, docker-compose.yaml, and .dockerignore file for your application. It simplifies the process of containerizing your application by generating a Dockerfile with best practices and sensible defaults based on your project's language and framework.
-
-- [x] Task 1: Use `docker init` to generate a Dockerfile for the NodeJS application
-  - Open a terminal and navigate to the root directory of your NodeJS application.
-  - Run the following command:
-
-    ```bash
-    docker init
-    ```
-
-  - Docker will ask you a series of questions to gather information about your application. Here's an example of how the interaction might look:
-
-    ![docker init command screenshot](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/bf778393-591f-4f98-9434-a58bf9a1c78e)
-
-    In this example:
-    - The application platform is Node.
-    - The desired Node version is 20.12.2.
-    - The package manager is npm.
-    - The command to start the application is `npm start`.
-    - The server listens on port 3000.
-
-  - After answering the questions, `docker init` will generate the following files:
-    - `.dockerignore`: Lists files and directories that should be excluded from the Docker build context.
-    - `Dockerfile`: Contains the instructions to build your NodeJS application as a Docker image.
-    - `compose.yaml`: Defines services, networks, and volumes for running your application using Docker Compose.
-    - `README.Docker.md`: Provides information about using the generated files.
-
-- [x] Task 2: Review the generated Dockerfile to understand its contents and ensure it aligns with the application's requirements
-  - Here is what the generated Dockerfile looks like for our Node.js project:
+- [x] Task 1: Manually create a Dockerfile for the NodeJS application
+  - Open a text editor and create a new file named `Dockerfile` in the root directory of your NodeJS application.
+  - Copy the following content into the `Dockerfile`:
 
     ```dockerfile
-    # syntax=docker/dockerfile:1
+    # Use an official Node runtime as a parent image
+    FROM node:20.12.2-alpine
 
-    ARG NODE_VERSION=20.12.2
-
-    FROM node:${NODE_VERSION}-alpine
-
-    ENV NODE_ENV production
-
+    # Set the working directory
     WORKDIR /usr/src/app
 
-    RUN --mount=type=bind,source=package.json,target=package.json \
-        --mount=type=bind,source=package-lock.json,target=package-lock.json \
-        --mount=type=cache,target=/root/.npm \
-        npm ci --omit=dev
+    # Copy the package.json and package-lock.json files
+    COPY app/package.json ./
 
-    USER node
+    # Install dependencies
+    RUN npm install --omit=dev
 
-    COPY . .
+    # Copy the rest of the application code
+    COPY app/ ./
 
+    # Expose the port the app runs on
     EXPOSE 3000
 
+    # Define the command to run the app
     CMD ["npm", "start"]
     ```
 
-  - This Dockerfile follows best practices and includes the following:
-    - Use of the official Node.js Alpine base image for a smaller image size.
-    - Setting the `NODE_ENV` environment variable to `production` for optimized performance.
-    - Copying only the necessary files to the image.
-    - Installing production dependencies using `npm ci` for faster and reproducible builds.
-    - Running the application as a non-root user for improved security.
-    - Exposing the port on which the application listens.
-    - Specifying the command to start the application.
+  - Save the `Dockerfile`.
+
+  This `Dockerfile` includes the following steps:
+  - Uses the official Node.js Alpine base image with version 20.12.2.
+  - Sets the working directory to `/usr/src/app` inside the container.
+  - Copies the `package.json` and `package-lock.json` files from the `app` directory to the working directory.
+  - Runs `npm install --omit=dev` to install dependencies, excluding development dependencies.
+  - Copies the rest of the application code from the `app` directory to the working directory.
+  - Exposes port 3000, which is the port the application runs on.
+  - Specifies the command to run the application using `CMD ["npm", "start"]`.
+
+- [x] Task 2: Review the manually created Dockerfile
+  - Ensure that the `Dockerfile` includes the necessary steps to build and run your NodeJS application.
+  - Verify that the base image, working directory, dependencies installation, and application code copying are correctly specified.
+  - Check that the exposed port matches the port your application listens on.
+  - Confirm that the command to start the application is correctly defined using the exec form (`CMD ["npm", "start"]`).
+
+- [x] Task 3: Create a `docker-compose.yml` file
+  - Open a text editor and create a new file named `docker-compose.yml` in the root directory of your NodeJS application.
+  - Copy the following content into the `docker-compose.yml` file:
+
+    ```yaml
+    version: '3.8'
+
+    services:
+      app:
+        build:
+          context: .
+          dockerfile: 8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/Dockerfile
+        ports:
+          - "3000:3000"
+        volumes:
+          - .:/usr/src/app
+        environment:
+          NODE_ENV: development
+    ```
+
+  - Save the `docker-compose.yml` file.
+
+  This `docker-compose.yml` file defines a service named `app` with the following configuration:
+  - Builds the Docker image using the `Dockerfile` located at `8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/Dockerfile`.
+  - Maps port 3000 from the container to port 3000 on the host machine.
+  - Mounts the current directory (`.`) as a volume at `/usr/src/app` inside the container, allowing changes made to the application code to be reflected immediately.
+  - Sets the `NODE_ENV` environment variable to `development`.
+
+- [x] Task 4: Build and run the Docker container using Docker Compose
+  - Open a terminal and navigate to the directory containing the `docker-compose.yml` file.
+  - Run the following command to build the Docker image and start the container:
+
+    ```bash
+    docker-compose up -d
+    ```
+
+  - Docker Compose will build the image based on the `Dockerfile` and start the container in detached mode (`-d` flag).
+
+- [x] Task 5: Verify the running container
+  - Run the following command to list the running containers:
+
+    ```bash
+    docker ps
+    ```
+
+  - Verify that the container for your NodeJS application is listed and running.
+  - Open a web browser and visit `http://localhost:3000` to ensure that your application is accessible.
 
 > [!IMPORTANT]
 > **It's important to note that the `docker init` command may generate a Dockerfile with `CMD npm start` instead of `CMD ["npm", "start"]`. While both forms are valid, there is a difference in how they are executed by the Docker container.**
