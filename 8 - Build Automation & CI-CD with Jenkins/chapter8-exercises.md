@@ -2103,10 +2103,8 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
     Explanation:
     - The script defines a `call` method that takes a `pipelineParams` map.
     - It uses the declarative pipeline syntax to define the pipeline structure.
-    - The `environment` block defines the `IMAGE_TAG` variable using the `IMAGE_VERSION` environment variable set in the `VersioningStage`.
     - The pipeline consists of five stages: "Increment Version", "Run Tests", "Build Image", "Deploy", and "Commit Version".
     - Each stage instantiates the corresponding stage class and calls its `call` method with the required parameters.
-    - The `post` block defines actions to be executed based on the pipeline's success or failure.
 
 - [x] Task 9: Update the Jenkinsfile to use the Jenkins Shared Library
   - Open the Jenkinsfile in your application repository.
