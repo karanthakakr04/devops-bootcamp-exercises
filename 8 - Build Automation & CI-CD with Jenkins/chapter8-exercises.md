@@ -2124,11 +2124,13 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
       stages {
         stage('Build') {
           steps {
-            buildPipeline(
-              dockerhubRepo: env.DOCKERHUB_REPO,
-              dockerhubUsername: env.DOCKERHUB_USERNAME,
-              githubRepoUrl: env.GITHUB_REPO_URL
-            )
+            script {
+              buildPipeline(
+                dockerhubRepo: env.DOCKERHUB_REPO,
+                dockerhubUsername: env.DOCKERHUB_USERNAME,
+                githubRepoUrl: env.GITHUB_REPO_URL
+              )
+            }
           }
         }
       }
