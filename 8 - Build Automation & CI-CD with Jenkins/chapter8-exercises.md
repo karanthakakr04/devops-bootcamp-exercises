@@ -2048,11 +2048,8 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
 
     ```groovy
     #!/usr/bin/env groovy
-    
+
     def call(Map pipelineParams) {
-      environment {
-        IMAGE_TAG = "${env.IMAGE_VERSION}"
-      }
 
       stages {
         stage('Increment Version') {
@@ -2077,7 +2074,7 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
           steps {
             script {
               def buildStage = new org.example.BuildStage()
-              buildStage(pipelineParams.dockerhubUsername, pipelineParams.dockerhubRepo, env.IMAGE_TAG)
+              buildStage(pipelineParams.dockerhubUsername, pipelineParams.dockerhubRepo, env.IMAGE_VERSION)
             }
           }
         }
@@ -2086,7 +2083,7 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
           steps {
             script {
               def deployStage = new org.example.DeployStage()
-              deployStage(pipelineParams.dockerhubUsername, pipelineParams.dockerhubRepo, env.IMAGE_TAG)
+              deployStage(pipelineParams.dockerhubUsername, pipelineParams.dockerhubRepo, env.IMAGE_VERSION)
             }
           }
         }
@@ -2095,18 +2092,9 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
           steps {
             script {
               def commitStage = new org.example.CommitStage()
-              commitStage(env.IMAGE_TAG, pipelineParams.githubRepoUrl)
+              commitStage(env.IMAGE_VERSION, pipelineParams.githubRepoUrl)
             }
           }
-        }
-      }
-
-      post {
-        success {
-          echo 'Pipeline executed successfully!'
-        }
-        failure {
-          echo 'Pipeline execution failed!'
         }
       }
     }
