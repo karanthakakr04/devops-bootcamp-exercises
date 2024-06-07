@@ -1857,21 +1857,25 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
 
     def call(String versionIncrement) {
       echo "Incrementing application version with ${versionIncrement}"
-      dir('app') {
-        def versionType = input(
-          id: 'versionType',
-          message: 'Select the version increment type:',
-          ok: 'Increment',
-          parameters: [
-            choice(name: 'type', choices: ['patch', 'minor', 'major'], description: 'Version increment type')
-          ]
-        )
-        sh "npm version ${versionType}"
-        def packageJson = readJSON file: 'package.json'
-        def appVersion = packageJson.version
-        def buildNumber = env.BUILD_NUMBER
-        def imageVersion = "${appVersion}-${buildNumber}"
-        env.IMAGE_VERSION = imageVersion
+      dir('8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/app') {
+        if (fileExists('package.json')) {
+          def versionType = input(
+            id: 'versionType',
+            message: 'Select the version increment type:',
+            ok: 'Increment',
+            parameters: [
+              choice(name: 'type', choices: ['patch', 'minor', 'major'], description: 'Version increment type')
+            ]
+          )
+          sh "npm version ${versionType}"
+          def packageJson = readJSON file: 'package.json'
+          def appVersion = packageJson.version
+          def buildNumber = env.BUILD_NUMBER
+          def imageVersion = "${appVersion}-${buildNumber}"
+          env.IMAGE_VERSION = imageVersion
+        } else {
+          error "package.json file not found in the app directory"
+        }
       }
     }
     ```
@@ -1896,11 +1900,15 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
 
     def call() {
       echo 'Running tests for the application...'
-      dir('app') {
+      dir('8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/app') {
         sh 'npm install'
-        catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
-          sh 'npm test'
-          error "Tests failed. Please fix the failing tests and rerun the pipeline."
+        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+          script {
+            def testResult = sh(script: 'npm test -- --detectOpenHandles', returnStatus: true)
+            if (testResult != 0) {
+              error "Tests failed. Please fix the failing tests and rerun the pipeline."
+            }
+          }
         }
       }
     }
@@ -1924,7 +1932,9 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
 
     def call(String dockerhubUsername, String dockerhubRepo, String imageTag) {
       echo "Building Docker image ${dockerhubUsername}/${dockerhubRepo}:${imageTag}"
-      sh "docker build -t ${dockerhubUsername}/${dockerhubRepo}:${imageTag} ."
+      dir('8 - Build Automation & CI-CD with Jenkins/jenkins-exercises') {
+        sh "docker build -t ${dockerhubUsername}/${dockerhubRepo}:${imageTag} -f Dockerfile ."
+      }
     }
     ```
 
@@ -1945,8 +1955,10 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
     def call(String dockerhubUsername, String dockerhubRepo, String imageTag) {
       echo "Pushing Docker image ${dockerhubUsername}/${dockerhubRepo}:${imageTag}"
       withCredentials([usernamePassword(credentialsId: 'docker-hub-access', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-        sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
-        sh "docker push ${dockerhubUsername}/${dockerhubRepo}:${imageTag}"
+        sh '''
+          echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+          docker push ${dockerhubUsername}/${dockerhubRepo}:${imageTag}
+        '''
       }
     }
     ```
@@ -1969,15 +1981,16 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
 
     def call(String imageVersion, String githubRepoUrl) {
       echo 'Committing the version increment to Git...'
-      withCredentials([usernamePassword(credentialsId: 'github-personal-access', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_PASSWORD')]) {
-        sh "git config user.email 'jenkins@example.com'"
-        sh "git config user.name 'Jenkins'"
-        sh "git remote set-url origin https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@${githubRepoUrl}"
-        dir('app') {
-          sh "git add package.json"
+      sh 'git config --global user.email "jenkins@example.com"'
+      sh 'git config --global user.name "Jenkins"'
+      withCredentials([usernamePassword(credentialsId: 'github-pat', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_PAT')]) {
+        def gitRepoUrl = githubRepoUrl
+        sh "git remote set-url origin https://${GITHUB_USERNAME}:${GITHUB_PAT}@${gitRepoUrl.replace('https://', '')}"
+        dir('8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/app') {
+          sh 'git add package.json'
         }
         sh "git commit -m 'Update version to ${imageVersion}'"
-        sh "git push origin HEAD:main"
+        sh 'git push origin HEAD:main'
       }
     }
     ```
@@ -1995,6 +2008,8 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
   - In the Jenkins Shared Library repository, create a new file named `buildPipeline.groovy` under the `vars` directory.
   - Define a global variable that represents the entire pipeline.
   - Call the extracted stage functions from the global variable.
+  - `pipelineParams.<parameter_name>` is used for custom parameters passed from the Jenkinsfile to the shared library function.
+
   - Example:
 
     ```groovy
@@ -2019,7 +2034,6 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
           stage('Increment Version') {
             steps {
               script {
-                // params.<parameter_name> is used for parameters defined within the pipeline using the parameters block and can be accessed throughout the pipeline.
                 def versioningStage = new org.example.VersioningStage()
                 versioningStage(params.VERSION_INCREMENT)
               }
@@ -2038,7 +2052,6 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
           stage('Build Image') {
             steps {
               script {
-                // pipelineParams.<parameter_name> is used for custom parameters passed from the Jenkinsfile to the shared library function.
                 def buildStage = new org.example.BuildStage()
                 buildStage(pipelineParams.dockerhubUsername, pipelineParams.dockerhubRepo, env.IMAGE_TAG)
               }
@@ -2160,6 +2173,7 @@ To pass environment variables from the Jenkinsfile to the shared library scripts
 environment {
   DOCKERHUB_REPO = credentials('DOCKERHUB_REPO')
   DOCKERHUB_USERNAME = credentials('DOCKERHUB_USERNAME')
+  GITHUB_REPO_URL = credentials('GITHUB_REPO_URL')
 }
 
 stages {
@@ -2169,6 +2183,7 @@ stages {
         versionIncrement: 'patch',
         dockerhubRepo: env.DOCKERHUB_REPO
         dockerhubUsername: env.DOCKERHUB_USERNAME
+        githubRepoUrl: env.GITHUB_REPO_URL
       )
     }
   }
