@@ -2168,6 +2168,8 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
   - Click on "Apply" to save the Global Pipeline Library configuration.
   - Your Jenkins instance is now configured to use the Jenkins Shared Library.
 
+![Jenkins Shared Library Configuration screenshot](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/3c8f1c6e-8953-4acd-bcc2-7d8b04089dc9)
+
 - [x] Task 11: Test the Jenkins Shared Library
   - Push the changes in the Jenkins Shared Library repository.
   - In Jenkins, navigate to your pipeline job.
