@@ -2154,15 +2154,19 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
 
 - [x] Task 10: Configure Jenkins to use the Shared Library
   - Open the Jenkins web interface.
-  - Go to "Manage Jenkins" > "Configure System".
-  - Scroll down to the "Global Pipeline Libraries" section.
+  - Go to "Manage Jenkins" > "System Configuration" > "Global Pipeline Libraries".
   - Click on "Add" to add a new library.
   - Provide a name for the library, such as "jenkins-shared-library".
-  - Set the default version or branch for the library.
+  - In the "Default version" field, specify the branch or tag of your shared library repository to use as the default version (e.g., "main").
   - In the "Retrieval method" section, select "Modern SCM".
-  - Choose "Git" as the source code management tool.
-  - Provide the repository URL for the Jenkins Shared Library repository.
-  - Save the configuration.
+  - Choose "Git" as the Source Code Management tool.
+  - In the "Project Repository" field, provide the URL of your Jenkins Shared Library repository (e.g., "<https://github.com/username/jenkins-shared-library.git>").
+  - In the "Credentials" field, select the appropriate credentials for accessing the shared library repository. If you haven't added the credentials yet, click on the "Add" button and provide the necessary details (e.g., username and password or SSH key).
+  - Leave the "Library Path" field as is (the default value is usually sufficient).
+  - Optionally, you can choose to "Include @Library changes in job recent changes" by checking the corresponding checkbox.
+  - If desired, you can also specify a custom "Changelog URL" and "Behavior" options.
+  - Click on "Apply" to save the Global Pipeline Library configuration.
+  - Your Jenkins instance is now configured to use the Jenkins Shared Library.
 
 - [x] Task 11: Test the Jenkins Shared Library
   - Push the changes in the Jenkins Shared Library repository.
