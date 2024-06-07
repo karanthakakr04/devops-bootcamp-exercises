@@ -793,8 +793,6 @@ networks:
           dockerfile: 8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/Dockerfile
         ports:
           - "3000:3000"
-        volumes:
-          - .:/usr/src/app
         environment:
           NODE_ENV: development
     ```
@@ -804,10 +802,18 @@ networks:
   This `docker-compose.yml` file defines a service named `app` with the following configuration:
   - Builds the Docker image using the `Dockerfile` located at `8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/Dockerfile`.
   - Maps port 3000 from the container to port 3000 on the host machine.
-  - Mounts the current directory (`.`) as a volume at `/usr/src/app` inside the container, allowing changes made to the application code to be reflected immediately.
   - Sets the `NODE_ENV` environment variable to `development`.
 
-- [x] Task 4: Build and run the Docker container using Docker Compose
+  > [!NOTE]
+  > The `volumes` section from the previous `docker-compose.yml` file has been removed to avoid potential conflicts with the files copied by the Dockerfile. If you need to persist specific data or directories, you can add volume mappings for those specific paths.
+
+- [x] Task 4: Review the `docker-compose.yml` file
+  - Verify that the `docker-compose.yml` file is structured correctly and includes the necessary configuration for your NodeJS application.
+  - Ensure that the `build` section correctly references the Dockerfile path relative to the build context.
+  - Check that the `ports` section maps the appropriate port from the container to the desired port on the host machine.
+  - Review the `environment` section and ensure that any required environment variables are properly defined.
+
+- [x] Task 5: Build and run the Docker container using Docker Compose
   - Open a terminal and navigate to the directory containing the `docker-compose.yml` file.
   - Run the following command to build the Docker image and start the container:
 
@@ -817,7 +823,7 @@ networks:
 
   - Docker Compose will build the image based on the `Dockerfile` and start the container in detached mode (`-d` flag).
 
-- [x] Task 5: Verify the running container
+- [x] Task 6: Verify the running container
   - Run the following command to list the running containers:
 
     ```bash
