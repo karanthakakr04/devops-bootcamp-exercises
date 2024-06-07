@@ -2048,6 +2048,7 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
 
     ```groovy
     #!/usr/bin/env groovy
+    
     def call(Map pipelineParams) {
       environment {
         IMAGE_TAG = "${env.IMAGE_VERSION}"
