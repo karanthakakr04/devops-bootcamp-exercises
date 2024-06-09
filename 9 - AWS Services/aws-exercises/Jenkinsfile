@@ -1,7 +1,5 @@
 #!/usr/bin/env groovy
 
-@Library('jenkins-shared-library') _
-
 pipeline {
   agent any
 
@@ -16,14 +14,75 @@ pipeline {
   }
 
   stages {
-    stage('Pipeline Initialization') {
+    stage('Increment Version') {
       steps {
         script {
-          buildPipeline(
-            dockerhubRepo: env.DOCKERHUB_REPO,
-            dockerhubUsername: env.DOCKERHUB_USERNAME,
-            githubRepoUrl: env.GITHUB_REPO_URL
-          )
+          dir('8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/app') {
+            if (fileExists('package.json')) {
+              def versionType = input(
+                id: 'versionType',
+                message: 'Select the version increment type:',
+                ok: 'Increment',
+                parameters: [
+                  choice(
+                    name: 'type',
+                    choices: ['patch', 'minor', 'major'],
+                    description: 'Version increment type'
+                  )
+                ]
+              )
+              sh "npm version ${versionType}"
+              def packageJson = readJSON file: 'package.json'
+              def appVersion = packageJson.version
+              def buildNumber = env.BUILD_NUMBER
+              def imageVersion = "${appVersion}-${buildNumber}"
+              env.IMAGE_VERSION = imageVersion
+            } else {
+                error "package.json file not found in the app directory"
+            }
+          }
+        }
+      }
+    }
+
+    stage('Run Tests') {
+      steps {
+        script {
+          echo 'Run tests for the application...'
+          dir('8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/app') {
+            sh 'npm install'
+            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+              def testResult = sh(script: 'npm test -- --detectOpenHandles', returnStatus: true)
+              if (testResult != 0) {
+                error "Tests failed. Please fix the failing tests and rerun the pipeline."
+              }
+            }
+          }
+        }
+      }
+    }
+
+    stage('Build Image') {
+      steps {
+        script {
+          echo 'Build the Docker image with the incremented version...'
+          dir('8 - Build Automation & CI-CD with Jenkins/jenkins-exercises') {
+            sh "docker build -t ${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}:${IMAGE_VERSION} -f Dockerfile ."
+          }
+        }
+      }
+    }
+
+    stage('Push Image') {
+      steps {
+        script {
+          echo 'Push the Docker image to a registry...'
+          withCredentials([usernamePassword(credentialsId: 'docker-hub-access', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+            sh '''
+                echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+                docker push ${DOCKER_USERNAME}/${DOCKERHUB_REPO}:${IMAGE_VERSION}
+            '''
+          }
         }
       }
     }
@@ -36,10 +95,28 @@ pipeline {
           def deploymentServer = "ec2-user@<deployment-server-public-ip>"
 
           sshagent(['my-ssh-key']) {
-              sh "scp -o StrictHostKeyChecking=no server-commands.sh ${deploymentServer}:/home/ec2-user"
-              sh "scp -o StrictHostKeyChecking=no docker-compose.yaml ${deploymentServer}:/home/ec2-user"
-              sh "ssh -o StrictHostKeyChecking=no ${deploymentServer} ${shellCmd}"
+            sh "scp -o StrictHostKeyChecking=no server-commands.sh ${deploymentServer}:/home/ec2-user"
+            sh "scp -o StrictHostKeyChecking=no docker-compose.yaml ${deploymentServer}:/home/ec2-user"
+            sh "ssh -o StrictHostKeyChecking=no ${deploymentServer} ${shellCmd}"
+          }
+        }
+      }
+    }
+
+    stage('Commit Version') {
+      steps {
+        script {
+          echo 'Commit the version increment to Git...'
+          sh 'git config --global user.email "jenkins@example.com"'
+          sh 'git config --global user.name "Jenkins"'
+          withCredentials([usernamePassword(credentialsId: 'github-pat', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_PAT')]) {
+            def gitRepoUrl = env.GITHUB_REPO_URL
+            sh "git remote set-url origin https://${GITHUB_USERNAME}:${GITHUB_PAT}@${gitRepoUrl.replace('https://', '')}"
+            dir('8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/app') {
+              sh 'git add package.json'
             }
+            sh "git commit -m 'Update version to ${IMAGE_VERSION}'"
+            sh 'git push origin HEAD:main'
           }
         }
       }
@@ -48,10 +125,10 @@ pipeline {
 
   post {
     success {
-      echo 'Pipeline executed successfully!'
+        echo 'Pipeline executed successfully!'
     }
     failure {
-      echo 'Pipeline execution failed!'
+        echo 'Pipeline execution failed!'
     }
   }
 }
