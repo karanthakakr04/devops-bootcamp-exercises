@@ -18,6 +18,9 @@ pipeline {
 
   stages {
     stage('Increment Version') {
+      when {
+        branch 'main'
+      }
       steps {
         script {
           dir('9 - AWS Services/aws-exercises/app') {
@@ -66,6 +69,9 @@ pipeline {
     }
 
     stage('Build Image') {
+      when {
+        branch 'main'
+      }
       steps {
         script {
           echo 'Build the Docker image with the incremented version...'
@@ -77,6 +83,9 @@ pipeline {
     }
 
     stage('Push Image') {
+      when {
+        branch 'main'
+      }
       steps {
         script {
           echo 'Push the Docker image to a registry...'
@@ -91,6 +100,9 @@ pipeline {
     }
 
     stage('Commit Version') {
+      when {
+        branch 'main'
+      }
       steps {
         script {
           echo 'Commit the version increment to Git...'
@@ -110,6 +122,9 @@ pipeline {
     }
 
     stage('Deploy App') {
+      when {
+        branch 'main'
+      }
       steps {
         script {
           echo 'Deploying the Docker image to the deployment server...'
