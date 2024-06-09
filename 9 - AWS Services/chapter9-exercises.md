@@ -1,5 +1,97 @@
 # TASK BREAKDOWN
 
+## Prerequisites
+
+Before proceeding with the exercises, ensure that you have the following prerequisites in place:
+
+1. **Multi-Branch Pipeline**: Create a new multi-branch pipeline in Jenkins and configure the branch sources. Add the Git repository URL and specify the branch discovery strategy. Apply the necessary behaviors, such as filtering branches by name using a regular expression. Configure the build settings to use the Jenkinsfile located in the repository.
+
+2. **Environment Variables**: Set up the following environment variables in Jenkins to store sensitive information securely:
+   - **Deployment Server**: Create a secret text credential to store the deployment server details in the format `<username>@<deployment-server-public-ip>` (e.g., `ec2-user@<public-ip>`).
+   - **Deployment Path**: Create another secret text credential to store the deployment path on the server (e.g., `/home/ec2-user`).
+
+   These environment variables will be used in the pipeline to protect sensitive information and provide flexibility in the deployment process.
+
+By completing these prerequisites, you will have a multi-branch pipeline set up in Jenkins, and the necessary environment variables will be securely stored for use in the subsequent exercises.
+
+### Create a Multi-Branch Pipeline
+
+- [x] **Task 1: Create a new multi-branch pipeline in Jenkins**
+  - In the Jenkins web interface, click on "New Item".
+  - Enter a name for your multi-branch pipeline (e.g., "my-app-pipeline") and select "Multibranch Pipeline" as the item type.
+  - Click "OK" to create the multi-branch pipeline.
+
+- [x] **Task 2: Configure the Branch Sources**
+  - In the multi-branch pipeline configuration page, scroll down to the "Branch Sources" section.
+  - Click "Add source" and select "Git".
+  - In the "Project Repository" field, enter the repository URL for your project (e.g., `https://github.com/your-username/your-repo.git`).
+  - In the "Credentials" field, select the appropriate credentials to access your repository (if required).
+  - In the "Behaviors" section, you will see the "Discover branches" option. Leave it as the default setting.
+  - Click the "Add" button under "Behaviors" and select "Filter by name (with regular expression)".
+  - In the "Regular expression" field, enter the appropriate regular expression to filter branches based on your requirements (e.g., `.*` to include all branches).
+
+- [x] **Task 3: Configure the Build Configuration**
+  - Scroll down to the "Build Configuration" section.
+  - The "Mode" dropdown should be set to "by Jenkinsfile" by default, which is the only available option.
+  - In the "Script Path" field, enter the path to your Jenkinsfile within the repository (e.g., `Jenkinsfile`).
+
+- [x] **Task 4: Configure Scan Multibranch Pipeline Triggers**
+  - In the "Scan Multibranch Pipeline Triggers" section, check the "Periodically if not otherwise run" option.
+  - Set the desired scanning interval (e.g., 1 hour) to automatically detect and build new branches.
+
+- [x] **Task 5: Save the multi-branch pipeline configuration**
+  - Optionally, you can configure additional build settings, such as "Orphaned Item Strategy" or "Health metrics" or "Pipeline Libraries" based on your requirements.
+  - Click "Save" to apply the configuration changes for the entire multi-branch pipeline.
+
+### Configuring Environment Variables in Jenkins Pipeline
+
+To use the environment variables (`DEPLOYMENT_USER`, `DEPLOYMENT_SEVER`, `DEPLOYMENT_PATH`) defined in the `environment` block of the Jenkinsfile, you need to create corresponding credential entries in Jenkins. Follow these steps to configure the environment variables:
+
+- [x] Task 1: Open the Jenkins web interface and navigate to the credentials page
+  - In the Jenkins dashboard, click on "Manage Jenkins" in the left sidebar.
+  - Click on "Manage Credentials" under the "Security" section.
+  - Click on "Jenkins" under "Stores scoped to Jenkins".
+  - Click on "Global credentials (unrestricted)".
+  - Click on the "Add Credentials" link on the right side.
+
+- [x] Task 2: Create credential entries for each environment variable
+  - For `DEPLOYMENT_USER`:
+    - Kind: Select "Secret text".
+    - Scope: Select "Global".
+    - Secret: Enter the value for your Docker Hub repository name.
+    - ID: Enter "DEPLOYMENT_USER".
+    - Description: Provide a meaningful description for the credential, such as "Username for accessing the deployment server".
+    - Click on the "Create" button to save the credential.
+
+  - For `DEPLOYMENT_SEVER`:
+    - Kind: Select "Secret text".
+    - Scope: Select "Global".
+    - Secret: Enter the value for your Docker Hub username.
+    - ID: Enter "DEPLOYMENT_SEVER".
+    - Description: Provide a meaningful description for the credential, such as "IP address of the deployment server".
+    - Click on the "Create" button to save the credential.
+
+  - For `DEPLOYMENT_PATH`:
+    - Kind: Select "Secret text".
+    - Scope: Select "Global".
+    - Secret: Enter the URL of your GitHub repository.
+    - ID: Enter "DEPLOYMENT_PATH".
+    - Description: Provide a meaningful description for the credential, such as "Deployment path on the server".
+    - Click on the "Create" button to save the credential.
+
+- [x] Task 3: Use the configured credentials in the Jenkinsfile
+  - In the Jenkinsfile, you can access the values of the environment variables using the `credentials()` function with the respective credential IDs. For example:
+
+    ```groovy
+    environment {
+      DEPLOYMENT_USER = credentials('DEPLOYMENT_USER')
+      DEPLOYMENT_SEVER = credentials('DEPLOYMENT_SEVER')
+      DEPLOYMENT_PATH = credentials('DEPLOYMENT_PATH')
+    }
+    ```
+
+  - Jenkins will retrieve the corresponding values from the configured credentials and assign them to the environment variables during the pipeline execution.
+
 ## Exercise 1
 
 > [!CAUTION]
