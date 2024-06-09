@@ -2103,6 +2103,7 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
 
     ```groovy
     #!/usr/bin/env groovy
+    
     @Library('jenkins-shared-library') _
 
     pipeline {
