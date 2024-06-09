@@ -2103,7 +2103,7 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
 
     ```groovy
     #!/usr/bin/env groovy
-    
+
     @Library('jenkins-shared-library') _
 
     pipeline {
@@ -2272,15 +2272,11 @@ In the `buildPipeline.groovy` script, the declarative pipeline syntax is used to
 
 ```groovy
 def call(Map pipelineParams) {
-  pipeline {
-    // Pipeline configuration
-    stages {
-      // Pipeline stages
+
+    stage {
+      // Pipeline stage
     }
-    post {
-      // Post actions
-    }
-  }
+
 }
 ```
 
