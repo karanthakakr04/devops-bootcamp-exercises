@@ -441,7 +441,7 @@ For the purpose of this exercise, we will proceed with using the `-o StrictHostK
   - Add a new stage named "Deploy" after the existing stages:
 
     ```groovy
-    stage("Deploy") {
+    stage("Deploy App") {
       steps {
         script {
           echo 'Deploying the Docker image to the deployment server...'
