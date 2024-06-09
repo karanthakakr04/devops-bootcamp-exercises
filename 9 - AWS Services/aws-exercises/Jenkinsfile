@@ -11,6 +11,9 @@ pipeline {
     DOCKERHUB_REPO = credentials('DOCKERHUB_REPO')
     DOCKERHUB_USERNAME = credentials('DOCKERHUB_USERNAME')
     GITHUB_REPO_URL = credentials('GITHUB_REPO_URL')
+    DEPLOYMENT_USER = credentials('DEPLOYMENT_USER')
+    DEPLOYMENT_SEVER = credentials('DEPLOYMENT_SEVER')
+    DEPLOYMENT_PATH = credentials('DEPLOYMENT_PATH')
   }
 
   stages {
