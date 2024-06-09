@@ -4,4 +4,4 @@ export IMAGE=$1
 
 docker-compose -f compose.yaml up --detach
 
-echo "success"
+echo 'success'
