@@ -1877,7 +1877,7 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
     │       └── example/
     │           ├── BuildStage.groovy
     │           ├── CommitStage.groovy
-    │           ├── DeployStage.groovy
+    │           ├── PushStage.groovy
     │           ├── TestStage.groovy
     │           └── VersioningStage.groovy
     └── README.md
@@ -1898,7 +1898,7 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
     package org.example
 
     def call() {
-      echo "Entering versioning stage..."
+      echo 'Increment the application version...'
       dir('8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/app') {
         if (fileExists('package.json')) {
           def versionType = input(
@@ -1941,7 +1941,7 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
     package org.example
 
     def call() {
-      echo 'Running tests for the application...'
+      echo 'Run tests for the application...'
       dir('8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/app') {
         sh 'npm install'
         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
@@ -1973,7 +1973,7 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
     package org.example
 
     def call(String dockerhubUsername, String dockerhubRepo, String imageTag) {
-      echo "Building Docker image ${dockerhubUsername}/${dockerhubRepo}:${imageTag}"
+      echo 'Build the Docker image with the incremented version...'
       dir('8 - Build Automation & CI-CD with Jenkins/jenkins-exercises') {
         sh "docker build -t ${dockerhubUsername}/${dockerhubRepo}:${imageTag} -f Dockerfile ."
       }
@@ -1985,8 +1985,8 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
     - It builds the Docker image using the `docker build` command with the provided repository name and image tag.
 
 - [x] Task 6: Extract the logic for the deploy stage
-  - In the Jenkins Shared Library repository, create a new file named `DeployStage.groovy` under the `src/org/example` directory.
-  - Move the logic for the deploy stage from the Jenkinsfile to `DeployStage.groovy`.
+  - In the Jenkins Shared Library repository, create a new file named `PushStage.groovy` under the `src/org/example` directory.
+  - Move the logic for the deploy stage from the Jenkinsfile to `PushStage.groovy`.
   - Modify the code to accept parameters and make it reusable.
   - Example:
 
@@ -1995,7 +1995,7 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
     package org.example
 
     def call(String dockerhubUsername, String dockerhubRepo, String imageTag) {
-      echo "Pushing Docker image ${dockerhubUsername}/${dockerhubRepo}:${imageTag}"
+      echo 'Push the Docker image to a registry...'
       withCredentials([usernamePassword(credentialsId: 'docker-hub-access', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
         sh '''
           echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
@@ -2022,7 +2022,7 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
     package org.example
 
     def call(String imageVersion, String githubRepoUrl) {
-      echo 'Committing the version increment to Git...'
+      echo 'Commit the version increment to Git...'
       sh 'git config --global user.email "jenkins@example.com"'
       sh 'git config --global user.name "Jenkins"'
       withCredentials([usernamePassword(credentialsId: 'github-pat', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_PAT')]) {
@@ -2080,10 +2080,10 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
         }
       }
 
-      stage('Deploy') {
+      stage('Push Image') {
         script {
-          def deployStage = new org.example.DeployStage()
-          deployStage(pipelineParams.dockerhubUsername, pipelineParams.dockerhubRepo, env.IMAGE_VERSION)
+          def pushStage = new org.example.PushStage()
+          pushStage(pipelineParams.dockerhubUsername, pipelineParams.dockerhubRepo, env.IMAGE_VERSION)
         }
       }
 
@@ -2099,7 +2099,7 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
     Explanation:
     - The script defines a `call` method that takes a `pipelineParams` map.
     - It uses the declarative pipeline syntax to define the pipeline structure.
-    - The pipeline consists of five stages: "Increment Version", "Run Tests", "Build Image", "Deploy", and "Commit Version".
+    - The pipeline consists of five stages: "Increment Version", "Run Tests", "Build Image", "Push Image", and "Commit Version".
     - Each stage instantiates the corresponding stage class and calls its `call` method with the required parameters.
 
 - [x] Task 9: Update the Jenkinsfile to use the Jenkins Shared Library
