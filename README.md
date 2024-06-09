@@ -6,7 +6,7 @@
 - [x] 5 - Cloud & IaaS Basics - DigitalOcean
 - [x] 6 - Artifact Repository Manager with Nexus
 - [x] 7 - Container with Docker
-- [ ] 8 - Build Automation & CI/CD with Jenkins
+- [x] 8 - Build Automation & CI/CD with Jenkins
 - [ ] 9 - AWS Services
 - [ ] 10 - Container Orchestration with Kubernetes
 - [ ] 11 - Kubernetes on AWS EKS
