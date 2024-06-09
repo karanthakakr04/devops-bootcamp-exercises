@@ -1054,7 +1054,7 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
 
     }
 
-    stage('Build Docker Image') {
+    stage('Build Image') {
 
       steps {
 
@@ -1068,7 +1068,7 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
 
     }
 
-    stage('Push Docker Image') {
+    stage('Push Image') {
 
       steps {
 
@@ -1254,7 +1254,7 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
             stage('Increment Version') {
                 steps {
                     script {
-                        dir('app') {
+                        dir('8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/app') {
                             // ...
                         }
                     }
@@ -1290,26 +1290,34 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
         // ...
 
         stage('Increment Version') {
-          steps {
-            script {
-              dir('app') {
-                def versionType = input(
-                  id: 'versionType',
-                  message: 'Select the version increment type:',
-                  ok: 'Increment',
-                  parameters: [
-                    choice(name: 'type', choices: ['patch', 'minor', 'major'], description: 'Version increment type')
-                  ]
-                )
-                sh "npm version ${versionType}"
-                def packageJson = readJSON file: 'package.json'
-                def appVersion = packageJson.version
-                def buildNumber = env.BUILD_NUMBER
-                def imageVersion = "${appVersion}-${buildNumber}"
-                env.IMAGE_VERSION = imageVersion
-              }
+            steps {
+                script {
+                    dir('8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/app') {
+                        if (fileExists('package.json')) {
+                            def versionType = input(
+                                id: 'versionType',
+                                message: 'Select the version increment type:',
+                                ok: 'Increment',
+                                parameters: [
+                                    choice(
+                                        name: 'type',
+                                        choices: ['patch', 'minor', 'major'],
+                                        description: 'Version increment type'
+                                    )
+                                ]
+                            )
+                            sh "npm version ${versionType}"
+                            def packageJson = readJSON file: 'package.json'
+                            def appVersion = packageJson.version
+                            def buildNumber = env.BUILD_NUMBER
+                            def imageVersion = "${appVersion}-${buildNumber}"
+                            env.IMAGE_VERSION = imageVersion
+                        } else {
+                            error "package.json file not found in the app directory"
+                        }
+                    }
+                }
             }
-          }
         }
 
         // ...
@@ -1401,12 +1409,12 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
 
 - [x] Task 8: Build Docker image
   - Update the Jenkinsfile to include a new stage for building the Docker image:
-    - Add a new stage called "Build Docker Image" after the "Run Tests" stage.
-    - Inside the "Build Docker Image" stage, use the `steps` block to define the steps for building the Docker image.
+    - Add a new stage called "Build Image" after the "Run Tests" stage.
+    - Inside the "Build Image" stage, use the `steps` block to define the steps for building the Docker image.
     - Use the `script` block to write Groovy code for executing shell commands.
 
       ```groovy
-      stage('Build Docker Image') {
+      stage('Build Image') {
         steps {
           script {
             // Docker image build steps will be added here
@@ -1425,10 +1433,10 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
       sh "docker build -t ${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}:${IMAGE_VERSION} -f Dockerfile ."
       ```
 
-  - Jenkinsfile configuration for `stage('Build Docker Image')`:
+  - Jenkinsfile configuration for `stage('Build Image')`:
 
     ```groovy
-    stage('Build Docker Image') {
+    stage('Build Image') {
       steps {
         script {
           dir('8 - Build Automation & CI-CD with Jenkins/jenkins-exercises') {
@@ -1441,12 +1449,12 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
 
 - [x] Task 9: Push Docker image
   - Update the Jenkinsfile to include a new stage for pushing the Docker image to Docker Hub:
-    - Add a new stage called "Push Docker Image" after the "Build Docker Image" stage.
-    - Inside the "Push Docker Image" stage, use the `steps` block to define the steps for pushing the Docker image.
+    - Add a new stage called "Push Image" after the "Build Docker Image" stage.
+    - Inside the "Push Image" stage, use the `steps` block to define the steps for pushing the Docker image.
     - Use the `script` block to write Groovy code for executing shell commands.
 
       ```groovy
-      stage('Push Docker Image') {
+      stage('Push Image') {
         steps {
           script {
             // Docker login and push steps will be added here
@@ -1486,10 +1494,10 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
     - Pass the Docker Hub password to the `docker login` command using the `--password-stdin` flag. This prevents the password from being visible in the command line or build logs.
     - Consider using Docker Content Trust (DCT) to sign and verify the integrity of your Docker images. DCT ensures that the images are not tampered with during the push and pull processes.
 
-  - Jenkinsfile configuration for `stage('Push Docker Image')`:
+  - Jenkinsfile configuration for `stage('Push Image')`:
 
     ```groovy
-    stage('Push Docker Image') {
+    stage('Push Image') {
       steps {
         script {
           withCredentials([usernamePassword(credentialsId: 'docker-hub-access', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
@@ -1505,12 +1513,12 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
 
 - [x] Task 10: Commit version changes
   - Update the Jenkinsfile to include a new stage for committing the version changes to GitHub:
-    - Add a new stage called "Commit Version Changes" after the "Push Docker Image" stage.
-    - Inside the "Commit Version Changes" stage, use the `steps` block to define the steps for committing the changes.
+    - Add a new stage called "Commit Version" after the "Push Docker Image" stage.
+    - Inside the "Commit Version" stage, use the `steps` block to define the steps for committing the changes.
     - Use the `script` block to write Groovy code for executing shell commands and interacting with GitHub.
 
       ```groovy
-      stage('Commit Version Changes') {
+      stage('Commit Version') {
         steps {
           script {
             // Git commit and push steps will be added here
@@ -1643,7 +1651,7 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
   - Example Jenkinsfile code for Method 2 (`sshagent`):
 
     ```groovy
-    stage('Commit Version Changes') {
+    stage('Commit Version') {
       steps {
         script {
           sh 'git config --global user.email "jenkins@example.com"'
@@ -1819,7 +1827,7 @@ To use a shared library in a Jenkins pipeline, you need to configure Jenkins to 
 Once the library is configured, you can call the functions or classes defined in the library from your pipeline script.
 
 ```groovy
-stage('Build') {
+stage('Pipeline Initialization') {
     steps {
         script {
             def buildUtils = new org.example.BuildUtils()
@@ -2120,7 +2128,7 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
       }
 
       stages {
-        stage('Build') {
+        stage('Pipeline Initialization') {
           steps {
             script {
               buildPipeline(
@@ -2185,10 +2193,9 @@ environment {
 }
 
 stages {
-  stage('Build') {
+  stage('Pipeline Initialization') {
     steps {
       buildPipeline(
-        versionIncrement: 'patch',
         dockerhubRepo: env.DOCKERHUB_REPO
         dockerhubUsername: env.DOCKERHUB_USERNAME
         githubRepoUrl: env.GITHUB_REPO_URL
