@@ -438,7 +438,7 @@ For the purpose of this exercise, we will proceed with using the `-o StrictHostK
 
 - [ ] Task 3: Update the Jenkinsfile
   - Open the `Jenkinsfile` in your project repository.
-  - Add a new stage named "Deploy" after the existing stages:
+  - Add a new stage named "Deploy App" after the existing stages:
 
     ```groovy
     stage("Deploy App") {
