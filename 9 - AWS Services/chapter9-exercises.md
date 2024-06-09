@@ -504,7 +504,7 @@ For the purpose of this exercise, we will proceed with using the `-o StrictHostK
 
     export IMAGE=$1
 
-    docker-compose -f docker-compose.yaml up --detach
+    docker-compose -f compose.yaml up --detach
 
     echo 'success'
     ```
@@ -513,37 +513,41 @@ For the purpose of this exercise, we will proceed with using the `-o StrictHostK
 
 - [ ] Task 2: Create a `docker-compose.yaml` file
   - Create a new file named `docker-compose.yaml` in your project repository, in this case the `9 - AWS Services/aws-exercises` directory.
-  - Open the `docker-compose.yaml` file and add the following content:
+  - Open the `compose.yaml` file and add the following content:
 
     ```yaml
     version: '3.8'
+
     services:
-      my-app:
-        image: <docker-registry>/<image-name>:${IMAGE}
-        container_name: my-app
+      app:
+        image: ${IMAGE}
         ports:
-          - 80:3000
+          - "3000:3000"
+        environment:
+          NODE_ENV: development
     ```
 
-  - Replace `<docker-registry>` and `<image-name>` with the appropriate values for your Docker registry and image name.
-  - The `docker-compose.yaml` file defines a service named `my-app` that uses the Docker image specified by the `IMAGE` environment variable. It maps port 80 on the host to port 3000 in the container.
+  - The `docker-compose.yaml` file defines a service named `app` that uses the Docker image specified by the `IMAGE` environment variable. It maps port 3000 on the host to port 3000 in the container.
 
 - [ ] Task 3: Update the Jenkinsfile
   - Open the `Jenkinsfile` in your project repository, in this case the `9 - AWS Services/aws-exercises` directory.
   - Add a new stage named "Deploy App" after the existing stages:
 
     ```groovy
-    stage("Deploy App") {
+    stage('Deploy App') {
       steps {
         script {
           echo 'Deploying the Docker image to the deployment server...'
-          def shellCmd = "bash ./server-commands.sh ${IMAGE_NAME}"
-          def deploymentServer = "ec2-user@<deployment-server-public-ip>"
-
-          sshagent(['my-ssh-key']) {
-            sh "scp -o StrictHostKeyChecking=no server-commands.sh ${deploymentServer}:/home/ec2-user"
-            sh "scp -o StrictHostKeyChecking=no docker-compose.yaml ${deploymentServer}:/home/ec2-user"
-            sh "ssh -o StrictHostKeyChecking=no ${deploymentServer} ${shellCmd}"
+          def deploymentImage = "${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}:${IMAGE_VERSION}"
+          def deploymentScript = "bash ./server-commands.sh ${deploymentImage}"
+          def deploymentTarget = "${DEPLOYMENT_USER}@${DEPLOYMENT_SEVER}"
+          dir('9 - AWS Services/aws-exercises'){
+            sshagent(['deployment-server-ssh']) {
+              sh "scp -o StrictHostKeyChecking=no server-commands.sh ${deploymentTarget}:${DEPLOYMENT_PATH}"
+              sh "scp -o StrictHostKeyChecking=no compose.yaml ${deploymentTarget}:${DEPLOYMENT_PATH}"
+              sh "ssh -o StrictHostKeyChecking=no ${deploymentTarget} 'chmod +x ${DEPLOYMENT_PATH}/server-commands.sh'"
+              sh "ssh -o StrictHostKeyChecking=no ${deploymentTarget} ${deploymentScript}"
+            }
           }
         }
       }
@@ -552,8 +556,8 @@ For the purpose of this exercise, we will proceed with using the `-o StrictHostK
 
   - Replace `<deployment-server-public-ip>` with the public IP address of your deployment server.
   - The `sshagent` block is used to authenticate with the deployment server using the SSH key stored in the Jenkins credentials.
-  - The `scp` commands copy the `server-commands.sh` and `docker-compose.yaml` files to the deployment server.
-  - The `ssh` command connects to the deployment server and executes the `server-commands.sh` script with the `${IMAGE_NAME}` as an argument.
+  - The `scp` commands copy the `server-commands.sh` and `compose.yaml` files to the deployment server.
+  - The `ssh` command connects to the deployment server and executes the `server-commands.sh` script with the `deploymentImage` as an argument.
 
 - [ ] Task 4: Configure Jenkins credentials for SSH access
   - In the Jenkins web interface, navigate to "Manage Jenkins" > "Manage Credentials".
@@ -566,7 +570,7 @@ For the purpose of this exercise, we will proceed with using the `-o StrictHostK
   - Click "OK" to save the credentials.
 
 - [ ] Task 5: Run the Jenkins pipeline
-  - Push the updated `Jenkinsfile`, `server-commands.sh`, and `docker-compose.yaml` files to your project repository.
+  - Push the updated `Jenkinsfile`, `server-commands.sh`, and `compose.yaml` files to your project repository.
   - In the Jenkins web interface, navigate to your pipeline and click on "Build Now" to trigger a new build.
   - Monitor the pipeline execution and verify that the deployment stage runs successfully.
 
