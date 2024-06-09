@@ -113,7 +113,7 @@ pipeline {
       steps {
         script {
           echo 'Deploying the Docker image to the deployment server...'
-          def imageName = "${DOCKERHUB_USERNAME}/DOCKERHUB_REPO:${IMAGE_VERSION}"
+          def imageName = "${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}:${IMAGE_VERSION}"
           def shellCmd = "bash ./server-commands.sh ${imageName}"
           def deploymentServer = "ec2-user@<deployment-server-public-ip>"
 
