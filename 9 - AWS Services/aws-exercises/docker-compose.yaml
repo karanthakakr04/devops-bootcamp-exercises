@@ -2,9 +2,7 @@ version: '3.8'
 
 services:
   app:
-    build:
-      context: .
-      dockerfile: 9 - AWS Services/aws-exercises/Dockerfile
+    image: ${IMAGE}
     ports:
       - "3000:3000"
     environment:
