@@ -116,11 +116,12 @@ pipeline {
           def deploymentImage = "${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}:${IMAGE_VERSION}"
           def deploymentScript = "bash ./server-commands.sh ${deploymentImage}"
           def deploymentTarget = "${DEPLOYMENT_USER}@${DEPLOYMENT_SEVER}"
-
-          sshagent(['deployment-server-ssh']) {
-            sh "scp -o StrictHostKeyChecking=no server-commands.sh ${deploymentTarget}:${DEPLOYMENT_PATH}"
-            sh "scp -o StrictHostKeyChecking=no docker-compose.yaml ${deploymentTarget}:${DEPLOYMENT_PATH}"
-            sh "ssh -o StrictHostKeyChecking=no ${deploymentTarget} ${deploymentScript}"
+          dir('9 - AWS Services/aws-exercises/app'){
+            sshagent(['deployment-server-ssh']) {
+              sh "scp -o StrictHostKeyChecking=no server-commands.sh ${deploymentTarget}:${DEPLOYMENT_PATH}"
+              sh "scp -o StrictHostKeyChecking=no docker-compose.yaml ${deploymentTarget}:${DEPLOYMENT_PATH}"
+              sh "ssh -o StrictHostKeyChecking=no ${deploymentTarget} ${deploymentScript}"
+            }
           }
         }
       }
