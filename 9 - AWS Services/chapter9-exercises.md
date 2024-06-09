@@ -404,7 +404,7 @@ While these alternative methods provide more secure ways to establish SSH connec
 For the purpose of this exercise, we will proceed with using the `-o StrictHostKeyChecking=no` flag, but it is important to be aware of the security implications and consider implementing more secure methods in production environments.
 
 - [ ] Task 1: Create a shell script for deployment commands
-  - Create a new file named `server-commands.sh` in your project repository.
+  - Create a new file named `server-commands.sh` in your project repository, in this case the `9 - AWS Services/aws-exercises` directory.
   - Open the `server-commands.sh` file and add the following content:
 
     ```bash
@@ -420,7 +420,7 @@ For the purpose of this exercise, we will proceed with using the `-o StrictHostK
   - This shell script takes the image name as an argument, sets it as an environment variable, and runs the `docker-compose up` command with the provided `docker-compose.yaml` file to start the application container.
 
 - [ ] Task 2: Create a `docker-compose.yaml` file
-  - Create a new file named `docker-compose.yaml` in your project repository.
+  - Create a new file named `docker-compose.yaml` in your project repository, in this case the `9 - AWS Services/aws-exercises` directory.
   - Open the `docker-compose.yaml` file and add the following content:
 
     ```yaml
@@ -437,7 +437,7 @@ For the purpose of this exercise, we will proceed with using the `-o StrictHostK
   - The `docker-compose.yaml` file defines a service named `my-app` that uses the Docker image specified by the `IMAGE` environment variable. It maps port 80 on the host to port 3000 in the container.
 
 - [ ] Task 3: Update the Jenkinsfile
-  - Open the `Jenkinsfile` in your project repository.
+  - Open the `Jenkinsfile` in your project repository, in this case the `9 - AWS Services/aws-exercises` directory.
   - Add a new stage named "Deploy App" after the existing stages:
 
     ```groovy
