@@ -1151,7 +1151,7 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
     - Change the current directory to the `8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/app` folder using the `dir` command. This is necessary because the `package.json` file, which contains the version information, is located inside the `app` folder.
 
       ```groovy
-      dir('8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/appp') {
+      dir('8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/app') {
         // Version increment steps will be added here
       }
       ```
