@@ -414,7 +414,7 @@ For the purpose of this exercise, we will proceed with using the `-o StrictHostK
 
     docker-compose -f docker-compose.yaml up --detach
 
-    echo "success"
+    echo 'success'
     ```
 
   - This shell script takes the image name as an argument, sets it as an environment variable, and runs the `docker-compose up` command with the provided `docker-compose.yaml` file to start the application container.
