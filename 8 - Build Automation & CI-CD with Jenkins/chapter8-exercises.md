@@ -2180,7 +2180,7 @@ By leveraging Jenkins Shared Library, you can create a collection of reusable co
   - Trigger a new build of the pipeline.
   - Verify that the pipeline executes successfully using the shared library code.
 
-![Jenkins Pipeline Success Output screenshot](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/e313fe23-1351-4b04-871e-a879c76f98e1)
+![Jenkins Pipeline Success Output screenshot](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/9f9295dc-94d4-4187-b474-cbbb596146f0)
 
 ### Additional Information
 
