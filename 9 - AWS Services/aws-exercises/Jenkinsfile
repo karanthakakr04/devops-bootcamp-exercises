@@ -29,7 +29,7 @@ pipeline {
     }
   }
     
-  stage('Deploy') {
+  stage('Deploy App') {
     steps {
       script {
         echo 'Deploying the Docker image to the deployment server...'
