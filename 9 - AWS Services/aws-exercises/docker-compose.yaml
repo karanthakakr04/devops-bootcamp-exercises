@@ -4,7 +4,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: 8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/Dockerfile
+      dockerfile: 9 - AWS Services/aws-exercises/Dockerfile
     ports:
       - "3000:3000"
     environment:
