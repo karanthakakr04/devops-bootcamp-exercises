@@ -1292,6 +1292,7 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
         stage('Increment Version') {
             steps {
                 script {
+                    echo 'Increment the application version...'
                     dir('8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/app') {
                         if (fileExists('package.json')) {
                             def versionType = input(
@@ -1391,6 +1392,7 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
     stage('Run Tests') {
       steps {
         script {
+          echo 'Run tests for the application...'
           dir('8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/app') {
             sh 'npm install'
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
@@ -1439,6 +1441,7 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
     stage('Build Image') {
       steps {
         script {
+          echo 'Build the Docker image with the incremented version...'
           dir('8 - Build Automation & CI-CD with Jenkins/jenkins-exercises') {
             sh "docker build -t ${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}:${IMAGE_VERSION} -f Dockerfile ."
           }
@@ -1500,6 +1503,7 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
     stage('Push Image') {
       steps {
         script {
+          echo 'Push the Docker image to a registry...'
           withCredentials([usernamePassword(credentialsId: 'docker-hub-access', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
             sh '''
                 echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
@@ -1630,6 +1634,7 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
     stage('Commit Version') {
       steps {
         script {
+          echo 'Commit the version increment to Git...'
           sh 'git config --global user.email "jenkins@example.com"'
           sh 'git config --global user.name "Jenkins"'
           withCredentials([usernamePassword(credentialsId: 'github-pat', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_PAT')]) {
@@ -1654,6 +1659,7 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
     stage('Commit Version') {
       steps {
         script {
+          echo 'Commit the version increment to Git...'
           sh 'git config --global user.email "jenkins@example.com"'
           sh 'git config --global user.name "Jenkins"'
           sshagent(['github-ssh-credentials']) {
