@@ -1452,7 +1452,7 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
 
 - [x] Task 9: Push Docker image
   - Update the Jenkinsfile to include a new stage for pushing the Docker image to Docker Hub:
-    - Add a new stage called "Push Image" after the "Build Docker Image" stage.
+    - Add a new stage called "Push Image" after the "Build Image" stage.
     - Inside the "Push Image" stage, use the `steps` block to define the steps for pushing the Docker image.
     - Use the `script` block to write Groovy code for executing shell commands.
 
@@ -1517,7 +1517,7 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
 
 - [x] Task 10: Commit version changes
   - Update the Jenkinsfile to include a new stage for committing the version changes to GitHub:
-    - Add a new stage called "Commit Version" after the "Push Docker Image" stage.
+    - Add a new stage called "Commit Version" after the "Push Image" stage.
     - Inside the "Commit Version" stage, use the `steps` block to define the steps for committing the changes.
     - Use the `script` block to write Groovy code for executing shell commands and interacting with GitHub.
 
