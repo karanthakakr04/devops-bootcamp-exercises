@@ -60,7 +60,7 @@ To use the environment variables (`DEPLOYMENT_USER`, `DEPLOYMENT_SEVER`, `DEPLOY
     - Scope: Select "Global".
     - Secret: Enter the value for your Docker Hub repository name.
     - ID: Enter "DEPLOYMENT_USER".
-    - Description: Provide a meaningful description for the credential, such as "Username for accessing the deployment server".
+    - Description: Provide a meaningful description for the credential, such as "This credential stores the username for accessing and performing deployment operations on the target server.".
     - Click on the "Create" button to save the credential.
 
   - For `DEPLOYMENT_SEVER`:
@@ -68,7 +68,7 @@ To use the environment variables (`DEPLOYMENT_USER`, `DEPLOYMENT_SEVER`, `DEPLOY
     - Scope: Select "Global".
     - Secret: Enter the value for your Docker Hub username.
     - ID: Enter "DEPLOYMENT_SEVER".
-    - Description: Provide a meaningful description for the credential, such as "IP address of the deployment server".
+    - Description: Provide a meaningful description for the credential, such as "This credential stores the IP address of the target server where the application will be deployed.".
     - Click on the "Create" button to save the credential.
 
   - For `DEPLOYMENT_PATH`:
@@ -76,7 +76,7 @@ To use the environment variables (`DEPLOYMENT_USER`, `DEPLOYMENT_SEVER`, `DEPLOY
     - Scope: Select "Global".
     - Secret: Enter the URL of your GitHub repository.
     - ID: Enter "DEPLOYMENT_PATH".
-    - Description: Provide a meaningful description for the credential, such as "Deployment path on the server".
+    - Description: Provide a meaningful description for the credential, such as "This credential stores directory path on the target server where application files will be deployed.".
     - Click on the "Create" button to save the credential.
 
 - [x] Task 3: Use the configured credentials in the Jenkinsfile
