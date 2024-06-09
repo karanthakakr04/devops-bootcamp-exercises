@@ -1030,7 +1030,7 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
       steps {
 
         script {
-          echo "Increment the application version..."
+          echo 'Increment the application version...'
           // Increment the application version
           // You can use a npm package like 'npm-version' or write a custom script to increment the version
           // Example: sh 'npm run version:increment'
@@ -1045,7 +1045,7 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
       steps {
 
         script {
-          echo "Run tests for the application..."
+          echo 'Run tests for the application...'
           // Run tests for the application
           // Example: sh 'npm test'
         }
@@ -1059,7 +1059,7 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
       steps {
 
         script {
-          echo "Build the Docker image with the incremented version..."
+          echo 'Build the Docker image with the incremented version...'
           // Build the Docker image with the incremented version
           // Example: sh 'docker build -t myapp:${version} .'
         }
@@ -1073,7 +1073,7 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
       steps {
 
         script {
-          echo "Push the Docker image to a registry..."
+          echo 'Push the Docker image to a registry...'
           // Push the Docker image to a registry
           // Example: sh 'docker push myapp:${version}'
         }
@@ -1087,7 +1087,7 @@ To use the environment variables (`DOCKERHUB_REPO`, `DOCKERHUB_USERNAME`, `GITHU
       steps {
 
         script {
-          echo "Commit the version increment to Git..."
+          echo 'Commit the version increment to Git...'
           // Commit the version increment to Git
           // Example:
           // sh 'git add package.json'
