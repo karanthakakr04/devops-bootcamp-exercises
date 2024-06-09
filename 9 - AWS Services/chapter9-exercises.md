@@ -574,6 +574,8 @@ For the purpose of this exercise, we will proceed with using the `-o StrictHostK
   - In the Jenkins web interface, navigate to your pipeline and click on "Build Now" to trigger a new build.
   - Monitor the pipeline execution and verify that the deployment stage runs successfully.
 
+![Pipeline Success Output Screenshot](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/606aa34b-0fea-48d2-8f89-08c0ed44612d)
+
 ## Exercise 8
 
 - [ ] Task 1: Retrieve the security group ID
