@@ -16,7 +16,7 @@ pipeline {
   }
 
   stages {
-    stage('Build') {
+    stage('Pipeline Initialization') {
       steps {
         script {
           buildPipeline(
