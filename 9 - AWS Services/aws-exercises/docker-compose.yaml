@@ -1,10 +1,11 @@
 version: '3.8'
 
 services:
-  server:
+  app:
     build:
       context: .
-    environment:
-      NODE_ENV: production
+      dockerfile: 8 - Build Automation & CI-CD with Jenkins/jenkins-exercises/Dockerfile
     ports:
-      - 3000:3000
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
