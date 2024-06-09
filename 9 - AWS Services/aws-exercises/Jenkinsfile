@@ -117,7 +117,7 @@ pipeline {
           def deploymentScript = "bash ./server-commands.sh ${deploymentImage}"
           def deploymentTarget = "${DEPLOYMENT_USER}@${DEPLOYMENT_SEVER}"
 
-          sshagent(['my-ssh-key']) {
+          sshagent(['deployment-server-ssh']) {
             sh "scp -o StrictHostKeyChecking=no server-commands.sh ${deploymentTarget}:${DEPLOYMENT_PATH}"
             sh "scp -o StrictHostKeyChecking=no docker-compose.yaml ${deploymentTarget}:${DEPLOYMENT_PATH}"
             sh "ssh -o StrictHostKeyChecking=no ${deploymentTarget} ${deploymentScript}"
