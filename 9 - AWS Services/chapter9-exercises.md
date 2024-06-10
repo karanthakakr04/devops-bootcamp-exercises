@@ -626,59 +626,122 @@ For the purpose of this exercise, we will proceed with using the `-o StrictHostK
 
 ## Exercise 9
 
-- [ ] Task 1: Update the Jenkinsfile with branch-based logic
-  - Open the Jenkinsfile in your project repository.
-  - Add a condition to execute certain stages only for the master branch. For example:
+### Adding Branch-Based Logic to Jenkinsfile
+
+- [x] **Task 1: Modify the Jenkinsfile to add branch-based logic**
+  - Open the `Jenkinsfile` in your project repository.
+  - Add the `when` directive with the `branch` condition to the relevant stages:
+    - "Increment Version" stage: Execute only when the branch is `main` or `master`.
+    - "Build Image" stage: Execute only when the branch is `main` or `master`.
+    - "Push Image" stage: Execute only when the branch is `main` or `master`.
+    - "Commit Version" stage: Execute only when the branch is `main` or `master`.
+    - "Deploy App" stage: Execute only when the branch is `main` or `master`.
+    - "Run Tests" stage: Execute for all branches.
+  - Update the Jenkinsfile with the following changes:
 
     ```groovy
-    stage('Deploy') {
+    stage('Increment Version') {
       when {
-        branch 'main'
+        anyOf {
+          branch 'main'
+          branch 'master'
+        }
       }
       steps {
-        // Deployment steps for the master branch
+        // Increment version logic
       }
     }
 
     stage('Run Tests') {
+      steps {
+        // Run tests logic
+      }
+    }
+
+    stage('Build Image') {
       when {
-        not {
+        anyOf {
           branch 'main'
+          branch 'master'
         }
       }
       steps {
-        // Test execution steps for non-master branches
+        // Build image logic
+      }
+    }
+
+    stage('Push Image') {
+      when {
+        anyOf {
+          branch 'main'
+          branch 'master'
+        }
+      }
+      steps {
+        // Push image logic
+      }
+    }
+
+    stage('Commit Version') {
+      when {
+        anyOf {
+          branch 'main'
+          branch 'master'
+        }
+      }
+      steps {
+        // Commit version logic
+      }
+    }
+
+    stage('Deploy App') {
+      when {
+        anyOf {
+          branch 'main'
+          branch 'master'
+        }
+      }
+      steps {
+        // Deploy app logic
       }
     }
     ```
 
-  - Use the `when` directive to specify conditions for executing specific stages based on the branch name.
-  - In this example, the "Deploy" stage runs only for the master branch, while the "Run Tests" stage runs for all other branches.
+  - Commit and push the updated Jenkinsfile to your repository.
 
-- [ ] Task 2: Set up a multi-branch pipeline in Jenkins
-  - In the Jenkins web interface, click on "New Item".
-  - Enter a name for your multi-branch pipeline and select "Multibranch Pipeline" as the item type.
-  - Click "OK" to create the multi-branch pipeline.
-  - In the configuration page, under the "Branch Sources" section, click "Add source" and select "Git".
-  - Provide the repository URL and credentials for accessing the Git repository.
-  - Configure any additional settings, such as the branch naming convention or automatic branch discovery.
-  - Save the multi-branch pipeline configuration.
+### Configuring Webhook in GitHub for Multibranch Pipeline
 
-- [ ] Task 3: Configure webhook in the Git repository
-  - Go to your Git repository's settings page (e.g., GitHub, GitLab).
-  - Navigate to the webhooks section.
-  - Click on "Add webhook" or similar option.
-  - Provide the Jenkins URL where the webhook should be sent. For example:
+- [ ] **Task 1: Install the "Multibranch Scan Webhook Trigger" plugin in Jenkins**
+  - Go to your Jenkins dashboard and click on "Manage Jenkins" > "Manage Plugins".
+  - In the "Available" tab, search for "Multibranch Scan Webhook Trigger" plugin.
+  - Select the checkbox next to the plugin and click "Install without restart".
+  - Wait for the plugin installation to complete.
 
-    ```bash
-    http://<jenkins-url>/multibranch-webhook-trigger/invoke?token=<token>
-    ```
+- [ ] **Task 2: Configure the multibranch pipeline in Jenkins**
+  - Go to your Jenkins dashboard and click on "New Item".
+  - Enter a name for your multibranch pipeline and select "Multibranch Pipeline" as the item type.
+  - Click "OK" to create the multibranch pipeline.
+  - In the configuration page, under "Branch Sources", click "Add source" and select "GitHub".
+  - Provide the repository URL and necessary credentials.
+  - Under "Scan Multibranch Pipeline Triggers", select "Periodically if not otherwise run" and specify the desired scan interval.
+  - Click "Add" > "Scan by webhook" and provide a unique trigger token (e.g., "github-webhook-token").
+  - Save the multibranch pipeline configuration.
 
-  - Replace `<jenkins-url>` with the URL of your Jenkins server and `<token>` with a unique token for authentication (if required).
-  - Select the desired events that should trigger the webhook (e.g., push events).
-  - Save the webhook configuration.
+- [ ] **Task 3: Create a webhook in your GitHub repository**
+  - Go to your GitHub repository's settings page.
+  - Click on "Webhooks" in the left sidebar.
+  - Click on the "Add webhook" button.
+  - In the "Payload URL" field, enter the Jenkins webhook URL in the format: `http://<jenkins-server-url>/multibranch-webhook-trigger/invoke?token=<trigger-token>`.
+    - Replace `<jenkins-server-url>` with your Jenkins server URL.
+    - Replace `<trigger-token>` with the trigger token you specified in the multibranch pipeline configuration.
+  - Select the "Content type" as `application/json`.
+  - Under "Which events would you like to trigger this webhook?", select "Just the push event" or choose the desired events.
+  - Ensure that the "Active" checkbox is selected.
+  - Click on the "Add webhook" button to save the webhook configuration.
 
-- [ ] Task 4: Test the multi-branch pipeline
-  - Create a new branch in your Git repository and push some changes.
-  - Verify that the multi-branch pipeline automatically detects the new branch and triggers the pipeline execution.
-  - Confirm that the appropriate stages are executed based on the branch-based logic defined in the Jenkinsfile.
+- [ ] **Task 4: Test the webhook integration**
+  - Make a change to your GitHub repository, such as pushing a commit or creating a pull request.
+  - Check the Jenkins multibranch pipeline to verify that the webhook triggered the pipeline execution.
+  - Ensure that the appropriate stages are executed based on the branch and the defined branch-based logic in the Jenkinsfile.
+
+By following these updated tasks, you will have successfully added branch-based logic to your Jenkinsfile and configured the webhook integration between GitHub and your Jenkins multibranch pipeline using the "Multibranch Scan Webhook Trigger" plugin. This setup will enable automatic triggering of the pipeline based on specific events in your GitHub repository, ensuring that the appropriate stages are executed for the `main` or `master` branch while running tests for all branches.
