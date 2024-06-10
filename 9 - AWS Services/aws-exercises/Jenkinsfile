@@ -146,10 +146,16 @@ pipeline {
 
   post {
     success {
-        echo 'Pipeline executed successfully!'
+      echo 'Pipeline executed successfully! All stages completed without errors.'
+      echo "Build URL: ${env.BUILD_URL}"
+      echo "Build Number: ${env.BUILD_NUMBER}"
+      echo "Triggered by: ${env.BUILD_USER}"
     }
     failure {
-        echo 'Pipeline execution failed!'
+      echo 'Pipeline execution failed. Please check the console output for more details.'
+      echo "Build URL: ${env.BUILD_URL}"
+      echo "Build Number: ${env.BUILD_NUMBER}"
+      echo "Triggered by: ${env.BUILD_USER}"
     }
   }
 }
