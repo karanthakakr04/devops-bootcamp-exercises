@@ -456,10 +456,6 @@ However, the choice between direct installation and using a plugin should be bas
   - **Save the job configuration:**
     - Click on the "Save" button to apply the changes.
 
-![GitHub Plugin Install](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/60b6c4ba-273e-4394-aa2f-f706eca6cd30)
-
-![GitHub Plugin Install](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/a0ea98e6-dc64-4297-b6df-2572f99c070f)
-
 #### Additional Benefits of the GitHub Plugin in Jenkins
 
 When you install the GitHub plugin in Jenkins, you gain access to additional features and options that are not available with the default Git plugin. Here are some of the key benefits:
@@ -477,6 +473,10 @@ When you install the GitHub plugin in Jenkins, you gain access to additional fea
   - You can also leverage the GitHub API for advanced automation and integration scenarios, making it easier to manage your Jenkins jobs and GitHub repositories programmatically.
 
 These additional features and options provided by the GitHub plugin can significantly enhance your Jenkins setup, making it more flexible, powerful, and tailored to your specific CI/CD needs.
+
+![GitHub Plugin Install](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/60b6c4ba-273e-4394-aa2f-f706eca6cd30)
+
+![GitHub Plugin Install](https://github.com/karanthakakr04/devops-bootcamp-exercises/assets/17943347/a0ea98e6-dc64-4297-b6df-2572f99c070f)
 
 ### Docker-in-Docker (dind) Setup
 
