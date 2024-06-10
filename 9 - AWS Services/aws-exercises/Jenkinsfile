@@ -162,6 +162,6 @@ pipeline {
       echo "Build URL: ${env.BUILD_URL}"
       echo "Build Number: ${env.BUILD_NUMBER}"
       echo "Triggered by: ${env.BUILD_USER}"
-  }
+    }
   }
 }
