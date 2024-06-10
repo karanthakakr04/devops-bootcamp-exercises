@@ -711,13 +711,13 @@ For the purpose of this exercise, we will proceed with using the `-o StrictHostK
 
 ### Configuring Webhook in GitHub for Multibranch Pipeline
 
-- [ ] **Task 1: Install the "Multibranch Scan Webhook Trigger" plugin in Jenkins**
+- [x] **Task 1: Install the "Multibranch Scan Webhook Trigger" plugin in Jenkins**
   - Go to your Jenkins dashboard and click on "Manage Jenkins" > "Manage Plugins".
   - In the "Available" tab, search for "Multibranch Scan Webhook Trigger" plugin.
   - Select the checkbox next to the plugin and click "Install without restart".
   - Wait for the plugin installation to complete.
 
-- [ ] **Task 2: Configure the multibranch pipeline in Jenkins**
+- [x] **Task 2: Configure the multibranch pipeline in Jenkins**
   - Go to your Jenkins dashboard and click on "New Item".
   - Enter a name for your multibranch pipeline and select "Multibranch Pipeline" as the item type.
   - Click "OK" to create the multibranch pipeline.
@@ -727,7 +727,7 @@ For the purpose of this exercise, we will proceed with using the `-o StrictHostK
   - Click "Add" > "Scan by webhook" and provide a unique trigger token (e.g., "github-webhook-token").
   - Save the multibranch pipeline configuration.
 
-- [ ] **Task 3: Create a webhook in your GitHub repository**
+- [x] **Task 3: Create a webhook in your GitHub repository**
   - Go to your GitHub repository's settings page.
   - Click on "Webhooks" in the left sidebar.
   - Click on the "Add webhook" button.
@@ -739,9 +739,7 @@ For the purpose of this exercise, we will proceed with using the `-o StrictHostK
   - Ensure that the "Active" checkbox is selected.
   - Click on the "Add webhook" button to save the webhook configuration.
 
-- [ ] **Task 4: Test the webhook integration**
+- [x] **Task 4: Test the webhook integration**
   - Make a change to your GitHub repository, such as pushing a commit or creating a pull request.
   - Check the Jenkins multibranch pipeline to verify that the webhook triggered the pipeline execution.
   - Ensure that the appropriate stages are executed based on the branch and the defined branch-based logic in the Jenkinsfile.
-
-By following these updated tasks, you will have successfully added branch-based logic to your Jenkinsfile and configured the webhook integration between GitHub and your Jenkins multibranch pipeline using the "Multibranch Scan Webhook Trigger" plugin. This setup will enable automatic triggering of the pipeline based on specific events in your GitHub repository, ensuring that the appropriate stages are executed for the `main` or `master` branch while running tests for all branches.
