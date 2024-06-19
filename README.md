@@ -7,7 +7,7 @@
 - [x] 6 - Artifact Repository Manager with Nexus
 - [x] 7 - Container with Docker
 - [x] 8 - Build Automation & CI/CD with Jenkins
-- [ ] 9 - AWS Services
+- [x] 9 - AWS Services
 - [ ] 10 - Container Orchestration with Kubernetes
 - [ ] 11 - Kubernetes on AWS EKS
 - [ ] 12 - Infrastructure as Code with Terraform
