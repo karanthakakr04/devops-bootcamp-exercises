@@ -8,4 +8,4 @@
 .idea/
 
 # ignore settings.json for VSCode
-.\devops-bootcamp-exercises\.vscode\settings.json
+# .\devops-bootcamp-exercises\.vscode\settings.json
