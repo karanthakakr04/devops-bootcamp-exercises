@@ -1,8 +1,8 @@
 # Visual Studio Code directory
-.vscode/
+.vscode\
 
 # Visual Studio Code workspace file
 *.code-workspace
 
 # Intellij workspace file
-.idea/
+.idea\
