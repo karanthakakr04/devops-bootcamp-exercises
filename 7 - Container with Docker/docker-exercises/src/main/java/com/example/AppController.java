@@ -23,30 +23,23 @@ public class AppController {
     }
 
     @GetMapping("/get-data")
-    public ResponseEntity getData() {
+    public ResponseEntity<List<User>> getData() {
         List<User> users = fetchDataFromDB();
         return ResponseEntity.ok(users);
     }
 
     @PostMapping("/update-roles")
-    public ResponseEntity updateRoles(@RequestBody ArrayList<User> users) {
+    public ResponseEntity<List<User>> updateRoles(@RequestBody List<User> users) {
         updateDatabase(users);
         return ResponseEntity.ok(users);
     }
 
-    private void updateDatabase(ArrayList<User> users) {
-        try {
-            Statement stmt = dbConnection.createStatement();
-            users.forEach(user -> {
+    private void updateDatabase(List<User> users) {
+        try (Statement stmt = dbConnection.createStatement()) {
+            for (User user : users) {
                 String sqlStatement = String.format("UPDATE team_members SET member_role='%s' WHERE member_name='%s'", user.role, user.name);
-                try {
-                    stmt.executeUpdate(sqlStatement);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            });
-
-            stmt.close();
+                stmt.executeUpdate(sqlStatement);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -54,19 +47,15 @@ public class AppController {
 
     private List<User> fetchDataFromDB() {
         List<User> users = new ArrayList<>();
-        try {
-            String sqlStatement = "SELECT member_name, member_role FROM team_members";
-
-            Statement stmt = dbConnection.createStatement();
-            ResultSet rs = stmt.executeQuery(sqlStatement);
+        String sqlStatement = "SELECT member_name, member_role FROM team_members";
+        try (Statement stmt = dbConnection.createStatement();
+             ResultSet rs = stmt.executeQuery(sqlStatement)) {
             while(rs.next()) {
                 User user = new User();
                 user.setName(rs.getString("member_name"));
                 user.setRole(rs.getString("member_role"));
                 users.add(user);
             }
-            rs.close();
-            stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -77,10 +66,10 @@ public class AppController {
         String name;
         String role;
 
-        private User() {
+        // Keeping constructors and getters for potential future use or serialization
+        private User() {}
 
-        }
-
+        @SuppressWarnings("unused")
         public User(String name, String role) {
             this.name = name;
             this.role = role;
@@ -93,11 +82,13 @@ public class AppController {
         private void setRole(String role) {
             this.role = role;
         }
-
+        
+        @SuppressWarnings("unused")
         public String getName() {
             return name;
         }
 
+        @SuppressWarnings("unused")
         public String getRole() {
             return role;
         }
