@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,62 +23,53 @@ public class AppController {
     }
 
     @GetMapping("/get-data")
-    public ResponseEntity getData() {
+    public ResponseEntity<List<User>> getData() {
         List<User> users = fetchDataFromDB();
         return ResponseEntity.ok(users);
     }
 
     @PostMapping("/update-roles")
-    public ResponseEntity updateRoles(@RequestBody ArrayList<User> users) {
+    public ResponseEntity<List<User>> updateRoles(@RequestBody List<User> users) {
         updateDatabase(users);
         return ResponseEntity.ok(users);
     }
 
-    private void updateDatabase(ArrayList<User> users) {
-        try {
-            Statement stmt = dbConnection.createStatement();
-            users.forEach(user -> {
-                String sqlStatement = String.format("UPDATE team_members SET member_role='%s' WHERE member_name='%s'", user.role, user.name);
-                try {
-                    stmt.executeUpdate(sqlStatement);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            });
-
-            stmt.close();
+    private void updateDatabase(List<User> users) {
+        String sqlStatement = "UPDATE team_members SET member_role=? WHERE member_name=?";
+        try (PreparedStatement pstmt = dbConnection.prepareStatement(sqlStatement)) {
+            for (User user : users) {
+                pstmt.setString(1, user.getRole());
+                pstmt.setString(2, user.getName());
+                pstmt.executeUpdate();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
+            // Consider throwing a custom exception or returning an error response
         }
     }
 
     private List<User> fetchDataFromDB() {
         List<User> users = new ArrayList<>();
-        try {
-            String sqlStatement = "SELECT member_name, member_role FROM team_members";
-
-            Statement stmt = dbConnection.createStatement();
-            ResultSet rs = stmt.executeQuery(sqlStatement);
-            while(rs.next()) {
-                User user = new User();
-                user.setName(rs.getString("member_name"));
-                user.setRole(rs.getString("member_role"));
+        String sqlStatement = "SELECT member_name, member_role FROM team_members";
+        try (PreparedStatement pstmt = dbConnection.prepareStatement(sqlStatement);
+             ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                User user = new User(rs.getString("member_name"), rs.getString("member_role"));
                 users.add(user);
             }
-            rs.close();
-            stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
+            // Consider throwing a custom exception or returning an error response
         }
         return users;
     }
 
-    private static class User {
-        String name;
-        String role;
+    public static class User {
+        private String name;
+        private String role;
 
-        private User() {
-
+        // Keep the default constructor for JSON deserialization
+        public User() {
         }
 
         public User(String name, String role) {
@@ -86,20 +77,20 @@ public class AppController {
             this.role = role;
         }
 
-        private void setName(String name) {
-            this.name = name;
-        }
-
-        private void setRole(String role) {
-            this.role = role;
-        }
-
         public String getName() {
             return name;
         }
 
+        public void setName(String name) {
+            this.name = name;
+        }
+
         public String getRole() {
             return role;
+        }
+
+        public void setRole(String role) {
+            this.role = role;
         }
     }
 }
