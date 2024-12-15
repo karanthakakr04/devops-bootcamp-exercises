@@ -12,6 +12,7 @@
   "author": "NJ",
   "license": "ISC",
   "dependencies": {
+    "bootcamp-node-project": "file:",
     "express": "4.19.2",
     "jest": "29.7.0"
   },
