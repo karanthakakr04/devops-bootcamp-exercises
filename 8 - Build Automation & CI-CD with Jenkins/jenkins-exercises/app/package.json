@@ -13,7 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "bootcamp-node-project": "file:",
-    "express": "4.19.2",
+    "express": "4.21.2",
     "jest": "29.7.0"
   },
   "devDependencies": {
