@@ -495,7 +495,7 @@ While these alternative methods provide more secure ways to establish SSH connec
 
 For the purpose of this exercise, we will proceed with using the `-o StrictHostKeyChecking=no` flag, but it is important to be aware of the security implications and consider implementing more secure methods in production environments.
 
-- [ ] Task 1: Create a shell script for deployment commands
+- [x] Task 1: Create a shell script for deployment commands
   - Create a new file named `server-commands.sh` in your project repository, in this case the `9 - AWS Services/aws-exercises` directory.
   - Open the `server-commands.sh` file and add the following content:
 
@@ -511,7 +511,7 @@ For the purpose of this exercise, we will proceed with using the `-o StrictHostK
 
   - This shell script takes the image name as an argument, sets it as an environment variable, and runs the `docker-compose up` command with the provided `docker-compose.yaml` file to start the application container.
 
-- [ ] Task 2: Create a `docker-compose.yaml` file
+- [x] Task 2: Create a `docker-compose.yaml` file
   - Create a new file named `docker-compose.yaml` in your project repository, in this case the `9 - AWS Services/aws-exercises` directory.
   - Open the `compose.yaml` file and add the following content:
 
@@ -529,7 +529,7 @@ For the purpose of this exercise, we will proceed with using the `-o StrictHostK
 
   - The `docker-compose.yaml` file defines a service named `app` that uses the Docker image specified by the `IMAGE` environment variable. It maps port 3000 on the host to port 3000 in the container.
 
-- [ ] Task 3: Update the Jenkinsfile
+- [x] Task 3: Update the Jenkinsfile
   - Open the `Jenkinsfile` in your project repository, in this case the `9 - AWS Services/aws-exercises` directory.
   - Add a new stage named "Deploy App" after the existing stages:
 
@@ -559,7 +559,7 @@ For the purpose of this exercise, we will proceed with using the `-o StrictHostK
   - The `scp` commands copy the `server-commands.sh` and `compose.yaml` files to the deployment server.
   - The `ssh` command connects to the deployment server and executes the `server-commands.sh` script with the `deploymentImage` as an argument.
 
-- [ ] Task 4: Configure Jenkins credentials for SSH access
+- [x] Task 4: Configure Jenkins credentials for SSH access
   - In the Jenkins web interface, navigate to "Manage Jenkins" > "Manage Credentials".
   - Click on "Jenkins" in the "Stores scoped to Jenkins" section.
   - Click on "Global credentials" and then "Add Credentials".
@@ -569,7 +569,7 @@ For the purpose of this exercise, we will proceed with using the `-o StrictHostK
   - Select "Enter directly" for the private key and paste the contents of the SSH private key.
   - Click "OK" to save the credentials.
 
-- [ ] Task 5: Run the Jenkins pipeline
+- [x] Task 5: Run the Jenkins pipeline
   - Push the updated `Jenkinsfile`, `server-commands.sh`, and `compose.yaml` files to your project repository.
   - In the Jenkins web interface, navigate to your pipeline and click on "Build Now" to trigger a new build.
   - Monitor the pipeline execution and verify that the deployment stage runs successfully.
@@ -578,13 +578,13 @@ For the purpose of this exercise, we will proceed with using the `-o StrictHostK
 
 ## Exercise 8
 
-- [ ] Task 1: Retrieve the security group ID
+- [x] Task 1: Retrieve the security group ID
   - Open the AWS Management Console and navigate to the EC2 dashboard.
   - In the left sidebar, click on "Instances" to view the list of EC2 instances.
   - Select the EC2 instance where your application is deployed.
   - In the "Description" tab, locate the "Security groups" section and note down the security group ID associated with the instance.
 
-- [ ] Task 2: Modify the security group using AWS CLI
+- [x] Task 2: Modify the security group using AWS CLI
   - Open a terminal or command prompt.
   - Run the following command to add an inbound rule to the security group, allowing access to the application port (e.g., port 80) from any IP address:
 
@@ -595,7 +595,7 @@ For the purpose of this exercise, we will proceed with using the `-o StrictHostK
   - Replace `<security-group-id>` with the ID of the security group associated with your EC2 instance.
   - This command allows incoming traffic on port 80 from any IP address.
 
-- [ ] Task 3: Verify the updated security group
+- [x] Task 3: Verify the updated security group
   - Run the following command to describe the security group and verify the new inbound rule:
 
     ```bash
@@ -605,7 +605,7 @@ For the purpose of this exercise, we will proceed with using the `-o StrictHostK
   - Replace `<security-group-id>` with the ID of the security group.
   - Look for the new inbound rule in the output and ensure it allows traffic on port 80 from the specified IP range.
 
-- [ ] Task 4: Access the application from a web browser
+- [x] Task 4: Access the application from a web browser
   - Open a web browser.
   - Enter the public IPv4 address (e.g., <http://54.237.83.125:80>) or public IPv4 DNS name (e.g., <http://ec2-54-237-83-125.compute-1.amazonaws.com:80>) of your EC2 instance in the address bar.
   - Verify that you can access the deployed application successfully.
