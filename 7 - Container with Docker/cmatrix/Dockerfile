@@ -1,4 +1,4 @@
-# Build Contianer Image
+# Build Container Image
 FROM alpine AS cmatrixbuilder
 # Start with Alpine Linux as the base image for building
 
