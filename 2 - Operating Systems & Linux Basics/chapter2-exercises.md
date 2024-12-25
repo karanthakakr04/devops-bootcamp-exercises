@@ -21,29 +21,29 @@
 
 ## EXERCISE 2
 
-- [x] Task 1: Create Bash script to install latest Java version and verify installation.
+- [x] Task 1: Create Bash script to install latest Java version and verify installation
 
 ## EXERCISE 3
 
-- [x] Task 1: Create Bash script to print current user's running processes.
+- [x] Task 1: Create Bash script to print current user's running processes
 
 ## EXERCISE 4
 
-- [x] Task 1: Extend script to sort processes by memory/CPU based on user input.
+- [x] Task 1: Extend script to sort processes by memory/CPU based on user input
 
 ## EXERCISE 5
 
-- [x] Task 1: Further extend script to limit number of sorted processes printed based on user input.
+- [x] Task 1: Further extend script to limit number of sorted processes printed based on user input
 
 ## EXERCISE 6
 
 - [x] Task 1: Install NodeJS and NPM, print versions
 - [x] Task 2: Download artifact file using curl/wget
 - [x] Task 3: Unzip downloaded file
-- [x] Task 4: Set environment variables: APP_ENV, DB_USER, DB_PWD
+- [x] Task 4: Set environment variables: `APP_ENV`, `DB_USER`, `DB_PWD`
 - [x] Task 5: Change to unzipped directory
 - [x] Task 6: Run npm install
-- [x] Task 7: Run node server.js to start app
+- [x] Task 7: Run node `server.js` to start app
 
 ## EXERCISE 7
 
@@ -51,7 +51,7 @@
 
 ## EXERCISE 8
 
-- [x] Task 1: Accept log_directory parameter and handle logging:-
+- [x] Task 1: Accept log_directory parameter and handle logging:
   - Check if directory exists, create if needed
   - Set LOG_DIR environment variable
   - Check app.log in provided LOG_DIR
