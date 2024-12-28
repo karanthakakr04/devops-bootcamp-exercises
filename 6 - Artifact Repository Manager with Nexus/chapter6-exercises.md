@@ -10,7 +10,7 @@
       ```bash
       sudo apt update
       sudo apt upgrade -y
-      sudo apt install openjdk-8-jdk
+      sudo apt install -y openjdk-17-jdk
       ```
 
     - Verify Java installation:
@@ -41,7 +41,7 @@
     - On your Ubuntu server, use `wget` or `curl` to download the Nexus tar.gz file. For example:
 
       ```bash
-      wget https://download.sonatype.com/nexus/3/latest-unix.tar.gz
+      wget https://download.sonatype.com/nexus/3/nexus-3.75.1-01-unix.tar.gz
       ```
 
       - > Before using `wget` or `curl`, make sure you are in the `/opt/nexus/nexus-repository-manager` directory.
@@ -69,7 +69,7 @@
     - Open the `nexus.rc` file for editing:
 
       ```bash
-      vim /opt/nexus/nexus-latest/nexus-3.66.0-02/bin/nexus.rc
+      vim /opt/nexus/nexus-latest/nexus-3.75.1-01/bin/nexus.rc
       ```
 
     - Look for the `run_as_user` setting. It should look like this:
@@ -96,8 +96,8 @@
       [Service]
       Type=forking  # Background process
       LimitNOFILE=65536  # Limit file descriptors
-      ExecStart=/opt/nexus/nexus-latest/nexus-3.66.0-02/bin/nexus start  # Start Nexus service
-      ExecStop=/opt/nexus/nexus-latest/nexus-3.66.0-02/bin/nexus stop  # Stop Nexus service
+      ExecStart=/opt/nexus/nexus-latest/nexus-3.75.1-01/bin/nexus start  # Start Nexus service
+      ExecStop=/opt/nexus/nexus-latest/nexus-3.75.1-01/bin/nexus stop  # Stop Nexus service
       User=nexus  # Run as user
       Group=nexus  # Run under group
       Restart=on-abort  # Restart on failure
