@@ -48,7 +48,7 @@
     - Extract the downloaded archive. For example:
 
       ```bash
-      tar -xvzf latest-unix.tar.gz > /dev/null
+      tar -xvzf nexus-3.75.1-01.tar.gz > /dev/null
       ```
 
     - Create a symbolic link to the Nexus directory for easier management:
