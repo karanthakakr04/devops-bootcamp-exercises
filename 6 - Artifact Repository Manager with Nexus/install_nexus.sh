@@ -13,7 +13,25 @@ INSTALL_DIR="/opt/nexus"
 NEXUS_HOME="${INSTALL_DIR}/nexus-repository-manager"
 LOG_FILE="/var/log/install_nexus.log"
 
-# Redirect all output and errors to the log file
+# Setup logging
+setup_logging() {
+    # Check if log file already exists and is writable
+    if [ -f "$LOG_FILE" ] && [ -w "$LOG_FILE" ]; then
+        echo "Using existing log file: $LOG_FILE"
+        return 0
+    fi
+
+    # Create log directory with proper permissions if it doesn't exist
+    sudo mkdir -p "$(dirname "$LOG_FILE")"
+    sudo touch "$LOG_FILE"
+    sudo chown "$(id -u):$(id -g)" "$LOG_FILE"
+    echo "Created new log file at $LOG_FILE"
+}
+
+# Setup logging and redirect output
+setup_logging
+
+# Redirect output after log file is created
 exec > >(tee -a "$LOG_FILE") 2>&1
 
 # Update and upgrade the system
@@ -29,25 +47,34 @@ update_and_upgrade_system() {
 check_java_installation() {
     echo "Checking Java installation..."
     if java -version 2>&1 | grep -q 'version "17'; then
-        echo "Java 17 is already installed."
-    else
-        echo "Java 17 is not installed. Installing OpenJDK 17..."
-        # First, search for available OpenJDK packages
-        sudo apt-cache search openjdk 1>>/dev/null 2>&1
-        # Install OpenJDK 17
-        sudo apt install -y openjdk-17-jdk 1>>/dev/null 2>&1
-        
-        # Verify Java installation
-        if ! java -version 2>&1 | grep -q 'version "17'; then
-            echo "Failed to install Java 17. Please check your system and try again."
-            exit 1
-        fi
+        echo "Java 17 is already installed, skipping installation."
+        return 0
+    fi
+
+    echo "Java 17 is not installed. Installing OpenJDK 17..."
+    # First, search for available OpenJDK packages
+    sudo apt-cache search openjdk 1>>/dev/null 2>&1
+    # Install OpenJDK 17
+    sudo apt install -y openjdk-17-jdk 1>>/dev/null 2>&1
+    
+    # Verify Java installation
+    if ! java -version 2>&1 | grep -q 'version "17'; then
+        echo "Failed to install Java 17. Please check your system and try again."
+        exit 1
     fi
     echo
 }
 
-# Configure JAVA_HOME environment variable
+# Check and configure JAVA_HOME environment variable
 configure_java_home() {
+    echo "Checking JAVA_HOME configuration..."
+    
+    # Check if JAVA_HOME is already set correctly
+    if [ -n "${JAVA_HOME:-}" ] && [ -d "$JAVA_HOME" ] && [ -x "$JAVA_HOME/bin/java" ]; then
+        echo "JAVA_HOME is already correctly configured to: $JAVA_HOME"
+        return 0
+    fi
+
     echo "Configuring JAVA_HOME environment variable..."
     JAVA_PATH=$(readlink -f /usr/bin/java | sed "s:/bin/java::")
     
@@ -73,35 +100,71 @@ configure_java_home() {
 
 # Create Nexus service account and directories
 setup_nexus_user_and_directories() {
-    echo "Setting up Nexus user and directories..."
-    sudo mkdir -p /home/nexus "${NEXUS_HOME}"
-    sudo groupadd nexus 2>/dev/null || echo "Group 'nexus' already exists"
-    sudo useradd -r -g nexus -d /home/nexus -s /bin/bash nexus 2>/dev/null || echo "User 'nexus' already exists"
+    echo "Checking Nexus user and directory setup..."
     
-    # Configure file handle limits for nexus user
-    echo "Configuring file handle limits for nexus user..."
-    
-    # Add or update limits in /etc/security/limits.conf
-    if ! grep -q "^nexus" /etc/security/limits.conf; then
+    # Check if nexus user exists
+    if id "nexus" &>/dev/null; then
+        echo "Nexus user already exists, skipping user creation."
+    else
+        echo "Creating nexus user..."
+        sudo groupadd nexus
+        sudo useradd -r -g nexus -d /home/nexus -s /bin/bash nexus
+    fi
+
+    # Check if directories exist
+    if [ -d "${NEXUS_HOME}" ]; then
+        echo "Nexus home directory already exists at ${NEXUS_HOME}"
+    else
+        echo "Creating Nexus directories..."
+        sudo mkdir -p /home/nexus "${NEXUS_HOME}"
+    fi
+
+    # Check file handle limits configuration
+    if grep -q "^nexus.*nofile" /etc/security/limits.conf; then
+        echo "File handle limits already configured for nexus user."
+    else
+        echo "Configuring file handle limits for nexus user..."
         echo "nexus - nofile 65536" | sudo tee -a /etc/security/limits.conf > /dev/null
         echo "nexus - nproc 65536" | sudo tee -a /etc/security/limits.conf > /dev/null
     fi
-    
-    # Also add system-wide limits to ensure systemd service has adequate limits
-    sudo mkdir -p /etc/systemd/system.conf.d
-    cat <<EOT | sudo tee /etc/systemd/system.conf.d/limits.conf > /dev/null
+
+    # Check system-wide limits
+    if [ -f "/etc/systemd/system.conf.d/limits.conf" ]; then
+        echo "System-wide limits already configured."
+    else
+        echo "Configuring system-wide limits..."
+        sudo mkdir -p /etc/systemd/system.conf.d
+        cat <<EOT | sudo tee /etc/systemd/system.conf.d/limits.conf > /dev/null
 [Manager]
 DefaultLimitNOFILE=65536
 DefaultLimitNPROC=65536
 EOT
+    fi
+
+    # Ensure proper ownership and permissions
+    sudo chown -R nexus:nexus /home/nexus "${NEXUS_HOME}"
+    sudo chmod -R 770 "${NEXUS_HOME}"
     
-    echo "File handle limits configured."
+    echo "User and directory setup complete."
     echo
 }
 
 # Download and setup Nexus
 download_and_setup_nexus() {
     echo "Downloading and setting up Nexus ${NEXUS_VERSION}..."
+    
+    # Verify NEXUS_HOME directory exists and we have permissions
+    if [ ! -d "${NEXUS_HOME}" ]; then
+        echo "Error: ${NEXUS_HOME} directory does not exist"
+        exit 1
+    fi
+    
+    # Test write permissions
+    if [ ! -w "${NEXUS_HOME}" ]; then
+        echo "Error: No write permission in ${NEXUS_HOME}"
+        exit 1
+    fi
+    
     cd "${NEXUS_HOME}"
     
     # Install curl if not present
@@ -113,10 +176,11 @@ download_and_setup_nexus() {
 
     # Download Nexus
     echo "Downloading Nexus from ${NEXUS_DOWNLOAD_URL}..."
-    curl -sSfLJO "${NEXUS_DOWNLOAD_URL}" 1>>/dev/null 2>&1 || {
-        echo "Failed to download Nexus. Please check the version number and URL."
+    if ! curl -L --fail "${NEXUS_DOWNLOAD_URL}" -o "nexus-${NEXUS_VERSION}-unix.tar.gz" 2>/dev/null; then
+        echo "Failed to download Nexus. Status code: $?"
+        echo "Please verify the URL is accessible: ${NEXUS_DOWNLOAD_URL}"
         exit 1
-    }
+    fi
     
     # Verify download was successful and file exists
     if [ ! -f "nexus-${NEXUS_VERSION}-unix.tar.gz" ]; then
