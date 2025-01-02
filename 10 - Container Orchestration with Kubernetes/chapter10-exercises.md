@@ -4,7 +4,7 @@
 
 ### Method 1: Set up Minikube locally
 
-- [x] Task 1: Install Minikube
+- [ ] Task 1: Install Minikube
   - **Check prerequisites:**
     - 2 CPUs or more
     - 2GB of free memory
@@ -28,7 +28,7 @@
 
   - **Direct .exe download from the [official releases page](https://github.com/kubernetes/minikube/releases/latest/download/minikube-installer.exe)**
 
-- [x] Task 2: Start Minikube cluster
+- [ ] Task 2: Start Minikube cluster
   - Open a terminal with administrator access
   - Run the following command:
 
@@ -38,7 +38,7 @@
 
   - If the start fails, refer to the [drivers page](https://minikube.sigs.k8s.io/docs/drivers/) for compatibility issues
 
-- [x] Task 3: Verify cluster installation
+- [ ] Task 3: Verify cluster installation
   - **If kubectl is already installed:**
 
     ```bash
@@ -57,7 +57,7 @@
     alias kubectl="minikube kubectl --"
     ```
 
-- [x] Task 4: Access Kubernetes Dashboard (optional)
+- [ ] Task 4: Access Kubernetes Dashboard (optional)
 
   ```bash
   minikube dashboard
@@ -68,12 +68,12 @@
 > [!IMPORTANT]
 > For LKE clusters, ensure you have properly configured firewall rules to allow access to the Kubernetes API endpoint from your local machine. The default port for the Kubernetes API is 6443.
 
-- [x] Task 1: Access Linode Cloud Manager
+- [ ] Task 1: Access Linode Cloud Manager
   - Navigate to [Cloud Manager](https://cloud.linode.com)
   - Log in to your Linode account
   - Select "Kubernetes" from the left menu
 
-- [x] Task 2: Create Kubernetes cluster
+- [ ] Task 2: Create Kubernetes cluster
   - Click "Create Cluster"
   - Configure basic cluster settings:
     - **Cluster Label:** Enter a unique name for your cluster
@@ -86,7 +86,7 @@
   - Review cluster configuration and monthly cost in the Cluster Summary
   - Click "Create Cluster" to deploy
 
-- [x] Task 3: Configure cluster access
+- [ ] Task 3: Configure cluster access
   - **Download kubeconfig:**
     - From Kubernetes listing page: Click cluster's more options ellipsis → Download kubeconfig
     - Or from cluster details page: Click Download under kubeconfig section
@@ -101,7 +101,7 @@
     chmod go-r ~/Downloads/kubeconfig.yaml
     ```
 
-- [x] Task 4: Verify cluster access
+- [ ] Task 4: Verify cluster access
 
   ```bash
   # View cluster nodes
