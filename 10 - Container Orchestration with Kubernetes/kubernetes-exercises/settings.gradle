@@ -6,4 +6,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = 'bootcamp-docker-java-mysql-project'
+rootProject.name = 'bootcamp-kubernetes-exercise-project'
