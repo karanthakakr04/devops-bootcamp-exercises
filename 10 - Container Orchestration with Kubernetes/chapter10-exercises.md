@@ -65,6 +65,9 @@
 
 ### Method 2: Set up LKE Cluster
 
+> [!IMPORTANT]
+> For LKE clusters, ensure you have properly configured firewall rules to allow access to the Kubernetes API endpoint from your local machine. The default port for the Kubernetes API is 6443.
+
 - [x] Task 1: Access Linode Cloud Manager
   - Navigate to [Cloud Manager](https://cloud.linode.com)
   - Log in to your Linode account
@@ -110,5 +113,3 @@
 
 > [!NOTE]
 > The working directory path and kubeconfig file location may vary based on your system configuration. Adjust the paths accordingly.
-> [!IMPORTANT]
-> For LKE clusters, ensure you have properly configured firewall rules to allow access to the Kubernetes API endpoint from your local machine. The default port for the Kubernetes API is 6443.
