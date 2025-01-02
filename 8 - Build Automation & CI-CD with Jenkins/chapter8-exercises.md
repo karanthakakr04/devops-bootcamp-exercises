@@ -19,7 +19,7 @@ This section outlines the initial steps required to set up the environment for r
 
    - If the output indicates that the operating system is Ubuntu, proceed with step 2 provided below.
    - If the output indicates that the operating system is Amazon Linux 2, refer to the official AWS documentation for installing Docker on Amazon Linux 2:
-     - [Installing Docker on Amazon Linux 2](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html#install_docker)
+     - ![Installing Docker on Amazon Linux 2](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html#install_docker)
 
 2. **Check if Docker is installed:**
    - SSH into the remote server.
