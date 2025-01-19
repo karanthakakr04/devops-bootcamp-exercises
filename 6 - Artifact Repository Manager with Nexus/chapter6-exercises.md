@@ -5,7 +5,7 @@
 - [x] Task 1: Steps to Install Nexus Repository Manager on Ubuntu 22.04 LTS
   - **Prerequisites:**
     - Ensure you have a clean Ubuntu 22.04 LTS server with sufficient resources (CPU, memory, disk space).
-    - Install Java 8, as Nexus Repository Manager recommends Java 8 for compatibility.
+    - Install Java 17, as Nexus Repository Manager recommends Java 8 for compatibility.
 
       ```bash
       sudo apt update
@@ -41,14 +41,14 @@
     - On your Ubuntu server, use `wget` or `curl` to download the Nexus tar.gz file. For example:
 
       ```bash
-      wget https://download.sonatype.com/nexus/3/nexus-3.75.1-01-unix.tar.gz
+      wget https://download.sonatype.com/nexus/3/nexus-3.76.0-03-unix.tar.gz
       ```
 
       - > Before using `wget` or `curl`, make sure you are in the `/opt/nexus/nexus-repository-manager` directory.
     - Extract the downloaded archive. For example:
 
       ```bash
-      tar -xvzf nexus-3.75.1-01.tar.gz > /dev/null
+      tar -xvzf nexus-3.76.0-03.tar.gz > /dev/null
       ```
 
     - Create a symbolic link to the Nexus directory for easier management:
@@ -69,7 +69,7 @@
     - Open the `nexus.rc` file for editing:
 
       ```bash
-      vim /opt/nexus/nexus-latest/nexus-3.75.1-01/bin/nexus.rc
+      vim /opt/nexus/nexus-latest/nexus-3.76.0-03/bin/nexus.rc
       ```
 
     - Look for the `run_as_user` setting. It should look like this:
@@ -96,8 +96,8 @@
       [Service]
       Type=forking  # Background process
       LimitNOFILE=65536  # Limit file descriptors
-      ExecStart=/opt/nexus/nexus-latest/nexus-3.75.1-01/bin/nexus start  # Start Nexus service
-      ExecStop=/opt/nexus/nexus-latest/nexus-3.75.1-01/bin/nexus stop  # Stop Nexus service
+      ExecStart=/opt/nexus/nexus-latest/nexus-3.76.0-03/bin/nexus start  # Start Nexus service
+      ExecStop=/opt/nexus/nexus-latest/nexus-3.76.0-03/bin/nexus stop  # Stop Nexus service
       User=nexus  # Run as user
       Group=nexus  # Run under group
       Restart=on-abort  # Restart on failure
