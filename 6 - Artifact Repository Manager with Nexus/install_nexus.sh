@@ -7,7 +7,7 @@
 set -euo pipefail
 
 # Define variables
-NEXUS_VERSION="3.75.1-01"
+NEXUS_VERSION="3.76.0-03"
 NEXUS_DOWNLOAD_URL="https://download.sonatype.com/nexus/3/nexus-${NEXUS_VERSION}-unix.tar.gz"
 INSTALL_DIR="/opt/nexus"
 NEXUS_HOME="${INSTALL_DIR}/nexus-repository-manager"
